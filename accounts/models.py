@@ -6,6 +6,8 @@ from django.db import models
 class CustomUser(AbstractUser):
 
     email = models.EmailField(max_length=150, unique=True)
+    username = models.CharField(max_length=150, unique=False,
+                                blank=True, null=True)
 
     # identifying field
     USERNAME_FIELD = 'email'
