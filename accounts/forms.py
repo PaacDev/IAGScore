@@ -54,9 +54,15 @@ class RegisterForm(forms.ModelForm):
         required=True,
     )
 
+
     def save(self, commit=True):
+        '''
+        Save the user 
+        '''
         user = super().save(commit=False)
-        user.username = self.cleaned_data["email"]
+        user.username = self.cleaned_data["username"]
+        user.email = self.cleaned_data["email"]
+        # Encrypt the password
         user.set_password(self.cleaned_data["password"])
         if commit:
             user.save()
