@@ -172,6 +172,11 @@ cython_debug/
 
 # coverage
 .coverage
+htmlcov/
+htmlcov/*
 
 # DS_Store
 .DS_Store
+
+#pylint
+.pylintrc

@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}IAGScore{% endblock %}</title>
+    <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <link href="{% static 'css/output.css' %} " rel="stylesheet">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>        
+    {% include "core/partials/navbar.html" %}
+    <main class="pt-20">
+        {% block content %}
+        {% endblock %}
+    </main>
+    {% include "core/partials/footer.html" %}
+</body>
+</html>

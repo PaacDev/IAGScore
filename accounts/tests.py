@@ -1,6 +1,7 @@
-'''
+"""
 This file contains the tests for the accounts app.
-'''
+"""
+
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
@@ -8,14 +9,13 @@ from django.contrib import messages
 from .forms import RegisterForm
 
 
-
 User = get_user_model()
 
 
 class CustomUserTests(TestCase):
-    '''
+    """
     This class contains the tests for the custom user model.
-    '''
+    """
 
     def setUp(self):
         """
@@ -54,9 +54,9 @@ class CustomUserTests(TestCase):
 
 
 class LoginTests(TestCase):
-    '''
+    """
     This class contains the tests for the login view.
-    '''
+    """
 
     def setUp(self):
         """
@@ -84,9 +84,9 @@ class LoginTests(TestCase):
         self.assertFalse(response.wsgi_request.user.is_superuser)
 
     def test_login_invalid_credentials(self):
-        '''
+        """
         Testing invalid credentials
-        '''
+        """
         response = self.client.post(
             reverse("login"), {"username": "testuser@mail.com", "password": "wrongpass"}
         )
@@ -97,9 +97,9 @@ class LoginTests(TestCase):
 
 
 class RegisterFormTests(TestCase):
-    '''
+    """
     This class contains the tests for the register form.
-    '''
+    """
 
     def setUp(self):
         """
@@ -111,9 +111,9 @@ class RegisterFormTests(TestCase):
         )
 
     def test_valid_register_form(self):
-        '''
+        """
         Testing valid form
-        '''
+        """
         form = RegisterForm(
             data={
                 "username": "testuser2",
@@ -129,17 +129,17 @@ class RegisterFormTests(TestCase):
         self.assertTrue(user.is_active)
 
     def test_invalid_register_form(self):
-        '''
+        """
         Testing invalid form
-        '''
+        """
         form = RegisterForm(data={"username": "", "email": "", "password": ""})
         self.assertFalse(form.is_valid())
         self.assertIn("email", form.errors)
 
     def test_invalid_register_form_exist(self):
-        '''
+        """
         Testing invalid form with existing email
-        '''
+        """
         form = RegisterForm(
             data={
                 "username": "testuser",
@@ -152,9 +152,9 @@ class RegisterFormTests(TestCase):
         self.assertIn("User with this Email already exists.", form.errors["email"])
 
     def test_invalid_register_response(self):
-        '''
+        """
         Testing response with invalid form
-        '''
+        """
         response = self.client.post(
             reverse("register"),
             {
@@ -169,9 +169,9 @@ class RegisterFormTests(TestCase):
         self.assertTrue("User with this Email already exists" in str(messages_list[0]))
 
     def test_register_success(self):
-        '''
+        """
         Testing successful registration
-        '''
+        """
         response = self.client.post(
             reverse("register"),
             {
