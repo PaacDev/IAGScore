@@ -7,10 +7,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_GET, require_POST, require_http_methods, require_safe
+from django.views.decorators.csrf import csrf_protect
 from .forms import RegisterForm
-from core import urls
 
-
+@require_http_methods(['POST', 'GET'])
+@csrf_protect
 def custom_login(request):
     """
     This view is used to log in the user.
@@ -33,7 +35,7 @@ def custom_login(request):
         form = AuthenticationForm()
     return render(request, "accounts/login.html", {"form": form})
 
-
+@require_safe
 @login_required
 def profile(request):
     """
@@ -41,7 +43,8 @@ def profile(request):
     """
     return render(request, "accounts/profile.html")
 
-
+@require_http_methods(['POST', 'GET'])
+@csrf_protect
 def register(request):
     """
     This view is used to register a new user.
@@ -61,7 +64,10 @@ def register(request):
 
     return render(request, "accounts/register.html", {"user_form": user_form})
 
-
+@require_GET
 def logout_view(request):
+    '''
+    Logout
+    '''
     logout(request)
     return redirect("login")

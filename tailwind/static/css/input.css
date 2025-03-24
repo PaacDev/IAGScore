@@ -2,19 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+ul {
+  @apply list-disc list-inside; /* Añade viñetas y sangría interna */
+}
+
+li {
+  @apply mb-2 ml-4 text-base; /* Espaciado entre ítems y tamaño de texto */
+}
+
+strong {
+  @apply font-bold; /* Negrita para <strong>*/
+}
+h1 {
+  @apply text-4xl font-bold;
+}
+h2 {
+  @apply text-2xl font-semibold;
+}
+p {
+  @apply text-base;
+}
+hr {
+  @apply border-t-2 border-gray-300 my-6;
+}
 
 @layer utilities {
   /* Define la clase para el outline personalizado */
   .outline-1 {
-    outline: 1px solid #1a202c; /* Puedes reemplazar #1a202c por el color que desees (gray-900) */
+    outline: 1px solid #1a202c;
   }
 
   .outline-offset-1 {
-    outline-offset: 1px; /* Agrega un pequeño desplazamiento */
+    outline-offset: 1px;
   }
 
   .outline-gray-900 {
-    outline-color: #1a202c; /* Este es el color gray-900 en Tailwind (puedes personalizarlo si lo prefieres) */
+    outline-color: #1a202c;
   }
 }
 
@@ -35,6 +58,7 @@
   .message-error {
     @apply p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400;
   }
+  /* Clases para los botones*/
   .btn-custom-full {
     @apply mt-3 w-full text-white bg-gray-600 hover:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800;
   }

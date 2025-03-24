@@ -1,3 +1,5 @@
-from django.test import TestCase
+"""
+This file contains the tests for the core app.
+"""
 
-# Create your tests here.
+from django.test import TestCase
