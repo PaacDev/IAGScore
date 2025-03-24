@@ -48,7 +48,10 @@ def profile(request):
 def register(request):
     """
     This view is used to register a new user.
+    - GET: Displays the registration form.
+    - POST: Processes the form and creates the user.
     """
+
     if request.method == "POST":
         user_form = RegisterForm(request.POST)
         if user_form.is_valid():
