@@ -76,7 +76,7 @@ class LoginTests(TestCase):
         )
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.url, reverse("profile"))
+        self.assertEqual(response.url, reverse("home"))
         self.assertTrue(response.wsgi_request.user.is_authenticated)
         self.assertEqual(response.wsgi_request.user.username, "testuser")
         self.assertEqual(response.wsgi_request.user.email, "testuser@mail.com")
