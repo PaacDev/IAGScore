@@ -61,7 +61,7 @@ jobs:
         mkdir -p coveragereport/html  # Creamos el directorio para el reporte HTML
         coverage run manage.py test
         coverage html -d coveragereport/html/  # Generamos reporte HTML
-        coverage xml -o coveragereport/coverage.xml  # Generamos un reporte XML para Sonarcloud
+        coverage xml -o coveragereport/coverage.xml --relative # Generamos un reporte XML para Sonarcloud
         
     # Subimos los reportes como artefactos
     - name: Upload Coverage Reports
@@ -80,4 +80,6 @@ jobs:
         args: >
           -Dsonar.projectKey=pac1006_IAGScore
           -Dsonar.organization=pac1006
+          -Dsonar.sources=.
+          -Dsonar.coverage.exclusions=**/tailwind/**,**/node_modules/**,**/migrations/**
           -Dsonar.python.coverage.reportPaths=coveragereport/coverage.xml
