@@ -65,7 +65,7 @@ jobs:
         
     # Subimos los reportes como artefactos
     - name: Upload Coverage Reports
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: coverage-report-py${{ matrix.python-version }}
         path: coveragereport/
