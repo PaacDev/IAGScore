@@ -78,6 +78,6 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         args: >
-          -Dsonar.projectKey=pac1006
+          -Dsonar.projectKey=pac1006_IAGScore
           -Dsonar.organization=pac1006
           -Dsonar.python.coverage.reportPaths=coveragereport/coverage.xml
