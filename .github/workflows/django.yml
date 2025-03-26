@@ -69,3 +69,13 @@ jobs:
       with:
         name: coverage-report-py${{ matrix.python-version }}
         path: coveragereport/
+
+    # Analizamos con SonarCloud para enviar reporte xml de coverage
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: >
+          -Dsonar.python.coverage.reportPaths=coveragereport/coverage.xml
