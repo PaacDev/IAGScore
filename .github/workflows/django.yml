@@ -57,6 +57,15 @@ jobs:
         DB_HOST: localhost
         DB_PORT: 5432
       run: |
+        mkdir -p coveragereport  # Creamos el directorio para el reporte XML
+        mkdir -p coveragereport/html  # Creamos el directorio para el reporte HTML
         coverage run manage.py test
         coverage html -d coveragereport/html/  # Generamos reporte HTML
         coverage xml -o coveragereport/coverage.xml  # Generamos un reporte XML para Sonarcloud
+        
+    # Subimos los reportes como artefactos
+    - name: Upload Coverage Reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report-py${{ matrix.python-version }}
+        path: coveragereport/
