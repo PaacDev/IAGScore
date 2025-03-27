@@ -59,9 +59,9 @@ jobs:
       run: |
         mkdir -p coveragereport  # Creamos el directorio para el reporte XML
         mkdir -p coveragereport/html  # Creamos el directorio para el reporte HTML
-        coverage run manage.py test
+        coverage run --rcfile=.github/workflows/.coveragerc manage.py test
         coverage html -d coveragereport/html/  # Generamos reporte HTML
-        coverage xml -o coveragereport/coverage.xml --relative-files # Generamos un reporte XML para Sonarcloud
+        coverage xml -o coveragereport/coverage.xml # Generamos un reporte XML para Sonarcloud
         
     # Subimos los reportes como artefactos
     - name: Upload Coverage Reports
@@ -72,7 +72,7 @@ jobs:
 
     # Analizamos con SonarCloud para enviar reporte xml de coverage
     - name: SonarCloud Scan
-      uses: SonarSource/sonarqube-scan-action@v5
+      uses: SonarSource/sonarqube-scan-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
