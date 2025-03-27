@@ -1,0 +1,10 @@
+[run]
+source = .
+omit =
+    */migrations/*
+    */tailwind/*
+    */node_modules/*
+
+[xml]
+output = coveragereport/coverage.xml
+relative-files = True
