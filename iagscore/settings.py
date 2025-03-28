@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework",  # Django REST framework
     "accounts",
     "core",
+    "rubrics",
 ]
 
 MIDDLEWARE = [

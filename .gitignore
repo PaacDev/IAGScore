@@ -172,6 +172,8 @@ cython_debug/
 
 # coverage
 .coverage
+.coveragerc
+coveragereport/
 htmlcov/
 htmlcov/*
 
