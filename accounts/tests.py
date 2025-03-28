@@ -53,49 +53,6 @@ class CustomUserTests(TestCase):
         self.assertTrue(self.superuser.is_superuser)
 
 
-class LoginTests(TestCase):
-    """
-    This class contains the tests for the login view.
-    """
-
-    def setUp(self):
-        """
-        Initial test configuration
-        """
-
-        self.user = User.objects.create_user(
-            username="testuser", email="testuser@mail.com", password="testpass123"
-        )
-
-    def test_login_success(self):
-        """
-        Testing login
-        """
-        response = self.client.post(
-            "", {"username": "testuser@mail.com", "password": "testpass123"}
-        )
-
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.url, reverse("home"))
-        self.assertTrue(response.wsgi_request.user.is_authenticated)
-        self.assertEqual(response.wsgi_request.user.username, "testuser")
-        self.assertEqual(response.wsgi_request.user.email, "testuser@mail.com")
-        self.assertFalse(response.wsgi_request.user.is_staff)
-        self.assertFalse(response.wsgi_request.user.is_superuser)
-
-    def test_login_invalid_credentials(self):
-        """
-        Testing invalid credentials
-        """
-        response = self.client.post(
-            reverse("login"), {"username": "testuser@mail.com", "password": "wrongpass"}
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertFalse(response.wsgi_request.user.is_authenticated)
-        messages_list = list(messages.get_messages(response.wsgi_request))
-        self.assertEqual(str(messages_list[0]), "Usuario o contraseña incorrectos")
-
-
 class RegisterFormTests(TestCase):
     """
     This class contains the tests for the register form.

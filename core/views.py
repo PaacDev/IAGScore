@@ -2,11 +2,50 @@
 This file contains the views for the accounts app.
 """
 import os
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_safe, require_GET, require_POST
+from django.views.decorators.http import require_safe, require_GET, require_http_methods
+from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from django.conf import settings
 import markdown
+
+
+@require_http_methods(['POST', 'GET'])
+@csrf_protect
+def custom_login(request):
+    """
+    This view is used to log in the user.
+    - GET: Displays the login form.
+    - POST: Processes the form and login.
+    """
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = authenticate(
+                username=form.cleaned_data["username"],
+                password=form.cleaned_data["password"],
+            )
+            if user:
+                login(request, user)
+                return redirect("home")
+        else:
+            messages.add_message(
+                request, messages.ERROR, "Usuario o contraseña incorrectos"
+            )
+    else:
+        form = AuthenticationForm()
+    return render(request, "core/login.html", {"form": form})
+
+@require_GET
+def logout_view(request):
+    '''
+    Logout
+    '''
+    logout(request)
+    return redirect("login")
 
 @require_GET
 @login_required

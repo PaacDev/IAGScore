@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-ul {
-  @apply list-disc list-inside; /* Añade viñetas y sangría interna */
-}
-
-li {
-  @apply mb-2 ml-4 text-base; /* Espaciado entre ítems y tamaño de texto */
-}
 
 strong {
   @apply font-bold; /* Negrita para <strong>*/

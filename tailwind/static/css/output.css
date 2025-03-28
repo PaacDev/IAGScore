@@ -694,6 +694,8 @@ video {
   }
 }
 
+/* Clases para los botones*/
+
 .btn-custom-full {
   margin-top: 0.75rem;
   width: 100%;
@@ -901,10 +903,6 @@ video {
   margin-left: 0.75rem;
 }
 
-.ml-4 {
-  margin-left: 1rem;
-}
-
 .mt-10 {
   margin-top: 2.5rem;
 }
@@ -1011,10 +1009,6 @@ video {
 
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.list-disc {
-  list-style-type: disc;
 }
 
 .flex-col {
@@ -1229,13 +1223,14 @@ video {
   padding-bottom: 0.625rem;
 }
 
+.py-20 {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-.pt-20 {
-  padding-top: 5rem;
 }
 
 .text-left {
@@ -1425,36 +1420,19 @@ video {
 
 .outline-1 {
   outline: 1px solid #1a202c;
-  /* Puedes reemplazar #1a202c por el color que desees (gray-900) */
 }
 
 .outline-offset-1 {
   outline-offset: 1px;
-  /* Agrega un pequeño desplazamiento */
 }
 
 .outline-gray-900 {
   outline-color: #1a202c;
-  /* Este es el color gray-900 en Tailwind (puedes personalizarlo si lo prefieres) */
-}
-
-ul {
-  list-style-position: inside;
-  list-style-type: disc;
-  /* Añade viñetas y sangría interna */
-}
-
-li {
-  margin-bottom: 0.5rem;
-  margin-left: 1rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  /* Espaciado entre ítems y tamaño de texto */
 }
 
 strong {
   font-weight: 700;
-  /* Negrita para <strong> dentro de los <li> */
+  /* Negrita para <strong>*/
 }
 
 h1 {
