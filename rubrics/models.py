@@ -13,11 +13,11 @@ class Rubric(models.Model):
     """
     Model representing a rubric.
     """
-    
+
     name = models.CharField(max_length=150)
     content = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='rubrics')
-    
+
     class Meta:
         """
         Meta class for Rubric model.
@@ -26,3 +26,6 @@ class Rubric(models.Model):
         constraints = [
             models.UniqueConstraint(fields=('name','user'), name='unique_rubrics_x_user')
         ]
+
+    def __str__(self):
+        return self.name

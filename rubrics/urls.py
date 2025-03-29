@@ -6,5 +6,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    
+    path('rubics/', views.rubric_page, name='rubrics_page'),
 ]
