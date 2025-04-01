@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",  # Django REST framework
+    "rest_framework_simplejwt",  # JWT authentication
     "accounts",
     "core",
     "rubrics",
@@ -84,7 +85,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": config("DB_NAME", default="iagscore"),
         "USER": config("DB_USER", default="dj_user"),
-        "PASSWORD": config("DB_PASSWORD"), 
+        "PASSWORD": config("DB_PASSWORD"),
         "HOST": config("DB_HOST", default="localhost"),
         "PORT": config("DB_PORT", default="5432"),
     }
@@ -135,8 +136,8 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
+    BASE_DIR / "static",
     BASE_DIR / "tailwind/static",
-    BASE_DIR / "accounts/static",
     BASE_DIR / "core/static",
 ]
 
@@ -147,5 +148,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
-LOGIN_URL = '/'
+LOGIN_URL = "/"
 LOGOUT_REDIRECT_URL = "/"

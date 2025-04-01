@@ -1,12 +1,17 @@
 """
 This module contains the views for the rubrics app.
 """
-from django.shortcuts import render, redirect
+
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_http_methods, require_GET
 from django.contrib import messages
+from django.db import IntegrityError
 from .forms import RubricForm
+from .models import Rubric
+
 
 @login_required
 @require_http_methods(["GET", "POST"])
@@ -15,19 +20,63 @@ def rubric_page(request):
     """
     View for import a new rubric.
     """
-    if request.method == 'POST':
+    rubric_list = Rubric.objects.filter(user=request.user)
+    if request.method == "POST":
         form = RubricForm(request.POST, request.FILES)
         if form.is_valid():
-            print('valid form')
-            rubric_file = request.FILE['rubric_file']
-            print('NO valid form')
-            if not rubric_file.name.endswith('.md'):
-                print('NO MD')
-                messages.error(request, 'El archivo subido no es Markdown')
-                return redirect('rubrics_page')
-    
+            rubric = Rubric(
+                name=form.cleaned_data["name"],
+                content=form.cleaned_data["rubric_file"],
+                user=request.user,
+            )
+            try:
+                rubric.save()
+            except IntegrityError:
+                messages.error(
+                    request, "Error al guardar la rúbrica: Rubrica ya existente"
+                )
+                return render(request, "rubrics/rubrics_page.html", {"form": form})
+            messages.success(request, "Rúbrica importada correctamente")
+            return render(
+                request,
+                "rubrics/mis_rubricas.html",
+                {"form": form, "rubric_list": rubric_list},
+            )
+
+        messages.error(request, form.errors.as_text())
     else:
-        print('GET')
         form = RubricForm()
 
-    return render(request, 'rubrics/rubrics_page.html')
+    return render(
+        request, "rubrics/mis_rubricas.html", {"form": form, "rubric_list": rubric_list}
+    )
+
+
+@login_required
+@require_GET
+def show_rubric(request, rubric_id):
+    """
+    View for showing a rubric
+    """
+    rubric = get_object_or_404(Rubric, id=rubric_id)
+
+    if rubric.user != request.user:
+        raise Http404("No tienes permiso para ver esta rúbrica")
+
+    return render(request, "rubrics/rubric.html", {"rubric": rubric})
+
+
+@login_required
+@require_GET
+def delete_rubric(request, rubric_id):
+    """
+    View for deleting a rubric
+    """
+    rubric = get_object_or_404(Rubric, id=rubric_id)
+
+    if rubric.user != request.user:
+        raise Http404("No tienes permiso para eliminar esta rúbrica")
+
+    rubric.delete()
+    messages.success(request, "Rúbrica eliminada correctamente")
+    return redirect("rubrics_page")

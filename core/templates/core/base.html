@@ -10,13 +10,13 @@
     crossorigin="anonymous"
     ></script>
 
-
+    
     <link href="{% static 'css/output.css' %} " rel="stylesheet">
     {% block extra_head %}{% endblock %}
 </head>
 <body>        
     {% include "core/partials/navbar.html" %}
-    <main class="py-20 max-h-[calc(100vh-8rem)">
+    <main class="pt-20 max-h-[calc(100vh-8rem)">
         {% block content %}
         {% endblock %}
     </main>

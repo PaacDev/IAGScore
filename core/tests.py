@@ -9,6 +9,7 @@ from django.contrib import messages
 
 User = get_user_model()
 
+
 class LoginTests(TestCase):
     """
     This class contains the tests for the login view.
@@ -50,38 +51,44 @@ class LoginTests(TestCase):
         self.assertFalse(response.wsgi_request.user.is_authenticated)
         messages_list = list(messages.get_messages(response.wsgi_request))
         self.assertEqual(str(messages_list[0]), "Usuario o contraseña incorrectos")
-        
+
     def test_login_get(self):
         """
         Testing get in login page
         """
-        response = self.client.get("") 
-        
-        self.assertEqual(response.status_code, 200)
-        
-    def test_logout(self):
+        response = self.client.get("")
 
+        self.assertEqual(response.status_code, 200)
+
+    def test_logout(self):
+        """
+        Testing logout
+        """
         response = self.client.post(
             "", {"username": self.user.email, "password": "testpass123"}
         )
 
         self.assertEqual(response.status_code, 302)
         self.assertTrue(response.wsgi_request.user.is_authenticated)
-        
+
         self.client.logout()
-        new_response = self.client.get(reverse('home'))
+        new_response = self.client.get(reverse("home"))
         self.assertFalse(new_response.wsgi_request.user.is_authenticated)
-        
+
         response_login = self.client.post(
             "", {"username": self.user.email, "password": "testpass123"}
         )
         self.assertTrue(response_login.wsgi_request.user.is_authenticated)
-        response_logout = self.client.get(reverse('logout'))
+        response_logout = self.client.get(reverse("logout"))
         self.assertFalse(response_logout.wsgi_request.user.is_authenticated)
         self.assertEqual(response_logout.status_code, 302)
 
+
 class HomeTests(TestCase):
-    
+    """
+    This class contains the tests for the home view.
+    """
+
     def setUp(self):
         """
         Initial test configuration
@@ -90,16 +97,16 @@ class HomeTests(TestCase):
         self.user = User.objects.create_user(
             username="testuser", email="testuser@mail.com", password="testpass123"
         )
-    
+
     def test_home(self):
-        '''
+        """
         Home views test
-        '''
+        """
         response = self.client.post(
             "", {"username": self.user.email, "password": "testpass123"}
         )
-        
+
         self.assertTrue(response.wsgi_request.user.is_authenticated)
-        
-        response_home = self.client.get(reverse('home'))
+
+        response_home = self.client.get(reverse("home"))
         self.assertTrue(response_home.status_code, 302)

@@ -17,7 +17,7 @@ Al acceder o utilizar IAGScore, usted declara que ha leído, comprendido y acept
 Todo el contenido de IAGScore, incluyendo textos, imágenes, logotipos, software y diseños ("Contenido"), es propiedad de Pedro Antonio Abellaneda Canales y está protegido por la Ley de Propiedad Intelectual española (Real Decreto Legislativo 1/1996). No está permitido reproducir, distribuir ni modificar el Contenido sin el consentimiento expreso por escrito del Desarrollador.
 
 ## 4. Privacidad y Protección de Datos
-Su uso de IAGScore está sujeto a nuestra [**Política de Privacidad**](/core/privacidad), que detalla cómo se recopilan, tratan y protegen sus datos personales conforme al Reglamento General de Protección de Datos (RGPD) (UE) 2016/679 y la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD). Al aceptar estos Términos, también acepta dicha Política.
+Su uso de IAGScore está sujeto a nuestra [**Política de Privacidad**](/privacidad), que detalla cómo se recopilan, tratan y protegen sus datos personales conforme al Reglamento General de Protección de Datos (RGPD) (UE) 2016/679 y la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD). Al aceptar estos Términos, también acepta dicha Política.
 
 ## 5. Limitación de Responsabilidad
 - IAGScore se proporciona "tal cual" y "según disponibilidad", sin garantías implícitas o explícitas de ningún tipo.

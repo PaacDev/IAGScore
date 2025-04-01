@@ -18,7 +18,8 @@ def profile(request):
     """
     return render(request, "accounts/profile.html")
 
-@require_http_methods(['POST', 'GET'])
+
+@require_http_methods(["POST", "GET"])
 @csrf_protect
 def register(request):
     """
