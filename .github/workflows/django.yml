@@ -81,5 +81,6 @@ jobs:
           -Dsonar.projectKey=pac1006_IAGScore
           -Dsonar.organization=pac1006
           -Dsonar.sources=.
+          -Dsonar.exclusions=**/*test*.py
           -Dsonar.coverage.exclusions=**/tailwind/**,**/node_modules/**,**/migrations/**
           -Dsonar.python.coverage.reportPaths=coveragereport/coverage.xml
