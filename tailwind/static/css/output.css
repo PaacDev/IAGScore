@@ -795,48 +795,6 @@ video {
   }
 }
 
-.input-custom {
-  display: block;
-  width: 100%;
-  border-radius: 0.375rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-  padding-top: 0.375rem;
-  padding-bottom: 0.375rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
-  outline-width: 1px;
-  outline-offset: -1px;
-  outline: 1px solid #1a202c;
-}
-
-.input-custom::-moz-placeholder {
-  --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
-}
-
-.input-custom::placeholder {
-  --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
-}
-
-.input-custom:focus {
-  outline-width: 2px;
-  outline-offset: -2px;
-  outline-color: #4b5563;
-}
-
-@media (min-width: 640px) {
-  .input-custom {
-    font-size: 0.875rem;
-    line-height: 1.5rem;
-  }
-}
-
 .sr-only {
   position: absolute;
   width: 1px;
