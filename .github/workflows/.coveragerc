@@ -4,7 +4,9 @@ omit =
     */migrations/*
     */tailwind/*
     */node_modules/*
+[report]
+# Mostrar líneas faltantes en el reporte
+show_missing = true
 
 [xml]
 output = coveragereport/coverage.xml
-relative-files = True
