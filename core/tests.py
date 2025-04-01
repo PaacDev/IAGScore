@@ -110,3 +110,23 @@ class HomeTests(TestCase):
 
         response_home = self.client.get(reverse("home"))
         self.assertTrue(response_home.status_code, 302)
+
+class TermAndPrivTest(TestCase):
+    """
+    Test case for the Terms and Privacy views.
+    """
+    def test_pricacidad(self):
+        """
+        Test the privacy view
+        """
+        response = self.client.get(reverse("privacidad"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "core/privacidad.html")
+
+    def test_terminos(self):
+        """
+        Test the terminos view
+        """
+        response = self.client.get(reverse("terminos"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "core/terminos.html")
