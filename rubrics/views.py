@@ -58,10 +58,10 @@ def show_rubric(request, rubric_id):
     """
     View for showing a rubric
     """
-    rubric = get_object_or_404(Rubric, id=rubric_id)
-
-    if rubric.user != request.user:
-        raise Http404("No tienes permiso para ver esta rúbrica")
+    try:
+        rubric = Rubric.objects.get(id=rubric_id, user=request.user)
+    except Rubric.DoesNotExist as exc:
+        raise Http404("Rúbrica no encontrada") from exc
 
     return render(request, "rubrics/rubric.html", {"rubric": rubric})
 

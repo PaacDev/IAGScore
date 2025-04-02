@@ -3,10 +3,7 @@ This file contains the test for the prompts app.
 """
 
 from django.test import TestCase
-from django.urls import reverse
 from django.contrib.auth import get_user_model
-from django.contrib import messages
-from django.core.exceptions import ValidationError
 from .models import Prompt
 
 User = get_user_model()

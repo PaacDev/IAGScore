@@ -52,19 +52,21 @@ def prompt_page(request):
         request, "prompts/mis_prompts.html", {"form": form, "prompt_list": prompt_list}
     )
 
-
+@login_required
+@require_GET
 def show_prompt(request, prompt_id):
     """
     View for showing a prompt
     """
     try:
         prompt = Prompt.objects.get(id=prompt_id, user=request.user)
-    except Prompt.DoesNotExist:
-        raise Http404("Prompt not found")
+    except Prompt.DoesNotExist as exc:
+        raise Http404("Prompt no encontrado") from exc
 
     return render(request, "prompts/show_prompt.html", {"prompt": prompt})
 
-
+@login_required
+@require_GET
 def delete_prompt(request, prompt_id):
     """
     View for deleting a prompt
