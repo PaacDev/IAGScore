@@ -352,12 +352,12 @@
   }
 \makeatother
 
-\newcommand{\nombre}{Nombre del alumno} %%% cambio de comando
+\newcommand{\nombre}{Pedro Antonio Abellaneda Canales} %%% cambio de comando
 
 % Datos de portada
-\title{título del TFG}
+\title{IAGScore}
 \author{\nombre}
-\tutor{nombre tutor}
+\tutor{Raúl Marticorena Sánchez}
 \date{\today}
 
 \begin{document}
@@ -389,27 +389,27 @@ En Burgos, {\large \today}
 \vfill\vfill\vfill
 
 % Author and supervisor
-\begin{minipage}{0.45\textwidth}
-\begin{flushleft} %\large
-Vº. Bº. del Tutor:\\[2cm]
-D. nombre tutor
-\end{flushleft}
-\end{minipage}
-\hfill
-\begin{minipage}{0.45\textwidth}
-\begin{flushleft} %\large
-Vº. Bº. del co-tutor:\\[2cm]
-D. nombre co-tutor
-\end{flushleft}
-\end{minipage}
-\hfill
+%\begin{minipage}{0.45\textwidth}
+%\begin{flushleft} %\large
+%Vº. Bº. del Tutor:\\[2cm]
+%D. nombre tutor
+%\end{flushleft}
+%\end{minipage}
+%\hfill
+%\begin{minipage}{0.45\textwidth}
+%\begin{flushleft} %\large
+%Vº. Bº. del co-tutor:\\[2cm]
+%D. nombre co-tutor
+%\end{flushleft}
+%\end{minipage}
+%\hfill
 
-\vfill
+%\vfill
 
 % para casos con solo un tutor comentar lo anterior
 % y descomentar lo siguiente
-%Vº. Bº. del Tutor:\\[2cm]
-%D. nombre tutor
+Vº. Bº. del Tutor:\\[2cm]
+D. nombre tutor
 
 
 \newpage\null\thispagestyle{empty}\newpage
@@ -422,12 +422,14 @@ D. nombre co-tutor
 % Abstract en castellano
 \renewcommand*\abstractname{Resumen}
 \begin{abstract}
-En este primer apartado se hace una \textbf{breve} presentación del tema que se aborda en el proyecto.
+Actualmente, los avances relacionados con la inteligencia artificial han supuesto una revolución en la forma en la que interactuamos con la tecnología, destacando en este sentido los modelos de lenguaje a gran escala (LLM). La irrupción de estas tecnologías ha supuesto un punto de inflexión para la automatización de tareas complejas, generación de contenido, de código o búsqueda de información.
+
+En este contexto, este Trabajo Fin de Grado propone el desarrollo de una herramienta basada en el uso de modelos de lenguaje a gran escala para optimizar la evaluación de tareas de programación realizadas por alumnos. La propuesta inicial consiste en dotar a los usuarios de herramientas para la importación de rúbricas personalizadas en formato Markdown, diseño de prompts personalizados en texto plano, configuración personalizada para determinados modelos automatizando varias de estas tareas a través de una aplicación.
 \end{abstract}
 
 \renewcommand*\abstractname{Descriptores}
 \begin{abstract}
-Palabras separadas por comas que identifiquen el contenido del proyecto Ej: servidor web, buscador de vuelos, android \ldots
+Django, python, PostgreSQL, LLM, Markdown, correción de tareas \ldots
 \end{abstract}
 
 \clearpage

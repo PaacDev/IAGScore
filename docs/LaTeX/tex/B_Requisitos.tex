@@ -4,12 +4,58 @@
 
 Una muestra de cómo podría ser una tabla de casos de uso:
 
-% Caso de Uso 1 -> Consultar Experimentos.
+\section{Objetivos generales}
+
+Este trabajo se ha realizado persiguiendo el cumplimiento de los siguientes \textbf{objetivos:}
+
+\begin{itemize}
+    \item Desarrollar un \textit{sistema software} que permita a los usuarios la corrección de ejercicios de programación.
+    \item El usuario debe estar \textit{registrado} para acceder al sistema iniciando sesión.
+    \item Los usuarios \textit{importarán} sus propias rúbricas en formato Markdown
+    \item Los usuarios crearán sus propios prompts.
+    \item La evaluación de los ejercicios se realizará mediante \textit{modelos de lenguaje LLM}.
+    \item Los usuarios podrán configurar aspectos determinados del LLM usado.
+    
+\end{itemize}
+
+\section{Catálogo de requisitos}
+Requisitos funcionales y no funcionales para cumplir con los objetivos generales
+
+\subsection{Requisitos funcionales}
+\begin{itemize}
+    \item \textbf{RF-1 - Registro de usuarios.} Los usuarios podrán registrarse mediante nombre, correo electrónico y contraseña.
+    \item \textbf{RF-2 - Login de usuarios.} Los usuarios deberán iniciar sesión para usar la aplicación.
+    \item \textbf{RF-3 - Importar rúbricas.} Los usuarios podrán importar sus propias rúbricas en formato Markdown.
+    \begin{itemize}
+        \item \textbf{RF-3.1 - Listar rúbricas.} Los usuarios podrán consultar sus rúbricas importadas.
+        \item \textbf{RF-3.2 - Consultar rubricas.} Los usuarios podrán visualizar los detalles de una rúbrica concreta.
+        \item \textbf{RF-3.3 - Eliminar rúbricas.} Los usuarios podrán eliminar una rúbrica importada.
+    \end{itemize}
+    \item \textbf{RF-4 Crear prompts.} Los usuarios crearán sus propios prompts.
+    \begin{itemize}
+        \item \textbf{RF-4.1 - Listar prompts.} Los usuarios podrán consultar sus prompts creados.
+        \item \textbf{RF-4.2 - Consultar prompts.} Los usuarios podrán visualizar un prompt concreto.
+        \item \textbf{RF-4.3 - Eliminar prompts.} Los usuarios podrán eliminar un prompt.
+    \end{itemize}
+    \item \textbf{RF-5 - Configurar LLM.} Los usuarios podrán configurar aspectos determinados del LLM seleccionado.
+    \begin{itemize}
+        \item \textbf{RF-5.1 - Seleccionar LLM.} Los usuarios seleccionarán el LLM a usar.
+        \item \textbf{RF-5.2 - Parametrizar LLM.} Los usuarios podrán modificar determinados parámetros del LLM seleccionado.
+    \end{itemize}
+\end{itemize}
+
+\section{Especificación de requisitos}
+
+Diagramas de casos de uso y detalles sobre los mismos.
+
+\imagen{caso_de_uso_general}{Diagrama de caso de uso general}
+
+% Caso de Uso 1 -> Registrar usuario.
 \begin{table}[p]
 	\centering
 	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
 		\toprule
-		\textbf{CU-1}    & \textbf{Ejemplo de caso de uso}\\
+		\textbf{CU-1}    & \textbf{Registrar usuario}\\
 		\toprule
 		\textbf{Versión}              & 1.0    \\
 		\textbf{Autor}                & Alumno \\
@@ -31,10 +77,5 @@ Una muestra de cómo podría ser una tabla de casos de uso:
 	\caption{CU-1 Nombre del caso de uso.}
 \end{table}
 
-\section{Objetivos generales}
-
-\section{Catálogo de requisitos}
-
-\section{Especificación de requisitos}
 
 
