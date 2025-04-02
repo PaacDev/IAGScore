@@ -72,11 +72,7 @@ def delete_rubric(request, rubric_id):
     """
     View for deleting a rubric
     """
-    rubric = get_object_or_404(Rubric, id=rubric_id)
-
-    if rubric.user != request.user:
-        raise Http404("No tienes permiso para eliminar esta rúbrica")
-
+    rubric = get_object_or_404(Rubric, id=rubric_id, user=request.user)
     rubric.delete()
     messages.success(request, "Rúbrica eliminada correctamente")
     return redirect("rubrics_page")

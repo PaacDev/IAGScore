@@ -1,5 +1,5 @@
 {% extends "core/base.html" %}
-{% block title %}Rubrics{% endblock %}
+{% block title %}Prompts{% endblock %}
 {% block content %}
 
 <section class="bg-white p-6 dark:bg-gray-900">
@@ -7,15 +7,15 @@
         <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white" id="title">
-                    Nueva rubrica
+                    Nuevo prompt
                 </h1>
                 {% if messages %}
                     {% for message in messages %}
                     <div class="{{ message.tags }}">{{ message }}</div>
                     {% endfor %}
                 {% endif %}
-                <!-- Sección de importar -->
-                <button onclick="showSection('import')" class="btn-custom-full">Nueva rúbrica</button>
+                <!-- Sección de crear prompt -->
+                <button onclick="showSection('import')" class="btn-custom-full">Nuevo prompt</button>
                 <div id="import-section" class="hidden space-y-4 md:space-y-6">
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
@@ -24,8 +24,8 @@
                             {{ form.name }}
                         </div>
                         <div class="mb-4">
-                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="{{ form.rubric_file.id_for_label }}">{{ form.rubric_file.label }}</label>
-                            {{ form.rubric_file }}
+                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="{{ form.prompt.id_for_label }}">Prompt</label>
+                            {{ form.prompt }}
                         </div>
                         <button type="submit" class="btn-custom-full">Importar</button>
                     </form>
@@ -39,20 +39,20 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    Nombre de la Rúbrica
+                    Nombre del prompt
                 </th>
                 <th scope="col" class="px-6 py-3">
                 </th>
             </tr>
         </thead>
         <tbody>
-            {% for rubric in rubric_list %}
+            {% for prompt in prompt_list %}
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{rubric.name}}
+                    {{prompt.name}}
                 </th>
                 <td class="px-6 py-4">
-                    <a href="{% url 'show_rubric' rubric.id %}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" >Mostrar</a>
+                    <a href="{% url 'show_prompt' prompt.id %}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" >Mostrar</a>
                 </td>
             </tr>
             {% endfor %}

@@ -10,7 +10,6 @@ import markdown
 User = get_user_model()
 
 
-# Create your models here.
 class Rubric(models.Model):
     """
     Model representing a rubric.
