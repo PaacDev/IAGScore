@@ -31,17 +31,17 @@ def rubric_page(request):
             )
             try:
                 rubric.save()
+                messages.success(request, "Rúbrica importada correctamente")
+                return render(
+                    request,
+                    "rubrics/mis_rubricas.html",
+                    {"form": form, "rubric_list": rubric_list},
+                )
             except IntegrityError:
                 messages.error(
                     request, "Error al guardar la rúbrica: Rubrica ya existente"
                 )
-                return render(request, "rubrics/rubrics_page.html", {"form": form})
-            messages.success(request, "Rúbrica importada correctamente")
-            return render(
-                request,
-                "rubrics/mis_rubricas.html",
-                {"form": form, "rubric_list": rubric_list},
-            )
+                return render(request, "rubrics/mis_rubricas.html", {"form": form})
 
         messages.error(request, form.errors.as_text())
     else:

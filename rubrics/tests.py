@@ -184,3 +184,62 @@ class RubricViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(str(messages_list[0]), "Rúbrica importada correctamente")
         self.assertTrue(Rubric.objects.filter(name="new_rubric").exists())
+
+    def test_invalid_rubric_page_view_integrity(self):
+        """
+        Test the rubric page view
+        """
+
+        self.assertTrue(Rubric.objects.filter(name=self.rubric.name).exists())
+
+        response = self.client.post(
+            reverse("rubrics_page"),
+            {
+                "name": self.rubric.name,
+                "rubric_file": self.md_file,
+            },
+        )
+        messages_list = list(messages.get_messages(response.wsgi_request))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            str(messages_list[0]),
+            "Error al guardar la rúbrica: Rubrica ya existente",
+        )
+
+    def test_invalid_rubric_page_view(self):
+        """
+        Test the invalid rubric page view
+        """
+        response = self.client.post(
+            reverse("rubrics_page"),
+            {
+                "name": "",
+                "rubric_file": self.md_file,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, ("This field is required"))
+
+    def test_show_rubric_view(self):
+        """
+        Test the show rubric view
+        """
+        response = self.client.get(reverse("show_rubric", args=[self.rubric.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "rubrics/rubric.html")
+        self.assertContains(response, self.rubric.get_html_content())
+        id = self.rubric.id
+        self.rubric.delete()
+        response = self.client.get(reverse("show_rubric", args=[id]))
+        self.assertEqual(response.status_code, 404)
+
+    def test_delete_rubric_view(self):
+        """
+        Test the delete rubric view
+        """
+        response = self.client.get(reverse("delete_rubric", args=[self.rubric.id]))
+        messages_list = list(messages.get_messages(response.wsgi_request))
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(str(messages_list[0]), "Rúbrica eliminada correctamente")
+        self.assertFalse(Rubric.objects.filter(id=self.rubric.id).exists())

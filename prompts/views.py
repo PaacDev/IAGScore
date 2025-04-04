@@ -32,18 +32,18 @@ def prompt_page(request):
 
             try:
                 prompt.save()
+                messages.success(request, "Prompt creado correctamente")
+                prompt_list = list(Prompt.objects.filter(user=request.user))
+                return render(
+                    request,
+                    "prompts/mis_prompts.html",
+                    {"form": form, "prompt_list": prompt_list},
+                )
             except IntegrityError:
                 messages.error(
                     request, "Error al guardar el prompt: Prompt ya existente"
                 )
-                return render(request, "prompts/prompts_page.html", {"form": form})
-            messages.success(request, "Prompt creado correctamente")
-            return render(
-                request,
-                "prompts/mis_prompts.html",
-                {"form": form, "prompt_list": prompt_list},
-            )
-
+                return render(request, "prompts/mis_prompts.html", {"form": form})
         messages.error(request, form.errors.as_text())
     else:
         form = PromptForm()
@@ -51,6 +51,7 @@ def prompt_page(request):
     return render(
         request, "prompts/mis_prompts.html", {"form": form, "prompt_list": prompt_list}
     )
+
 
 @login_required
 @require_GET
@@ -64,6 +65,7 @@ def show_prompt(request, prompt_id):
         raise Http404("Prompt no encontrado") from exc
 
     return render(request, "prompts/show_prompt.html", {"prompt": prompt})
+
 
 @login_required
 @require_GET

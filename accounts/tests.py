@@ -67,6 +67,11 @@ class RegisterFormTests(TestCase):
             username="testuser", email="testuser@mail.com", password="testpass123"
         )
 
+    def test_register_form_view_page(self):
+        response = self.client.get(reverse("register"))
+
+        self.assertEquals(response.status_code, 200)
+
     def test_valid_register_form(self):
         """
         Testing valid form
