@@ -8,7 +8,7 @@ from rubrics.models import Rubric
 
 class Correction(models.Model):
     """
-    Model representing a correction for a prompt.
+    Model representing a correction.
     """
     prompt = models.ForeignKey(Prompt, on_delete=models.CASCADE)
     rubric = models.ForeignKey(Rubric, on_delete=models.CASCADE)
@@ -19,4 +19,4 @@ class Correction(models.Model):
 
 
     def __str__(self):
-        return f"Correction for {self.prompt} with score {self.score}"
+        return self.description
