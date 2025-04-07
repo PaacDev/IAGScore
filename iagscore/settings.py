@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "core",
     "rubrics",
     "prompts",
+    "corrections",
 ]
 
 MIDDLEWARE = [

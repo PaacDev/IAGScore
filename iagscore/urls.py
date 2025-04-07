@@ -26,4 +26,5 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("rubrics/", include("rubrics.urls")),
     path("prompts/", include("prompts.urls")),
+    path("corrections/", include("corrections.urls")),
 ]
