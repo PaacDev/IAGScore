@@ -2,9 +2,14 @@
 
 function showSection(section) 
 {
-    if (document.getElementById('import-section').classList.contains('hidden')) {
-        document.getElementById('import-section').classList.remove('hidden');
+    const importSections = document.getElementsByName('importsection');
+    importSections.forEach(element => {
+        element.classList.add('hidden');
+    });
+    var sectionElement = document.getElementById(section + '-import');
+    if (sectionElement.classList.contains('hidden')) {
+        sectionElement.classList.remove('hidden');  // Muestra la sección.
     } else {
-        document.getElementById('import-section').classList.add('hidden');
+        sectionElement.classList.add('hidden');  // Oculta la sección.
     }
 }

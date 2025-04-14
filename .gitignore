@@ -182,3 +182,7 @@ htmlcov/*
 
 #pylint
 .pylintrc
+
+# media folder
+media/
+!media/.keep

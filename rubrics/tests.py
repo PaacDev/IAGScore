@@ -36,12 +36,30 @@ class RubricModelTestCase(TestCase):
             content="# This is a test rubric.",
             user=self.user,
         )
+        style=f"""
+        <style>
+            table {{
+                border-collapse: collapse;
+                width: 100%;
+            }}
+            td, th {{
+                border: 1px solid black;
+                padding: 8px;
+                text-align: center;
+            }}
+            h1 {{
+                color: #333;
+                font-size: 2em;
+                font-family: Arial, sans-serif;
+            }}
+        </style>
+        """
 
         self.assertEqual(rubric.name, "Test Rubric")
         self.assertEqual(rubric.content, "# This is a test rubric.")
         self.assertEqual(rubric.user, self.user)
         self.assertEqual(str(rubric), "Test Rubric")
-        self.assertEqual(rubric.get_html_content(), "<h1>This is a test rubric.</h1>")
+        self.assertEqual(rubric.get_html_content().strip(), f"{style}<h1>This is a test rubric.</h1>".strip())
 
 
 class RubricFormTestCase(TestCase):

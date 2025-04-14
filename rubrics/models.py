@@ -37,4 +37,26 @@ class Rubric(models.Model):
         """
         Returns the HTML content of the rubric.
         """
-        return markdown.markdown(self.content, extensions=["tables"])
+        html_content = markdown.markdown(self.content, extensions=["tables"])
+        
+        styled_html = f"""
+        <style>
+            table {{
+                border-collapse: collapse;
+                width: 100%;
+            }}
+            td, th {{
+                border: 1px solid black;
+                padding: 8px;
+                text-align: center;
+            }}
+            h1 {{
+                color: #333;
+                font-size: 2em;
+                font-family: Arial, sans-serif;
+            }}
+        </style>
+        {html_content}
+        """
+        return styled_html
+  
