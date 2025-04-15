@@ -68,9 +68,12 @@ class RegisterFormTests(TestCase):
         )
 
     def test_register_form_view_page(self):
+        """
+        Test register view
+        """
         response = self.client.get(reverse("register"))
 
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
     def test_valid_register_form(self):
         """

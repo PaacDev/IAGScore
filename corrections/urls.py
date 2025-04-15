@@ -7,4 +7,7 @@ from . import views
 
 urlpatterns = [
     path("", views.corrections, name="corrections"),
+    path(
+        "correction/<int:correction_id>/", views.show_correction, name="show_correction"
+    ),
 ]

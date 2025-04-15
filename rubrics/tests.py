@@ -4,11 +4,11 @@ This file contains tests for the rubrics app.
 
 from django.test import TestCase
 from django.urls import reverse
-from .models import Rubric
-from .forms import RubricForm
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib import messages
+from .models import Rubric
+from .forms import RubricForm
 
 User = get_user_model()
 
@@ -36,30 +36,33 @@ class RubricModelTestCase(TestCase):
             content="# This is a test rubric.",
             user=self.user,
         )
-        style=f"""
-        <style>
-            table {{
-                border-collapse: collapse;
-                width: 100%;
-            }}
-            td, th {{
-                border: 1px solid black;
-                padding: 8px;
-                text-align: center;
-            }}
-            h1 {{
-                color: #333;
-                font-size: 2em;
-                font-family: Arial, sans-serif;
-            }}
-        </style>
+        rubric_style = f"""
+        <div class="rubric-style">
+            <style>
+                .rubric-style table {{
+                    border-collapse: collapse;
+                    width: 100%;
+                }}
+                .rubric-style td, .rubric-style th {{
+                    border: 1px solid black;
+                    padding: 8px;
+                    text-align: center;
+                }}
+                .rubric-style h1 {{
+                    color: #333;
+                    font-size: 2em;
+                    font-family: Arial, sans-serif;
+                }}
+            </style>
+            <h1>This is a test rubric.</h1>
+        </div>
         """
 
         self.assertEqual(rubric.name, "Test Rubric")
         self.assertEqual(rubric.content, "# This is a test rubric.")
         self.assertEqual(rubric.user, self.user)
         self.assertEqual(str(rubric), "Test Rubric")
-        self.assertEqual(rubric.get_html_content().strip(), f"{style}<h1>This is a test rubric.</h1>".strip())
+        self.assertEqual(rubric.get_html_content().strip(), rubric_style.strip())
 
 
 class RubricFormTestCase(TestCase):
@@ -96,7 +99,7 @@ class RubricFormTestCase(TestCase):
             content_type="text/plain",
         )
 
-        self.no_UTF_file = SimpleUploadedFile(
+        self.no_utf_file = SimpleUploadedFile(
             name="test_rubric.md",
             content=text.encode("latin-1"),
             content_type="text/Markdown",
@@ -132,7 +135,7 @@ class RubricFormTestCase(TestCase):
         form = RubricForm(data=data, files=file)
         self.assertFalse(form.is_valid())
 
-    def test_invalid_form_no_UTF(self):
+    def test_invalid_form_no_utf(self):
         """
         Test an invalid RubricForm
         """
@@ -141,7 +144,7 @@ class RubricFormTestCase(TestCase):
         }
 
         file = {
-            "rubric_file": self.no_UTF_file,
+            "rubric_file": self.no_utf_file,
         }
 
         form = RubricForm(data=data, files=file)
@@ -178,7 +181,7 @@ class RubricViewTestCase(TestCase):
 
         self.client.login(username=self.user.email, password=self.password)
 
-    def test_rubric_page_view_GET(self):
+    def test_rubric_page_view_get(self):
         """
         Test the rubric page view
         """
@@ -186,7 +189,7 @@ class RubricViewTestCase(TestCase):
         response = self.client.get(reverse("rubrics_page"))
         self.assertEqual(response.status_code, 200)
 
-    def test_rubric_page_view_POST(self):
+    def test_rubric_page_view_post(self):
         """
         Test the rubric page view
         """
