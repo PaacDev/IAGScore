@@ -6,7 +6,7 @@ import zipfile
 import os
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_http_methods, require_GET
 from django.views.decorators.csrf import csrf_protect
 from django.core.files.storage import FileSystemStorage
 from django.http import Http404
@@ -76,7 +76,8 @@ def corrections(request):
         },
     )
 
-
+@login_required
+@require_GET
 def show_correction(request, correction_id):
     """
     view for showing a correction
