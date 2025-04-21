@@ -25,3 +25,8 @@ sqlparse==0.5.3
 tomli==2.2.1
 tomlkit==0.13.2
 typing_extensions==4.12.2
+langchain==0.3.23
+langchain_community==0.3.21
+ollama==0.4.7
+langchain-ollama==0.3.1
+celery==5.5.1

@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_http_methods, require_GET
 from django.contrib import messages
 from django.db import IntegrityError
+from django.core.paginator import Paginator
 from .forms import PromptForm
 from .models import Prompt
 
@@ -20,7 +21,12 @@ def prompt_page(request):
     """
     View for creating a new prompt.
     """
-    prompt_list = Prompt.objects.filter(user=request.user)
+    prompt_list = Prompt.objects.filter(user=request.user).order_by('-creation_date')
+    paginator = Paginator(prompt_list, 5)
+    
+    page_numer = request.GET.get("page")
+    page_obj = paginator.get_page(page_numer)
+    
     if request.method == "POST":
         form = PromptForm(request.POST)
         if form.is_valid():
@@ -49,7 +55,10 @@ def prompt_page(request):
         form = PromptForm()
 
     return render(
-        request, "prompts/mis_prompts.html", {"form": form, "prompt_list": prompt_list}
+        request, "prompts/mis_prompts.html", {"form": form, 
+                                              "prompt_list": prompt_list,
+                                              "page_obj":page_obj
+                                              }
     )
 
 

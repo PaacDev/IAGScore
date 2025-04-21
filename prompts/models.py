@@ -16,6 +16,7 @@ class Prompt(models.Model):
     name = models.CharField(max_length=150)
     prompt = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="prompts")
+    creation_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         """

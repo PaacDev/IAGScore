@@ -1,0 +1,86 @@
+{% extends "corrections/correction_base.html" %}
+{% block content %}
+    {{ block.super }}
+    <!-- Opcion nueva Correcion -->
+    <!-- Seccion para introducir campos en nueva correción -->
+    <div class="mx-5 flex flex-row">
+        <div class=" px-[30px] pt-5 basis-1/2 ">
+            <form class="my-4 max-w-sm mx-auto mt-4" method="get" id="filter-form">
+                <label for="rubric_id"
+                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Selecciona una opción
+                </label>
+                <select name="rubric_id"
+                        id="rubric_id"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="">Selecciona una rúbrica</option>
+                    {% for rubric in rubric_list %}
+                        <option value="{{ rubric.id }}"
+                                {% if rubric.id == rubric_select.id %}selected{% endif %}>{{ rubric.name }}</option>
+                    {% endfor %}
+                </select>
+                <label for="prompt_id"
+                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Selecciona una opción
+                </label>
+                <select name="prompt_id"
+                        id="prompt_id"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="">Selecciona un prompt</option>
+                    {% for prompt in prompt_list %}
+                        <option value="{{ prompt.id }}"
+                                {% if prompt_select.id == prompt.id %}selected{% endif %}>{{ prompt.name }}</option>
+                    {% endfor %}
+                </select>
+                <button id="show-button" type="submit" class="mx-4 btn-custom">Seleccionar</button>
+            </form>
+            <!-- Formulario para descripcion y guardar configuración -->
+            <form class="max-w-sm mx-auto"
+                  method="post"
+                  id="save-form"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- Campo para controlar el form enviado-->
+                <input type="hidden" name="action" value="save_correction">
+                <label for="{{ correct_form.zip_file.id_for_label }}"
+                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecciona Fichero</label>
+                {{ correct_form.zip_file }}
+                <label for="{{ correct_form.description.id_for_label }}"
+                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripcion</label>
+                {{ correct_form.description }}
+                <label for="{{ correct_form.llm_model.id_for_label }}"
+                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Modelo</label>
+                {{ correct_form.llm_model }}
+                <!-- Campos ocultos con valores de los selects -->
+                <input type="hidden"
+                       name="rubric"
+                       id="hidden_rubric_id"
+                       value="{{ rubric_select.id }}">
+                <input type="hidden"
+                       name="prompt"
+                       id="hidden_prompt_id"
+                       value="{{ prompt_select.id }}">
+                <button type="submit" class="btn-custom">Guardar configuracion</button>
+            </form>
+        </div>
+        <!-- Visualización de Rubrica y Prompt seleccionados -->
+        <div class="flex flex-col px-[30px] pt-5 basis-1/2">
+            <div class="p-5 border border-gray-200">
+                <h3 class=" p-2 text-3xl font-bold dark:text-white">Rubrica Seleccionada</h3>
+                {% if rubric_select %}
+                    {{ rubric_select.get_html_content|safe }}
+                {% else %}
+                    Ninguna
+                {% endif %}
+            </div>
+            <div class="mt-2 p-5 border border-gray-200">
+                <h3 class=" p-2 text-3xl font-bold dark:text-white">Prompt Seleccionado</h3>
+                {% if prompt_select %}
+                    {{ prompt_select.prompt }}
+                {% else %}
+                    Ninguna
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

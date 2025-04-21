@@ -18,6 +18,7 @@ class Rubric(models.Model):
     name = models.CharField(max_length=150)
     content = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="rubrics")
+    creation_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         """

@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_http_methods, require_GET
 from django.contrib import messages
 from django.db import IntegrityError
+from django.core.paginator import Paginator
 from .forms import RubricForm
 from .models import Rubric
 
@@ -20,7 +21,12 @@ def rubric_page(request):
     """
     View for import a new rubric.
     """
-    rubric_list = Rubric.objects.filter(user=request.user)
+    rubric_list = Rubric.objects.filter(user=request.user).order_by('-creation_date')
+    paginator = Paginator(rubric_list, 5)
+    
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+        
     if request.method == "POST":
         form = RubricForm(request.POST, request.FILES)
         if form.is_valid():
@@ -48,7 +54,10 @@ def rubric_page(request):
         form = RubricForm()
 
     return render(
-        request, "rubrics/mis_rubricas.html", {"form": form, "rubric_list": rubric_list}
+        request, "rubrics/mis_rubricas.html", {"form": form, 
+                                               "rubric_list": rubric_list,
+                                               "page_obj": page_obj
+                                               }
     )
 
 

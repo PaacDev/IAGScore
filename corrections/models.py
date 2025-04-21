@@ -21,11 +21,15 @@ class Correction(models.Model):
     rubric = models.ForeignKey(
         Rubric, on_delete=models.CASCADE, related_name="corrections"
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="corrections")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="corrections"
+    )
     date = models.DateTimeField(auto_now_add=True)
     description = models.TextField()
     llm_model = models.CharField(max_length=255)  # Respuesta del modelo
     folder_path = models.CharField(max_length=255, blank=True)
+    last_ejecution_date = models.DateTimeField(null=True)
+    running = models.BooleanField(default=False)
 
     def __str__(self):
         return self.description

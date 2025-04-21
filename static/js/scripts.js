@@ -27,3 +27,10 @@ function showConfig(section, correctionId)
         sectionElement.classList.add('hidden');
     }
 }
+function openDeleteModal(id) {
+    const form = document.getElementById('deleteForm');
+    form.action = `/corrections/delete/${id}/`;
+    const modal = document.getElementById('deleteModal');
+    const modalInstance = new window.Modal(modal);
+    modalInstance.show();
+  }

@@ -37,16 +37,20 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">Nombre de la Rúbrica</th>
+                    <th scope="col" class="px-6 py-3">Fecha de creación</th>
                     <th scope="col" class="px-6 py-3"></th>
                 </tr>
             </thead>
             <tbody>
-                {% for rubric in rubric_list %}
+                {% for rubric in page_obj %}
                     <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ rubric.name }}
                         </th>
+                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ rubric.creation_date| date:"d/m/Y H:i" }}
+                        </td>
                         <td class="px-6 py-4">
                             <a href="{% url 'show_rubric' rubric.id %}"
                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Mostrar</a>
@@ -55,6 +59,48 @@
                 {% endfor %}
             </tbody>
         </table>
+        <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
+        aria-label="Table navigation">
+        <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+            Mostrando
+            <span class="font-semibold text-gray-900 dark:text-white">
+                {{ page_obj.start_index }} - {{ page_obj.end_index }}
+            </span>
+            de
+            <span class="font-semibold text-gray-900 dark:text-white">{{ page_obj.paginator.count }}</span>
+        </span>
+        <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+            {% if page_obj.has_previous %}
+            <li>
+                <a href="?page={{ page_obj.previous_page_number }}"
+                   class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                    Anterior
+                </a>
+            </li>
+            {% endif %}
+            {% for page_num in page_obj.paginator.page_range %}
+            <li>
+                <a href="?page={{ page_num }}"
+                   class="flex items-center justify-center px-3 h-8 leading-tight 
+                   {% if page_obj.number == page_num %} 
+                    text-blue-600 border border-gray-300 bg-blue-50 dark:border-gray-700 dark:bg-gray-700 dark:text-white 
+                    {% else %} 
+                     text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white 
+                     {% endif %}">
+                    {{ page_num }}
+                </a>
+            </li>
+        {% endfor %}
+        {% if page_obj.has_next %}
+                    <li>
+                        <a href="?page={{ page_obj.next_page_number }}"
+                           class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            Siguiente
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
     </div>
     {% load static %}
     <script src="{% static 'js/scripts.js' %}"></script>

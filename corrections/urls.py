@@ -7,7 +7,9 @@ from . import views
 
 urlpatterns = [
     path("", views.corrections, name="corrections"),
-    path(
-        "correction/<int:correction_id>/", views.show_correction, name="show_correction"
-    ),
+    path("correction/ejecucion/<int:correction_id>/", views.run_model, name="run_model"),
+    path("correction/resultado/<int:correction_id>/", views.download_response, name="download_response"),
+    path("new/", views.show_new_correction, name="show_new_correction"),
+    path("view/", views.show_view_correction, name="show_view_correction"),
+    path('delete/<int:id>/', views.delete_correction, name='delete_correction'),
 ]
