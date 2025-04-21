@@ -114,7 +114,7 @@ class RegisterFormTests(TestCase):
         )
         self.assertFalse(form.is_valid())
         self.assertIn("email", form.errors)
-        self.assertIn("User with this Email already exists.", form.errors["email"])
+        self.assertIn("Ya existe Usuario con este Email.", form.errors["email"])
 
     def test_invalid_register_response(self):
         """
@@ -131,7 +131,7 @@ class RegisterFormTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertFalse(User.objects.filter(username="newtestuser").exists())
         messages_list = list(messages.get_messages(response.wsgi_request))
-        self.assertTrue("User with this Email already exists" in str(messages_list[0]))
+        self.assertTrue("Ya existe Usuario con este Email." in str(messages_list[0]))
 
     def test_register_success(self):
         """

@@ -1,6 +1,7 @@
 """
 This module contains de Test Cases for a correction app
 """
+import logging
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth import get_user_model
@@ -10,6 +11,8 @@ from .forms import CorrectionForm
 from .models import Correction
 
 User = get_user_model()
+# Silence Django 404 logging during tests
+logging.getLogger("django.request").setLevel(logging.CRITICAL)
 
 
 class CorrectioModelTestCase(TestCase):

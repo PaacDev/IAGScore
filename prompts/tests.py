@@ -1,7 +1,7 @@
 """
 This file contains the test for the prompts app.
 """
-
+import logging
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
@@ -9,6 +9,8 @@ from django.contrib import messages
 from .models import Prompt
 
 User = get_user_model()
+# Silence Django 404 logging during tests
+logging.getLogger("corrections.signals").setLevel(logging.CRITICAL)
 
 
 class PrompModelTest(TestCase):
@@ -123,7 +125,7 @@ class PromptViewTestCase(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, ("This field is required"))
+        self.assertContains(response, ("Este campo es requerido."))
 
     def test_show_prompt_view(self):
         """
@@ -140,7 +142,7 @@ class PromptViewTestCase(TestCase):
         self.assertTemplateUsed(response, "prompts/show_prompt.html")
         self.assertContains(response, prompt.prompt)
         id = prompt.id
-        prompt.delete()
+        id, dates_dict = prompt.delete()
         response = self.client.get(reverse("show_prompt", args=[id]))
         self.assertEqual(response.status_code, 404)
 

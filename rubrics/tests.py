@@ -1,7 +1,7 @@
 """
 This file contains tests for the rubrics app.
 """
-
+import logging
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
@@ -11,7 +11,8 @@ from .models import Rubric
 from .forms import RubricForm
 
 User = get_user_model()
-
+# Silence Django 404 logging during tests
+logging.getLogger("django.request").setLevel(logging.CRITICAL)
 
 class RubricModelTestCase(TestCase):
     """
@@ -22,6 +23,9 @@ class RubricModelTestCase(TestCase):
         """
         Set up the test case
         """
+        
+        
+        
         self.user = User.objects.create_user(
             username="testuser", email="testuser@mail.com", password="testpass123"
         )
@@ -240,7 +244,7 @@ class RubricViewTestCase(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, ("This field is required"))
+        self.assertContains(response, ("Este campo es requerido."))
 
     def test_show_rubric_view(self):
         """
@@ -250,8 +254,7 @@ class RubricViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "rubrics/rubric.html")
         self.assertContains(response, self.rubric.get_html_content())
-        id = self.rubric.id
-        self.rubric.delete()
+        id, datos_dict=self.rubric.delete()
         response = self.client.get(reverse("show_rubric", args=[id]))
         self.assertEqual(response.status_code, 404)
 

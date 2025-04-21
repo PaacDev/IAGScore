@@ -3,7 +3,9 @@ from django.dispatch import receiver
 from .models import Correction
 import shutil, os, logging
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("corrections.signals")
+logger.setLevel(logging.CRITICAL)
+logger.propagate = False
 
 @receiver(pre_delete, sender=Correction)
 def delete_correction_folder(sender, instance, **kwargs):
@@ -29,4 +31,4 @@ def delete_correction_folder(sender, instance, **kwargs):
             logger.error(f"Error al eliminar la carpeta {folder_path}: {e}")
     
     else:
-        logger.error("La carpeta no existe o no es un directorio.")
+        logger.warning("La carpeta no existe o no es un directorio.")
