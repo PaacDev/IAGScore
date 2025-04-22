@@ -28,7 +28,7 @@ def ejecuta_evaluacion_llm(correction_id, prompt_id, rubric_id):
     """ 
 
     # Define LLM model
-    model = "phi4"
+    model = "llama3"
 
     tareas_dict = dict()
     correction_obj = Correction.objects.get(id=correction_id)

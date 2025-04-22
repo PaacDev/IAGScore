@@ -19,9 +19,7 @@ class CorrectionAdmin(admin.ModelAdmin):
         "user",
         "date",
         "folder_path",
+        "running",
     )  # Campos visibles en la lista
     list_filter = ("user",)  # Filtros en la barra lateral
     search_fields = ("date", "description")  # Campos buscables
-
-
-# Register your models here.
