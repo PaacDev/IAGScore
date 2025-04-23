@@ -2,13 +2,15 @@
 This module contains de Test Cases for a correction app
 """
 import logging
+import os
 import zipfile
 import io
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.contrib import messages
+from iagscore import settings
 from prompts.models import Prompt
 from rubrics.models import Rubric
 from .forms import CorrectionForm
@@ -70,25 +72,6 @@ class CorrectioModelTestCase(TestCase):
         self.assertEqual(correction.user, self.user)
         self.assertEqual(str(correction), correction.description)
 
-    def test_delete_correction(self):
-        """
-        Test deleting a Correction
-        """
-        correction = Correction.objects.create(
-            prompt=self.prompt,
-            rubric=self.rubric,
-            user=self.user,
-            description="Correction Test",
-            llm_model="Modelo",
-            folder_path="/media/folder/",
-        )
-
-        correction_list = Correction.objects.filter(user=self.user)
-        self.assertEqual(len(correction_list), 1)
-        self.assertIn(correction, correction_list)
-        correction_list.delete()
-        correction_list = Correction.objects.filter(user=self.user)
-        self.assertEqual(len(correction_list), 0)
 
     def test_update_correction(self):
         """
@@ -107,7 +90,105 @@ class CorrectioModelTestCase(TestCase):
         correction.description = "Update Correction Test"
         correction.save()
         self.assertEqual(correction.description, "Update Correction Test")
+    
+    def test_delete_correction(self):
+        """
+        Test deleting a Correction
+        """
+        correction = Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="Correction Test",
+            llm_model="Modelo",
+            folder_path="/media/folder/",
+        )
 
+        correction_list = Correction.objects.filter(user=self.user)
+        self.assertEqual(len(correction_list), 1)
+        self.assertIn(correction, correction_list)
+        correction.delete()
+        correction_list = Correction.objects.filter(user=self.user)
+        self.assertEqual(len(correction_list), 0)
+
+    def test_delete_prompt_and_correction(self):
+        """
+        Test if delete prompt deleting a correction
+        """
+
+        correction = Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="Correction Test",
+            llm_model="Modelo",
+            folder_path="/media/folder/",
+        )
+
+        prompt_2 = Prompt.objects.create(
+            name="Test Prompt 2",
+            prompt="This is a test prompt.",
+            user=self.user,
+        )
+
+        correction_list = Correction.objects.filter(user=self.user)
+        self.assertEqual(len(correction_list), 1)
+        self.assertIn(correction, correction_list)
+        prompt_2.delete()
+        correction_list = Correction.objects.filter(user=self.user)
+        self.assertEqual(len(correction_list), 1)
+        self.prompt.delete()
+        correction_list = Correction.objects.filter(user=self.user)
+        self.assertEqual(len(correction_list), 0)
+
+    def test_delete_rubric_and_correction(self):
+        """
+        Test if delete rubric deleting a correction
+        """
+
+        correction = Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="Correction Test",
+            llm_model="Modelo",
+            folder_path="/media/folder/",
+        )
+        rubric_2 = Rubric.objects.create(
+            name="Test Rubric 2",
+            content="# This is a test rubric.",
+            user=self.user,
+        )
+
+        correction_list = Correction.objects.filter(user=self.user)
+        self.assertEqual(len(correction_list), 1)
+        self.assertIn(correction, correction_list)
+        rubric_2.delete()
+        correction_list = Correction.objects.filter(user=self.user)
+        self.assertEqual(len(correction_list), 1)
+        self.rubric.delete()
+        correction_list = Correction.objects.filter(user=self.user)
+        self.assertEqual(len(correction_list), 0)
+
+    def test_delete_user_and_correction(self):
+        """
+        Test if delete user deleting a correction
+        """
+
+        correction = Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="Correction Test",
+            llm_model="Modelo",
+            folder_path="/media/folder/",
+        )
+        correction_list = Correction.objects.filter(user=self.user)
+        self.assertEqual(len(correction_list), 1)
+        self.assertIn(correction, correction_list)
+        self.user.delete()
+        correction_list = Correction.objects.all()
+        self.assertEqual(len(correction_list), 0)
 
 class CorrectionFormTestCase(TestCase):
     """
@@ -152,6 +233,7 @@ class CorrectionFormTestCase(TestCase):
         self.description = "Correction Test Form"
         self.llm_model = "Modelo"
         self.folder_path = "/media/folder"
+
 
     def test_valid_form(self):
         """
@@ -210,7 +292,7 @@ class CorrectionFormTestCase(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('prompt', form.errors)
 
-class CorrectionsViewsTestCase(TestCase):
+class CorrectionsViewsTestCase(TransactionTestCase):
     """
     Test case for Correction views
     """
@@ -225,10 +307,10 @@ class CorrectionsViewsTestCase(TestCase):
             username="testuser", email="testuser@mail.com", password=self.password
         )
         
-        # Crear un archivo ZIP válido en memoria con un fichero .java
+        # Creating a valid ZIP file in memory
         zip_buffer = io.BytesIO()
         with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
-            # Agregar un archivo .java de ejemplo
+            # Add .java 
             java_content = """
             public class Test {
                 public static void main(String[] args) {
@@ -238,10 +320,10 @@ class CorrectionsViewsTestCase(TestCase):
             """
             zip_file.writestr("Test.java", java_content)
 
-        # Mover el puntero al inicio del buffer
+        # Move pointer to the start of the buffer
         zip_buffer.seek(0)
 
-        # Crear el SimpleUploadedFile con el contenido del ZIP
+        # Create the SimpleUploadedFile with the ZIP contain
         self.zip_file = SimpleUploadedFile(
             name="zipfile.zip",
             content=zip_buffer.getvalue(),
@@ -251,18 +333,25 @@ class CorrectionsViewsTestCase(TestCase):
         # Rubric
         self.rubric = Rubric.objects.create(
             name="Test Rubric",
-            content="# This is a test rubric.",
+            content="# Only 'pass' or 'fail'",
             user=self.user,
         )
 
         # Prompt
         self.prompt = Prompt.objects.create(
             name="Test Prompt",
-            prompt="This is a test prompt.",
+            prompt="'Pass' or 'Fail'.",
             user=self.user,
         )
         self.client.login(username=self.user.email, password=self.password)
-        
+    
+    def tearDown(self):
+        """
+        Limpia después de cada prueba eliminando todos los objetos Correction, Rubric, Prompt y User.
+        También elimina cualquier archivo almacenado en folder_path.
+        """
+        Correction.objects.all().delete()
+
     def test_show_correction_base(self):
         """
         Test the base correction view
@@ -295,7 +384,6 @@ class CorrectionsViewsTestCase(TestCase):
         response = self.client.post(
             reverse("show_new_correction"),
             {
-                "action": "save_correction",
                 "rubric": self.rubric.id,
                 "prompt": self.prompt.id,
                 "description": "test_correction",
@@ -336,7 +424,6 @@ class CorrectionsViewsTestCase(TestCase):
         response = self.client.post(
             reverse("show_new_correction"),
             {
-                "action": "save_correction",
                 "rubric": self.rubric.id,
                 "prompt": "",
                 "description": "test_correction",
@@ -359,7 +446,6 @@ class CorrectionsViewsTestCase(TestCase):
         response = self.client.post(
             reverse("show_new_correction"),
             {
-                "action": "save_correction",
                 "rubric": self.rubric.id,
                 "prompt": self.prompt.id,
                 "description": "test_correction",
@@ -389,4 +475,37 @@ class CorrectionsViewsTestCase(TestCase):
         )
         
         self.assertEqual(response_delete.status_code, 404)
+
+    def test_run_model_and_download(self):
+        """
+        Test tdownload the response
+        """
+        response = self.client.post(
+           reverse("show_new_correction"),
+           {
+               "rubric": self.rubric.id,
+               "prompt": self.prompt.id,
+               "description": "test_correction",
+               "llm_model": "llama3", 
+               "zip_file":self.zip_file,
+               },
+           follow=True,
+           )
         
+        correction = Correction.objects.get(description="test_correction")
+
+        response = self.client.get(
+            reverse("run_model", kwargs={"correction_id": correction.id})
+        )
+        self.assertRedirects(response, reverse("show_view_correction"))
+
+        # Rewrite the response file
+        response = self.client.get(
+            reverse("run_model", kwargs={"correction_id": correction.id})
+        )
+        self.assertRedirects(response, reverse("show_view_correction"))
+        
+        response_file_path = os.path.join(
+        settings.MEDIA_ROOT, correction.folder_path, "response", "response.txt"
+        )
+        self.assertTrue(os.path.exists(response_file_path))

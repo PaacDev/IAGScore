@@ -41,7 +41,6 @@
                   enctype="multipart/form-data">
                 {% csrf_token %}
                 <!-- Campo para controlar el form enviado-->
-                <input type="hidden" name="action" value="save_correction">
                 <label for="{{ correct_form.zip_file.id_for_label }}"
                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecciona Fichero</label>
                 {{ correct_form.zip_file }}

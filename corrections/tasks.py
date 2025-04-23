@@ -11,6 +11,7 @@ from langchain_ollama import OllamaLLM
 from rubrics.models import Rubric
 from prompts.models import Prompt
 from .models import Correction
+from iagscore import settings
 
 
 logger = logging.getLogger(__name__)
@@ -28,19 +29,19 @@ def ejecuta_evaluacion_llm(correction_id, prompt_id, rubric_id):
     """ 
 
     # Define LLM model
-    model = "llama3"
+    model = "llama3.2:latest"
 
     tareas_dict = dict()
     correction_obj = Correction.objects.get(id=correction_id)
     prompt = Prompt.objects.get(id = prompt_id)
     rubric = Rubric.objects.get(id = rubric_id)
 
-    base_path = "./media/"
-
+    base_path = settings.MEDIA_ROOT
+    full_path = os.path.join(base_path, correction_obj.folder_path)
     # Read the files
-    for filename in os.listdir(base_path+correction_obj.folder_path):
+    for filename in os.listdir(full_path):
         if not filename.startswith('response'):
-            with open(base_path+correction_obj.folder_path+filename, 'r', encoding='utf-8') as file:
+            with open(os.path.join(full_path,filename), 'r', encoding='utf-8') as file:
                 # Add the file content to the dict
                 tareas_dict[filename] = file.read()
 

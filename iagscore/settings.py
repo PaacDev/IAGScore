@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import sys
+import tempfile
 from django.contrib.messages import constants as messages
 from decouple import config
 import os
@@ -161,6 +163,10 @@ LOGOUT_REDIRECT_URL = "/"
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
+if 'test' in sys.argv:
+    CELERY_TASK_ALWAYS_EAGER = True
+    MEDIA_ROOT = tempfile.mkdtemp()
+    print(f"MEDIA_ROOT temporal para pruebas: {MEDIA_ROOT}")
 
 LOGGING = {
     "version": 1,

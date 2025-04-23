@@ -35,9 +35,9 @@ def process_zip_file(zip_file, user, id_correction):
         str: The path where the files were saved.
     """
 
-
+    base_path = settings.MEDIA_ROOT
     folder_path = f"corrections/{user.id}/{id_correction}/"
-    full_path = os.path.join("media", folder_path)
+    full_path = os.path.join(base_path, folder_path)
 
     # File system storage object pointing to the specified path
     fs = FileSystemStorage(location=full_path)
@@ -67,7 +67,7 @@ def run_model(request, correction_id):
     """
     Call the task to run the model in async mode
     
-    PParameters:
+    Parameters:
         request (HttpRequest): The HTTP request object.
         correction_id (int): The ID of the correction to process.
 
@@ -156,39 +156,35 @@ def show_new_correction(request):
         prompt_select = Prompt.objects.get(id=prompt_selected_id)
 
     if request.method == "POST":
+        correct_form = CorrectionForm(request.POST, request.FILES)
+        if correct_form.is_valid():
+            new_corrections = correct_form.save(commit=False)
+            new_corrections.user = request.user
+            new_corrections.save()
+            path = process_zip_file(
+                request.FILES["zip_file"], request.user, new_corrections.id
+            )
+            new_corrections.folder_path = path
+            new_corrections.save()
+            messages.add_message(
+                request, messages.SUCCESS, "Correción creada correctamente"
+            )
+        else:
+            messages.add_message(
+                request, messages.ERROR, "Error al crear correción"
+            )
+            
+            errors = correct_form.errors.as_data()
 
-        action = request.POST.get("action")
-
-        if action == "save_correction":
-            correct_form = CorrectionForm(request.POST, request.FILES)
-            if correct_form.is_valid():
-                new_corrections = correct_form.save(commit=False)
-                new_corrections.user = request.user
-                new_corrections.save()
-                path = process_zip_file(
-                    request.FILES["zip_file"], request.user, new_corrections.id
-                )
-                new_corrections.folder_path = path
-                new_corrections.save()
-                messages.add_message(
-                    request, messages.SUCCESS, "Correción creada correctamente"
-                )
-            else:
-                messages.add_message(
-                    request, messages.ERROR, "Error al crear correción"
-                )
-                
-                errors = correct_form.errors.as_data()
-    
-                # Save the error in messages
-                for field, error_list in errors.items():
-                    for error in error_list:
-                        logger.error(f"Error en el campo '{field}': {error.message}")
-                        messages.add_message(
-                        request, messages.ERROR, f"Error en el campo '{field}': {error.message}"
-                        )
-                        
-            return redirect('show_view_correction')
+            # Save the error in messages
+            for field, error_list in errors.items():
+                for error in error_list:
+                    logger.error(f"Error en el campo '{field}': {error.message}")
+                    messages.add_message(
+                    request, messages.ERROR, f"Error en el campo '{field}': {error.message}"
+                    )
+                    
+        return redirect('show_view_correction')
 
     return render(request, 
                   "corrections/new_correction.html",

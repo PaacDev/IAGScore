@@ -1,5 +1,7 @@
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
+
+from iagscore import settings
 from .models import Correction
 import shutil, os, logging
 
@@ -20,7 +22,7 @@ def delete_correction_folder(sender, instance, **kwargs):
     
     """
 
-    base_path = "./media/"
+    base_path = settings.MEDIA_ROOT
     folder_path = os.path.join(base_path, instance.folder_path)
     
     if os.path.exists(folder_path) and os.path.isdir(folder_path):
