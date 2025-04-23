@@ -10,6 +10,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.contrib import messages
+from unittest.mock import MagicMock, patch
 from iagscore import settings
 from prompts.models import Prompt
 from rubrics.models import Rubric
@@ -476,10 +477,15 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         
         self.assertEqual(response_delete.status_code, 404)
 
-    def test_run_model_and_download(self):
+    @patch("corrections.tasks.OllamaLLM")
+    def test_run_model_and_download(self, mock_ollama_class):
         """
         Test tdownload the response
         """
+        mock_llm_instance = MagicMock()
+        mock_llm_instance.invoke.return_value = "simulate model response"
+        mock_ollama_class.return_value = mock_llm_instance
+        
         response = self.client.post(
            reverse("show_new_correction"),
            {
