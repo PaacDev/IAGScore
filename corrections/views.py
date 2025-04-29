@@ -22,15 +22,16 @@ from .tasks import ejecuta_evaluacion_llm
 
 logger = logging.getLogger(__name__)
 
+
 def process_zip_file(zip_file, user, id_correction):
     """
     Process the ZIP file containing Java files and save them.
-    
+
     Parameters:
         zip_file: File to proceess
         user: User that making te request
         id_correction: The id to the correction
-        
+
     Returns
         str: The path where the files were saved.
     """
@@ -54,19 +55,20 @@ def process_zip_file(zip_file, user, id_correction):
 
         # Save the java files in the full_path
         for file in entregas:
-            filename_only = os.path.basename(file) # Add only the files
+            filename_only = os.path.basename(file)  # Add only the files
             with zip_ref.open(file) as extracted_file:
                 # Save the extracted file
                 fs.save(filename_only, extracted_file)
 
     return folder_path
 
+
 @login_required
 @require_GET
 def run_model(request, correction_id):
     """
     Call the task to run the model in async mode
-    
+
     Parameters:
         request (HttpRequest): The HTTP request object.
         correction_id (int): The ID of the correction to process.
@@ -80,63 +82,70 @@ def run_model(request, correction_id):
     correction_obj.save()
 
     # Initiate the task asynchronously
-    ejecuta_evaluacion_llm.delay(correction_id, correction_obj.prompt.id, correction_obj.rubric.id)
-    return redirect('show_view_correction')
+    ejecuta_evaluacion_llm.delay(correction_id)
+    return redirect("show_view_correction")
+
 
 @login_required
 @require_GET
 def download_response(request, correction_id):
     """
     Download the file whit the response if exist
-    
+
     Parameters:
         request:
         correction_id: The ID of the correction
-        
-    Return: 
+
+    Return:
         FileResponse: the file to download
     """
 
     try:
         correction_obj = Correction.objects.get(id=correction_id)
-    except Correction.DoesNotExist:
-        raise Http404("Corrección no encontrada.")
+    except Correction.DoesNotExist as exc:
+        raise Http404("Corrección no encontrada.") from exc
 
     # Absolute path to the file
-    base_path = settings.MEDIA_ROOT 
-    file_path = os.path.join(base_path, correction_obj.folder_path, "response", "response.txt")
+    base_path = settings.MEDIA_ROOT
+    file_path = os.path.join(
+        base_path, correction_obj.folder_path, "response", "response.txt"
+    )
 
     if not os.path.exists(file_path):
         raise Http404("El archivo no existe.")
 
-    return FileResponse(open(file_path, 'rb'), as_attachment=True, filename='response.txt')
+    return FileResponse(
+        open(file_path, "rb"), as_attachment=True, filename="response.txt"
+    )
+
 
 @login_required
 @require_POST
 @csrf_protect
-def delete_correction(request, id):
+def delete_correction(request, item_id):
     """
     Delete one correction
-    
+
     Parameters:
         request: the HTTP request object
         id: The id of the correction
-        
+
     Return:
         HttpResponse: A redirect to the corrections view.
     """
 
     try:
-        correction_obj = Correction.objects.get(id=id)
+        correction_obj = Correction.objects.get(id=item_id)
         correction_obj.delete()
-    except Correction.DoesNotExist:
-        raise Http404("Corrección no encontrada.")
+    except Correction.DoesNotExist as exc:
+        raise Http404("Corrección no encontrada.") from exc
 
-    return redirect('show_view_correction')
+    return redirect("show_view_correction")
+
 
 @login_required
 @csrf_protect
-@require_http_methods(["POST","GET"])
+@require_http_methods(["POST", "GET"])
 def show_new_correction(request):
     """
     View to display corrections.
@@ -148,7 +157,7 @@ def show_new_correction(request):
     correct_form = CorrectionForm()
     rubric_select = None
     prompt_select = None
-    
+
     if rubric_select_id:
         rubric_select = Rubric.objects.get(id=rubric_select_id)
 
@@ -170,32 +179,34 @@ def show_new_correction(request):
                 request, messages.SUCCESS, "Correción creada correctamente"
             )
         else:
-            messages.add_message(
-                request, messages.ERROR, "Error al crear correción"
-            )
-            
+            messages.add_message(request, messages.ERROR, "Error al crear correción")
+
             errors = correct_form.errors.as_data()
 
             # Save the error in messages
             for field, error_list in errors.items():
                 for error in error_list:
-                    logger.error(f"Error en el campo '{field}': {error.message}")
+                    logger.error("Error en el campo %s: %s",field, error.message)
                     messages.add_message(
-                    request, messages.ERROR, f"Error en el campo '{field}': {error.message}"
+                        request,
+                        messages.ERROR,
+                        f"Error en el campo '{field}': {error.message}",
                     )
-                    
-        return redirect('show_view_correction')
 
-    return render(request, 
-                  "corrections/new_correction.html",
-                  {
-                      "rubric_list": rubric_list,
-                      "prompt_list": prompt_list,
-                      "rubric_select": rubric_select,
-                      "prompt_select": prompt_select,
-                      "correct_form": correct_form,
-                 },
-                  )
+        return redirect("show_view_correction")
+
+    return render(
+        request,
+        "corrections/new_correction.html",
+        {
+            "rubric_list": rubric_list,
+            "prompt_list": prompt_list,
+            "rubric_select": rubric_select,
+            "prompt_select": prompt_select,
+            "correct_form": correct_form,
+        },
+    )
+
 
 @login_required
 @require_GET
@@ -206,24 +217,21 @@ def show_view_correction(request):
     correction_list = Correction.objects.filter(user=request.user).order_by("-date")
     paginator = Paginator(correction_list, 5)
     page_number = request.GET.get("page")
-    corrections = paginator.get_page(page_number)
-    
+    corrections_obj = paginator.get_page(page_number)
+
     return render(
         request,
         "corrections/view_correction.html",
         {
-        "corrections": corrections,
-        }
-        
+            "corrections": corrections_obj,
+        },
     )
-    
+
+
 @login_required
 @require_GET
 def corrections(request):
     """
     Show the corrections page base
     """
-    return render(
-        request,
-        "corrections/correction_base.html"
-    )
+    return render(request, "corrections/correction_base.html")

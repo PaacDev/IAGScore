@@ -21,12 +21,12 @@ def prompt_page(request):
     """
     View for creating a new prompt.
     """
-    prompt_list = Prompt.objects.filter(user=request.user).order_by('-creation_date')
+    prompt_list = Prompt.objects.filter(user=request.user).order_by("-creation_date")
     paginator = Paginator(prompt_list, 5)
-    
+
     page_numer = request.GET.get("page")
     page_obj = paginator.get_page(page_numer)
-    
+
     if request.method == "POST":
         form = PromptForm(request.POST)
         if form.is_valid():
@@ -55,10 +55,9 @@ def prompt_page(request):
         form = PromptForm()
 
     return render(
-        request, "prompts/mis_prompts.html", {"form": form, 
-                                              "prompt_list": prompt_list,
-                                              "page_obj":page_obj
-                                              }
+        request,
+        "prompts/mis_prompts.html",
+        {"form": form, "prompt_list": prompt_list, "page_obj": page_obj},
     )
 
 

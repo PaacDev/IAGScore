@@ -1,6 +1,7 @@
 """
 This file contains the test for the prompts app.
 """
+
 import logging
 from django.test import TestCase
 from django.urls import reverse
@@ -141,9 +142,8 @@ class PromptViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "prompts/show_prompt.html")
         self.assertContains(response, prompt.prompt)
-        id = prompt.id
-        id, dates_dict = prompt.delete()
-        response = self.client.get(reverse("show_prompt", args=[id]))
+        item_id, _ = prompt.delete()
+        response = self.client.get(reverse("show_prompt", args=[item_id]))
         self.assertEqual(response.status_code, 404)
 
     def test_delete_prompt_view(self):
@@ -156,9 +156,9 @@ class PromptViewTestCase(TestCase):
             user=self.user,
         )
 
-        id = prompt.id
+        item_id = prompt.id
         response = self.client.get(reverse("delete_prompt", args=[prompt.id]))
         messages_list = list(messages.get_messages(response.wsgi_request))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(str(messages_list[0]), "Prompt eliminado correctamente")
-        self.assertFalse(Prompt.objects.filter(id=id).exists())
+        self.assertFalse(Prompt.objects.filter(id=item_id).exists())
