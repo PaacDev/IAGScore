@@ -47,6 +47,16 @@ jobs:
         docker compose exec web ls -lra /app
         docker compose exec web ls -lra /app/coveragereport || echo "coveragereport not found"
         
+    - name: Crea directorios salida
+      run: |
+        mkdir -p coveragereport  # Creamos el directorio para el reporte XML
+        mkdir -p coveragereport/html  # Creamos el directorio para el reporte HTML
+
+    - name: Debug 2 directory structure before tests
+      run: |
+        docker compose exec web ls -lra /app
+        docker compose exec web ls -lra /app/coveragereport || echo "coveragereport not found"
+        
     # Ejecutamos los test en el contenedor Django
     - name: Run Django tests
       run: docker compose run --rm web coverage run --rcfile=.github/workflows/.coveragerc manage.py test
@@ -59,8 +69,6 @@ jobs:
     # Copiamos los reportes fuera del contenedor
     - name: Copy coverage reports to host
       run: |
-        mkdir -p coveragereport  # Creamos el directorio para el reporte XML
-        mkdir -p coveragereport/html  # Creamos el directorio para el reporte HTML
         docker cp web:/app/coveragereport ./coveragereport
   
     # Subimos los reportes como artefactos
