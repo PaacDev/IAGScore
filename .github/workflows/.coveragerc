@@ -4,6 +4,7 @@ omit =
     */migrations/*
     */tailwind/*
     */node_modules/*
+data_file = /app/coveragereport/.coverage
 [report]
 show_missing = true
 [xml]
