@@ -28,7 +28,8 @@ jobs:
         echo "DB_NAME=test_db" >> .env
         echo "DB_HOST=postgres_db" >> .env
         echo "DB_PORT=5432" >> .env
-        echo "SECRET_KEY=${{ secrets.TEST_SECRET_KEY }}" >> .env
+        echo "DB_PORT=5432" >> .env
+        echo "CELERY_BROKER_URL='redis://redis:6379/0'" >> .env
 
     # Construimos y levantamos los contenedores
     - name: Build and start containers
