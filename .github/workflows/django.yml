@@ -52,7 +52,10 @@ jobs:
 
     # Copiamos los reportes fuera del contenedor
     - name: Copy coverage reports to host
-      run: docker cp web:/app/coveragereport ./coveragereport
+      run: |
+        mkdir -p coveragereport  # Creamos el directorio para el reporte XML
+        mkdir -p coveragereport/html  # Creamos el directorio para el reporte HTML
+        docker cp web:/app/coveragereport ./coveragereport
   
     # Subimos los reportes como artefactos
     - name: Upload Coverage Reports
