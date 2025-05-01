@@ -35,10 +35,13 @@ jobs:
       run: |
         set -e
         docker compose -f docker-compose.yaml -f docker-compose.ci.yml up -d --build
+    
+    - name: Docker stats
+      run: docker stats --no-stream
 
     # Ejecutamos los test en el contenedor Django
     - name: Run Django tests
-      run: docker compose exec web coverage run --rcfile=.github/workflows/.coveragerc manage.py test
+      run: docker compose run --rm web coverage run --rcfile=.github/workflows/.coveragerc manage.py test
 
     - name: Generamos los reportes de coverage
       run: |
