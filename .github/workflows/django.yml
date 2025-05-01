@@ -62,8 +62,8 @@ jobs:
     # Generamos los reportes de coverage
     - name: Generamos los reportes de coverage
       run: |
-        docker compose exec web coverage html -d /app/coveragereport/html
-        docker compose exec web coverage xml -o /app/coveragereport/coverage.xml
+        docker compose exec web coverage html --rcfile=.github/workflows/.coveragerc -d /app/coveragereport/html
+        docker compose exec web coverage xml --rcfile=.github/workflows/.coveragerc -o /app/coveragereport/coverage.xml
 
     # Copiamos los reportes fuera del contenedor
     - name: Copiamos reportes fuera del contenedor
