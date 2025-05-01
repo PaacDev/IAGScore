@@ -2,7 +2,6 @@ services:
   web:
     volumes:
       - .:/app
-      - ./coveragereport:/app/coveragereport
     depends_on:
       postgres_db:
         condition: service_healthy
