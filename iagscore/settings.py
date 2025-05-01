@@ -91,7 +91,7 @@ DATABASES = {
         "NAME": config("DB_NAME", default="iagscore"),
         "USER": config("DB_USER", default="dj_user"),
         "PASSWORD": config("DB_PASSWORD"),
-        "HOST": config("DB_HOST", default="postgres_db"), # No docker --> default="localhost"),
+        "HOST": config("DB_HOST"), 
         "PORT": config("DB_PORT", default="5432"),
     }
 }
@@ -167,8 +167,8 @@ LOGOUT_REDIRECT_URL = "/"
 #CELERY_BROKER_URL = "redis://localhost:6379/0"
 
 # Docker
-CELERY_BROKER_URL = 'redis://redis:6379/0'
-
+#CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_BROKER_URL = config("CELERY_BROKER_URL")
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 

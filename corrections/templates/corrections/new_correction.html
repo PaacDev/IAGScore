@@ -50,6 +50,33 @@
                 <label for="{{ correct_form.llm_model.id_for_label }}"
                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Modelo</label>
                 {{ correct_form.llm_model }}
+                <h3 class="p-2 mt-2 text-2xl font-bold dark:text-white">Configuracion del modelo</h3>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="col-span-1">
+                        <label for="{{ correct_form.model_temp.id_for_label }}"
+                               class="block text-sm font-medium text-gray-900 dark:text-white">Temperatura [1.0 - 0.0]</label>
+                        {{ correct_form.model_temp }}
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                            {{ correct_form.model_temp.help_text }}
+                        </p>
+                    </div>
+                    <div class="col-span-1">
+                        <label for="{{ correct_form.model_top_p.id_for_label }}"
+                               class="block mt-2 text-sm font-medium text-gray-900 dark:text-white">Top P</label>
+                        {{ correct_form.model_top_p }}
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                            {{ correct_form.model_top_p.help_text }}
+                        </p>
+                    </div>
+                    <div class="col-span-1">
+                        <label for="{{ correct_form.model_top_k.id_for_label }}"
+                               class="block mt-2 text-sm font-medium text-gray-900 dark:text-white">Top K</label>
+                        {{ correct_form.model_top_k }}
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                            {{ correct_form.model_top_k.help_text }}
+                        </p>
+                    </div>
+                </div>
                 <!-- Campos ocultos con valores de los selects -->
                 <input type="hidden"
                        name="rubric"

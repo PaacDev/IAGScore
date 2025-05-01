@@ -457,7 +457,7 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         correction = Correction.objects.get(description="test_correction")
 
         response_delete = self.client.post(
-            reverse("delete_correction", kwargs={"id": correction.id})
+            reverse("delete_correction", kwargs={"item_id": correction.id})
         )
         self.assertFalse(Correction.objects.filter(id=correction.id).exists())
         self.assertEqual(response_delete.status_code, 302)
@@ -469,7 +469,7 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         """
 
         response_delete = self.client.post(
-            reverse("delete_correction", kwargs={"id": 1001})
+            reverse("delete_correction", kwargs={"item_id": 1001})
         )
 
         self.assertEqual(response_delete.status_code, 404)

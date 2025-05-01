@@ -38,7 +38,12 @@ def ejecuta_evaluacion_llm(correction_id):
                 ) as file:
                     tareas_dict[filename] = file.read()
 
-        llm_model = OllamaLLM(model=model, format="json")
+        llm_model = OllamaLLM(
+            model=model, format="json",
+            temperature=correction_obj.model_temp,
+            top_p=correction_obj.model_top_p,
+            top_k=correction_obj.model_top_k
+            )
 
         location = os.path.join(base_path, correction_obj.folder_path, "response")
 
@@ -65,7 +70,11 @@ def ejecuta_evaluacion_llm(correction_id):
         return response
     except Exception as e:
         print(f"Error executing task: {e}")
+        correction_obj.running = False
+        correction_obj.save()
         raise
     except Correction.DoesNotExist:
         print(f"Error: Correction with id {correction_id} does not exist")
+        correction_obj.running = False
+        correction_obj.save()
         raise
