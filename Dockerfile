@@ -17,7 +17,9 @@ RUN node -v && npm -v
 
 # Copiar el archivo package.json de Tailwind y luego instalar las dependencias de npm
 COPY tailwind/package.json /app/tailwind/package.json
+
 RUN npm install --prefix /app/tailwind
+RUN mkdir -p /app/media && chmod -R 777 /app/media
 
 # Copiar el archivo requirements.txt e instalar dependencias de Python
 COPY requirements.txt .
@@ -31,8 +33,6 @@ RUN groupadd -r dj_admin && useradd -r -g dj_admin dj_admin
 
 # Asegurarse de que el usuario creado tenga acceso a los archivos de la app
 RUN chown -R dj_admin:dj_admin /app
-
-#RUN mkdir -p /app/media && chmod -R 777 /app/media
 
 # Exponer el puerto que usará Django
 EXPOSE 8000
