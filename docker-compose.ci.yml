@@ -6,9 +6,9 @@ services:
     depends_on:
       postgres_db:
         condition: service_healthy
-        environment:
-          - REDIS_URL=""
-          - OLLAMA_HOST=""
+    environment:
+      - REDIS_URL=""
+      - OLLAMA_HOST=""
   celery:
     command: ["echo", "Celery disabled in CI"]
   redis:
