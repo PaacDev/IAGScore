@@ -56,10 +56,17 @@ jobs:
     - name: Run Django tests
       run: docker compose exec web coverage run --rcfile=.github/workflows/.coveragerc --data-file=/app/coveragereport/.coverage manage.py test
 
+    - name: Debug directory structure before tests
+      run: |
+        docker compose exec web ls -lra /app
+        docker compose exec web ls -lra /app/coveragereport || echo "coveragereport not found"
+        docker compose exec web ls -lra /app/coveragereport\html || echo "html not found"
+        
     - name: Generamos los reportes de coverage
       run: |
-        docker compose exec web coverage html -d coveragereport/html # Generamos reporte HTML
-        docker compose exec web coverage xml -o coveragereport/coverage.xml  # Generamos un reporte XML para Sonarcloud
+        docker compose exec web coverage html --data-file=/app/coveragereport/.coverage -d /app/coveragereport/html
+        docker compose exec web coverage xml --data-file=/app/coveragereport/.coverage -o /app/coveragereport/coverage.xml
+
 
     # Copiamos los reportes fuera del contenedor
     - name: Copy coverage reports to host
