@@ -44,8 +44,8 @@ jobs:
     # Debug directorios y propietarios
     - name: Debug directory structure before tests
       run: |
-        docker compose -f docker-compose.yml -f docker-compose.ci.yml exec web ls -lra /app
-        docker compose -f docker-compose.yml -f docker-compose.ci.yml exec web ls -lra /app/coveragereport || echo "coveragereport not found"
+        docker compose exec web ls -lra /app
+        docker compose exec web ls -lra /app/coveragereport || echo "coveragereport not found"
         
     # Ejecutamos los test en el contenedor Django
     - name: Run Django tests
