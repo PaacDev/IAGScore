@@ -73,7 +73,7 @@ jobs:
     # Copiamos los reportes fuera del contenedor
     - name: Copy coverage reports to host
       run: |
-        docker cp web:/app/coveragereport ./coveragereport
+        docker cp iagscore-web-1:/app/coveragereport ./coveragereport
   
     # Subimos los reportes como artefactos
     - name: Upload Coverage Reports
