@@ -40,26 +40,20 @@ jobs:
     
     - name: Docker stats
       run: docker stats --no-stream
-      
-    # Debug directorios y propietarios
-    - name: Debug directory structure before tests
-      run: |
-        docker compose exec web ls -lra /app
-        docker compose exec web ls -lra /app/coveragereport || echo "coveragereport not found"
         
     - name: Crea directorios salida
       run: |
         mkdir -p coveragereport  # Creamos el directorio para el reporte XML
         mkdir -p coveragereport/html  # Creamos el directorio para el reporte HTML
 
-    - name: Debug 2 directory structure before tests
+    - name: Debug directory structure before tests
       run: |
         docker compose exec web ls -lra /app
         docker compose exec web ls -lra /app/coveragereport || echo "coveragereport not found"
         
     # Ejecutamos los test en el contenedor Django
     - name: Run Django tests
-      run: docker compose exec web coverage run --rcfile=.github/workflows/.coveragerc manage.py test
+      run: docker compose exec web coverage run --rcfile=.github/workflows/.coveragerc --data-file=/app/coveragereport/.coverage manage.py test
 
     - name: Generamos los reportes de coverage
       run: |
