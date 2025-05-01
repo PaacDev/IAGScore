@@ -59,7 +59,7 @@ jobs:
         
     # Ejecutamos los test en el contenedor Django
     - name: Run Django tests
-      run: docker compose run --rm web coverage run --rcfile=.github/workflows/.coveragerc manage.py test
+      run: docker compose exec web coverage run --rcfile=.github/workflows/.coveragerc manage.py test
 
     - name: Generamos los reportes de coverage
       run: |
