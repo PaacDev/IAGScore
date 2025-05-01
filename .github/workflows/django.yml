@@ -67,6 +67,8 @@ jobs:
         docker compose exec web coverage html --data-file=/app/coveragereport/.coverage -d /app/coveragereport/html
         docker compose exec web coverage xml --data-file=/app/coveragereport/.coverage -o /app/coveragereport/coverage.xml
 
+    - name: Verificar si el contenedor web está en ejecución
+      run: docker ps
 
     # Copiamos los reportes fuera del contenedor
     - name: Copy coverage reports to host
