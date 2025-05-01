@@ -45,6 +45,7 @@ jobs:
       run: |
         mkdir -p coveragereport  # Creamos el directorio para el reporte XML
         mkdir -p coveragereport/html  # Creamos el directorio para el reporte HTML
+        chmod -R 777 coveragereport
 
     - name: Debug directory structure before tests
       run: |
