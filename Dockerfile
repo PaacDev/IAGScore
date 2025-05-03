@@ -16,7 +16,7 @@ curl \
 COPY tailwind/package.json /app/tailwind/package.json
 
 # Instalar las dependencias de npm
-RUN npm install --prefix /app/tailwind --ignore-scripts
+RUN npm install --ignore-scripts --prefix /app/tailwind
 
 # Crear un grupo y usuario no root para ejecutar los servicios
 RUN groupadd -r dj_admin && useradd -r -g dj_admin dj_admin
@@ -32,7 +32,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Asegurarse de que el usuario creado tenga acceso a los archivos app/media
-RUN chown -R :dj_admin /app/media
+RUN chown -R dj_admin:dj_admin /app/media
 
 # Exponer el puerto que usará Django
 EXPOSE 8000

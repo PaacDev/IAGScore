@@ -55,9 +55,13 @@ jobs:
     # Comprobamos estructura de directorios después de los tests
     - name: Comprobamos estructura de directorios después de los tests
       run: |
+        echo "Estructura app"
         docker compose exec web ls -lra /app
+        echo "Estructura app/media"
+        docker compose exec web ls -lra /app/media || echo "media not found"
+        echo "Estructura app/coveragereport"
         docker compose exec web ls -lra /app/coveragereport || echo "coveragereport not found"
-        docker compose exec web ls -lra /app/coveragereport\html || echo "html not found"
+        docker compose exec web ls -lra /app/coveragereport/html || echo "html not found"
     
     # Generamos los reportes de coverage
     - name: Generamos los reportes de coverage
