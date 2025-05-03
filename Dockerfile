@@ -4,13 +4,14 @@ FROM python:3.11-slim
 # Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
+
 # Instalar dependencias del sistema (incluyendo Node.js para Tailwind)
 RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    curl \
-    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs \
-    && rm -rf /var/lib/apt/lists/*
+libpq-dev \
+curl \
+&& curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+&& apt-get install -y nodejs \
+&& rm -rf /var/lib/apt/lists/*
 
 # Verificar la instalación de node y npm (esto es opcional pero útil para la depuración)
 RUN node -v && npm -v
@@ -19,7 +20,11 @@ RUN node -v && npm -v
 COPY tailwind/package.json /app/tailwind/package.json
 
 RUN npm install --prefix /app/tailwind
-RUN mkdir -p /app/media && chmod -R 777 /app/media
+
+# Crear un grupo y usuario no root para ejecutar los servicios
+RUN groupadd -r dj_admin && useradd -r -g dj_admin dj_admin
+
+# RUN mkdir -p /app/media && chmod -R 777 /app/media
 
 # Copiar el archivo requirements.txt e instalar dependencias de Python
 COPY requirements.txt .
@@ -27,9 +32,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copiar el resto del proyecto
 COPY . .
-
-# Crear un grupo y usuario no root para ejecutar los servicios
-RUN groupadd -r dj_admin && useradd -r -g dj_admin dj_admin
 
 # Asegurarse de que el usuario creado tenga acceso a los archivos de la app
 RUN chown -R dj_admin:dj_admin /app

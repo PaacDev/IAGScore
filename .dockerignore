@@ -1,0 +1,27 @@
+# Ignorar el directorio .git
+.git/
+.gitignore
+.git
+.github
+# Ignorar archivos de cache y logs
+*.log
+*.pyc
+*.pyo
+__pycache__/
+
+# Ignorar archivos de configuración secretos
+config/secrets/
+
+# Entornos virtuales
+venv/
+env/
+.venv/
+
+# Archivos y carpetas de configuración local
+*.DS_Store
+
+# Archivos de compilación
+*.egg-info/
+*.eggs/
+dist/
+build/
