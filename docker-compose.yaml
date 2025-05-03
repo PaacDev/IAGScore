@@ -1,0 +1,96 @@
+services:
+  web:
+    user: "dj_admin"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - static_volume:/app/static
+      - media_volume:/app/media
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      ollama:
+        condition: service_started
+
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+      - REDIS_URL=redis://redis:6379/0
+      - OLLAMA_HOST=ollama:11434
+      - DJANGO_SECRET_KEY=${SECRET_KEY}
+    networks:
+      - app-network
+
+  postgres_db:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - app-network
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - app-network
+
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - app-network
+
+  celery:
+    user: "dj_admin"
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - static_volume:/app/static
+      - media_volume:/app/media
+    command: celery -A iagscore worker -E --loglevel=info
+    depends_on:
+      - redis
+      - web
+      - postgres_db
+    restart: on-failure
+    networks:
+      - app-network
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+
+volumes:
+  postgres_data:
+  redis_data:
+  ollama_data:
+  static_volume:
+  media_volume:
+
+networks:
+  app-network:
+    driver: bridge

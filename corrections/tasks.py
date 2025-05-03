@@ -1,5 +1,5 @@
 """
-This module contain the tasks to celery
+This module contains the asynchronous task
 """
 import os
 import logging
@@ -8,66 +8,73 @@ from django.core.files.base import ContentFile
 from django.utils import timezone
 from celery import shared_task
 from langchain_ollama import OllamaLLM
-from rubrics.models import Rubric
-from prompts.models import Prompt
-from .models import Correction
 from iagscore import settings
-
+from .models import Correction
 
 logger = logging.getLogger(__name__)
 
+
 @shared_task
-def ejecuta_evaluacion_llm(correction_id, prompt_id, rubric_id):
+def ejecuta_evaluacion_llm(correction_id):
     """
     Run a evaluation task using a LLM
-    
+
     Parameters:
         correction_id: The Id of the correction to run
-        prompt_id: the ID of the prompt
-        rubric_id: the ID of the rubric
+    """
 
-    """ 
+    try:
+        correction_obj = Correction.objects.get(id=correction_id)
 
-    # Define LLM model
-    model = "llama3.2:latest"
+        model = "llama3"
+        tareas_dict = {}
+        base_path = settings.MEDIA_ROOT
+        full_path = os.path.join(base_path, correction_obj.folder_path)
+        # Read the files
+        for filename in os.listdir(full_path):
+            if not filename.startswith("response"):
+                with open(
+                    os.path.join(full_path, filename), "r", encoding="utf-8"
+                ) as file:
+                    tareas_dict[filename] = file.read()
 
-    tareas_dict = dict()
-    correction_obj = Correction.objects.get(id=correction_id)
-    prompt = Prompt.objects.get(id = prompt_id)
-    rubric = Rubric.objects.get(id = rubric_id)
+        llm_model = OllamaLLM(
+            model=model, format="json",
+            temperature=correction_obj.model_temp,
+            top_p=correction_obj.model_top_p,
+            top_k=correction_obj.model_top_k
+            )
 
-    base_path = settings.MEDIA_ROOT
-    full_path = os.path.join(base_path, correction_obj.folder_path)
-    # Read the files
-    for filename in os.listdir(full_path):
-        if not filename.startswith('response'):
-            with open(os.path.join(full_path,filename), 'r', encoding='utf-8') as file:
-                # Add the file content to the dict
-                tareas_dict[filename] = file.read()
+        location = os.path.join(base_path, correction_obj.folder_path, "response")
 
-    # Initialize an instance of the LLM
-    llm_model = OllamaLLM(model=model, format='json')
+        fs = FileSystemStorage(location=location)
 
-    # Set the location
-    location = os.path.join(base_path, correction_obj.folder_path, "response/")
-    fs = FileSystemStorage(location=location)
+        response = llm_model.invoke(
+            correction_obj.prompt.prompt +
+            correction_obj.rubric.content +
+            str(tareas_dict)
+            )
 
-    # Invoke the model and capture the response
-    response = llm_model.invoke(prompt.prompt+rubric.content+str(tareas_dict))
+        file_content = ContentFile(response)
+        filename = "response.txt"
 
-    # Prepare the response content to be saved in a text file
-    file_content = ContentFile(response)
-    filename = "response.txt"
+        if fs.exists(filename):
+            fs.delete(filename)
 
-    # Overwrite the file if exist
-    if fs.exists(filename):
-        fs.delete(filename)
-    
-    # Update correction model
-    correction_obj.last_ejecution_date = timezone.now()
-    correction_obj.running = False
-    correction_obj.llm_model = model
-    correction_obj.save()
+        correction_obj.last_ejecution_date = timezone.now()
+        correction_obj.running = False
+        correction_obj.llm_model = model
+        correction_obj.save()
 
-    # Save the response content to the file system
-    fs.save(filename, file_content)
+        fs.save(filename, file_content)
+        return response
+    except Exception as e:
+        print(f"Error executing task: {e}")
+        correction_obj.running = False
+        correction_obj.save()
+        raise
+    except Correction.DoesNotExist:
+        print(f"Error: Correction with id {correction_id} does not exist")
+        correction_obj.running = False
+        correction_obj.save()
+        raise

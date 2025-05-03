@@ -21,12 +21,12 @@ def rubric_page(request):
     """
     View for import a new rubric.
     """
-    rubric_list = Rubric.objects.filter(user=request.user).order_by('-creation_date')
+    rubric_list = Rubric.objects.filter(user=request.user).order_by("-creation_date")
     paginator = Paginator(rubric_list, 5)
-    
+
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-        
+
     if request.method == "POST":
         form = RubricForm(request.POST, request.FILES)
         if form.is_valid():
@@ -54,10 +54,9 @@ def rubric_page(request):
         form = RubricForm()
 
     return render(
-        request, "rubrics/mis_rubricas.html", {"form": form, 
-                                               "rubric_list": rubric_list,
-                                               "page_obj": page_obj
-                                               }
+        request,
+        "rubrics/mis_rubricas.html",
+        {"form": form, "rubric_list": rubric_list, "page_obj": page_obj},
     )
 
 

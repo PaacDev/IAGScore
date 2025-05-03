@@ -8,6 +8,7 @@ class CorrectionsConfig(AppConfig):
     """
     Corrections configurations
     """
+
     default_auto_field = "django.db.models.BigAutoField"
     name = "corrections"
 

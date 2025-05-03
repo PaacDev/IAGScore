@@ -1,6 +1,7 @@
 """
 This file contains tests for the rubrics app.
 """
+
 import logging
 from django.test import TestCase
 from django.urls import reverse
@@ -14,6 +15,7 @@ User = get_user_model()
 # Silence Django 404 logging during tests
 logging.getLogger("django.request").setLevel(logging.CRITICAL)
 
+
 class RubricModelTestCase(TestCase):
     """
     Test case for the Rubric model.
@@ -23,9 +25,7 @@ class RubricModelTestCase(TestCase):
         """
         Set up the test case
         """
-        
-        
-        
+
         self.user = User.objects.create_user(
             username="testuser", email="testuser@mail.com", password="testpass123"
         )
@@ -254,8 +254,8 @@ class RubricViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "rubrics/rubric.html")
         self.assertContains(response, self.rubric.get_html_content())
-        id, datos_dict=self.rubric.delete()
-        response = self.client.get(reverse("show_rubric", args=[id]))
+        item_id, _ = self.rubric.delete()
+        response = self.client.get(reverse("show_rubric", args=[item_id]))
         self.assertEqual(response.status_code, 404)
 
     def test_delete_rubric_view(self):

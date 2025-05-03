@@ -4,9 +4,8 @@ omit =
     */migrations/*
     */tailwind/*
     */node_modules/*
+data_file = /app/coveragereport/.coverage
 [report]
-# Mostrar líneas faltantes en el reporte
 show_missing = true
-
 [xml]
-output = coveragereport/coverage.xml
+output = /app/coveragereport/coverage.xml

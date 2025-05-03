@@ -1,0 +1,17 @@
+services:
+  web:
+    volumes:
+      - .:/app
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+    environment:
+      - REDIS_URL=""
+      - OLLAMA_HOST=""
+      - CELERY_BROKER_URL=""
+  celery:
+    command: ["echo", "Celery disabled in CI"]
+  redis:
+    command: ["echo", "Redis disabled in CI"]
+  ollama:
+    command: ["echo", "Ollama disabled in CI"]

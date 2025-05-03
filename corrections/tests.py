@@ -1,16 +1,16 @@
 """
 This module contains de Test Cases for a correction app
 """
+
 import logging
 import os
 import zipfile
 import io
-from django.test import TestCase, TransactionTestCase
+from unittest.mock import MagicMock, patch
+from django.test import TestCase, TransactionTestCase, override_settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from django.contrib import messages
-from unittest.mock import MagicMock, patch
 from iagscore import settings
 from prompts.models import Prompt
 from rubrics.models import Rubric
@@ -33,7 +33,7 @@ class CorrectioModelTestCase(TestCase):
         """
         # User
         self.password = "testpass123"
-        
+
         self.user = User.objects.create_user(
             username="testuser", email="testuser@mail.com", password=self.password
         )
@@ -73,7 +73,6 @@ class CorrectioModelTestCase(TestCase):
         self.assertEqual(correction.user, self.user)
         self.assertEqual(str(correction), correction.description)
 
-
     def test_update_correction(self):
         """
         Test deleting a Correction
@@ -91,7 +90,7 @@ class CorrectioModelTestCase(TestCase):
         correction.description = "Update Correction Test"
         correction.save()
         self.assertEqual(correction.description, "Update Correction Test")
-    
+
     def test_delete_correction(self):
         """
         Test deleting a Correction
@@ -191,6 +190,7 @@ class CorrectioModelTestCase(TestCase):
         correction_list = Correction.objects.all()
         self.assertEqual(len(correction_list), 0)
 
+
 class CorrectionFormTestCase(TestCase):
     """
     Test case for the CorrectionForm
@@ -233,8 +233,6 @@ class CorrectionFormTestCase(TestCase):
 
         self.description = "Correction Test Form"
         self.llm_model = "Modelo"
-        self.folder_path = "/media/folder"
-
 
     def test_valid_form(self):
         """
@@ -281,7 +279,7 @@ class CorrectionFormTestCase(TestCase):
         file = {"zip_file": self.zip_file}
         form = CorrectionForm(data=data, files=file)
         self.assertFalse(form.is_valid())
-        self.assertIn('rubric', form.errors)
+        self.assertIn("rubric", form.errors)
 
         # No Prompt
         data = {
@@ -291,27 +289,29 @@ class CorrectionFormTestCase(TestCase):
         }
         form = CorrectionForm(data=data, files=file)
         self.assertFalse(form.is_valid())
-        self.assertIn('prompt', form.errors)
+        self.assertIn("prompt", form.errors)
+
 
 class CorrectionsViewsTestCase(TransactionTestCase):
     """
     Test case for Correction views
     """
+
     def setUp(self):
         """
         Set up the test case
         """
         # User
         self.password = "testpass123"
-        
+
         self.user = User.objects.create_user(
             username="testuser", email="testuser@mail.com", password=self.password
         )
-        
+
         # Creating a valid ZIP file in memory
         zip_buffer = io.BytesIO()
         with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
-            # Add .java 
+            # Add .java
             java_content = """
             public class Test {
                 public static void main(String[] args) {
@@ -328,7 +328,7 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         self.zip_file = SimpleUploadedFile(
             name="zipfile.zip",
             content=zip_buffer.getvalue(),
-            content_type="application/zip"
+            content_type="application/zip",
         )
 
         # Rubric
@@ -345,7 +345,7 @@ class CorrectionsViewsTestCase(TransactionTestCase):
             user=self.user,
         )
         self.client.login(username=self.user.email, password=self.password)
-    
+
     def tearDown(self):
         """
         Limpia después de cada prueba eliminando todos los objetos Correction, Rubric, Prompt y User.
@@ -359,7 +359,7 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         """
         response = self.client.get(reverse("corrections"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'corrections/correction_base.html')
+        self.assertTemplateUsed(response, "corrections/correction_base.html")
 
     def test_show_view_correction_view(self):
         """
@@ -367,7 +367,7 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         """
         response = self.client.get(reverse("show_view_correction"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'corrections/view_correction.html')
+        self.assertTemplateUsed(response, "corrections/view_correction.html")
 
     def test_show_new_correction_view_get(self):
         """
@@ -375,28 +375,28 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         """
         response = self.client.get(reverse("show_new_correction"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'corrections/new_correction.html')
+        self.assertTemplateUsed(response, "corrections/new_correction.html")
 
     def test_show_new_correction_view_post(self):
         """
         Test the new correction view
         """
-        
+
         response = self.client.post(
             reverse("show_new_correction"),
             {
                 "rubric": self.rubric.id,
                 "prompt": self.prompt.id,
                 "description": "test_correction",
-                "llm_model": "llama3", 
-                "zip_file":self.zip_file,
-                },
+                "llm_model": "llama3",
+                "zip_file": self.zip_file,
+            },
             follow=True,
-            )
+        )
 
         self.assertContains(response, "Correción creada correctamente")
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'corrections/view_correction.html')
+        self.assertTemplateUsed(response, "corrections/view_correction.html")
 
     def test_show_new_correction_view_get_with_rubric_and_prompt(self):
         """
@@ -404,7 +404,7 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         """
         response = self.client.get(
             reverse("show_new_correction"),
-            {"rubric_id": self.rubric.id, "prompt_id": self.prompt.id}
+            {"rubric_id": self.rubric.id, "prompt_id": self.prompt.id},
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "corrections/new_correction.html")
@@ -416,26 +416,24 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         self.assertQuerySetEqual(
             response.context["prompt_list"], Prompt.objects.filter(user=self.user)
         )
-        
+
     def test_show_new_correction_view_post_invalid(self):
         """
         Test the new correction view invalid post
         """
-        
+
         response = self.client.post(
             reverse("show_new_correction"),
             {
                 "rubric": self.rubric.id,
                 "prompt": "",
                 "description": "test_correction",
-                "llm_model": "llama3", 
-                "zip_file":self.zip_file,
-                },
+                "llm_model": "llama3",
+                "zip_file": self.zip_file,
+            },
             follow=True,
-            )
-        
-        correction_list = Correction.objects.all()
-        messages_list = list(messages.get_messages(response.wsgi_request))
+        )
+
         self.assertContains(response, "Error al crear correción")
         self.assertEqual(response.status_code, 200)
 
@@ -444,39 +442,39 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         Test the new correction view
         """
 
-        response = self.client.post(
+        self.client.post(
             reverse("show_new_correction"),
             {
                 "rubric": self.rubric.id,
                 "prompt": self.prompt.id,
                 "description": "test_correction",
-                "llm_model": "llama3", 
-                "zip_file":self.zip_file,
-                },
+                "llm_model": "llama3",
+                "zip_file": self.zip_file,
+            },
             follow=True,
-            )
-        
+        )
+
         correction = Correction.objects.get(description="test_correction")
 
         response_delete = self.client.post(
-            reverse("delete_correction", kwargs={"id": correction.id})
+            reverse("delete_correction", kwargs={"item_id": correction.id})
         )
         self.assertFalse(Correction.objects.filter(id=correction.id).exists())
         self.assertEqual(response_delete.status_code, 302)
         self.assertRedirects(response_delete, reverse("show_view_correction"))
-        
+
     def test_delete_correction_view_error(self):
         """
         Test the delete correction invalid
         """
-        
 
         response_delete = self.client.post(
-            reverse("delete_correction", kwargs={"id": 1001})
+            reverse("delete_correction", kwargs={"item_id": 1001})
         )
-        
+
         self.assertEqual(response_delete.status_code, 404)
 
+    @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
     @patch("corrections.tasks.OllamaLLM")
     def test_run_model_and_download(self, mock_ollama_class):
         """
@@ -485,19 +483,19 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         mock_llm_instance = MagicMock()
         mock_llm_instance.invoke.return_value = "simulate model response"
         mock_ollama_class.return_value = mock_llm_instance
-        
+
         response = self.client.post(
-           reverse("show_new_correction"),
-           {
-               "rubric": self.rubric.id,
-               "prompt": self.prompt.id,
-               "description": "test_correction",
-               "llm_model": "llama3", 
-               "zip_file":self.zip_file,
-               },
-           follow=True,
-           )
-        
+            reverse("show_new_correction"),
+            {
+                "rubric": self.rubric.id,
+                "prompt": self.prompt.id,
+                "description": "test_correction",
+                "llm_model": "llama3",
+                "zip_file": self.zip_file,
+            },
+            follow=True,
+        )
+
         correction = Correction.objects.get(description="test_correction")
 
         response = self.client.get(
@@ -510,8 +508,12 @@ class CorrectionsViewsTestCase(TransactionTestCase):
             reverse("run_model", kwargs={"correction_id": correction.id})
         )
         self.assertRedirects(response, reverse("show_view_correction"))
-        
+
         response_file_path = os.path.join(
-        settings.MEDIA_ROOT, correction.folder_path, "response", "response.txt"
+            settings.MEDIA_ROOT, correction.folder_path, "response", "response.txt"
+        )
+        print(f"Checking file path: {response_file_path}")
+        print(
+            f"Directory exists: {os.path.exists(os.path.dirname(response_file_path))}"
         )
         self.assertTrue(os.path.exists(response_file_path))

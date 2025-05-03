@@ -13,9 +13,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import sys
 import tempfile
+import os
 from django.contrib.messages import constants as messages
 from decouple import config
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -84,13 +84,14 @@ WSGI_APPLICATION = "iagscore.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# Base de datos
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": config("DB_NAME", default="iagscore"),
         "USER": config("DB_USER", default="dj_user"),
         "PASSWORD": config("DB_PASSWORD"),
-        "HOST": config("DB_HOST", default="localhost"),
+        "HOST": config("DB_HOST"), 
         "PORT": config("DB_PORT", default="5432"),
     }
 }
@@ -160,14 +161,26 @@ LOGIN_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
 # Celery config
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-if 'test' in sys.argv:
+# https://docs.celeryproject.org/en/stable/django/first-steps-with-django.html
+
+# No Docker
+#CELERY_BROKER_URL = "redis://localhost:6379/0"
+
+# Docker
+#CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_BROKER_URL = config("CELERY_BROKER_URL")
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+
+# celery and media folder for test
+if "pytest" in sys.argv or "test" in sys.argv:
     CELERY_TASK_ALWAYS_EAGER = True
     MEDIA_ROOT = tempfile.mkdtemp()
     print(f"MEDIA_ROOT temporal para pruebas: {MEDIA_ROOT}")
+    
 
+# Logging configuration
+# https://docs.djangoproject.com/en/5.1/topics/logging/
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,

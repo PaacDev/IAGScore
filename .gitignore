@@ -193,3 +193,6 @@ tailwind/node_modules/
 # bandit
 .bandit.yaml
 bandit_report.txt
+
+# pytest
+pytest.ini

@@ -2,30 +2,13 @@ name: Django CI
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "feature/**"]
   pull_request:
     branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    # Configura el servicio PostgreSQL
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_USER: test_user
-          POSTGRES_PASSWORD: test_password
-          POSTGRES_DB: test_db
-        ports:
-          - 5432:5432
-        # Aseguramos que el servicio esté listo antes de continuar
-        options: >-
-          --health-cmd "pg_isready -U test_user"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     strategy:
       max-parallel: 2
@@ -34,36 +17,59 @@ jobs:
 
     steps:
     # Clonamos repositoio
-    - uses: actions/checkout@v4
+    - name: Checkout repo
+      uses: actions/checkout@v4
 
-    # Configuramos python
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-
-    # Instalamos dependencias
-    - name: Install Dependencies
+    # Creamos un .env dinámico
+    - name: Dinamic .env
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        echo "DB_USER=test_user" >> .env
+        echo "DB_PASSWORD=test_password" >> .env
+        echo "DB_NAME=test_db" >> .env
+        echo "DB_HOST=postgres_db" >> .env
+        echo "DB_PORT=5432" >> .env
+        echo "DB_PORT=5432" >> .env
+        echo "SECRET_KEY=${{ secrets.TEST_SECRET_KEY }}" >> .env
+        echo "CELERY_BROKER_URL='redis://redis:6379/0'" >> .env
 
-    # Ejecutamnos los test con coverage
-    - name: Run Tests
-      env:
-        DB_NAME: test_db
-        DB_USER: test_user
-        DB_PASSWORD: test_password
-        DB_HOST: localhost
-        DB_PORT: 5432
-        SECRET_KEY: ${{ secrets.TEST_SECRET_KEY }}
+    # Construimos y levantamos los contenedores
+    - name: Build and start containers
+      run: |
+        set -e
+        docker compose -f docker-compose.yaml -f docker-compose.ci.yml up -d --build
+    
+    # Estadísticas de Docker
+    - name: Docker stats
+      run: docker stats --no-stream
+        
+    - name: Crea directorios salida y permisos
       run: |
         mkdir -p coveragereport  # Creamos el directorio para el reporte XML
         mkdir -p coveragereport/html  # Creamos el directorio para el reporte HTML
-        coverage run --rcfile=.github/workflows/.coveragerc manage.py test
-        coverage html -d coveragereport/html/  # Generamos reporte HTML
-        coverage xml -o coveragereport/coverage.xml # Generamos un reporte XML para Sonarcloud
+        chmod -R 777 coveragereport
         
+    # Ejecutamos los test en el contenedor Django
+    - name: Ejecución Django tests
+      run: docker compose exec web coverage run --rcfile=.github/workflows/.coveragerc manage.py test
+
+    # Comprobamos estructura de directorios después de los tests
+    - name: Comprobamos estructura de directorios después de los tests
+      run: |
+        docker compose exec web ls -lra /app
+        docker compose exec web ls -lra /app/coveragereport || echo "coveragereport not found"
+        docker compose exec web ls -lra /app/coveragereport\html || echo "html not found"
+    
+    # Generamos los reportes de coverage
+    - name: Generamos los reportes de coverage
+      run: |
+        docker compose exec web coverage html --rcfile=.github/workflows/.coveragerc -d /app/coveragereport/html
+        docker compose exec web coverage xml --rcfile=.github/workflows/.coveragerc -o /app/coveragereport/coverage.xml
+
+    # Copiamos los reportes fuera del contenedor
+    - name: Copiamos reportes fuera del contenedor
+      run: |
+        docker cp iagscore-web-1:/app/coveragereport ./coveragereport
+  
     # Subimos los reportes como artefactos
     - name: Upload Coverage Reports
       uses: actions/upload-artifact@v4
@@ -85,3 +91,8 @@ jobs:
           -Dsonar.exclusions=**/*test*.py
           -Dsonar.coverage.exclusions=**/tailwind/**,**/node_modules/**,**/migrations/**
           -Dsonar.python.coverage.reportPaths=coveragereport/coverage.xml
+
+    # Detenemos y limpiamos los contenedores
+    - name: Limpiamos contenedores y volúmenes
+      if: always()
+      run: docker compose down -v
