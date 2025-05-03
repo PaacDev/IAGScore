@@ -4,7 +4,6 @@ FROM python:3.11-slim
 # Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-
 # Instalar dependencias del sistema (incluyendo Node.js para Tailwind)
 RUN apt-get update && apt-get install -y \
 libpq-dev \
@@ -13,18 +12,17 @@ curl \
 && apt-get install -y nodejs \
 && rm -rf /var/lib/apt/lists/*
 
-# Verificar la instalación de node y npm (esto es opcional pero útil para la depuración)
-RUN node -v && npm -v
-
-# Copiar el archivo package.json de Tailwind y luego instalar las dependencias de npm
+# Copiar el archivo package.json de Tailwind
 COPY tailwind/package.json /app/tailwind/package.json
 
+# Instalar las dependencias de npm
 RUN npm install --prefix /app/tailwind
 
 # Crear un grupo y usuario no root para ejecutar los servicios
 RUN groupadd -r dj_admin && useradd -r -g dj_admin dj_admin
 
-# RUN mkdir -p /app/media && chmod -R 777 /app/media
+# Crea el directorio para los archivos estáticos
+RUN mkdir -p /app/media 
 
 # Copiar el archivo requirements.txt e instalar dependencias de Python
 COPY requirements.txt .
@@ -33,8 +31,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiar el resto del proyecto
 COPY . .
 
-# Asegurarse de que el usuario creado tenga acceso a los archivos de la app
-RUN chown -R dj_admin:dj_admin /app
+# Asegurarse de que el usuario creado tenga acceso a los archivos app/media
+RUN chown -R :dj_admin /app/media
 
 # Exponer el puerto que usará Django
 EXPOSE 8000
@@ -47,12 +45,8 @@ RUN chmod +x /entrypoint.sh
 
 # Establecer el entrypoint
 ENTRYPOINT ["/entrypoint.sh"]
-RUN chgrp -R dj_admin /app
-RUN chmod -R g+w /app
-# Cambiar la propiedad de la carpeta media a celery
-RUN chown -R dj_admin:dj_admin /app/media
 
 USER dj_admin
 
-# Comando por defecto (se sobrescribirá en docker-compose)
+# Comando por para ejecutar el servidor de desarrollo de Django
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
