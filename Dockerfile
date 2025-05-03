@@ -5,18 +5,18 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Instalar dependencias del sistema (incluyendo Node.js para Tailwind)
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
 libpq-dev \
 curl \
-&& curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-&& apt-get install -y nodejs \
+&& curl --proto '=https' --tlsv1.2 -sSf -L https://deb.nodesource.com/setup_18.x | bash - \
+&& apt-get install -y --no-install-recommends nodejs \
 && rm -rf /var/lib/apt/lists/*
 
 # Copiar el archivo package.json de Tailwind
 COPY tailwind/package.json /app/tailwind/package.json
 
 # Instalar las dependencias de npm
-RUN npm install --prefix /app/tailwind
+RUN npm install --prefix /app/tailwind --ignore-scripts
 
 # Crear un grupo y usuario no root para ejecutar los servicios
 RUN groupadd -r dj_admin && useradd -r -g dj_admin dj_admin
