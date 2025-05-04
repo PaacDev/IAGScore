@@ -132,3 +132,16 @@ class TermAndPrivTest(TestCase):
         response = self.client.get(reverse("terminos"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "core/terminos.html")
+
+class LLMViewsTest(TestCase):
+    """
+    Test case for the LLM views.
+    """
+
+    def test_llm(self):
+        """
+        Test the llm view
+        """
+        response = self.client.get(reverse("llm_section"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "core/llm_info.html")
