@@ -16,16 +16,16 @@ curl \
 COPY tailwind/package.json /app/tailwind/package.json
 
 # Instalar las dependencias de npm
-RUN npm install --ignore-scripts --prefix /app/tailwind
-
 # Crear un grupo y usuario no root para ejecutar los servicios
-RUN groupadd -r dj_admin && useradd -r -g dj_admin dj_admin
-
 # Crea el directorio para los archivos estáticos
-RUN mkdir -p /app/media 
+RUN npm install --ignore-scripts --prefix /app/tailwind \
+&& groupadd -r dj_admin && useradd -r -g dj_admin dj_admin \
+&& mkdir -p /app/media 
 
 # Copiar el archivo requirements.txt e instalar dependencias de Python
 COPY requirements.txt .
+
+# Instalar dependencias de Python
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copiar el resto del proyecto
@@ -46,6 +46,7 @@ RUN chmod +x /entrypoint.sh
 # Establecer el entrypoint
 ENTRYPOINT ["/entrypoint.sh"]
 
+# Cambiar al usuario no root
 USER dj_admin
 
 # Comando por para ejecutar el servidor de desarrollo de Django

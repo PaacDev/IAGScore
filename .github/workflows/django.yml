@@ -2,7 +2,7 @@ name: Django CI
 
 on:
   push:
-    branches: ["main", "feature/**"]
+    branches: ["main"]
   pull_request:
     branches: ["main"]
 
@@ -19,6 +19,8 @@ jobs:
     # Clonamos repositoio
     - name: Checkout repo
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     # Creamos un .env dinámico
     - name: Dinamic .env
@@ -28,9 +30,8 @@ jobs:
         echo "DB_NAME=test_db" >> .env
         echo "DB_HOST=postgres_db" >> .env
         echo "DB_PORT=5432" >> .env
-        echo "DB_PORT=5432" >> .env
         echo "SECRET_KEY=${{ secrets.TEST_SECRET_KEY }}" >> .env
-        echo "CELERY_BROKER_URL='redis://redis:6379/0'" >> .env
+        echo "CELERY_BROKER_URL=redis://redis:6379/0" >> .env
 
     # Construimos y levantamos los contenedores
     - name: Build and start containers
@@ -72,7 +73,7 @@ jobs:
     # Copiamos los reportes fuera del contenedor
     - name: Copiamos reportes fuera del contenedor
       run: |
-        docker cp iagscore-web-1:/app/coveragereport ./coveragereport
+        docker cp $(docker compose ps -q web):/app/coveragereport ./coveragereport
   
     # Subimos los reportes como artefactos
     - name: Upload Coverage Reports
