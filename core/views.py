@@ -93,3 +93,10 @@ def privacidad(request):
     # Convert Markdown content to HTML
     html_content = markdown.markdown(md_content, output_format="html")
     return render(request, "core/privacidad.html", {"content": html_content})
+
+@require_safe
+def llm_section(request):
+    """
+    This view is used to display llm section
+    """
+    return render(request, "core/llm_info.html")
