@@ -11,6 +11,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.conf import settings
+from django.views.static import serve
+from django.views.decorators.clickjacking import xframe_options_exempt
 import markdown
 
 
