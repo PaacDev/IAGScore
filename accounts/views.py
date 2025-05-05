@@ -1,6 +1,4 @@
-"""
-This file contains the views for the accounts app.
-"""
+""" Views for the accounts application. """
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -15,6 +13,12 @@ from .forms import RegisterForm
 def profile(request):
     """
     This view is used to display the user profile.
+
+    Parameters:
+    - request: The HTTP request object.
+
+    Returns:
+    - HttpResponse: The rendered profile page.
     """
     return render(request, "accounts/profile.html")
 
@@ -26,17 +30,26 @@ def register(request):
     This view is used to register a new user.
     - GET: Displays the registration form.
     - POST: Processes the form and creates the user.
+
+    Parameters:
+    - request: The HTTP request object.
+
+    Returns:
+    - HttpResponse: The rendered registration page or redirect to login.
     """
 
+    # If method is POST, process the form
     if request.method == "POST":
         user_form = RegisterForm(request.POST)
         if user_form.is_valid():
+            # Save the user add a succes message and redirect to login
             user_form.save()
             messages.add_message(
                 request, messages.SUCCESS, "Usuario creado correctamente"
             )
             return redirect("login")
 
+        # If the form is not valid, add an error message
         messages.add_message(request, messages.ERROR, user_form.errors.as_text())
     else:
         user_form = RegisterForm()

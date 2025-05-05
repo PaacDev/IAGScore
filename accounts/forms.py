@@ -1,6 +1,4 @@
-"""
-This file is used to create the form for the user registration.
-"""
+""" Django form for handling user registration. """
 
 from django import forms
 from .models import CustomUser

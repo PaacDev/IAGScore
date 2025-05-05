@@ -1,1 +1,1 @@
-""" Módulo de cuentas de usuario. """
+""" Module for user account management. """

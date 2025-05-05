@@ -1,6 +1,4 @@
-"""
-This file is used to register the custom user model with the admin site.
-"""
+""" Register the custom user model with the Django admin site. """
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin

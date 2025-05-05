@@ -1,1 +1,1 @@
-"""Módulo manejo de login y logout de usuarios."""
+"""Module to handle the core functionality of the application."""

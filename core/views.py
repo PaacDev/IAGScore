@@ -1,6 +1,4 @@
-"""
-This file contains the views for the accounts app.
-"""
+""" Views for the core application. """
 
 import os
 from django.shortcuts import render, redirect
@@ -11,8 +9,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.conf import settings
-from django.views.static import serve
-from django.views.decorators.clickjacking import xframe_options_exempt
 import markdown
 
 
@@ -23,18 +19,29 @@ def custom_login(request):
     This view is used to log in the user.
     - GET: Displays the login form.
     - POST: Processes the form and login.
+
+    Parameters:
+    - request: The HTTP request object.
+
+    Returns:
+    - HttpResponse: The rendered login page or redirect to home.
     """
+
+    # If method is POST, process the form else show the form
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
+            # Authenticate the user
             user = authenticate(
                 username=form.cleaned_data["username"],
                 password=form.cleaned_data["password"],
             )
+            # If user is authenticated, log in and redirect to home
             if user:
                 login(request, user)
                 return redirect("home")
         else:
+        # If user is not authenticated, show error message
             messages.add_message(
                 request, messages.ERROR, "Usuario o contraseña incorrectos"
             )
@@ -42,29 +49,45 @@ def custom_login(request):
         form = AuthenticationForm()
     return render(request, "core/login.html", {"form": form})
 
-
-@require_GET
-def logout_view(request):
-    """
-    Logout
-    """
-    logout(request)
-    return redirect("login")
-
-
 @require_GET
 @login_required
 def home(request):
     """
-    This view is used to display the home page
+    This view is used to display the home page.
+
+    Parameters:
+    - request: The HTTP request object.
+
+    Returns:
+    - HttpResponse: The rendered home page.
     """
     return render(request, "core/home.html")
+
+@require_GET
+def logout_view(request):
+    """
+    This view is used to log out the user.
+
+    Parameters:
+    - request: The HTTP request object.
+
+    Returns:
+    - HttpResponse: Redirects to the login page.
+    """
+    logout(request)
+    return redirect("login")
 
 
 @require_safe
 def terminos(request):
     """
     This view is used to display the terms and conditions page
+
+    Parameters:
+    - request: The HTTP request object.
+
+    Returns:
+    - HttpResponse: The rendered terms and conditions page.
     """
     # Path md terminos
     md_terminos = os.path.join(settings.STATICFILES_DIRS[2], "core/docs", "terminos.md")
@@ -73,7 +96,7 @@ def terminos(request):
     with open(md_terminos, "r", encoding="utf-8") as f:
         md_content = f.read()
 
-    # Convert Markdown content to HTML
+    # Convert Markdown content to HTML and render it
     html_content = markdown.markdown(md_content, output_format="html")
     return render(request, "core/terminos.html", {"content": html_content})
 
@@ -82,8 +105,14 @@ def terminos(request):
 def privacidad(request):
     """
     This view is used to display the privacity page
+
+    Parameters:
+    - request: The HTTP request object.
+
+    Returns:
+    - HttpResponse: The rendered privacy page.
     """
-    # Ruta md
+    # Path md
     md_privacidad = os.path.join(
         settings.STATICFILES_DIRS[2], "core/docs", "privacidad.md"
     )
@@ -92,7 +121,7 @@ def privacidad(request):
     with open(md_privacidad, "r", encoding="utf-8") as f:
         md_content = f.read()
 
-    # Convert Markdown content to HTML
+    # Convert Markdown content to HTML and render it
     html_content = markdown.markdown(md_content, output_format="html")
     return render(request, "core/privacidad.html", {"content": html_content})
 
@@ -100,5 +129,12 @@ def privacidad(request):
 def llm_section(request):
     """
     This view is used to display llm section
+
+    Parameters:
+    - request: The HTTP request object.
+
+    Returns:
+    - HttpResponse: The rendered llm section page.
     """
+
     return render(request, "core/llm_info.html")

@@ -1,0 +1,939 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>corrections &#8212; documentación de iagscore - </title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=78d55cf8"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="_static/translations.js?v=f85f4cfb"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'corrections';</script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="prev" title="rubrics" href="rubrics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">documentación de iagscore - </p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Búsqueda</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="accounts.html">accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prompts.html">prompts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rubrics.html">rubrics</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">corrections</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/pac1006/IAGScore" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Repositorio de origen"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/corrections.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>corrections</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.admin.CorrectionAdmin"><code class="docutils literal notranslate"><span class="pre">CorrectionAdmin</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.admin.CorrectionAdmin.list_display"><code class="docutils literal notranslate"><span class="pre">CorrectionAdmin.list_display</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.admin.CorrectionAdmin.list_filter"><code class="docutils literal notranslate"><span class="pre">CorrectionAdmin.list_filter</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.admin.CorrectionAdmin.media"><code class="docutils literal notranslate"><span class="pre">CorrectionAdmin.media</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.admin.CorrectionAdmin.search_fields"><code class="docutils literal notranslate"><span class="pre">CorrectionAdmin.search_fields</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.apps.CorrectionsConfig"><code class="docutils literal notranslate"><span class="pre">CorrectionsConfig</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.apps.CorrectionsConfig.default_auto_field"><code class="docutils literal notranslate"><span class="pre">CorrectionsConfig.default_auto_field</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.apps.CorrectionsConfig.name"><code class="docutils literal notranslate"><span class="pre">CorrectionsConfig.name</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.apps.CorrectionsConfig.ready"><code class="docutils literal notranslate"><span class="pre">CorrectionsConfig.ready()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm"><code class="docutils literal notranslate"><span class="pre">CorrectionForm</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm.Meta"><code class="docutils literal notranslate"><span class="pre">CorrectionForm.Meta</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm.Meta.fields"><code class="docutils literal notranslate"><span class="pre">CorrectionForm.Meta.fields</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm.Meta.labels"><code class="docutils literal notranslate"><span class="pre">CorrectionForm.Meta.labels</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm.Meta.model"><code class="docutils literal notranslate"><span class="pre">CorrectionForm.Meta.model</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm._meta"><code class="docutils literal notranslate"><span class="pre">CorrectionForm._meta</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm.base_fields"><code class="docutils literal notranslate"><span class="pre">CorrectionForm.base_fields</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm.clean_zip_file"><code class="docutils literal notranslate"><span class="pre">CorrectionForm.clean_zip_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm.declared_fields"><code class="docutils literal notranslate"><span class="pre">CorrectionForm.declared_fields</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm.media"><code class="docutils literal notranslate"><span class="pre">CorrectionForm.media</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction"><code class="docutils literal notranslate"><span class="pre">Correction</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Correction.DoesNotExist</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Correction.MultipleObjectsReturned</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction._meta"><code class="docutils literal notranslate"><span class="pre">Correction._meta</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.date"><code class="docutils literal notranslate"><span class="pre">Correction.date</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.description"><code class="docutils literal notranslate"><span class="pre">Correction.description</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.folder_path"><code class="docutils literal notranslate"><span class="pre">Correction.folder_path</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.get_next_by_date"><code class="docutils literal notranslate"><span class="pre">Correction.get_next_by_date()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.get_previous_by_date"><code class="docutils literal notranslate"><span class="pre">Correction.get_previous_by_date()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.id"><code class="docutils literal notranslate"><span class="pre">Correction.id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.last_ejecution_date"><code class="docutils literal notranslate"><span class="pre">Correction.last_ejecution_date</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.llm_model"><code class="docutils literal notranslate"><span class="pre">Correction.llm_model</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.model_temp"><code class="docutils literal notranslate"><span class="pre">Correction.model_temp</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.model_top_k"><code class="docutils literal notranslate"><span class="pre">Correction.model_top_k</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.model_top_p"><code class="docutils literal notranslate"><span class="pre">Correction.model_top_p</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.objects"><code class="docutils literal notranslate"><span class="pre">Correction.objects</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.prompt"><code class="docutils literal notranslate"><span class="pre">Correction.prompt</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.prompt_id"><code class="docutils literal notranslate"><span class="pre">Correction.prompt_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.rubric"><code class="docutils literal notranslate"><span class="pre">Correction.rubric</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.rubric_id"><code class="docutils literal notranslate"><span class="pre">Correction.rubric_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.running"><code class="docutils literal notranslate"><span class="pre">Correction.running</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.user"><code class="docutils literal notranslate"><span class="pre">Correction.user</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.user_id"><code class="docutils literal notranslate"><span class="pre">Correction.user_id</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.signals.delete_correction_folder"><code class="docutils literal notranslate"><span class="pre">delete_correction_folder()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.corrections"><code class="docutils literal notranslate"><span class="pre">corrections()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.delete_correction"><code class="docutils literal notranslate"><span class="pre">delete_correction()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.download_response"><code class="docutils literal notranslate"><span class="pre">download_response()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.process_zip_file"><code class="docutils literal notranslate"><span class="pre">process_zip_file()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.run_model"><code class="docutils literal notranslate"><span class="pre">run_model()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.show_new_correction"><code class="docutils literal notranslate"><span class="pre">show_new_correction()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.show_view_correction"><code class="docutils literal notranslate"><span class="pre">show_view_correction()</span></code></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-corrections">
+<span id="corrections"></span><h1>corrections<a class="headerlink" href="#module-corrections" title="Link to this heading">#</a></h1>
+<p>Módulo para gestionar las correcciones de los usuarios.</p>
+<p id="module-corrections.admin">Django Admin Configuration for Correction Model</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="corrections.admin.CorrectionAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">corrections.admin.</span></span><span class="sig-name descname"><span class="pre">CorrectionAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/admin.html#CorrectionAdmin"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.admin.CorrectionAdmin" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelAdmin</span></code></p>
+<p>Register de Rubric model to the admin panel.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.admin.CorrectionAdmin.list_display">
+<span class="sig-name descname"><span class="pre">list_display</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('description',</span> <span class="pre">'rubric',</span> <span class="pre">'prompt',</span> <span class="pre">'user',</span> <span class="pre">'date',</span> <span class="pre">'folder_path',</span> <span class="pre">'running')</span></em><a class="headerlink" href="#corrections.admin.CorrectionAdmin.list_display" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.admin.CorrectionAdmin.list_filter">
+<span class="sig-name descname"><span class="pre">list_filter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('user',)</span></em><a class="headerlink" href="#corrections.admin.CorrectionAdmin.list_filter" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="corrections.admin.CorrectionAdmin.media">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#corrections.admin.CorrectionAdmin.media" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.admin.CorrectionAdmin.search_fields">
+<span class="sig-name descname"><span class="pre">search_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('date',</span> <span class="pre">'description')</span></em><a class="headerlink" href="#corrections.admin.CorrectionAdmin.search_fields" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p id="module-corrections.apps">This module contains the Corrections Configurations</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="corrections.apps.CorrectionsConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">corrections.apps.</span></span><span class="sig-name descname"><span class="pre">CorrectionsConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/apps.html#CorrectionsConfig"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.apps.CorrectionsConfig" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code></p>
+<p>Corrections configurations</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.apps.CorrectionsConfig.default_auto_field">
+<span class="sig-name descname"><span class="pre">default_auto_field</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'django.db.models.BigAutoField'</span></em><a class="headerlink" href="#corrections.apps.CorrectionsConfig.default_auto_field" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.apps.CorrectionsConfig.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'corrections'</span></em><a class="headerlink" href="#corrections.apps.CorrectionsConfig.name" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="corrections.apps.CorrectionsConfig.ready">
+<span class="sig-name descname"><span class="pre">ready</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/apps.html#CorrectionsConfig.ready"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.apps.CorrectionsConfig.ready" title="Link to this definition">#</a></dt>
+<dd><p>Override this method in subclasses to run code when Django starts.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-corrections.forms">This module contains a form for a Correction model</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="corrections.forms.CorrectionForm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">corrections.forms.</span></span><span class="sig-name descname"><span class="pre">CorrectionForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_id='id_%s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_suffix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_permitted=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_required_attribute=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/forms.html#CorrectionForm"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.forms.CorrectionForm" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></p>
+<p>Form for creating corrections.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="corrections.forms.CorrectionForm.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/corrections/forms.html#CorrectionForm.Meta"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.forms.CorrectionForm.Meta" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Meta class for CorrectionForm.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.forms.CorrectionForm.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['description',</span> <span class="pre">'llm_model',</span> <span class="pre">'rubric',</span> <span class="pre">'prompt']</span></em><a class="headerlink" href="#corrections.forms.CorrectionForm.Meta.fields" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.forms.CorrectionForm.Meta.labels">
+<span class="sig-name descname"><span class="pre">labels</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'description':</span> <span class="pre">'Descripción',</span> <span class="pre">'llm_model':</span> <span class="pre">'Modelo</span> <span class="pre">usado',</span> <span class="pre">'prompt':</span> <span class="pre">'Prompt',</span> <span class="pre">'rubric':</span> <span class="pre">'Rúbrica'}</span></em><a class="headerlink" href="#corrections.forms.CorrectionForm.Meta.labels" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.forms.CorrectionForm.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#corrections.forms.CorrectionForm.Meta.model" title="Link to this definition">#</a></dt>
+<dd><p>alias de <a class="reference internal" href="#corrections.models.Correction" title="corrections.models.Correction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Correction</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.forms.CorrectionForm._meta">
+<span class="sig-name descname"><span class="pre">_meta</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.forms.models.ModelFormOptions</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#corrections.forms.CorrectionForm._meta" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.forms.CorrectionForm.base_fields">
+<span class="sig-name descname"><span class="pre">base_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'description':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'llm_model':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_temp':</span> <span class="pre">&lt;django.forms.fields.FloatField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_top_k':</span> <span class="pre">&lt;django.forms.fields.IntegerField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_top_p':</span> <span class="pre">&lt;django.forms.fields.FloatField</span> <span class="pre">object&gt;,</span> <span class="pre">'prompt':</span> <span class="pre">&lt;django.forms.models.ModelChoiceField</span> <span class="pre">object&gt;,</span> <span class="pre">'rubric':</span> <span class="pre">&lt;django.forms.models.ModelChoiceField</span> <span class="pre">object&gt;,</span> <span class="pre">'zip_file':</span> <span class="pre">&lt;django.forms.fields.FileField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#corrections.forms.CorrectionForm.base_fields" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="corrections.forms.CorrectionForm.clean_zip_file">
+<span class="sig-name descname"><span class="pre">clean_zip_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/forms.html#CorrectionForm.clean_zip_file"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.forms.CorrectionForm.clean_zip_file" title="Link to this definition">#</a></dt>
+<dd><p>Validate the zip file.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.forms.CorrectionForm.declared_fields">
+<span class="sig-name descname"><span class="pre">declared_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'description':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'llm_model':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_temp':</span> <span class="pre">&lt;django.forms.fields.FloatField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_top_k':</span> <span class="pre">&lt;django.forms.fields.IntegerField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_top_p':</span> <span class="pre">&lt;django.forms.fields.FloatField</span> <span class="pre">object&gt;,</span> <span class="pre">'zip_file':</span> <span class="pre">&lt;django.forms.fields.FileField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#corrections.forms.CorrectionForm.declared_fields" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="corrections.forms.CorrectionForm.media">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#corrections.forms.CorrectionForm.media" title="Link to this definition">#</a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-corrections.models">This module contains the models for the corrections app.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="corrections.models.Correction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">corrections.models.</span></span><span class="sig-name descname"><span class="pre">Correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/models.html#Correction"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.models.Correction" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Model representing a correction.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="corrections.models.Correction.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#corrections.models.Correction.DoesNotExist" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="corrections.models.Correction.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#corrections.models.Correction.MultipleObjectsReturned" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction._meta">
+<span class="sig-name descname"><span class="pre">_meta</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;Options</span> <span class="pre">for</span> <span class="pre">Correction&gt;</span></em><a class="headerlink" href="#corrections.models.Correction._meta" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.date">
+<span class="sig-name descname"><span class="pre">date</span></span><a class="headerlink" href="#corrections.models.Correction.date" title="Link to this definition">#</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.description">
+<span class="sig-name descname"><span class="pre">description</span></span><a class="headerlink" href="#corrections.models.Correction.description" title="Link to this definition">#</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.folder_path">
+<span class="sig-name descname"><span class="pre">folder_path</span></span><a class="headerlink" href="#corrections.models.Correction.folder_path" title="Link to this definition">#</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="corrections.models.Correction.get_next_by_date">
+<span class="sig-name descname"><span class="pre">get_next_by_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">date&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#corrections.models.Correction.get_next_by_date" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="corrections.models.Correction.get_previous_by_date">
+<span class="sig-name descname"><span class="pre">get_previous_by_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">date&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#corrections.models.Correction.get_previous_by_date" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#corrections.models.Correction.id" title="Link to this definition">#</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.last_ejecution_date">
+<span class="sig-name descname"><span class="pre">last_ejecution_date</span></span><a class="headerlink" href="#corrections.models.Correction.last_ejecution_date" title="Link to this definition">#</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.llm_model">
+<span class="sig-name descname"><span class="pre">llm_model</span></span><a class="headerlink" href="#corrections.models.Correction.llm_model" title="Link to this definition">#</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.model_temp">
+<span class="sig-name descname"><span class="pre">model_temp</span></span><a class="headerlink" href="#corrections.models.Correction.model_temp" title="Link to this definition">#</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.model_top_k">
+<span class="sig-name descname"><span class="pre">model_top_k</span></span><a class="headerlink" href="#corrections.models.Correction.model_top_k" title="Link to this definition">#</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.model_top_p">
+<span class="sig-name descname"><span class="pre">model_top_p</span></span><a class="headerlink" href="#corrections.models.Correction.model_top_p" title="Link to this definition">#</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#corrections.models.Correction.objects" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.prompt">
+<span class="sig-name descname"><span class="pre">prompt</span></span><a class="headerlink" href="#corrections.models.Correction.prompt" title="Link to this definition">#</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.prompt_id">
+<span class="sig-name descname"><span class="pre">prompt_id</span></span><a class="headerlink" href="#corrections.models.Correction.prompt_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.rubric">
+<span class="sig-name descname"><span class="pre">rubric</span></span><a class="headerlink" href="#corrections.models.Correction.rubric" title="Link to this definition">#</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.rubric_id">
+<span class="sig-name descname"><span class="pre">rubric_id</span></span><a class="headerlink" href="#corrections.models.Correction.rubric_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.running">
+<span class="sig-name descname"><span class="pre">running</span></span><a class="headerlink" href="#corrections.models.Correction.running" title="Link to this definition">#</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.user">
+<span class="sig-name descname"><span class="pre">user</span></span><a class="headerlink" href="#corrections.models.Correction.user" title="Link to this definition">#</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.user_id">
+<span class="sig-name descname"><span class="pre">user_id</span></span><a class="headerlink" href="#corrections.models.Correction.user_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p id="module-corrections.signals">This module contains signal handlers for the <cite>Correction</cite> model.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="corrections.signals.delete_correction_folder">
+<span class="sig-prename descclassname"><span class="pre">corrections.signals.</span></span><span class="sig-name descname"><span class="pre">delete_correction_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/signals.html#delete_correction_folder"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.signals.delete_correction_folder" title="Link to this definition">#</a></dt>
+<dd><p>Delete the files in the folder of the correction folder when the
+corrections is deleted</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> – The model class that sent the signal (<cite>Correction</cite>).</p></li>
+<li><p><strong>instance</strong> – The instance of the <cite>Correction</cite> model being deleted.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments passed by the signal.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-corrections.tasks">This module contains the asynchronous task</p>
+<p id="module-corrections.urls">This file is used to define the URL patterns for the corrections app.</p>
+<p id="module-corrections.views">This module contains views for the corrections app.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="corrections.views.corrections">
+<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">corrections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#corrections"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.views.corrections" title="Link to this definition">#</a></dt>
+<dd><p>Show the corrections page base</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="corrections.views.delete_correction">
+<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">delete_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#delete_correction"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.views.delete_correction" title="Link to this definition">#</a></dt>
+<dd><p>Delete one correction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – the HTTP request object</p></li>
+<li><p><strong>id</strong> – The id of the correction</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirect to the corrections view.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="corrections.views.download_response">
+<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">download_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correction_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#download_response"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.views.download_response" title="Link to this definition">#</a></dt>
+<dd><p>Download the file whit the response if exist</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong></p></li>
+<li><p><strong>correction_id</strong> – The ID of the correction</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>the file to download</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>FileResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="corrections.views.process_zip_file">
+<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">process_zip_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zip_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_correction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#process_zip_file"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.views.process_zip_file" title="Link to this definition">#</a></dt>
+<dd><p>Process the ZIP file containing Java files and save them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>zip_file</strong> – File to proceess</p></li>
+<li><p><strong>user</strong> – User that making te request</p></li>
+<li><p><strong>id_correction</strong> – The id to the correction</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns</dt><dd><p>str: The path where the files were saved.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="corrections.views.run_model">
+<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">run_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correction_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#run_model"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.views.run_model" title="Link to this definition">#</a></dt>
+<dd><p>Call the task to run the model in async mode</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The HTTP request object.</p></li>
+<li><p><strong>correction_id</strong> (<em>int</em>) – The ID of the correction to process.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirect to the correction detail view after queuing the task.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="corrections.views.show_new_correction">
+<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">show_new_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#show_new_correction"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.views.show_new_correction" title="Link to this definition">#</a></dt>
+<dd><p>View to display corrections.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="corrections.views.show_view_correction">
+<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">show_view_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#show_view_correction"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.views.show_view_correction" title="Link to this definition">#</a></dt>
+<dd><p>Show the view of the corrections table</p>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="rubrics.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">rubrics</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.admin.CorrectionAdmin"><code class="docutils literal notranslate"><span class="pre">CorrectionAdmin</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.admin.CorrectionAdmin.list_display"><code class="docutils literal notranslate"><span class="pre">CorrectionAdmin.list_display</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.admin.CorrectionAdmin.list_filter"><code class="docutils literal notranslate"><span class="pre">CorrectionAdmin.list_filter</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.admin.CorrectionAdmin.media"><code class="docutils literal notranslate"><span class="pre">CorrectionAdmin.media</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.admin.CorrectionAdmin.search_fields"><code class="docutils literal notranslate"><span class="pre">CorrectionAdmin.search_fields</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.apps.CorrectionsConfig"><code class="docutils literal notranslate"><span class="pre">CorrectionsConfig</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.apps.CorrectionsConfig.default_auto_field"><code class="docutils literal notranslate"><span class="pre">CorrectionsConfig.default_auto_field</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.apps.CorrectionsConfig.name"><code class="docutils literal notranslate"><span class="pre">CorrectionsConfig.name</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.apps.CorrectionsConfig.ready"><code class="docutils literal notranslate"><span class="pre">CorrectionsConfig.ready()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm"><code class="docutils literal notranslate"><span class="pre">CorrectionForm</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm.Meta"><code class="docutils literal notranslate"><span class="pre">CorrectionForm.Meta</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm.Meta.fields"><code class="docutils literal notranslate"><span class="pre">CorrectionForm.Meta.fields</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm.Meta.labels"><code class="docutils literal notranslate"><span class="pre">CorrectionForm.Meta.labels</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm.Meta.model"><code class="docutils literal notranslate"><span class="pre">CorrectionForm.Meta.model</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm._meta"><code class="docutils literal notranslate"><span class="pre">CorrectionForm._meta</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm.base_fields"><code class="docutils literal notranslate"><span class="pre">CorrectionForm.base_fields</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm.clean_zip_file"><code class="docutils literal notranslate"><span class="pre">CorrectionForm.clean_zip_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm.declared_fields"><code class="docutils literal notranslate"><span class="pre">CorrectionForm.declared_fields</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.forms.CorrectionForm.media"><code class="docutils literal notranslate"><span class="pre">CorrectionForm.media</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction"><code class="docutils literal notranslate"><span class="pre">Correction</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Correction.DoesNotExist</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Correction.MultipleObjectsReturned</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction._meta"><code class="docutils literal notranslate"><span class="pre">Correction._meta</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.date"><code class="docutils literal notranslate"><span class="pre">Correction.date</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.description"><code class="docutils literal notranslate"><span class="pre">Correction.description</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.folder_path"><code class="docutils literal notranslate"><span class="pre">Correction.folder_path</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.get_next_by_date"><code class="docutils literal notranslate"><span class="pre">Correction.get_next_by_date()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.get_previous_by_date"><code class="docutils literal notranslate"><span class="pre">Correction.get_previous_by_date()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.id"><code class="docutils literal notranslate"><span class="pre">Correction.id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.last_ejecution_date"><code class="docutils literal notranslate"><span class="pre">Correction.last_ejecution_date</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.llm_model"><code class="docutils literal notranslate"><span class="pre">Correction.llm_model</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.model_temp"><code class="docutils literal notranslate"><span class="pre">Correction.model_temp</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.model_top_k"><code class="docutils literal notranslate"><span class="pre">Correction.model_top_k</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.model_top_p"><code class="docutils literal notranslate"><span class="pre">Correction.model_top_p</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.objects"><code class="docutils literal notranslate"><span class="pre">Correction.objects</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.prompt"><code class="docutils literal notranslate"><span class="pre">Correction.prompt</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.prompt_id"><code class="docutils literal notranslate"><span class="pre">Correction.prompt_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.rubric"><code class="docutils literal notranslate"><span class="pre">Correction.rubric</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.rubric_id"><code class="docutils literal notranslate"><span class="pre">Correction.rubric_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.running"><code class="docutils literal notranslate"><span class="pre">Correction.running</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.user"><code class="docutils literal notranslate"><span class="pre">Correction.user</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.user_id"><code class="docutils literal notranslate"><span class="pre">Correction.user_id</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.signals.delete_correction_folder"><code class="docutils literal notranslate"><span class="pre">delete_correction_folder()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.corrections"><code class="docutils literal notranslate"><span class="pre">corrections()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.delete_correction"><code class="docutils literal notranslate"><span class="pre">delete_correction()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.download_response"><code class="docutils literal notranslate"><span class="pre">download_response()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.process_zip_file"><code class="docutils literal notranslate"><span class="pre">process_zip_file()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.run_model"><code class="docutils literal notranslate"><span class="pre">run_model()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.show_new_correction"><code class="docutils literal notranslate"><span class="pre">show_new_correction()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.show_view_correction"><code class="docutils literal notranslate"><span class="pre">show_view_correction()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por Pedro Antonio Abellaneda Canales
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Pedro Antonio Abellaneda Canales.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,6 +1,4 @@
-"""
-This file is used to configure the app name in the Django admin panel.
-"""
+""" App configuration for the [app_name] Django app. """
 
 from django.apps import AppConfig
 
