@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>core &#8212; documentación de iagscore - </title>
+    <title>Core aplication module &#8212; documentación de iagscore - </title>
   
   
   
@@ -153,9 +153,9 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="accounts.html">accounts</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">core</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Core aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="prompts.html">prompts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rubrics.html">rubrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rubrics.html">Rubrics aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="corrections.html">corrections</a></li>
 </ul>
 
@@ -310,7 +310,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>core</h1>
+    <h1>Core aplication module</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -320,7 +320,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-core">Core aplication module</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-core.apps">apps</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.apps.CoreConfig"><code class="docutils literal notranslate"><span class="pre">CoreConfig</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#core.apps.CoreConfig.default_auto_field"><code class="docutils literal notranslate"><span class="pre">CoreConfig.default_auto_field</span></code></a></li>
@@ -349,12 +348,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="core">
-<h1>core<a class="headerlink" href="#core" title="Link to this heading">#</a></h1>
-<section id="module-core">
-<span id="core-aplication-module"></span><h2>Core aplication module<a class="headerlink" href="#module-core" title="Link to this heading">#</a></h2>
+  <section id="module-core">
+<span id="core-aplication-module"></span><h1>Core aplication module<a class="headerlink" href="#module-core" title="Link to this heading">#</a></h1>
 <p>Module to handle the core functionality of the application.</p>
-</section>
 <section id="module-core.apps">
 <span id="apps"></span><h2>apps<a class="headerlink" href="#module-core.apps" title="Link to this heading">#</a></h2>
 <p>App configuration for the core Django app.</p>
@@ -382,63 +378,107 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="core.views.custom_login">
 <span class="sig-prename descclassname"><span class="pre">core.views.</span></span><span class="sig-name descname"><span class="pre">custom_login</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#custom_login"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#core.views.custom_login" title="Link to this definition">#</a></dt>
-<dd><p>This view is used to log in the user.
-- GET: Displays the login form.
-- POST: Processes the form and login.</p>
-<p>Parameters:
-- request: The HTTP request object.</p>
-<p>Returns:
-- HttpResponse: The rendered login page or redirect to home.</p>
+<dd><p>This view is used to log in the user.</p>
+<ul class="simple">
+<li><p>GET: Displays the login form.</p></li>
+<li><p>POST: Processes the form and login.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – The HTTP request object.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered login page or redirect to home.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="core.views.home">
 <span class="sig-prename descclassname"><span class="pre">core.views.</span></span><span class="sig-name descname"><span class="pre">home</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#home"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#core.views.home" title="Link to this definition">#</a></dt>
 <dd><p>This view is used to display the home page.</p>
-<p>Parameters:
-- request: The HTTP request object.</p>
-<p>Returns:
-- HttpResponse: The rendered home page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – The HTTP request object.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered home page.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="core.views.llm_section">
 <span class="sig-prename descclassname"><span class="pre">core.views.</span></span><span class="sig-name descname"><span class="pre">llm_section</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#llm_section"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#core.views.llm_section" title="Link to this definition">#</a></dt>
 <dd><p>This view is used to display llm section</p>
-<p>Parameters:
-- request: The HTTP request object.</p>
-<p>Returns:
-- HttpResponse: The rendered llm section page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – The HTTP request object.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered llm section page.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="core.views.logout_view">
 <span class="sig-prename descclassname"><span class="pre">core.views.</span></span><span class="sig-name descname"><span class="pre">logout_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#logout_view"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#core.views.logout_view" title="Link to this definition">#</a></dt>
 <dd><p>This view is used to log out the user.</p>
-<p>Parameters:
-- request: The HTTP request object.</p>
-<p>Returns:
-- HttpResponse: Redirects to the login page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – The HTTP request object.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Redirects to the login page.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="core.views.privacidad">
 <span class="sig-prename descclassname"><span class="pre">core.views.</span></span><span class="sig-name descname"><span class="pre">privacidad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#privacidad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#core.views.privacidad" title="Link to this definition">#</a></dt>
 <dd><p>This view is used to display the privacity page</p>
-<p>Parameters:
-- request: The HTTP request object.</p>
-<p>Returns:
-- HttpResponse: The rendered privacy page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – The HTTP request object.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered privacy page.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="core.views.terminos">
 <span class="sig-prename descclassname"><span class="pre">core.views.</span></span><span class="sig-name descname"><span class="pre">terminos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#terminos"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#core.views.terminos" title="Link to this definition">#</a></dt>
 <dd><p>This view is used to display the terms and conditions page</p>
-<p>Parameters:
-- request: The HTTP request object.</p>
-<p>Returns:
-- HttpResponse: The rendered terms and conditions page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – The HTTP request object.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered terms and conditions page.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -489,7 +529,6 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-core">Core aplication module</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-core.apps">apps</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.apps.CoreConfig"><code class="docutils literal notranslate"><span class="pre">CoreConfig</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#core.apps.CoreConfig.default_auto_field"><code class="docutils literal notranslate"><span class="pre">CoreConfig.default_auto_field</span></code></a></li>

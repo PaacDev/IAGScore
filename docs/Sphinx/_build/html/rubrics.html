@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>rubrics &#8212; documentación de iagscore - </title>
+    <title>Rubrics aplication module &#8212; documentación de iagscore - </title>
   
   
   
@@ -153,9 +153,9 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="accounts.html">accounts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="core.html">core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">Core aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="prompts.html">prompts</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">rubrics</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Rubrics aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="corrections.html">corrections</a></li>
 </ul>
 
@@ -310,7 +310,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>rubrics</h1>
+    <h1>Rubrics aplication module</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -320,54 +320,69 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin"><code class="docutils literal notranslate"><span class="pre">RubricAdmin</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.content_preview"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.content_preview()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.list_display"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.list_display</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.list_filter"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.list_filter</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.media"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.media</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.readonly_fields"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.readonly_fields</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.search_fields"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.search_fields</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-rubrics.admin">admin</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin"><code class="docutils literal notranslate"><span class="pre">RubricAdmin</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.content_preview"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.content_preview()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.list_display"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.list_display</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.list_filter"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.list_filter</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.media"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.media</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.readonly_fields"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.readonly_fields</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.search_fields"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.search_fields</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.apps.RubricsConfig"><code class="docutils literal notranslate"><span class="pre">RubricsConfig</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.apps.RubricsConfig.default_auto_field"><code class="docutils literal notranslate"><span class="pre">RubricsConfig.default_auto_field</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.apps.RubricsConfig.name"><code class="docutils literal notranslate"><span class="pre">RubricsConfig.name</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm"><code class="docutils literal notranslate"><span class="pre">RubricForm</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.Meta"><code class="docutils literal notranslate"><span class="pre">RubricForm.Meta</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.Meta.fields"><code class="docutils literal notranslate"><span class="pre">RubricForm.Meta.fields</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.Meta.labels"><code class="docutils literal notranslate"><span class="pre">RubricForm.Meta.labels</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.Meta.model"><code class="docutils literal notranslate"><span class="pre">RubricForm.Meta.model</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-rubrics.apps">apps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.apps.RubricsConfig"><code class="docutils literal notranslate"><span class="pre">RubricsConfig</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.apps.RubricsConfig.default_auto_field"><code class="docutils literal notranslate"><span class="pre">RubricsConfig.default_auto_field</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.apps.RubricsConfig.name"><code class="docutils literal notranslate"><span class="pre">RubricsConfig.name</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm._meta"><code class="docutils literal notranslate"><span class="pre">RubricForm._meta</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.base_fields"><code class="docutils literal notranslate"><span class="pre">RubricForm.base_fields</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.clean_rubric_file"><code class="docutils literal notranslate"><span class="pre">RubricForm.clean_rubric_file()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.declared_fields"><code class="docutils literal notranslate"><span class="pre">RubricForm.declared_fields</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.media"><code class="docutils literal notranslate"><span class="pre">RubricForm.media</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric"><code class="docutils literal notranslate"><span class="pre">Rubric</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Rubric.DoesNotExist</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Rubric.MultipleObjectsReturned</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric._meta"><code class="docutils literal notranslate"><span class="pre">Rubric._meta</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.content"><code class="docutils literal notranslate"><span class="pre">Rubric.content</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.corrections"><code class="docutils literal notranslate"><span class="pre">Rubric.corrections</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.creation_date"><code class="docutils literal notranslate"><span class="pre">Rubric.creation_date</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.get_html_content"><code class="docutils literal notranslate"><span class="pre">Rubric.get_html_content()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.get_next_by_creation_date"><code class="docutils literal notranslate"><span class="pre">Rubric.get_next_by_creation_date()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.get_previous_by_creation_date"><code class="docutils literal notranslate"><span class="pre">Rubric.get_previous_by_creation_date()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.id"><code class="docutils literal notranslate"><span class="pre">Rubric.id</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.name"><code class="docutils literal notranslate"><span class="pre">Rubric.name</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.objects"><code class="docutils literal notranslate"><span class="pre">Rubric.objects</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.user"><code class="docutils literal notranslate"><span class="pre">Rubric.user</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.user_id"><code class="docutils literal notranslate"><span class="pre">Rubric.user_id</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-rubrics.forms">forms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm"><code class="docutils literal notranslate"><span class="pre">RubricForm</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.Meta"><code class="docutils literal notranslate"><span class="pre">RubricForm.Meta</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.Meta.fields"><code class="docutils literal notranslate"><span class="pre">RubricForm.Meta.fields</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.Meta.labels"><code class="docutils literal notranslate"><span class="pre">RubricForm.Meta.labels</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.Meta.model"><code class="docutils literal notranslate"><span class="pre">RubricForm.Meta.model</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.delete_rubric"><code class="docutils literal notranslate"><span class="pre">delete_rubric()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.rubric_page"><code class="docutils literal notranslate"><span class="pre">rubric_page()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.show_rubric"><code class="docutils literal notranslate"><span class="pre">show_rubric()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm._meta"><code class="docutils literal notranslate"><span class="pre">RubricForm._meta</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.base_fields"><code class="docutils literal notranslate"><span class="pre">RubricForm.base_fields</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.clean_rubric_file"><code class="docutils literal notranslate"><span class="pre">RubricForm.clean_rubric_file()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.declared_fields"><code class="docutils literal notranslate"><span class="pre">RubricForm.declared_fields</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.media"><code class="docutils literal notranslate"><span class="pre">RubricForm.media</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-rubrics.models">models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric"><code class="docutils literal notranslate"><span class="pre">Rubric</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Rubric.DoesNotExist</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Rubric.MultipleObjectsReturned</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric._meta"><code class="docutils literal notranslate"><span class="pre">Rubric._meta</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.content"><code class="docutils literal notranslate"><span class="pre">Rubric.content</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.corrections"><code class="docutils literal notranslate"><span class="pre">Rubric.corrections</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.creation_date"><code class="docutils literal notranslate"><span class="pre">Rubric.creation_date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.get_html_content"><code class="docutils literal notranslate"><span class="pre">Rubric.get_html_content()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.get_next_by_creation_date"><code class="docutils literal notranslate"><span class="pre">Rubric.get_next_by_creation_date()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.get_previous_by_creation_date"><code class="docutils literal notranslate"><span class="pre">Rubric.get_previous_by_creation_date()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.id"><code class="docutils literal notranslate"><span class="pre">Rubric.id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.name"><code class="docutils literal notranslate"><span class="pre">Rubric.name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.objects"><code class="docutils literal notranslate"><span class="pre">Rubric.objects</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.user"><code class="docutils literal notranslate"><span class="pre">Rubric.user</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.user_id"><code class="docutils literal notranslate"><span class="pre">Rubric.user_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-rubrics.views">views</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.delete_rubric"><code class="docutils literal notranslate"><span class="pre">delete_rubric()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.rubric_page"><code class="docutils literal notranslate"><span class="pre">rubric_page()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.show_rubric"><code class="docutils literal notranslate"><span class="pre">show_rubric()</span></code></a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -380,8 +395,10 @@ document.write(`
                 <article class="bd-article">
                   
   <section id="module-rubrics">
-<span id="rubrics"></span><h1>rubrics<a class="headerlink" href="#module-rubrics" title="Link to this heading">#</a></h1>
-<p id="module-rubrics.admin">Django Admin Configuration for Rubric Model</p>
+<span id="rubrics-aplication-module"></span><h1>Rubrics aplication module<a class="headerlink" href="#module-rubrics" title="Link to this heading">#</a></h1>
+<section id="module-rubrics.admin">
+<span id="admin"></span><h2>admin<a class="headerlink" href="#module-rubrics.admin" title="Link to this heading">#</a></h2>
+<p>Django Admin Configuration for Rubric Model</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="rubrics.admin.RubricAdmin">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rubrics.admin.</span></span><span class="sig-name descname"><span class="pre">RubricAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubrics/admin.html#RubricAdmin"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#rubrics.admin.RubricAdmin" title="Link to this definition">#</a></dt>
@@ -420,7 +437,10 @@ document.write(`
 
 </dd></dl>
 
-<p id="module-rubrics.apps">This file is part of the Rubrics app for the Django project.</p>
+</section>
+<section id="module-rubrics.apps">
+<span id="apps"></span><h2>apps<a class="headerlink" href="#module-rubrics.apps" title="Link to this heading">#</a></h2>
+<p>This file is part of the Rubrics app for the Django project.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="rubrics.apps.RubricsConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rubrics.apps.</span></span><span class="sig-name descname"><span class="pre">RubricsConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubrics/apps.html#RubricsConfig"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#rubrics.apps.RubricsConfig" title="Link to this definition">#</a></dt>
@@ -438,7 +458,10 @@ document.write(`
 
 </dd></dl>
 
-<p id="module-rubrics.forms">This module contains the form for creating rubrics.</p>
+</section>
+<section id="module-rubrics.forms">
+<span id="forms"></span><h2>forms<a class="headerlink" href="#module-rubrics.forms" title="Link to this heading">#</a></h2>
+<p>This module contains the form for creating rubrics.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="rubrics.forms.RubricForm">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rubrics.forms.</span></span><span class="sig-name descname"><span class="pre">RubricForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_id='id_%s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_suffix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_permitted=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_required_attribute=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubrics/forms.html#RubricForm"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#rubrics.forms.RubricForm" title="Link to this definition">#</a></dt>
@@ -496,7 +519,10 @@ document.write(`
 
 </dd></dl>
 
-<p id="module-rubrics.models">This file defines the models for the rubrics app</p>
+</section>
+<section id="module-rubrics.models">
+<span id="models"></span><h2>models<a class="headerlink" href="#module-rubrics.models" title="Link to this heading">#</a></h2>
+<p>This file defines the models for the rubrics app</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="rubrics.models.Rubric">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rubrics.models.</span></span><span class="sig-name descname"><span class="pre">Rubric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubrics/models.html#Rubric"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#rubrics.models.Rubric" title="Link to this definition">#</a></dt>
@@ -603,8 +629,10 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 
 </dd></dl>
 
-<p id="module-rubrics.urls">This file is used to define the URL patterns for the rubrics app.</p>
-<p id="module-rubrics.views">This module contains the views for the rubrics app.</p>
+</section>
+<section id="module-rubrics.views">
+<span id="views"></span><h2>views<a class="headerlink" href="#module-rubrics.views" title="Link to this heading">#</a></h2>
+<p>This module contains the views for the rubrics app.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="rubrics.views.delete_rubric">
 <span class="sig-prename descclassname"><span class="pre">rubrics.views.</span></span><span class="sig-name descname"><span class="pre">delete_rubric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rubric_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubrics/views.html#delete_rubric"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#rubrics.views.delete_rubric" title="Link to this definition">#</a></dt>
@@ -623,6 +651,7 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 <dd><p>View for showing a rubric</p>
 </dd></dl>
 
+</section>
 </section>
 
 
@@ -670,54 +699,69 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin"><code class="docutils literal notranslate"><span class="pre">RubricAdmin</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.content_preview"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.content_preview()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.list_display"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.list_display</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.list_filter"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.list_filter</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.media"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.media</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.readonly_fields"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.readonly_fields</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.search_fields"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.search_fields</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-rubrics.admin">admin</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin"><code class="docutils literal notranslate"><span class="pre">RubricAdmin</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.content_preview"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.content_preview()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.list_display"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.list_display</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.list_filter"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.list_filter</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.media"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.media</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.readonly_fields"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.readonly_fields</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.admin.RubricAdmin.search_fields"><code class="docutils literal notranslate"><span class="pre">RubricAdmin.search_fields</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.apps.RubricsConfig"><code class="docutils literal notranslate"><span class="pre">RubricsConfig</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.apps.RubricsConfig.default_auto_field"><code class="docutils literal notranslate"><span class="pre">RubricsConfig.default_auto_field</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.apps.RubricsConfig.name"><code class="docutils literal notranslate"><span class="pre">RubricsConfig.name</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm"><code class="docutils literal notranslate"><span class="pre">RubricForm</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.Meta"><code class="docutils literal notranslate"><span class="pre">RubricForm.Meta</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.Meta.fields"><code class="docutils literal notranslate"><span class="pre">RubricForm.Meta.fields</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.Meta.labels"><code class="docutils literal notranslate"><span class="pre">RubricForm.Meta.labels</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.Meta.model"><code class="docutils literal notranslate"><span class="pre">RubricForm.Meta.model</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-rubrics.apps">apps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.apps.RubricsConfig"><code class="docutils literal notranslate"><span class="pre">RubricsConfig</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.apps.RubricsConfig.default_auto_field"><code class="docutils literal notranslate"><span class="pre">RubricsConfig.default_auto_field</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.apps.RubricsConfig.name"><code class="docutils literal notranslate"><span class="pre">RubricsConfig.name</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm._meta"><code class="docutils literal notranslate"><span class="pre">RubricForm._meta</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.base_fields"><code class="docutils literal notranslate"><span class="pre">RubricForm.base_fields</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.clean_rubric_file"><code class="docutils literal notranslate"><span class="pre">RubricForm.clean_rubric_file()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.declared_fields"><code class="docutils literal notranslate"><span class="pre">RubricForm.declared_fields</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.media"><code class="docutils literal notranslate"><span class="pre">RubricForm.media</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric"><code class="docutils literal notranslate"><span class="pre">Rubric</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Rubric.DoesNotExist</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Rubric.MultipleObjectsReturned</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric._meta"><code class="docutils literal notranslate"><span class="pre">Rubric._meta</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.content"><code class="docutils literal notranslate"><span class="pre">Rubric.content</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.corrections"><code class="docutils literal notranslate"><span class="pre">Rubric.corrections</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.creation_date"><code class="docutils literal notranslate"><span class="pre">Rubric.creation_date</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.get_html_content"><code class="docutils literal notranslate"><span class="pre">Rubric.get_html_content()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.get_next_by_creation_date"><code class="docutils literal notranslate"><span class="pre">Rubric.get_next_by_creation_date()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.get_previous_by_creation_date"><code class="docutils literal notranslate"><span class="pre">Rubric.get_previous_by_creation_date()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.id"><code class="docutils literal notranslate"><span class="pre">Rubric.id</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.name"><code class="docutils literal notranslate"><span class="pre">Rubric.name</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.objects"><code class="docutils literal notranslate"><span class="pre">Rubric.objects</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.user"><code class="docutils literal notranslate"><span class="pre">Rubric.user</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.user_id"><code class="docutils literal notranslate"><span class="pre">Rubric.user_id</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-rubrics.forms">forms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm"><code class="docutils literal notranslate"><span class="pre">RubricForm</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.Meta"><code class="docutils literal notranslate"><span class="pre">RubricForm.Meta</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.Meta.fields"><code class="docutils literal notranslate"><span class="pre">RubricForm.Meta.fields</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.Meta.labels"><code class="docutils literal notranslate"><span class="pre">RubricForm.Meta.labels</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.Meta.model"><code class="docutils literal notranslate"><span class="pre">RubricForm.Meta.model</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.delete_rubric"><code class="docutils literal notranslate"><span class="pre">delete_rubric()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.rubric_page"><code class="docutils literal notranslate"><span class="pre">rubric_page()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.show_rubric"><code class="docutils literal notranslate"><span class="pre">show_rubric()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm._meta"><code class="docutils literal notranslate"><span class="pre">RubricForm._meta</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.base_fields"><code class="docutils literal notranslate"><span class="pre">RubricForm.base_fields</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.clean_rubric_file"><code class="docutils literal notranslate"><span class="pre">RubricForm.clean_rubric_file()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.declared_fields"><code class="docutils literal notranslate"><span class="pre">RubricForm.declared_fields</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.forms.RubricForm.media"><code class="docutils literal notranslate"><span class="pre">RubricForm.media</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-rubrics.models">models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric"><code class="docutils literal notranslate"><span class="pre">Rubric</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Rubric.DoesNotExist</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Rubric.MultipleObjectsReturned</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric._meta"><code class="docutils literal notranslate"><span class="pre">Rubric._meta</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.content"><code class="docutils literal notranslate"><span class="pre">Rubric.content</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.corrections"><code class="docutils literal notranslate"><span class="pre">Rubric.corrections</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.creation_date"><code class="docutils literal notranslate"><span class="pre">Rubric.creation_date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.get_html_content"><code class="docutils literal notranslate"><span class="pre">Rubric.get_html_content()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.get_next_by_creation_date"><code class="docutils literal notranslate"><span class="pre">Rubric.get_next_by_creation_date()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.get_previous_by_creation_date"><code class="docutils literal notranslate"><span class="pre">Rubric.get_previous_by_creation_date()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.id"><code class="docutils literal notranslate"><span class="pre">Rubric.id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.name"><code class="docutils literal notranslate"><span class="pre">Rubric.name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.objects"><code class="docutils literal notranslate"><span class="pre">Rubric.objects</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.user"><code class="docutils literal notranslate"><span class="pre">Rubric.user</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.models.Rubric.user_id"><code class="docutils literal notranslate"><span class="pre">Rubric.user_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-rubrics.views">views</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.delete_rubric"><code class="docutils literal notranslate"><span class="pre">delete_rubric()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.rubric_page"><code class="docutils literal notranslate"><span class="pre">rubric_page()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.show_rubric"><code class="docutils literal notranslate"><span class="pre">show_rubric()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

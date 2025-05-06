@@ -1,8 +1,6 @@
-core
-====
-
 Core aplication module
-----------------------
+======================
+
 .. automodule:: core
    :members:
    :undoc-members:

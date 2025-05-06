@@ -295,14 +295,15 @@ document.write(`
 <span class="k">def</span><span class="w"> </span><span class="nf">custom_login</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This view is used to log in the user.</span>
+
 <span class="sd">    - GET: Displays the login form.</span>
 <span class="sd">    - POST: Processes the form and login.</span>
 
 <span class="sd">    Parameters:</span>
-<span class="sd">    - request: The HTTP request object.</span>
+<span class="sd">        request: The HTTP request object.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">    - HttpResponse: The rendered login page or redirect to home.</span>
+<span class="sd">        HttpResponse: The rendered login page or redirect to home.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># If method is POST, process the form else show the form</span>
@@ -337,10 +338,10 @@ document.write(`
 <span class="sd">    This view is used to display the home page.</span>
 
 <span class="sd">    Parameters:</span>
-<span class="sd">    - request: The HTTP request object.</span>
+<span class="sd">        request: The HTTP request object.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">    - HttpResponse: The rendered home page.</span>
+<span class="sd">        HttpResponse: The rendered home page.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;core/home.html&quot;</span><span class="p">)</span></div>
 
@@ -353,10 +354,10 @@ document.write(`
 <span class="sd">    This view is used to log out the user.</span>
 
 <span class="sd">    Parameters:</span>
-<span class="sd">    - request: The HTTP request object.</span>
+<span class="sd">        request: The HTTP request object.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">    - HttpResponse: Redirects to the login page.</span>
+<span class="sd">        HttpResponse: Redirects to the login page.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logout</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;login&quot;</span><span class="p">)</span></div>
@@ -371,10 +372,10 @@ document.write(`
 <span class="sd">    This view is used to display the terms and conditions page</span>
 
 <span class="sd">    Parameters:</span>
-<span class="sd">    - request: The HTTP request object.</span>
+<span class="sd">        request: The HTTP request object.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">    - HttpResponse: The rendered terms and conditions page.</span>
+<span class="sd">        HttpResponse: The rendered terms and conditions page.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Path md terminos</span>
     <span class="n">md_terminos</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">STATICFILES_DIRS</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;core/docs&quot;</span><span class="p">,</span> <span class="s2">&quot;terminos.md&quot;</span><span class="p">)</span>
@@ -397,10 +398,10 @@ document.write(`
 <span class="sd">    This view is used to display the privacity page</span>
 
 <span class="sd">    Parameters:</span>
-<span class="sd">    - request: The HTTP request object.</span>
+<span class="sd">        request: The HTTP request object.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">    - HttpResponse: The rendered privacy page.</span>
+<span class="sd">        HttpResponse: The rendered privacy page.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Path md</span>
     <span class="n">md_privacidad</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
@@ -424,10 +425,10 @@ document.write(`
 <span class="sd">    This view is used to display llm section</span>
 
 <span class="sd">    Parameters:</span>
-<span class="sd">    - request: The HTTP request object.</span>
+<span class="sd">        request: The HTTP request object.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">    - HttpResponse: The rendered llm section page.</span>
+<span class="sd">        HttpResponse: The rendered llm section page.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;core/llm_info.html&quot;</span><span class="p">)</span></div>
