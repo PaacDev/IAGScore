@@ -1,7 +1,4 @@
-"""
-This module contains a form for a Correction model
-"""
-
+"""Form for registering a Correction."""
 from django import forms
 from django.forms import ModelForm
 from .models import Correction

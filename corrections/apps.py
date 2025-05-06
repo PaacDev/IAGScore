@@ -1,6 +1,5 @@
-"""
-This module contains the Corrections Configurations
-"""
+""" App configuration for the corrections Django app. """
+
 from django.apps import AppConfig
 
 

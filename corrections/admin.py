@@ -1,6 +1,4 @@
-"""
-Django Admin Configuration for Correction Model
-"""
+""" Register the correction model with the Django admin site. """
 
 from django.contrib import admin
 from .models import Correction

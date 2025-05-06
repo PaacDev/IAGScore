@@ -320,16 +320,24 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core.apps.CoreConfig"><code class="docutils literal notranslate"><span class="pre">CoreConfig</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.apps.CoreConfig.default_auto_field"><code class="docutils literal notranslate"><span class="pre">CoreConfig.default_auto_field</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.apps.CoreConfig.name"><code class="docutils literal notranslate"><span class="pre">CoreConfig.name</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-core">Core aplication module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-core.apps">apps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.apps.CoreConfig"><code class="docutils literal notranslate"><span class="pre">CoreConfig</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#core.apps.CoreConfig.default_auto_field"><code class="docutils literal notranslate"><span class="pre">CoreConfig.default_auto_field</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#core.apps.CoreConfig.name"><code class="docutils literal notranslate"><span class="pre">CoreConfig.name</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.custom_login"><code class="docutils literal notranslate"><span class="pre">custom_login()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.home"><code class="docutils literal notranslate"><span class="pre">home()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.logout_view"><code class="docutils literal notranslate"><span class="pre">logout_view()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.privacidad"><code class="docutils literal notranslate"><span class="pre">privacidad()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.terminos"><code class="docutils literal notranslate"><span class="pre">terminos()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-core.views">views</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.custom_login"><code class="docutils literal notranslate"><span class="pre">custom_login()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.home"><code class="docutils literal notranslate"><span class="pre">home()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.llm_section"><code class="docutils literal notranslate"><span class="pre">llm_section()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.logout_view"><code class="docutils literal notranslate"><span class="pre">logout_view()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.privacidad"><code class="docutils literal notranslate"><span class="pre">privacidad()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.terminos"><code class="docutils literal notranslate"><span class="pre">terminos()</span></code></a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -341,11 +349,15 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-core">
-<span id="core"></span><h1>core<a class="headerlink" href="#module-core" title="Link to this heading">#</a></h1>
-<p>Módulo manejo de login y logout de usuarios.</p>
-<p id="module-core.admin">Module admin.py</p>
-<p id="module-core.apps">This file is used to configure the app name in the Django admin panel.</p>
+  <section id="core">
+<h1>core<a class="headerlink" href="#core" title="Link to this heading">#</a></h1>
+<section id="module-core">
+<span id="core-aplication-module"></span><h2>Core aplication module<a class="headerlink" href="#module-core" title="Link to this heading">#</a></h2>
+<p>Module to handle the core functionality of the application.</p>
+</section>
+<section id="module-core.apps">
+<span id="apps"></span><h2>apps<a class="headerlink" href="#module-core.apps" title="Link to this heading">#</a></h2>
+<p>App configuration for the core Django app.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.apps.CoreConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.apps.</span></span><span class="sig-name descname"><span class="pre">CoreConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/apps.html#CoreConfig"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#core.apps.CoreConfig" title="Link to this definition">#</a></dt>
@@ -363,41 +375,73 @@ document.write(`
 
 </dd></dl>
 
-<p id="module-core.models">Module models.py</p>
-<p id="module-core.urls">This file is used to define the URL patterns for the core app.</p>
-<p id="module-core.views">This file contains the views for the accounts app.</p>
+</section>
+<section id="module-core.views">
+<span id="views"></span><h2>views<a class="headerlink" href="#module-core.views" title="Link to this heading">#</a></h2>
+<p>Views for the core application.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="core.views.custom_login">
 <span class="sig-prename descclassname"><span class="pre">core.views.</span></span><span class="sig-name descname"><span class="pre">custom_login</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#custom_login"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#core.views.custom_login" title="Link to this definition">#</a></dt>
 <dd><p>This view is used to log in the user.
 - GET: Displays the login form.
 - POST: Processes the form and login.</p>
+<p>Parameters:
+- request: The HTTP request object.</p>
+<p>Returns:
+- HttpResponse: The rendered login page or redirect to home.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="core.views.home">
 <span class="sig-prename descclassname"><span class="pre">core.views.</span></span><span class="sig-name descname"><span class="pre">home</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#home"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#core.views.home" title="Link to this definition">#</a></dt>
-<dd><p>This view is used to display the home page</p>
+<dd><p>This view is used to display the home page.</p>
+<p>Parameters:
+- request: The HTTP request object.</p>
+<p>Returns:
+- HttpResponse: The rendered home page.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.views.llm_section">
+<span class="sig-prename descclassname"><span class="pre">core.views.</span></span><span class="sig-name descname"><span class="pre">llm_section</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#llm_section"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#core.views.llm_section" title="Link to this definition">#</a></dt>
+<dd><p>This view is used to display llm section</p>
+<p>Parameters:
+- request: The HTTP request object.</p>
+<p>Returns:
+- HttpResponse: The rendered llm section page.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="core.views.logout_view">
 <span class="sig-prename descclassname"><span class="pre">core.views.</span></span><span class="sig-name descname"><span class="pre">logout_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#logout_view"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#core.views.logout_view" title="Link to this definition">#</a></dt>
-<dd><p>Logout</p>
+<dd><p>This view is used to log out the user.</p>
+<p>Parameters:
+- request: The HTTP request object.</p>
+<p>Returns:
+- HttpResponse: Redirects to the login page.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="core.views.privacidad">
 <span class="sig-prename descclassname"><span class="pre">core.views.</span></span><span class="sig-name descname"><span class="pre">privacidad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#privacidad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#core.views.privacidad" title="Link to this definition">#</a></dt>
 <dd><p>This view is used to display the privacity page</p>
+<p>Parameters:
+- request: The HTTP request object.</p>
+<p>Returns:
+- HttpResponse: The rendered privacy page.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="core.views.terminos">
 <span class="sig-prename descclassname"><span class="pre">core.views.</span></span><span class="sig-name descname"><span class="pre">terminos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#terminos"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#core.views.terminos" title="Link to this definition">#</a></dt>
 <dd><p>This view is used to display the terms and conditions page</p>
+<p>Parameters:
+- request: The HTTP request object.</p>
+<p>Returns:
+- HttpResponse: The rendered terms and conditions page.</p>
 </dd></dl>
 
+</section>
 </section>
 
 
@@ -445,16 +489,24 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core.apps.CoreConfig"><code class="docutils literal notranslate"><span class="pre">CoreConfig</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.apps.CoreConfig.default_auto_field"><code class="docutils literal notranslate"><span class="pre">CoreConfig.default_auto_field</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.apps.CoreConfig.name"><code class="docutils literal notranslate"><span class="pre">CoreConfig.name</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-core">Core aplication module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-core.apps">apps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.apps.CoreConfig"><code class="docutils literal notranslate"><span class="pre">CoreConfig</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#core.apps.CoreConfig.default_auto_field"><code class="docutils literal notranslate"><span class="pre">CoreConfig.default_auto_field</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#core.apps.CoreConfig.name"><code class="docutils literal notranslate"><span class="pre">CoreConfig.name</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.custom_login"><code class="docutils literal notranslate"><span class="pre">custom_login()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.home"><code class="docutils literal notranslate"><span class="pre">home()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.logout_view"><code class="docutils literal notranslate"><span class="pre">logout_view()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.privacidad"><code class="docutils literal notranslate"><span class="pre">privacidad()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.terminos"><code class="docutils literal notranslate"><span class="pre">terminos()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-core.views">views</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.custom_login"><code class="docutils literal notranslate"><span class="pre">custom_login()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.home"><code class="docutils literal notranslate"><span class="pre">home()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.llm_section"><code class="docutils literal notranslate"><span class="pre">llm_section()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.logout_view"><code class="docutils literal notranslate"><span class="pre">logout_view()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.privacidad"><code class="docutils literal notranslate"><span class="pre">privacidad()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core.views.terminos"><code class="docutils literal notranslate"><span class="pre">terminos()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

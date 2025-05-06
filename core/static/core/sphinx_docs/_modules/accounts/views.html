@@ -274,9 +274,7 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Código fuente para accounts.views</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This file contains the views for the accounts app.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot; Views for the accounts application. &quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.shortcuts</span><span class="w"> </span><span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.contrib</span><span class="w"> </span><span class="kn">import</span> <span class="n">messages</span>
@@ -293,6 +291,12 @@ document.write(`
 <span class="k">def</span><span class="w"> </span><span class="nf">profile</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This view is used to display the user profile.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - request: The HTTP request object.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - HttpResponse: The rendered profile page.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;accounts/profile.html&quot;</span><span class="p">)</span></div>
 
@@ -307,17 +311,26 @@ document.write(`
 <span class="sd">    This view is used to register a new user.</span>
 <span class="sd">    - GET: Displays the registration form.</span>
 <span class="sd">    - POST: Processes the form and creates the user.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - request: The HTTP request object.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - HttpResponse: The rendered registration page or redirect to login.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="c1"># If method is POST, process the form</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
         <span class="n">user_form</span> <span class="o">=</span> <span class="n">RegisterForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">user_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="c1"># Save the user add a succes message and redirect to login</span>
             <span class="n">user_form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
             <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span>
                 <span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span> <span class="s2">&quot;Usuario creado correctamente&quot;</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;login&quot;</span><span class="p">)</span>
 
+        <span class="c1"># If the form is not valid, add an error message</span>
         <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span> <span class="n">user_form</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">as_text</span><span class="p">())</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">user_form</span> <span class="o">=</span> <span class="n">RegisterForm</span><span class="p">()</span>

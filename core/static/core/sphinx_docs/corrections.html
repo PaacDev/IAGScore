@@ -372,6 +372,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.signals.delete_correction_folder"><code class="docutils literal notranslate"><span class="pre">delete_correction_folder()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.tasks.set_tasks_dict"><code class="docutils literal notranslate"><span class="pre">set_tasks_dict()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.corrections"><code class="docutils literal notranslate"><span class="pre">corrections()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.delete_correction"><code class="docutils literal notranslate"><span class="pre">delete_correction()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.download_response"><code class="docutils literal notranslate"><span class="pre">download_response()</span></code></a></li>
@@ -392,8 +393,8 @@ document.write(`
                   
   <section id="module-corrections">
 <span id="corrections"></span><h1>corrections<a class="headerlink" href="#module-corrections" title="Link to this heading">#</a></h1>
-<p>Módulo para gestionar las correcciones de los usuarios.</p>
-<p id="module-corrections.admin">Django Admin Configuration for Correction Model</p>
+<p>Module for corrections</p>
+<p id="module-corrections.admin">Register the correction model with the Django admin site.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="corrections.admin.CorrectionAdmin">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">corrections.admin.</span></span><span class="sig-name descname"><span class="pre">CorrectionAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/admin.html#CorrectionAdmin"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.admin.CorrectionAdmin" title="Link to this definition">#</a></dt>
@@ -421,7 +422,7 @@ document.write(`
 
 </dd></dl>
 
-<p id="module-corrections.apps">This module contains the Corrections Configurations</p>
+<p id="module-corrections.apps">App configuration for the corrections Django app.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="corrections.apps.CorrectionsConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">corrections.apps.</span></span><span class="sig-name descname"><span class="pre">CorrectionsConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/apps.html#CorrectionsConfig"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.apps.CorrectionsConfig" title="Link to this definition">#</a></dt>
@@ -445,7 +446,7 @@ document.write(`
 
 </dd></dl>
 
-<p id="module-corrections.forms">This module contains a form for a Correction model</p>
+<p id="module-corrections.forms">Form for registering a Correction.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="corrections.forms.CorrectionForm">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">corrections.forms.</span></span><span class="sig-name descname"><span class="pre">CorrectionForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_id='id_%s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_suffix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_permitted=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_required_attribute=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/forms.html#CorrectionForm"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.forms.CorrectionForm" title="Link to this definition">#</a></dt>
@@ -503,7 +504,7 @@ document.write(`
 
 </dd></dl>
 
-<p id="module-corrections.models">This module contains the models for the corrections app.</p>
+<p id="module-corrections.models">Model definition for Correction.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="corrections.models.Correction">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">corrections.models.</span></span><span class="sig-name descname"><span class="pre">Correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/models.html#Correction"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.models.Correction" title="Link to this definition">#</a></dt>
@@ -667,12 +668,12 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 
 </dd></dl>
 
-<p id="module-corrections.signals">This module contains signal handlers for the <cite>Correction</cite> model.</p>
+<p id="module-corrections.signals">Signal handlers for the <cite>Correction</cite> model.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="corrections.signals.delete_correction_folder">
 <span class="sig-prename descclassname"><span class="pre">corrections.signals.</span></span><span class="sig-name descname"><span class="pre">delete_correction_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/signals.html#delete_correction_folder"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.signals.delete_correction_folder" title="Link to this definition">#</a></dt>
-<dd><p>Delete the files in the folder of the correction folder when the
-corrections is deleted</p>
+<dd><p>Delete the files in the folder associated with the correction
+when it is deleted.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parámetros<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -685,6 +686,23 @@ corrections is deleted</p>
 </dd></dl>
 
 <p id="module-corrections.tasks">This module contains the asynchronous task</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="corrections.tasks.set_tasks_dict">
+<span class="sig-prename descclassname"><span class="pre">corrections.tasks.</span></span><span class="sig-name descname"><span class="pre">set_tasks_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/tasks.html#set_tasks_dict"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#corrections.tasks.set_tasks_dict" title="Link to this definition">#</a></dt>
+<dd><p>Set the tasks dictionary with the tasks in folder path for evaluation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>folder_path</strong> – The path to the folder containing the task files.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary where the keys are filenames and the values are the file contents.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
 <p id="module-corrections.urls">This file is used to define the URL patterns for the corrections app.</p>
 <p id="module-corrections.views">This module contains views for the corrections app.</p>
 <dl class="py function">
@@ -875,6 +893,7 @@ corrections is deleted</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.signals.delete_correction_folder"><code class="docutils literal notranslate"><span class="pre">delete_correction_folder()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.tasks.set_tasks_dict"><code class="docutils literal notranslate"><span class="pre">set_tasks_dict()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.corrections"><code class="docutils literal notranslate"><span class="pre">corrections()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.delete_correction"><code class="docutils literal notranslate"><span class="pre">delete_correction()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.download_response"><code class="docutils literal notranslate"><span class="pre">download_response()</span></code></a></li>

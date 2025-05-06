@@ -1,7 +1,4 @@
-"""
-This module contains the models for the corrections app.
-"""
-
+""" Model definition for Correction. """
 from django.db import models
 from django.contrib.auth import get_user_model
 from rubrics.models import Rubric
@@ -11,9 +8,7 @@ User = get_user_model()
 
 
 class Correction(models.Model):
-    """
-    Model representing a correction.
-    """
+    """Model representing a correction."""
 
     prompt = models.ForeignKey(
         Prompt, on_delete=models.CASCADE, related_name="corrections"

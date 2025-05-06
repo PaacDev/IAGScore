@@ -274,9 +274,7 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Código fuente para corrections.signals</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This module contains signal handlers for the `Correction` model.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Signal handlers for the `Correction` model.&quot;&quot;&quot;</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
@@ -295,8 +293,8 @@ document.write(`
 <span class="nd">@receiver</span><span class="p">(</span><span class="n">pre_delete</span><span class="p">,</span> <span class="n">sender</span><span class="o">=</span><span class="n">Correction</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">delete_correction_folder</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Delete the files in the folder of the correction folder when the</span>
-<span class="sd">    corrections is deleted</span>
+<span class="sd">    Delete the files in the folder associated with the correction</span>
+<span class="sd">    when it is deleted.</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        sender: The model class that sent the signal (`Correction`).</span>
@@ -306,8 +304,11 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">base_path</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_ROOT</span>
+    <span class="c1"># Path to the folder to be deleted</span>
     <span class="n">folder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">folder_path</span><span class="p">)</span>
 
+    <span class="c1"># Check if the folder exists and is a directory</span>
+    <span class="c1"># and delete it</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">folder_path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">folder_path</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">folder_path</span><span class="p">)</span>

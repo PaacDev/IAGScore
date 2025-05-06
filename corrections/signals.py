@@ -1,6 +1,4 @@
-"""
-This module contains signal handlers for the `Correction` model.
-"""
+"""Signal handlers for the `Correction` model."""
 import shutil
 import os
 import logging
@@ -17,8 +15,8 @@ logger.propagate = False
 @receiver(pre_delete, sender=Correction)
 def delete_correction_folder(sender, instance, **kwargs):
     """
-    Delete the files in the folder of the correction folder when the
-    corrections is deleted
+    Delete the files in the folder associated with the correction
+    when it is deleted.
 
     Parameters:
         sender: The model class that sent the signal (`Correction`).
@@ -28,8 +26,11 @@ def delete_correction_folder(sender, instance, **kwargs):
     """
 
     base_path = settings.MEDIA_ROOT
+    # Path to the folder to be deleted
     folder_path = os.path.join(base_path, instance.folder_path)
 
+    # Check if the folder exists and is a directory
+    # and delete it
     if os.path.exists(folder_path) and os.path.isdir(folder_path):
         try:
             shutil.rmtree(folder_path)

@@ -402,7 +402,7 @@ document.write(`
 <span class="sd">    Returns:</span>
 <span class="sd">    - HttpResponse: The rendered privacy page.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Ruta md</span>
+    <span class="c1"># Path md</span>
     <span class="n">md_privacidad</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
         <span class="n">settings</span><span class="o">.</span><span class="n">STATICFILES_DIRS</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;core/docs&quot;</span><span class="p">,</span> <span class="s2">&quot;privacidad.md&quot;</span>
     <span class="p">)</span>
@@ -429,6 +429,7 @@ document.write(`
 <span class="sd">    Returns:</span>
 <span class="sd">    - HttpResponse: The rendered llm section page.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;core/llm_info.html&quot;</span><span class="p">)</span></div>
 
 </pre></div>
