@@ -21,10 +21,10 @@ def custom_login(request):
     - POST: Processes the form and login.
 
     Parameters:
-    - request: The HTTP request object.
+        request: The HTTP request object.
 
     Returns:
-    - HttpResponse: The rendered login page or redirect to home.
+        HttpResponse: The rendered login page or redirect to home.
     """
 
     # If method is POST, process the form else show the form
@@ -56,10 +56,10 @@ def home(request):
     This view is used to display the home page.
 
     Parameters:
-    - request: The HTTP request object.
+        request: The HTTP request object.
 
     Returns:
-    - HttpResponse: The rendered home page.
+        HttpResponse: The rendered home page.
     """
     return render(request, "core/home.html")
 
@@ -69,10 +69,10 @@ def logout_view(request):
     This view is used to log out the user.
 
     Parameters:
-    - request: The HTTP request object.
+        request: The HTTP request object.
 
     Returns:
-    - HttpResponse: Redirects to the login page.
+        HttpResponse: Redirects to the login page.
     """
     logout(request)
     return redirect("login")
@@ -84,10 +84,10 @@ def terminos(request):
     This view is used to display the terms and conditions page
 
     Parameters:
-    - request: The HTTP request object.
+        request: The HTTP request object.
 
     Returns:
-    - HttpResponse: The rendered terms and conditions page.
+        HttpResponse: The rendered terms and conditions page.
     """
     # Path md terminos
     md_terminos = os.path.join(settings.STATICFILES_DIRS[2], "core/docs", "terminos.md")
@@ -107,10 +107,10 @@ def privacidad(request):
     This view is used to display the privacity page
 
     Parameters:
-    - request: The HTTP request object.
+        request: The HTTP request object.
 
     Returns:
-    - HttpResponse: The rendered privacy page.
+        HttpResponse: The rendered privacy page.
     """
     # Path md
     md_privacidad = os.path.join(
@@ -131,10 +131,10 @@ def llm_section(request):
     This view is used to display llm section
 
     Parameters:
-    - request: The HTTP request object.
+        request: The HTTP request object.
 
     Returns:
-    - HttpResponse: The rendered llm section page.
+        HttpResponse: The rendered llm section page.
     """
 
     return render(request, "core/llm_info.html")
