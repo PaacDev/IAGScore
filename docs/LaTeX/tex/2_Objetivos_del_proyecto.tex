@@ -5,7 +5,7 @@ A continuación se detallan los objetivos que motivan la realización de este pr
 \section{Objetivos generales}\label{objetivos_generales}
 
 \begin{itemize}
-    \item Desarrollar un sistema\textit{software} que permita automatizar la evaluación de tareas de programación en cualquier lenguaje.
+    \item Desarrollar un sistema \textit{software} que permita automatizar la evaluación de tareas de programación en cualquier lenguaje.
     \item Investigar la posibilidad de hacer uso de diferentes modelos de lenguaje avanzado para la evaluación de estas tareas.
     \item Comprobar la posibilidad de delegar totalmente en estos modelos para la realización de estas tareas.
     \item Implementar operaciones e interacción con la aplicación:
@@ -14,18 +14,37 @@ A continuación se detallan los objetivos que motivan la realización de este pr
         \item Permitir al usuario importar documentos en formato \textit{Markdown} con los contenidos de sus propias rúbricas.
         \item Permitir a los usuarios diseñar o definir los \textit{prompts} con los que interactuarán con los modelos.
         \item Permitir a los usuarios configurar diferentes parámetros del modelo que evaluará las tareas.
+        \item Permitir a los usuarios ejecutar el modelo para que realice la evaluación.
+        \item Permitir a los usuarios consultar el reaultado de la ejecución de la evaluación.
+        \item Permitir a los usuarios consultar datos sobre el modelo utilizado.
     \end{itemize}
 \end{itemize}
 
 \section{Objetivos técnicos}\label{objetivos_tecnicos}
 \begin{itemize}
     \item Crear una aplicación web utilizando python y el \textit{framework} \textbf{Django}
-    \item Hacer uso del sistema de control de versiones \textbf{GIT} distribuido junto con la plataforma \textbf{Github}.
     \item Utilizar la arquitectura MVT(Model - View - Template) de Django.
-    \item Realizar test unitarios que garanticen la calidad del producto final.
+    \item Utilizar una base de datos \textbf{PostgreSQL} para el almacenamiento de datos.
+    \item Utilizar \textbf{Ollama} para la gestión de los modelos de lenguaje.
+    \item Utilizar \textbf{Celery} y \textbf{Redis} para la gestión de tareas asíncronas.
+    \item Utilizar \textbf{Docker} para la creación de contenedores y facilitar el despliegue del proyecto.
+    \item Hacer uso de \textbf{Sphinx} para la generación de la documentación del proyecto.
+    \item Gestionar el proyecto utilizando la herramienta de gestión de proyectos \textbf{Zube} para la planificación y seguimiento del proyecto.
+    \item Realizar test con una cobertuta que garanticen la calidad del producto final.
+    \item Hacer uso del sistema de control de versiones \textbf{GIT} distribuido junto con la plataforma \textbf{Github}.
     \item Aplicar la metodología ágil \textbf{Scrum} para el desarrollo del proyecto.
     \item Utilizar herramientas de integración continua \textbf{CI/CD}, como las integradas en \textbf{Github actions}, comprobando el despliege del proyecto, ejecución de test e integrando test de cobertura de código con \textbf{coverage}, control de calidad de código integrando \textbf{SonarCloud} con Github actions.
-    \item Investigar en comportamiento de los modelos con diferentes configuraciones para conocer la viabilidad del proyecto.
+    \item Utilizar \textbf{SonarCloud} para la gestión de la calidad del código y su integración con \textbf{Github actions}
 \end{itemize}
 
 \section{Objetivos personales}\label{objetivos_personasles}
+\begin{itemize}
+    \item Utilizar el \textit{framework} \textbf{Django} para el desarrollo de aplicaciones web.
+    \item Investigar el comportamiento de los modelos con diferentes configuraciones para conocer la viabilidad del proyecto.
+    \item Conocer y utilizar \textbf{Docker} para la creación de contenedores y facilitar el despliegue del proyecto.
+    \item Aprender a utilizar herramientas de control de versiones como \textbf{GIT} y plataformas como \textbf{Github}.
+    \item Aprender a utilizar herramientas de integración continua como \textbf{Github actions}.
+    \item Aprender a utilizar herramientas de gestión de proyectos como \textbf{Zube}.
+    \item Aprender a utilizar herramientas de calidad de código como \textbf{SonarCloud}.
+    \item Aprender a utilizar herramientas de documentación como \textbf{Sphinx}.
+\end{itemize}
