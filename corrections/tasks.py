@@ -19,7 +19,11 @@ def ejecuta_evaluacion_llm(correction_id):
     Run a evaluation task using a LLM
 
     Parameters:
-        correction_id: The Id of the correction to evaluate
+        correction_id (int): The Id of the correction to evaluate
+    
+    Raises:
+        Exception: If the correction object does not exist or if there is an error during execution.
+        Correction.DoesNotExist: If the correction object does not exist.
     """
 
     try:
@@ -69,13 +73,13 @@ def ejecuta_evaluacion_llm(correction_id):
         fs.save(filename, file_content)
         return response
 
+    except Correction.DoesNotExist:
+        logger.error(f"Error: Correction with id {correction_id} does not exist")
+        raise
     except Exception as e:
         logger.error(f"Error executing task: {e}")
         correction_obj.running = False
         correction_obj.save()
-        raise
-    except Correction.DoesNotExist:
-        logger.error(f"Error: Correction with id {correction_id} does not exist")
         raise
 
 def set_tasks_dict(folder_path):

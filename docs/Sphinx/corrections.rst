@@ -1,8 +1,6 @@
-corrections
-===========
-
 Corrections aplication module
------------------------------
+=============================
+
 .. automodule:: corrections
    :members:
    :undoc-members:
@@ -57,6 +55,8 @@ tasks
    :undoc-members:
    :private-members:
    :show-inheritance:
+
+   .. autofunction:: ejecuta_evaluacion_llm
 
 views
 -----

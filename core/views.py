@@ -16,13 +16,13 @@ import markdown
 @csrf_protect
 def custom_login(request):
     """
-    This view is used to log in the user.
+    custom user login.
 
     - GET: Displays the login form.
     - POST: Processes the form and login.
 
     Parameters:
-        request: The HTTP request object.
+        request(HttpRequest): The HTTP request object.
 
     Returns:
         HttpResponse: The rendered login page or redirect to home.
@@ -30,6 +30,7 @@ def custom_login(request):
 
     # If method is POST, process the form else show the form
     if request.method == "POST":
+        # Instantiate the AuthenticationForm with the request and POST data
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             # Authenticate the user
@@ -41,12 +42,13 @@ def custom_login(request):
             if user:
                 login(request, user)
                 return redirect("home")
-        else:
         # If user is not authenticated, show error message
+        else:
             messages.add_message(
                 request, messages.ERROR, "Usuario o contraseña incorrectos"
             )
     else:
+        # If method is GET, show the login form
         form = AuthenticationForm()
     return render(request, "core/login.html", {"form": form})
 
@@ -54,26 +56,26 @@ def custom_login(request):
 @login_required
 def home(request):
     """
-    This view is used to display the home page.
+    Display the home page.
 
     Parameters:
-        request: The HTTP request object.
+        request (HttpRequest): The HTTP request object.
 
     Returns:
-        HttpResponse: The rendered home page.
+        HttpResponse : The rendered home page.
     """
     return render(request, "core/home.html")
 
 @require_GET
 def logout_view(request):
     """
-    This view is used to log out the user.
+    Logout the user.
 
     Parameters:
-        request: The HTTP request object.
+        request (HttpRequest): The HTTP request object.
 
     Returns:
-        HttpResponse: Redirects to the login page.
+        HttpResponse : Redirects to the login page.
     """
     logout(request)
     return redirect("login")
@@ -82,13 +84,13 @@ def logout_view(request):
 @require_safe
 def terminos(request):
     """
-    This view is used to display the terms and conditions page
+    Display the terms and conditions page
 
     Parameters:
-        request: The HTTP request object.
+        request (HttpRequest): The HTTP request object.
 
     Returns:
-        HttpResponse: The rendered terms and conditions page.
+        HttpResponse : The rendered terms and conditions page.
     """
     # Path md terminos
     md_terminos = os.path.join(settings.STATICFILES_DIRS[2], "core/docs", "terminos.md")
@@ -105,10 +107,10 @@ def terminos(request):
 @require_safe
 def privacidad(request):
     """
-    This view is used to display the privacity page
+    Display the privacity page
 
-    Parameters:
-        request: The HTTP request object.
+    Args:
+        request (HttpRequest): The HTTP request object.
 
     Returns:
         HttpResponse: The rendered privacy page.
@@ -129,10 +131,10 @@ def privacidad(request):
 @require_safe
 def llm_section(request):
     """
-    This view is used to display llm section
+    Display llm section
 
     Parameters:
-        request: The HTTP request object.
+        request (HttpRequest): The HTTP request object.
 
     Returns:
         HttpResponse: The rendered llm section page.

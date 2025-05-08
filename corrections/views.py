@@ -1,5 +1,5 @@
 """
-This module contains views for the corrections app.
+Views for the corrections app.
 """
 
 import zipfile
@@ -75,16 +75,32 @@ def run_model(request, correction_id):
 
     Returns:
         HttpResponse: A redirect to the correction detail view after queuing the task.
+    
+    Raises:
+        Http404: If the correction with the given ID does not exist.
+        Exception: If an error occurs while processing the correction.
     """
+    try:
+        
+        correction_obj = Correction.objects.get(id=correction_id)
+        correction_obj.running = True
+        correction_obj.save()
 
-    correction_obj = Correction.objects.get(id=correction_id)
-    correction_obj.running = True
-    correction_obj.save()
-
-    # Initiate the task asynchronously
-    ejecuta_evaluacion_llm.delay(correction_id)
+        # Initiate the task asynchronously
+        ejecuta_evaluacion_llm.delay(correction_id)
+    except Correction.DoesNotExist as exc:
+        logger.error(f"Error: Correction with id {correction_id} does not exist")
+        raise Http404("Corrección no encontrada.") from exc
+    except Exception as exc:
+        logger.error("Error al ejecutar el modelo: %s", exc)
+        messages.add_message(
+            request, messages.ERROR, "Error al ejecutar el modelo"
+        )
+        correction_obj.running = False
+        correction_obj.save()
+        return redirect("show_view_correction")
+    
     return redirect("show_view_correction")
-
 
 @login_required
 @require_GET
@@ -98,6 +114,9 @@ def download_response(request, correction_id):
 
     Return:
         FileResponse: the file to download
+        
+    Raises:
+        Http404: If the correction with the given ID does not exist or if the file does not exist.
     """
 
     try:
@@ -132,6 +151,10 @@ def delete_correction(request, item_id):
 
     Return:
         HttpResponse: A redirect to the corrections view.
+        
+    Raises:
+        Http404: If the correction with the given ID does not exist.
+        Exception: If an error occurs while deleting the correction.
     """
 
     try:
@@ -139,6 +162,12 @@ def delete_correction(request, item_id):
         correction_obj.delete()
     except Correction.DoesNotExist as exc:
         raise Http404("Corrección no encontrada.") from exc
+    except Exception as exc:
+        logger.error("Error al eliminar la corrección: %s", exc)
+        messages.add_message(
+            request, messages.ERROR, "Error al eliminar la corrección"
+        )
+        return redirect("show_view_correction")
 
     return redirect("show_view_correction")
 

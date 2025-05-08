@@ -15,10 +15,10 @@ def profile(request):
     This view is used to display the user profile.
 
     Parameters:
-    - request: The HTTP request object.
+        request (HttpRequest): The HTTP request object.
 
     Returns:
-    - HttpResponse: The rendered profile page.
+        HttpResponse (HttpResponse): The rendered profile page.
     """
     return render(request, "accounts/profile.html")
 
@@ -32,26 +32,28 @@ def register(request):
     - POST: Processes the form and creates the user.
 
     Parameters:
-    - request: The HTTP request object.
+        request (HttpRequest): The HTTP request object.
 
     Returns:
-    - HttpResponse: The rendered registration page or redirect to login.
+        HttpResponse (HttpResponse): The rendered registration page or redirect to login.
     """
 
     # If method is POST, process the form
     if request.method == "POST":
+        # Instanciate the form with the POST data
         user_form = RegisterForm(request.POST)
         if user_form.is_valid():
             # Save the user add a succes message and redirect to login
             user_form.save()
+            # Add a success message and redirect to login
             messages.add_message(
                 request, messages.SUCCESS, "Usuario creado correctamente"
             )
             return redirect("login")
-
         # If the form is not valid, add an error message
         messages.add_message(request, messages.ERROR, user_form.errors.as_text())
     else:
+        # If method is GET, create an empty form
         user_form = RegisterForm()
 
     return render(request, "accounts/register.html", {"user_form": user_form})

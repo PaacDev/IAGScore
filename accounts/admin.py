@@ -12,7 +12,9 @@ class CustomUserAdmin(UserAdmin):
     """
 
     model = get_user_model()
-
+    # Fields to display in the list view.
     add_fieldsets = UserAdmin.add_fieldsets + ((None, {"fields": ("email",)}),)
+    # Fields to filter the list view.
     list_display = ["username", "email", "is_staff"]
+    # Fields to search in the list view.
     search_fields = ["username", "email"]

@@ -7,9 +7,10 @@ from .models import Correction
 @admin.register(Correction)
 class CorrectionAdmin(admin.ModelAdmin):
     """
-    Register de Rubric model to the admin panel.
+    Register the Correction model to the admin panel.
     """
 
+    # Fields to display in the list view.
     list_display = (
         "description",
         "rubric",
@@ -18,6 +19,9 @@ class CorrectionAdmin(admin.ModelAdmin):
         "date",
         "folder_path",
         "running",
-    )  # Campos visibles en la lista
-    list_filter = ("user",)  # Filtros en la barra lateral
-    search_fields = ("date", "description")  # Campos buscables
+    ) 
+
+    # Fields to filter the list view.
+    list_filter = ("user",) 
+    # Fields to search in the list view.
+    search_fields = ("date", "description")

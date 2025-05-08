@@ -1,1 +1,1 @@
-"""Module to handle the core functionality of the application."""
+"""Module to manage some core functionalities."""

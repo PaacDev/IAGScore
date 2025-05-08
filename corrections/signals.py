@@ -1,4 +1,4 @@
-"""Signal handlers for the `Correction` model."""
+"""Signal handlers for the Correction model."""
 import shutil
 import os
 import logging
@@ -7,10 +7,8 @@ from django.dispatch import receiver
 from iagscore import settings
 from .models import Correction
 
-logger = logging.getLogger("corrections.signals")
-logger.setLevel(logging.CRITICAL)
-logger.propagate = False
-
+logger = logging.getLogger(__name__)
+#logger.propagate = False
 
 @receiver(pre_delete, sender=Correction)
 def delete_correction_folder(sender, instance, **kwargs):
@@ -19,8 +17,8 @@ def delete_correction_folder(sender, instance, **kwargs):
     when it is deleted.
 
     Parameters:
-        sender: The model class that sent the signal (`Correction`).
-        instance: The instance of the `Correction` model being deleted.
+        sender (models.Model): The model class that sent the signal (`Correction`).
+        instance (Correction): The instance of the `Correction` model being deleted.
         **kwargs: Additional keyword arguments passed by the signal.
 
     """

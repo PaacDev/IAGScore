@@ -152,10 +152,10 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../accounts.html">accounts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../core.html">core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core.html">Core aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../prompts.html">prompts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../rubrics.html">rubrics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../corrections.html">corrections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rubrics.html">Rubrics aplication module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../corrections.html">Corrections aplication module</a></li>
 </ul>
 
     </div>
@@ -285,9 +285,10 @@ document.write(`
 <span class="nd">@admin</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Correction</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">CorrectionAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Register de Rubric model to the admin panel.</span>
+<span class="sd">    Register the Correction model to the admin panel.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="c1"># Fields to display in the list view.</span>
     <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span>
         <span class="s2">&quot;description&quot;</span><span class="p">,</span>
         <span class="s2">&quot;rubric&quot;</span><span class="p">,</span>
@@ -296,9 +297,12 @@ document.write(`
         <span class="s2">&quot;date&quot;</span><span class="p">,</span>
         <span class="s2">&quot;folder_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;running&quot;</span><span class="p">,</span>
-    <span class="p">)</span>  <span class="c1"># Campos visibles en la lista</span>
-    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">,)</span>  <span class="c1"># Filtros en la barra lateral</span>
-    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">)</span>  <span class="c1"># Campos buscables</span></div>
+    <span class="p">)</span> 
+
+    <span class="c1"># Fields to filter the list view.</span>
+    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">,)</span> 
+    <span class="c1"># Fields to search in the list view.</span>
+    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">)</span></div>
 
 </pre></div>
 

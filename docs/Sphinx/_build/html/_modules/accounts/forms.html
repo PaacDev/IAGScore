@@ -152,10 +152,10 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../accounts.html">accounts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../core.html">core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core.html">Core aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../prompts.html">prompts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../rubrics.html">rubrics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../corrections.html">corrections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rubrics.html">Rubrics aplication module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../corrections.html">Corrections aplication module</a></li>
 </ul>
 
     </div>
@@ -284,14 +284,14 @@ document.write(`
 <a class="viewcode-back" href="../../accounts.html#accounts.forms.RegisterForm">[documentos]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RegisterForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This class is used to create the form for the user registration.</span>
+<span class="sd">    Class to create the user registration form</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="RegisterForm.Meta">
 <a class="viewcode-back" href="../../accounts.html#accounts.forms.RegisterForm.Meta">[documentos]</a>
     <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This class is used to define the fields of the form.</span>
+<span class="sd">        Class to define the fields of the user registration form.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">model</span> <span class="o">=</span> <span class="n">CustomUser</span>
@@ -303,39 +303,36 @@ document.write(`
         <span class="p">}</span></div>
 
 
-    <span class="c1"># Widgwts for the form fields</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Specific style attributes for fields &quot;&quot;&quot;</span>
+
     <span class="n">email</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">EmailField</span><span class="p">(</span>
         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Correo electrónico&quot;</span><span class="p">,</span>
         <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">EmailInput</span><span class="p">(</span>
             <span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
-                <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 &quot;</span>
-                          <span class="s2">&quot;-outline-offset-1 outline-gray-900 placeholder:text-gray-400 focus:outline-2 &quot;</span>
-                          <span class="s2">&quot;focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;input-custom&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;placeholder&quot;</span><span class="p">:</span> <span class="s2">&quot;name@company.com&quot;</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">),</span>
         <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
+
     <span class="n">username</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Nombre&quot;</span><span class="p">,</span>
         <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span>
             <span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
                 <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Nombre&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 &quot;</span>
-                          <span class="s2">&quot;-outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 &quot;</span>
-                          <span class="s2">&quot;focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;input-custom&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;placeholder&quot;</span><span class="p">:</span> <span class="s2">&quot;Nombre&quot;</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">),</span>
         <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
+
     <span class="n">password</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Contraseña&quot;</span><span class="p">,</span>
         <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">PasswordInput</span><span class="p">(</span>
             <span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
-                <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 &quot;</span>
-                          <span class="s2">&quot;-outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 &quot;</span>
-                          <span class="s2">&quot;focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;input-custom&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;placeholder&quot;</span><span class="p">:</span> <span class="s2">&quot;********&quot;</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">),</span>
@@ -346,13 +343,23 @@ document.write(`
 <a class="viewcode-back" href="../../accounts.html#accounts.forms.RegisterForm.save">[documentos]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commit</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Save the user</span>
+<span class="sd">        Override the save method to set the username and email fields</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters:</span>
+<span class="sd">            commit (bool): If True, save the user instance to the database.</span>
+<span class="sd">            self (RegisterForm): The form instance.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            user (CustomUser): The saved user instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Instance of the user</span>
         <span class="n">user</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># Set the username and email fields</span>
         <span class="n">user</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]</span>
         <span class="n">user</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s2">&quot;email&quot;</span><span class="p">]</span>
         <span class="c1"># Encrypt the password</span>
         <span class="n">user</span><span class="o">.</span><span class="n">set_password</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s2">&quot;password&quot;</span><span class="p">])</span>
+        <span class="c1"># Save the user instance if commit is True</span>
         <span class="k">if</span> <span class="n">commit</span><span class="p">:</span>
             <span class="n">user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">user</span></div>

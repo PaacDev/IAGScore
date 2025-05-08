@@ -6,31 +6,34 @@ from .models import Correction
 
 class CorrectionForm(ModelForm):
     """
-    Form for creating corrections.
+    Class to create a form for a new correction entry in the database.
     """
 
     class Meta:
         """
-        Meta class for CorrectionForm.
+        Class to define the fields of the corrections form.
         """
 
         model = Correction
-        fields = ["description", "llm_model", "rubric", "prompt"]
+        fields = ["description", "llm_model", "rubric", "prompt", "model_temp", "model_top_p", "model_top_k"]
         labels = {
             "description": "Descripción",
             "llm_model": "Modelo usado",
             "rubric": "Rúbrica",
             "prompt": "Prompt",
+            "model_temp": "Temperatura",
+            "model_top_p": "Top P",
+            "model_top_k": "Top K",
         }
 
+    """ Specific style attributes for fields """
+
     description = forms.CharField(
-        label="descripcion",
+        label="Descripcion",
         widget=forms.TextInput(
             attrs={
-                "id": "Descipcion",
-                "class": ("block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 "
-                          "-outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 "
-                          "focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6"),
+                "id": "description",
+                "class": "input-custom",
             }
         ),
         required=True,
@@ -40,10 +43,8 @@ class CorrectionForm(ModelForm):
         label="modelo",
         widget=forms.TextInput(
             attrs={
-                "id": "Modelo",
-                "class": ("block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 "
-                          "-outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 "
-                          "focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6"),
+                "id": "model",
+                "class": "input-custom",
             }
         ),
         required=True,
@@ -62,15 +63,13 @@ class CorrectionForm(ModelForm):
             }
         ),
     )
-    
+
     model_temp = forms.FloatField(
         label="Temperatura",
         widget=forms.TextInput(
             attrs={
                 "id": "model_temp",
-                "class": ("block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 "
-                          "-outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 "
-                          "focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6"),
+                "class": "input-custom",
             }
         ),
         required=False,
@@ -79,15 +78,13 @@ class CorrectionForm(ModelForm):
         max_value=1.0,
         help_text="Temperatura del modelo (0.0 - 1.0)",
     )
-    
+
     model_top_p = forms.FloatField(
         label="Top P",
         widget=forms.TextInput(
             attrs={
                 "id": "model_top_p",
-                "class": ("block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 "
-                          "-outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 "
-                          "focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6"),
+                "class": "input-custom",
             }
         ),
         required=False,
@@ -96,15 +93,13 @@ class CorrectionForm(ModelForm):
         max_value=1.0,
         help_text="Top P del modelo (0.0 - 1.0)",
     )
-    
+
     model_top_k = forms.IntegerField(
         label="Top K",
         widget=forms.TextInput(
             attrs={
                 "id": "model_top_k",
-                "class": ("block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 "
-                          "-outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 "
-                          "focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6"),
+                "class": "input-custom",
             }
         ),
         required=False,
@@ -117,6 +112,15 @@ class CorrectionForm(ModelForm):
     def clean_zip_file(self):
         """
         Validate the zip file.
+        
+        Parameters:
+            self (CorrectionForm): The instance of the form.
+            
+        Returns:
+            file: The uploaded file if it is a valid ZIP.
+            
+        Raises:
+            ValidationError: If the uploaded file is not a ZIP.
         """
         file = self.cleaned_data.get("zip_file")
         if not file.name.endswith(".zip"):
