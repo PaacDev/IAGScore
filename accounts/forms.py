@@ -22,7 +22,7 @@ class RegisterForm(forms.ModelForm):
             "password": "Contraseña",
         }
 
-    """ Specific style attributes for fields """
+    #Specific style attributes for fields
 
     email = forms.EmailField(
         label="Correo electrónico",

@@ -44,7 +44,7 @@ def ejecuta_evaluacion_llm(correction_id):
 
         # Set the location for storing the response file
         location = os.path.join(base_path, correction_obj.folder_path, "response")
-        
+
         # Initialize the file storage system at the specified location
         fs = FileSystemStorage(location=location)
 
@@ -74,10 +74,10 @@ def ejecuta_evaluacion_llm(correction_id):
         return response
 
     except Correction.DoesNotExist:
-        logger.error(f"Error: Correction with id {correction_id} does not exist")
+        logger.error("Error: Correction with id %s does not exist", correction_id)
         raise
     except Exception as e:
-        logger.error(f"Error executing task: {e}")
+        logger.error("Error executing task: %s",e)
         correction_obj.running = False
         correction_obj.save()
         raise
@@ -107,8 +107,8 @@ def set_tasks_dict(folder_path):
                 with open(os.path.join(full_path, filename), "r", encoding="utf-8") as file:
                     tasks_dict[filename] = file.read()
     except FileNotFoundError:
-        logger.exception(f"Error: The folder '{full_path}' was not found.")
+        logger.exception("Error: The folder %s was not found.", full_path)
     except PermissionError:
-        logger.exception(f"Error: Insufficient permissions to access the folder '{full_path}'.")
+        logger.exception("Error: Insufficient permissions to access the folder %s.",full_path)
 
     return tasks_dict

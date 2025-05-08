@@ -1,7 +1,4 @@
-"""
-Views for the corrections app.
-"""
-
+"""Views for the corrections app."""
 import zipfile
 import os
 import logging
@@ -81,7 +78,7 @@ def run_model(request, correction_id):
         Exception: If an error occurs while processing the correction.
     """
     try:
-        
+
         correction_obj = Correction.objects.get(id=correction_id)
         correction_obj.running = True
         correction_obj.save()
@@ -89,17 +86,9 @@ def run_model(request, correction_id):
         # Initiate the task asynchronously
         ejecuta_evaluacion_llm.delay(correction_id)
     except Correction.DoesNotExist as exc:
-        logger.error(f"Error: Correction with id {correction_id} does not exist")
+        logger.error("Error: Correction with id %s does not exist", correction_id)
         raise Http404("Corrección no encontrada.") from exc
-    except Exception as exc:
-        logger.error("Error al ejecutar el modelo: %s", exc)
-        messages.add_message(
-            request, messages.ERROR, "Error al ejecutar el modelo"
-        )
-        correction_obj.running = False
-        correction_obj.save()
-        return redirect("show_view_correction")
-    
+
     return redirect("show_view_correction")
 
 @login_required
@@ -162,12 +151,6 @@ def delete_correction(request, item_id):
         correction_obj.delete()
     except Correction.DoesNotExist as exc:
         raise Http404("Corrección no encontrada.") from exc
-    except Exception as exc:
-        logger.error("Error al eliminar la corrección: %s", exc)
-        messages.add_message(
-            request, messages.ERROR, "Error al eliminar la corrección"
-        )
-        return redirect("show_view_correction")
 
     return redirect("show_view_correction")
 

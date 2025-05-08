@@ -177,7 +177,7 @@ if "pytest" in sys.argv or "test" in sys.argv:
     CELERY_TASK_ALWAYS_EAGER = True
     MEDIA_ROOT = tempfile.mkdtemp()
     print(f"MEDIA_ROOT temporal para pruebas: {MEDIA_ROOT}")
-    
+
 
 # Logging configuration
 # https://docs.djangoproject.com/en/5.1/topics/logging/

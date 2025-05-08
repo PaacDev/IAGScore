@@ -26,7 +26,7 @@ class CorrectionForm(ModelForm):
             "model_top_k": "Top K",
         }
 
-    """ Specific style attributes for fields """
+    # Specific style attributes for fields.
 
     description = forms.CharField(
         label="Descripcion",

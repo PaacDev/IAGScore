@@ -31,7 +31,7 @@ class Correction(models.Model):
     model_temp = models.FloatField(default=0.8)
     model_top_p = models.FloatField(default=0.9)
     model_top_k = models.IntegerField(default=40)
-   
+
     def __str__(self):
         """ Returns a string representation of the correction. """
         return self.description

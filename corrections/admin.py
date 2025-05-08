@@ -19,9 +19,9 @@ class CorrectionAdmin(admin.ModelAdmin):
         "date",
         "folder_path",
         "running",
-    ) 
+    )
 
     # Fields to filter the list view.
-    list_filter = ("user",) 
+    list_filter = ("user",)
     # Fields to search in the list view.
     search_fields = ("date", "description")
