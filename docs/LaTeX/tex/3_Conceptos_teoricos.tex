@@ -1,44 +1,35 @@
 \capitulo{3}{Conceptos teóricos}
 
-
-\section{Procesamiento de lenguaje natural (NLP)}
-
-El procesamiento del lenguaje natural (NLP) es un campo de la inteligencia artificial centrado en 
-la interacción entre las computadoras y el lenguaje humano que permite a los ordenadores entender, 
-interpretar y trabajar con este lenguaje de forma eficaz. Esta tecnología es esencial para 
-analizar información escrita o hablada, superando desafíos como las variaciones en los dialectos, 
-el uso de jerga o las irregularidades gramaticales propias del lenguaje cotidiano.
-
-
-A lo largo de la historia, el lenguaje natural ha evolucionado desde los primeros sistemas de 
-procesamiento de texto hasta los modelos avanzados de hoy en día.
-
-En sus inicios, el procesamiento del lenguaje natural se centraba en reglas gramaticales 
-catalogando reglas sintácticas y semánticas que aumentaban en complejidad con el tiempo, 
-resultando difíciles de mantener. Estos sistemas eran limitados y no podían adaptarse a la 
-diversidad del lenguaje humano.
-
-Con el tiempo, se introdujeron enfoques estadísticos basados en modelos probabilísticos que 
-utilizaban grandes cantidades de datos para aprender patrones en el lenguaje. 
-
-La siguiente etapa fue la llegada de los modelos de aprendizaje profundo \textit{deep learning}, 
-que revolucionaron el campo al permitir la creación de representaciones vectoriales del lenguaje. 
-Estos modelos, como las redes neuronales recurrentes (RNN) y las redes neuronales convolucionales 
-(CNN), mejoraron significativamente la precisión en tareas como la traducción automática y el 
-análisis de sentimientos.
-
-El avance más reciente ha sido el desarrollo de la arquitectura Transformer. Esta tecnología 
-reemplazó a las RNN tradicionales gracias a su uso del mecanismo de atención, que permite procesar
- secuencias de texto de manera más eficiente y con mayor contexto. Los Transformers emplean 
- componentes llamados \textit{encoders} y \textit{decoders} para transformar entradas en salidas, y 
- son la base de los modelos de lenguaje más avanzados utilizados actualmente, como GPT, BERT o T5.
+En este apartado se describen los componentes principales que permiten llevar 
+a cabo la evaluación automática de tareas mediante modelos de lenguaje. 
+Se comienza explicando qué son los modelos de lenguaje de gran tamaño (LLM) 
+y cómo funcionan. A continuación, se introduce LangChain como una herramienta 
+útil para integrar estos modelos en flujos de trabajo personalizados. 
+Seguidamente, se presenta Ollama como solución para ejecutar modelos de forma 
+local, priorizando la privacidad y el control. Finalmente, se hace una mención 
+al prompt engineering, un enfoque que permite mejorar o personalizar las 
+respuestas de los modelos en función de cómo se les formula la entrada, y 
+que puede tener relevancia en el desarrollo de este tipo de sistemas.
 
 \section{Modelos de lenguaje grandes (LLM)}
 
+Los LLM son sistemas de IA utilizados para modelar y procesar el lenguaje humano.
+Se llaman LLM porque son modelos estadísticos de lenguaje entrenados con volúmenes 
+masivos de texto, y tienen una arquitectura muy grande capaz de capturar matices 
+lingüísticos complejos que los modelos más pequeños no pueden.
 
+La tecnología subyacente de los LLM se llama red neuronal transformadora, denominada 
+transformador, propuesta por primera vez en el artículo ``Attention Is All You Need''~\cite{vaswani2017}.
 
+\section{Langchain }
 
-\section{Secciones}
+Las secciones se incluyen con el comando section.
+
+\section{Ollama}
+
+Las secciones se incluyen con el comando section.
+
+\section{Prompt engineering}
 
 Las secciones se incluyen con el comando section.
 
