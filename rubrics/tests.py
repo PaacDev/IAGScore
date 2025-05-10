@@ -1,5 +1,5 @@
 """
-This file contains tests for the rubrics app.
+Tests for the rubrics app.
 """
 
 import logging

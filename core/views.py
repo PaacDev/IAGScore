@@ -16,7 +16,7 @@ import markdown
 @csrf_protect
 def custom_login(request):
     """
-    custom user login.
+    Custom user login.
 
     - GET: Displays the login form.
     - POST: Processes the form and login.

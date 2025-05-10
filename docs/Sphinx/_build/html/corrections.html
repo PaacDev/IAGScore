@@ -387,7 +387,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-corrections.tasks">tasks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.tasks.ejecuta_evaluacion_llm"><code class="docutils literal notranslate"><span class="pre">ejecuta_evaluacion_llm()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.tasks.start_llm_evaluation"><code class="docutils literal notranslate"><span class="pre">start_llm_evaluation()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.tasks.set_tasks_dict"><code class="docutils literal notranslate"><span class="pre">set_tasks_dict()</span></code></a></li>
 </ul>
 </li>
@@ -414,7 +414,7 @@ document.write(`
                   
   <section id="module-corrections">
 <span id="corrections-aplication-module"></span><h1>Corrections aplication module<a class="headerlink" href="#module-corrections" title="Link to this heading">#</a></h1>
-<p>Module for corrections</p>
+<p>Module for Corrections management</p>
 <section id="module-corrections.admin">
 <span id="admin"></span><h2>admin<a class="headerlink" href="#module-corrections.admin" title="Link to this heading">#</a></h2>
 <p>Register the correction model with the Django admin site.</p>
@@ -727,8 +727,8 @@ when it is deleted.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sender</strong> – The model class that sent the signal (<cite>Correction</cite>).</p></li>
-<li><p><strong>instance</strong> – The instance of the <cite>Correction</cite> model being deleted.</p></li>
+<li><p><strong>sender</strong> (<em>models.Model</em>) – The model class that sent the signal (<cite>Correction</cite>).</p></li>
+<li><p><strong>instance</strong> (<a class="reference internal" href="#corrections.models.Correction" title="corrections.models.Correction"><em>Correction</em></a>) – The instance of the <cite>Correction</cite> model being deleted.</p></li>
 <li><p><strong>**kwargs</strong> – Additional keyword arguments passed by the signal.</p></li>
 </ul>
 </dd>
@@ -740,8 +740,8 @@ when it is deleted.</p>
 <span id="tasks"></span><h2>tasks<a class="headerlink" href="#module-corrections.tasks" title="Link to this heading">#</a></h2>
 <p>This module contains the asynchronous task</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="corrections.tasks.ejecuta_evaluacion_llm">
-<span class="sig-prename descclassname"><span class="pre">corrections.tasks.</span></span><span class="sig-name descname"><span class="pre">ejecuta_evaluacion_llm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">correction_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/tasks.html#ejecuta_evaluacion_llm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.tasks.ejecuta_evaluacion_llm" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="corrections.tasks.start_llm_evaluation">
+<span class="sig-prename descclassname"><span class="pre">corrections.tasks.</span></span><span class="sig-name descname"><span class="pre">start_llm_evaluation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">correction_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/tasks.html#start_llm_evaluation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.tasks.start_llm_evaluation" title="Link to this definition">#</a></dt>
 <dd><p>Run a evaluation task using a LLM</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -780,7 +780,18 @@ when it is deleted.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="corrections.views.corrections">
 <span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">corrections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#corrections"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.corrections" title="Link to this definition">#</a></dt>
-<dd><p>Show the corrections page base</p>
+<dd><p>Show the corrections base page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>) – The HTTP request object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered template for the corrections base page.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -799,6 +810,12 @@ when it is deleted.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>HttpResponse</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>Http404</strong> – If the correction with the given ID does not exist.</p></li>
+<li><p><strong>Exception</strong> – If an error occurs while deleting the correction.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -819,6 +836,9 @@ when it is deleted.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>FileResponse</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Http404</strong> – If the correction with the given ID does not exist or if the file does not exist.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -859,19 +879,55 @@ when it is deleted.</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>HttpResponse</p>
 </dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>Http404</strong> – If the correction with the given ID does not exist.</p></li>
+<li><p><strong>Exception</strong> – If an error occurs while processing the correction.</p></li>
+</ul>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="corrections.views.show_new_correction">
 <span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">show_new_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#show_new_correction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.show_new_correction" title="Link to this definition">#</a></dt>
-<dd><p>View to display corrections.</p>
+<dd><p>View to display the form for creating a new correction.</p>
+<ul class="simple">
+<li><p>GET: Displays the form.</p></li>
+<li><p>POST: Processes the form and create new correction.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>) – The HTTP request object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The rendered template for creating a new correction</dt><dd><p>or a redirect to the view correction page.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="corrections.views.show_view_correction">
 <span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">show_view_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#show_view_correction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.show_view_correction" title="Link to this definition">#</a></dt>
 <dd><p>Show the view of the corrections table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>) – The HTTP request object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered template for the corrections table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -982,7 +1038,7 @@ when it is deleted.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-corrections.tasks">tasks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.tasks.ejecuta_evaluacion_llm"><code class="docutils literal notranslate"><span class="pre">ejecuta_evaluacion_llm()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.tasks.start_llm_evaluation"><code class="docutils literal notranslate"><span class="pre">start_llm_evaluation()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.tasks.set_tasks_dict"><code class="docutils literal notranslate"><span class="pre">set_tasks_dict()</span></code></a></li>
 </ul>
 </li>

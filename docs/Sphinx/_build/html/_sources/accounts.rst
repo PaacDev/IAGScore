@@ -1,8 +1,6 @@
-accounts
-========
-
 Accounts aplication module
---------------------------
+==========================
+
 .. automodule:: accounts
    :members:
    :undoc-members:

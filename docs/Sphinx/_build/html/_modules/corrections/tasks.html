@@ -288,10 +288,10 @@ document.write(`
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="ejecuta_evaluacion_llm">
-<a class="viewcode-back" href="../../corrections.html#corrections.tasks.ejecuta_evaluacion_llm">[docs]</a>
+<div class="viewcode-block" id="start_llm_evaluation">
+<a class="viewcode-back" href="../../corrections.html#corrections.tasks.start_llm_evaluation">[docs]</a>
 <span class="nd">@shared_task</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">ejecuta_evaluacion_llm</span><span class="p">(</span><span class="n">correction_id</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">start_llm_evaluation</span><span class="p">(</span><span class="n">correction_id</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Run a evaluation task using a LLM</span>
 
@@ -321,7 +321,7 @@ document.write(`
 
         <span class="c1"># Set the location for storing the response file</span>
         <span class="n">location</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="n">correction_obj</span><span class="o">.</span><span class="n">folder_path</span><span class="p">,</span> <span class="s2">&quot;response&quot;</span><span class="p">)</span>
-        
+
         <span class="c1"># Initialize the file storage system at the specified location</span>
         <span class="n">fs</span> <span class="o">=</span> <span class="n">FileSystemStorage</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">)</span>
 
@@ -350,13 +350,13 @@ document.write(`
         <span class="n">fs</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">file_content</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">response</span>
 
+    <span class="k">except</span> <span class="n">Correction</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error: Correction with id </span><span class="si">%s</span><span class="s2"> does not exist&quot;</span><span class="p">,</span> <span class="n">correction_id</span><span class="p">)</span>
+        <span class="k">raise</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error executing task: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error executing task: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">e</span><span class="p">)</span>
         <span class="n">correction_obj</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">correction_obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-        <span class="k">raise</span>
-    <span class="k">except</span> <span class="n">Correction</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Correction with id </span><span class="si">{</span><span class="n">correction_id</span><span class="si">}</span><span class="s2"> does not exist&quot;</span><span class="p">)</span>
         <span class="k">raise</span></div>
 
 
@@ -387,9 +387,9 @@ document.write(`
                 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">full_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">),</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
                     <span class="n">tasks_dict</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
     <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: The folder &#39;</span><span class="si">{</span><span class="n">full_path</span><span class="si">}</span><span class="s2">&#39; was not found.&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Error: The folder </span><span class="si">%s</span><span class="s2"> was not found.&quot;</span><span class="p">,</span> <span class="n">full_path</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">PermissionError</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Insufficient permissions to access the folder &#39;</span><span class="si">{</span><span class="n">full_path</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Error: Insufficient permissions to access the folder </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span><span class="n">full_path</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">tasks_dict</span></div>
 

@@ -1,8 +1,6 @@
-prompts
-=======
-
 Prompts aplication module
--------------------------
+=========================
+
 .. automodule:: prompts
    :members:
    :undoc-members:

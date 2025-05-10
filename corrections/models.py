@@ -21,7 +21,6 @@ class Correction(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="corrections"
         )
-
     date = models.DateTimeField(auto_now_add=True)
     description = models.TextField()
     llm_model = models.CharField(max_length=255, default="llama3")

@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 @shared_task
-def ejecuta_evaluacion_llm(correction_id):
+def start_llm_evaluation(correction_id):
     """
     Run a evaluation task using a LLM
 

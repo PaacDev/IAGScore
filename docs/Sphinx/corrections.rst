@@ -56,7 +56,7 @@ tasks
    :private-members:
    :show-inheritance:
 
-   .. autofunction:: ejecuta_evaluacion_llm
+   .. autofunction:: start_llm_evaluation
 
 views
 -----
