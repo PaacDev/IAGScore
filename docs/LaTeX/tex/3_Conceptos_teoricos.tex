@@ -28,15 +28,98 @@ primera vez en el artículo ``Attention Is All You Need''~\cite{vaswani2017}.
 contruyendo una arquitectura basada en mecanismos de atención, sin recurrir a 
 redes recurrentes o convolucionales.
 
-
-
-\section{Langchain }
-
-Las secciones se incluyen con el comando section.
+El mecanismo de atención permite al modelo ponderar la importancia relativa de cada palabra 
+en la entrada, considerando su relación con todas las demás en la secuencia. Esto le permite 
+capturar dependencias a largo plazo y relaciones semánticas complejas, incluso entre palabras 
+que están muy separadas en el texto.
 
 \section{Ollama}
 
-Las secciones se incluyen con el comando section.
+Ollama es una herramienta que permite ejecutar modelos de lenguaje grandes de forma local, 
+facilitando así la utilización de LLMs sin necesidad de conectarse a servicios en la nube. 
+Esto representa una ventaja significativa en términos de privacidad, eficiencia y control 
+sobre el entorno de ejecución.
+
+Además de simplificar la instalación y gestión de modelos como LLaMA, Mistral o Phi-4, 
+Ollama ofrece una interfaz sencilla para ejecutar estos modelos desde la línea de comandos 
+o integrarlos en aplicaciones a través de bibliotecas específicas como LangChain. 
+
+En este proyecto, Ollama ha sido clave para ejecutar LLMs directamente en el entorno local
+evitando el uso de servicios externos.
+
+Una de las características más útiles de Ollama es que permite configurar distintos parámetros 
+del modelo, lo que facilita su adaptación a diferentes necesidades o contextos. 
+En particular, en este proyecto se permite configurar los siguientes parámetros:
+
+\begin{itemize}
+	\item \textbf{Temperatura}: Controla la aleatoriedad de las respuestas generadas. Un valor bajo 
+		produce respuestas más predecibles, mientras que un valor alto genera respuestas 
+		más creativas y variadas.
+	\item \textbf{Top-p}: También conocido como muestreo de núcleo, este parámetro ajusta la
+		probabilidad acumulativa de las palabras seleccionadas. Un valor bajo limita la 
+		selección a las palabras más probables, mientras que un valor alto permite una 
+		mayor diversidad en las respuestas.
+	\item \textbf{Top-k}: Este parámetro limita el número de palabras candidatas a considerar
+		durante la generación de texto. Un valor bajo restringe la selección a las palabras 
+		más probables, mientras que un valor alto permite una mayor variedad en las 
+		respuestas generadas.
+\end{itemize}
+
+Además, Ollama facilita la gestión de versiones de los modelos, permitiendo a los usuarios
+probar diferentes versiones de un mismo modelo o incluso modelos alternativos sin complicaciones.
+
+\section{LangChain}
+
+LangChain es un \textit{framework} diseñado para facilitar la creación de aplicaciones 
+que integran modelos de lenguaje con diversas fuentes de datos, herramientas externas 
+y flujos de trabajo. Aunque su potencial es muy amplio, en este proyecto se ha 
+utilizado de forma básica para conectar modelos de lenguaje locales, 
+gestionados con Ollama, e integrarlos de manera sencilla dentro del entorno de desarrollo 
+en Python.
+
+En concreto, se ha utilizado el módulo \texttt{OllamaLLM} de \texttt{langchain\_ollama}, 
+que permite invocar modelos como LLaMA o Mistral localmente sin necesidad de APIs externas. 
+Esta integración facilita el acceso a modelos avanzados sin comprometer la privacidad de 
+los datos ni depender de servicios en la nube.
+
+LangChain ofrece también funcionalidades más avanzadas como el manejo de memoria conversacional, 
+agentes que interactúan con múltiples herramientas, y la orquestación de cadenas de prompts, 
+aunque estas características no han sido necesarias en el alcance actual del proyecto.
+
+\section{Gestión de tareas asíncronas con Celery y Redis}
+
+En este proyecto se ha utilizado \textbf{Celery}, una librería de Python para la ejecución de
+tareas en segundo plano y procesamiento distribuido, con el objetivo de gestionar de forma 
+eficiente las correcciones automáticas enviadas por los estudiantes. Su integración 
+permite desacoplar el proceso de corrección del flujo principal de la aplicación, 
+evitando bloqueos o tiempos de espera innecesarios en la interfaz de usuario.
+
+Esto resulta especialmente útil en entornos donde se espera una
+alta concurrencia de usuarios o cuando el procesamiento de texto puede requerir 
+tiempos de cómputo significativos, como es el caso del uso de LLMs.
+
+Para la gestión de mensajes entre la aplicación y Celery se ha empleado \textbf{Redis}, 
+un sistema de almacenamiento en memoria que actúa como \textit{message broker}. Redis 
+permite almacenar las tareas en una cola, que posteriormente son recogidas y ejecutadas 
+por los \textit{workers} de Celery.
+
+El flujo básico de trabajo es el siguiente:
+\begin{enumerate}
+    \item El usuario envía una tarea desde la aplicación.
+    \item Esta tarea se encola en Redis como un mensaje.
+    \item Celery detecta la nueva tarea en la cola y la ejecuta, utilizando un modelo de lenguaje (LLM) gestionado por Ollama.
+    \item Una vez completada la corrección, la respuesta se almacena para ser presentada al usuario.
+\end{enumerate}
+
+Este enfoque ofrece varias ventajas:
+\begin{itemize}
+    \item Permite procesar múltiples tareas en paralelo.
+    \item Mejora la escalabilidad del sistema.
+    \item Reduce la carga directa sobre el servidor principal.
+    \item Aumenta la capacidad de respuesta de la interfaz.
+\end{itemize}
+
+
 
 \section{Prompt engineering}
 

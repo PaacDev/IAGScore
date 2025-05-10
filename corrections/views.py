@@ -256,6 +256,8 @@ def show_view_correction(request):
     Returns:
         HttpResponse: The rendered template for the corrections table.
     """
+    # Get the correction list for the user ordered by date
+    # and paginate the results
     correction_list = Correction.objects.filter(user=request.user).order_by("-date")
     paginator = Paginator(correction_list, 5)
     page_number = request.GET.get("page")
