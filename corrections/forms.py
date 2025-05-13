@@ -122,7 +122,7 @@ class CorrectionForm(ModelForm):
                 "class": "input-custom",
             }
         ),
-        required=True,
+        required=False,
         initial="TXT",
     )
     

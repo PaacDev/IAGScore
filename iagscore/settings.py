@@ -173,7 +173,7 @@ CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 
 # celery and media folder for test
-if "pytest" in sys.argv or "test" in sys.argv:
+if any("pytest" in arg or "test" in arg for arg in sys.argv):
     CELERY_TASK_ALWAYS_EAGER = True
     MEDIA_ROOT = tempfile.mkdtemp()
     print(f"MEDIA_ROOT temporal para pruebas: {MEDIA_ROOT}")
