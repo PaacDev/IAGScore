@@ -1,5 +1,5 @@
 """
-This file contains the test for the prompts app.
+Test for the prompts app.
 """
 
 import logging

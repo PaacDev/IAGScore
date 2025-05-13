@@ -2,7 +2,152 @@
 
 \section{Introducción}
 
+En este anexo se presenta la documentación técnica del proyecto, la cual proporciona una guía completa para cualquier programador que desee continuar con su desarrollo. Se incluyen recomendaciones sobre el entorno de desarrollo, la organización y estructura de la aplicación, los procesos de compilación, la configuración para la integración, la instalación de dependencias y las baterías de pruebas realizadas.
+
 \section{Estructura de directorios}
+
+
+\subsection{Directorio Raíz (\texttt{./})}
+El directorio raíz contiene los archivos y carpetas principales del proyecto, incluyendo configuraciones globales y documentación. Los archivos más relevantes son:
+
+\begin{itemize}
+    \item \texttt{manage.py}: Utilidad de línea de comandos para tareas administrativas de Django, como migraciones y ejecución del servidor de desarrollo.
+    \item \texttt{.gitignore}: Especifica los archivos y directorios excluidos del control de versiones (por ejemplo, \texttt{venv} y \texttt{.git}).
+    \item \texttt{.pylintrc}: Configuración para la herramienta de análisis de calidad de código Pylint.
+    \item \texttt{README.md}: Documentación inicial con instrucciones de instalación, descripción del proyecto y licencia.
+    \item \texttt{requirements.txt}: Lista de dependencias de Python requeridas para el proyecto.
+\end{itemize}
+
+\subsection{\texttt{iagscore}}
+Directorio que contiene la configuración global del proyecto Django. Aquí se encuentran los archivos principales para la configuración y enrutamiento:
+
+\begin{itemize}
+    \item \texttt{settings.py}: Configuración del proyecto, incluyendo la base de datos, aplicaciones instaladas, claves secretas y ajustes de internacionalización.
+    \item \texttt{urls.py}: Enrutamiento principal de URLs, que conecta las rutas de las aplicaciones con las vistas correspondientes.
+    \item \texttt{celery.py}: Configuración para la integración de Celery, utilizado para manejar tareas asíncronas y programadas.
+    \item \texttt{asgi.py}: Configuración para el despliegue en servidores ASGI, compatible con aplicaciones asíncronas y WebSockets.
+    \item \texttt{wsgi.py}: Configuración para el despliegue en servidores WSGI.
+    \item \texttt{\_\_pycache\_\_}: Archivos compilados de Python generados automáticamente.
+\end{itemize}
+
+\subsection{\texttt{accounts}}
+Aplicación para la gestión de cuentas de usuarios (registro de usuarios, etc).
+
+\begin{itemize}
+    \item \texttt{models.py}: Modelos personalizados para usuarios.
+    \item \texttt{views.py}: Lógica para registro y gestión de perfiles.
+    \item \texttt{urls.py}: Enrutamiento para URLs de registro y gestión de perfiles.
+    \item \texttt{forms.py}: Formularios Django para la creación de nuevos usuarios.
+    \item \texttt{admin.py}: Configuración de la interfaz de administración para los modelos de usuarios.
+    \item \texttt{apps.py}: Configuración de la aplicación.
+    \item \texttt{tests.py}: Pruebas unitarias para los modelos, forms, vistas y otras funcionalidades de la aplicación.
+    \item \texttt{migrations/}: Migraciones de la base de datos.
+    \item \texttt{static/accounts/}: Archivos estáticos específicos.
+    \item \texttt{templates/accounts/}: Plantillas HTML para registro y gestión de perfil.
+\end{itemize}
+
+\subsection{\texttt{core}}
+Aplicación que gestiona la lógica básica del proyecto como login , logout, etc. 
+
+\begin{itemize}
+    \item \texttt{models.py}: Definición de modelos de datos para la base de datos.
+    \item \texttt{admin.py}: Configuración de la interfaz de administración de Django.
+    \item \texttt{apps.py}: Configuración de la aplicación, incluyendo su nombre.
+    \item \texttt{views.py}: Lógica de las vistas para procesar solicitudes HTTP.
+    \item \texttt{urls.py}: Enrutamiento específico de la aplicación.
+    \item \texttt{tests.py}: Pruebas unitarias para los modelos, forms, vistas y otras funcionalidades de la aplicación.
+    \item \texttt{migrations/}: Archivos de migraciones para cambios en la base de datos.
+    \item \texttt{static/core/}: Archivos estáticos específicos de la aplicación.
+    \begin{itemize}
+        \item \texttt{static/core/docs/}: Documentación estática, como PDFs o imágenes.
+    \end{itemize}
+    \item \texttt{templates/core/}: Plantillas HTML para la aplicación.
+    \begin{itemize}
+        \item \texttt{templates/core/partials/}: Plantillas reutilizables para componentes modulares.
+    \end{itemize}
+\end{itemize}
+
+\subsection{\texttt{rubrics}}
+Aplicación para gestionar rúbricas.
+
+\begin{itemize}
+    \item \texttt{models.py}: Modelos de datos para rúbricas.
+    \item \texttt{admin.py}: Configuración de la interfaz de administración para los modelos de rúbricas.
+    \item \texttt{apps.py}: Configuración de la aplicación.
+    \item \texttt{views.py}: Lógica para mostrar o gestionar rúbricas.
+    \item \texttt{urls.py}: Enrutamiento de URLs específicas.
+    \item \texttt{forms.py}: Formularios Django para la importación de rubricas.
+    \item \texttt{tests.py}: Pruebas unitarias para los modelos, forms, vistas y otras funcionalidades de la aplicación.
+    \item \texttt{migrations/}: Migraciones de la base de datos.
+    \item \texttt{templates/rubrics/}: Plantillas HTML para mostrar o importar rúbricas.
+\end{itemize}
+
+\subsection{\texttt{prompts}}
+Aplicación para gestionar prompts, entradas de texto para modelos de IA.
+
+\begin{itemize}
+    \item \texttt{models.py}: Modelos para almacenar prompts.
+    \item \texttt{views.py}: Lógica para gestionar prompts.
+    \item \texttt{admin.py}: Configuración de la interfaz de administración para los modelos de prompts.
+    \item \texttt{apps.py}: Configuración de la aplicación.
+    \item \texttt{urls.py}: Enrutamiento de URLs.
+    \item \texttt{forms.py}: Formularios Django para la creación de prompts.
+    \item \texttt{tests.py}: Pruebas unitarias para los modelos, forms, vistas y otras funcionalidades de la aplicación.
+    \item \texttt{migrations/}: Migraciones de la base de datos.
+    \item \texttt{templates/prompts/}: Plantillas HTML para mostrar o crear prompts.
+\end{itemize}
+
+\subsection{\texttt{corrections}}
+Aplicación para gestionar, configurar y ejecutar correcciones.
+
+\begin{itemize}
+    \item \texttt{models.py}: Modelos para correcciones.
+    \item \texttt{views.py}: Lógica para procesar correcciones.
+    \item \texttt{admin.py}: Configuración de la interfaz de administración para los modelos de correcciones.
+    \item \texttt{apps.py}: Configuración de la aplicación.
+    \item \texttt{urls.py}: Enrutamiento de URLs.
+    \item \texttt{forms.py}: Formularios Django para la gestión de correcciones.
+    \item \texttt{tasks.py}: Definición de tareas asíncronas, gestionadas con Celery.
+    \item \texttt{signals.py}: Configuración de señales Django para ejecutar acciones automáticas tras ciertos eventos (ej. eliminar un modelo).
+    \item \texttt{tests.py}: Pruebas unitarias para los modelos, forms, vistas y otras funcionalidades de la aplicación.
+    \item \texttt{migrations/}: Migraciones de la base de datos.
+    \item \texttt{templates/corrections/}: Plantillas HTML para mostrar o configurar correcciones.
+\end{itemize}
+
+\subsection{\texttt{media}}
+Directorio para archivos subidos por usuarios y almacenamiento de los resultados de la ejecución de una corrección.
+
+\begin{itemize}
+    \item \texttt{corrections/}: Archivos relacionados con la aplicación \texttt{corrections}, organizados por IDs.
+\end{itemize}
+
+\subsection{\texttt{static}}
+Carpeta para archivos estáticos globales del proyecto.
+
+\begin{itemize}
+    \item \texttt{js/}: Archivos JavaScript para funcionalidad frontend.
+\end{itemize}
+
+\subsection{\texttt{tailwind}}
+Directorio para la configuración y compilación de Tailwind CSS.
+
+\begin{itemize}
+    \item \texttt{tailwind.config.js}: Configuración personalizada de Tailwind CSS, donde se definen temas, colores y plugins.
+    \item \texttt{package.json}: Dependencias de Node.js y scripts para compilar Tailwind CSS.
+    \item \texttt{static/css/}: Archivos CSS generados por Tailwind CSS.
+\end{itemize}
+
+\subsection{\texttt{docs}}
+Carpeta para documentación del proyecto.
+
+\begin{itemize}
+    \item \texttt{LaTeX/}: Documentación escrita en LaTeX.
+    \begin{itemize}
+        \item \texttt{tex/}: Archivos fuente de LaTeX.
+        \item \texttt{img/}: Imágenes usadas en la documentación.
+    \end{itemize}
+\end{itemize}
+
 
 \section{Manual del programador}
 
