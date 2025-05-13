@@ -1,15 +1,22 @@
 \capitulo{3}{Conceptos teóricos}
 
-En este apartado se describen los componentes principales que permiten llevar 
-a cabo la evaluación automática de tareas mediante modelos de lenguaje. 
-Se comienza explicando qué son los modelos de lenguaje de gran tamaño (LLM) 
-y cómo funcionan. A continuación, se introduce LangChain como una herramienta 
-útil para integrar estos modelos en flujos de trabajo personalizados. 
-Seguidamente, se presenta Ollama como solución para ejecutar modelos de forma 
-local, priorizando la privacidad y el control. Finalmente, se hace una mención 
-al prompt engineering, un enfoque que permite mejorar o personalizar las 
-respuestas de los modelos en función de cómo se les formula la entrada, y 
-que puede tener relevancia en el desarrollo de este tipo de sistemas.
+En este apartado se describen los componentes principales que hacen posible la evaluación 
+automática de tareas mediante modelos de lenguaje de gran tamaño (LLM). 
+
+En primer lugar, se explica en qué consisten los LLM y cómo su arquitectura basada en 
+transformadores permite comprender y generar texto de forma avanzada. A continuación, 
+se introduce LangChain como un \textit{framework} que facilita la integración de estos 
+modelos en aplicaciones complejas, y se analiza el uso de Ollama como herramienta para 
+ejecutar los modelos localmente, garantizando privacidad y control sobre los datos.
+
+Además, se detalla el papel de Redis y Celery, que permiten gestionar tareas de forma 
+asíncrona y eficiente dentro del sistema, especialmente útil cuando el procesamiento de 
+las tareas requiere tiempo o recursos considerables.
+
+Finalmente, se menciona el concepto de \textit{prompt engineering}, una técnica que permite 
+mejorar la calidad de las respuestas generadas por los modelos optimizando la forma en que 
+se les formula la entrada, aspecto que puede tener impacto directo en la efectividad del 
+sistema desarrollado.
 
 \section{Modelos de lenguaje grandes (LLM)}
 
@@ -119,11 +126,39 @@ Este enfoque ofrece varias ventajas:
     \item Aumenta la capacidad de respuesta de la interfaz.
 \end{itemize}
 
-
-
 \section{Prompt engineering}
 
-Las secciones se incluyen con el comando section.
+El \textit{prompt engineering} es una técnica dentro del campo del procesamiento de lenguaje natural
+que consiste en diseñar cuidadosamente las instrucciones que se proporcionan a un modelo de 
+lenguaje (LLM) para obtener respuestas más precisas, relevantes o útiles.
+
+Dado que los LLM no tienen comprensión real del contexto, el modo en que se les formula una 
+entrada (prompt) influye significativamente en la calidad y pertinencia de la respuesta. 
+Por ello, estructurar correctamente el mensaje de entrada se convierte en un factor clave 
+para guiar el comportamiento del modelo.
+
+Aunque en este proyecto no se ha aplicado de forma intensiva, se han realizado pruebas con distintas 
+formulaciones de entrada para verificar cómo pequeños cambios en el prompt afectan la salida del 
+modelo. Por ejemplo, el uso de frases más explícitas o el establecimiento claro del rol del modelo 
+(e.g.,``Actúa como profesor universitario'') puede mejorar la coherencia y adecuación de las 
+respuestas al evaluar tareas~\cite{web:promptingguide}.
+
+Existen técnicas avanzadas dentro del \textit{prompt engineering}, como:
+
+\begin{itemize}
+    \item \textbf{Few-shot prompting}: Se incluyen uno o varios ejemplos dentro del prompt para 
+	que el modelo aprenda el formato o estilo deseado.
+    \item \textbf{Zero-shot prompting}: El modelo genera una respuesta sin ejemplos previos, 
+	confiando solo en la instrucción.
+    \item \textbf{Chain-of-thought prompting}: Se induce al modelo a razonar paso a paso para 
+	tareas complejas.
+    \item \textbf{Role prompting}: Se establece un rol específico para el modelo, como ``profesor universitario''.
+\end{itemize}
+
+Aunque estas estrategias no se han utilizado en profundidad en este trabajo, su conocimiento es relevante 
+para posibles mejoras futuras del sistema, especialmente si se busca afinar el comportamiento del 
+modelo en escenarios educativos específicos.
+
 
 \subsubsection{Subsubsecciones}
 

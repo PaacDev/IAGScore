@@ -30,6 +30,12 @@ class Correction(models.Model):
     model_temp = models.FloatField(default=0.8)
     model_top_p = models.FloatField(default=0.9)
     model_top_k = models.IntegerField(default=40)
+    output_format = models.CharField(
+        max_length=255, default="text", choices=[
+            ("json", "json"),
+            ("text", ""),
+        ]
+    )
 
     def __str__(self):
         """ Returns a string representation of the correction. """

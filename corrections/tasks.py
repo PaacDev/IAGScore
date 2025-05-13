@@ -30,13 +30,15 @@ def start_llm_evaluation(correction_id):
         # Get the correction object
         correction_obj = Correction.objects.get(id=correction_id)
 
-        model = "llama3"
+        #model = "llama3"
+        model = "llama3.1"
         base_path = settings.MEDIA_ROOT
         tasks_dict = set_tasks_dict(correction_obj.folder_path)
+        logger.info("output format: %s", correction_obj.output_format)
 
         # Set the model name and parameters
         llm_model = OllamaLLM(
-            model=model, format="json",
+            model=model, format=correction_obj.output_format,
             temperature=correction_obj.model_temp,
             top_p=correction_obj.model_top_p,
             top_k=correction_obj.model_top_k
@@ -52,6 +54,7 @@ def start_llm_evaluation(correction_id):
         response = llm_model.invoke(
             correction_obj.prompt.prompt +
             correction_obj.rubric.content +
+            "**Tareas para evaluar una a una: **\n" +
             str(tasks_dict)
             )
 

@@ -15,7 +15,7 @@ class CorrectionForm(ModelForm):
         """
 
         model = Correction
-        fields = ["description", "llm_model", "rubric", "prompt", "model_temp", "model_top_p", "model_top_k"]
+        fields = ["description", "llm_model", "rubric", "prompt", "model_temp", "model_top_p", "model_top_k", "output_format"]
         labels = {
             "description": "Descripción",
             "llm_model": "Modelo usado",
@@ -24,6 +24,7 @@ class CorrectionForm(ModelForm):
             "model_temp": "Temperatura",
             "model_top_p": "Top P",
             "model_top_k": "Top K",
+            "output_format": "Formato de salida",
         }
 
     # Specific style attributes for fields.
@@ -108,6 +109,23 @@ class CorrectionForm(ModelForm):
         max_value=100,
         help_text="Top K del modelo (0 - 100)",
     )
+    
+    output_format = forms.ChoiceField(
+        label="Formato de salida",
+        choices=[
+            ("", "TXT"),
+            ("json", "JSON"),
+        ],
+        widget=forms.Select(
+            attrs={
+                "id": "output_format",
+                "class": "input-custom",
+            }
+        ),
+        required=True,
+        initial="TXT",
+    )
+    
 
     def clean_zip_file(self):
         """
