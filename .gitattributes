@@ -8,6 +8,9 @@
 # The above will handle all files NOT found below
 #
 
+docs/Sphinx/** linguist-vendored
+core/static/core/sphinx_docs/** linguist-vendored
+
 # Documents
 *.bibtex   text diff=bibtex
 *.doc      diff=astextplain
