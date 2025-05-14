@@ -94,7 +94,7 @@ jobs:
           -Dsonar.organization=pac1006
           -Dsonar.sources=.
           -Dsonar.exclusions=**/*test*.py
-          -Dsonar.coverage.exclusions=**/tailwind/**,**/node_modules/**,**/migrations/**
+          -Dsonar.coverage.exclusions=**/tailwind/**,**/node_modules/**,**/migrations/**,**/core/static/core/**,**/static/**
           -Dsonar.python.coverage.reportPaths=coveragereport/coverage.xml
 
     # Detenemos y limpiamos los contenedores
