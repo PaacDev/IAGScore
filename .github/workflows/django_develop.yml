@@ -1,0 +1,88 @@
+name: Django Develop CI
+
+on:
+  push:
+    branches: ["develop", "feature/**"]
+  pull_request:
+    branches: ["develop"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      max-parallel: 2
+      matrix:
+        python-version: ["3.10", "3.11"]
+
+    steps:
+    # Clonamos repositoio
+    - name: Checkout repo
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    # Creamos un .env dinámico
+    - name: Dinamic .env
+      run: |
+        echo "DB_USER=test_user" >> .env
+        echo "DB_PASSWORD=test_password" >> .env
+        echo "DB_NAME=test_db" >> .env
+        echo "DB_HOST=postgres_db" >> .env
+        echo "DB_PORT=5432" >> .env
+        echo "SECRET_KEY=${{ secrets.TEST_SECRET_KEY }}" >> .env
+        echo "CELERY_BROKER_URL=redis://redis:6379/0" >> .env
+
+    # Construimos y levantamos los contenedores
+    - name: Build and start containers
+      run: |
+        set -e
+        docker compose -f docker-compose.yaml -f docker-compose.ci.yml up -d --build
+    
+    # Estadísticas de Docker
+    - name: Docker stats
+      run: docker stats --no-stream
+        
+    - name: Crea directorios salida y permisos
+      run: |
+        mkdir -p coveragereport  # Creamos el directorio para el reporte XML
+        mkdir -p coveragereport/html  # Creamos el directorio para el reporte HTML
+        chmod -R 777 coveragereport
+        
+    # Ejecutamos los test en el contenedor Django
+    - name: Ejecución Django tests
+      run: docker compose exec web coverage run --rcfile=.github/workflows/.coveragerc manage.py test
+
+    # Comprobamos estructura de directorios después de los tests
+    - name: Comprobamos estructura de directorios después de los tests
+      run: |
+        echo "Estructura app"
+        docker compose exec web ls -lra /app
+        echo "Estructura app/media"
+        docker compose exec web ls -lra /app/media || echo "media not found"
+        echo "Estructura app/coveragereport"
+        docker compose exec web ls -lra /app/coveragereport || echo "coveragereport not found"
+        docker compose exec web ls -lra /app/coveragereport/html || echo "html not found"
+    
+    # Generamos los reportes de coverage
+    - name: Generamos los reportes de coverage
+      run: |
+        docker compose exec web coverage html --rcfile=.github/workflows/.coveragerc -d /app/coveragereport/html
+        docker compose exec web coverage xml --rcfile=.github/workflows/.coveragerc -o /app/coveragereport/coverage.xml
+
+    # Copiamos los reportes fuera del contenedor
+    - name: Copiamos reportes fuera del contenedor
+      run: |
+        docker cp $(docker compose ps -q web):/app/coveragereport ./coveragereport
+  
+    # Subimos los reportes como artefactos
+    - name: Upload Coverage Reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report-py${{ matrix.python-version }}
+        path: coveragereport/
+    
+    # Detenemos y limpiamos los contenedores
+    - name: Limpiamos contenedores y volúmenes
+      if: always()
+      run: docker compose down -v
