@@ -76,6 +76,13 @@
                             {{ correct_form.model_top_k.help_text }}
                         </p>
                     </div>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="col-span-1">
+                            <label for="{{ correct_form.output_format.id_for_label }}"
+                                   class="block mt-2 text-sm font-medium text-gray-900 dark:text-white">Formato salida</label>
+                            {{ correct_form.output_format }}
+                        </div>
+                    </div>
                 </div>
                 <!-- Campos ocultos con valores de los selects -->
                 <input type="hidden"

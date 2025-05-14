@@ -1,3 +1,1 @@
-"""
-Module models.py
-"""
+""" Module models.py """

@@ -1,15 +1,11 @@
-"""
-This file contains the model for the CustomUser class.
-"""
-
+"""Model definition for the CustomUser."""
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-# Create your models here.
 class CustomUser(AbstractUser):
     """
-    Custom user model
+    Class to define the Custom user model
     """
 
     email = models.EmailField(max_length=150, unique=True)

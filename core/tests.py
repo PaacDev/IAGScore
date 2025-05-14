@@ -1,6 +1,4 @@
-"""
-This file contains the tests for the core app.
-"""
+""" Tests for the core app. """
 
 from django.test import TestCase
 from django.urls import reverse

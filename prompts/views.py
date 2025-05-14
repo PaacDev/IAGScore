@@ -1,7 +1,6 @@
 """
-This file contains the views for the prompts app.
+Views for the prompts app.
 """
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
@@ -20,16 +19,29 @@ from .models import Prompt
 def prompt_page(request):
     """
     View for creating a new prompt.
+    
+    - GET: Displays the form.
+    - POST: Processes the form and create new prompt.
+    
+    Parameters:
+        request: The HTTP request object.
+        
+    Returns:
+        HttpResponse: The rendered template with the prompt form and prompt list.
     """
+    # Get the user's prompts ordering them by creation date
+    # and paginate them
     prompt_list = Prompt.objects.filter(user=request.user).order_by("-creation_date")
     paginator = Paginator(prompt_list, 5)
-
     page_numer = request.GET.get("page")
     page_obj = paginator.get_page(page_numer)
 
+    # If the request is a POST, process the form
     if request.method == "POST":
+        # Get the form data
         form = PromptForm(request.POST)
         if form.is_valid():
+            # Create a new prompt object with the form data
             prompt = Prompt(
                 name=form.cleaned_data["name"],
                 prompt=form.cleaned_data["prompt"],
@@ -37,6 +49,7 @@ def prompt_page(request):
             )
 
             try:
+                # Save the prompt object to the database
                 prompt.save()
                 messages.success(request, "Prompt creado correctamente")
                 prompt_list = list(Prompt.objects.filter(user=request.user))
@@ -46,6 +59,7 @@ def prompt_page(request):
                     {"form": form, "prompt_list": prompt_list},
                 )
             except IntegrityError:
+                # Handle the case where the prompt already exists
                 messages.error(
                     request, "Error al guardar el prompt: Prompt ya existente"
                 )
@@ -66,6 +80,16 @@ def prompt_page(request):
 def show_prompt(request, prompt_id):
     """
     View for showing a prompt
+    
+    Parameters:
+        request: The HTTP request object.
+        prompt_id: The ID of the prompt to show.
+        
+    Returns:
+        HttpResponse: The rendered template with the prompt details.
+
+    Raises:
+        Http404: If the prompt does not exist.
     """
     try:
         prompt = Prompt.objects.get(id=prompt_id, user=request.user)
@@ -80,6 +104,16 @@ def show_prompt(request, prompt_id):
 def delete_prompt(request, prompt_id):
     """
     View for deleting a prompt
+    
+    Parameters:
+        request: The HTTP request object.
+        prompt_id: The ID of the prompt to delete.
+        
+    Returns:
+        HttpResponse: Redirects to the prompt page with a success message.
+        
+    Raises:
+        Http404: If the prompt does not exist.
     """
     prompt = get_object_or_404(Prompt, id=prompt_id, user=request.user)
     prompt.delete()

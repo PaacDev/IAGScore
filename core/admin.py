@@ -1,3 +1,1 @@
-"""
-Module admin.py
-"""
+""" Module admin.py """
