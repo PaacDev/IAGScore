@@ -250,6 +250,26 @@ class CorrectionFormTestCase(TestCase):
         form = CorrectionForm(data=data, files=file)
         self.assertTrue(form.is_valid())
 
+    def test_valid_form_default_fields(self):
+        data = {
+            "rubric": self.rubric,
+            "prompt": self.prompt,
+            "description": self.description,
+            "llm_model": self.llm_model,
+        }
+
+        file = {"zip_file": self.zip_file}
+
+        form = CorrectionForm(data=data, files=file)
+        correction = form.save(commit=False)
+        correction.user = self.user
+        correction.save()
+        
+        self.assertTrue(correction.model_temp, 0.8)
+        self.assertTrue(correction.model_top_p, 0.9)
+        self.assertTrue(correction.model_top_k, 40)
+        self.assertTrue(correction.output_format, "")
+
     def test_invalid_form_zipfile(self):
         """
         Test a invalid file

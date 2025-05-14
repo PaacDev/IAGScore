@@ -1,0 +1,1 @@
+""" Module for Rubric management """

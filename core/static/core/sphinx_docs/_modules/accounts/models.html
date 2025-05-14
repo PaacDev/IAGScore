@@ -274,20 +274,16 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Código fuente para accounts.models</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This file contains the model for the CustomUser class.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
+<span></span><span class="sd">&quot;&quot;&quot;Model definition for the CustomUser.&quot;&quot;&quot;</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.contrib.auth.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbstractUser</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">models</span>
 
 
-<span class="c1"># Create your models here.</span>
 <div class="viewcode-block" id="CustomUser">
 <a class="viewcode-back" href="../../accounts.html#accounts.admin.CustomUser">[documentos]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CustomUser</span><span class="p">(</span><span class="n">AbstractUser</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Custom user model</span>
+<span class="sd">    Class to define the Custom user model</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">email</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">EmailField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

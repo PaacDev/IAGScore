@@ -1,7 +1,4 @@
-"""
-This module contains the views for the rubrics app.
-"""
-
+"""Views for the rubrics app."""
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
@@ -20,22 +17,36 @@ from .models import Rubric
 def rubric_page(request):
     """
     View for import a new rubric.
+    
+    - GET: Displays the form.
+    - POST: Processes the form and create new rubric.
+    
+    Parameters:
+        request: The HTTP request object.
+        
+    Returns:
+        HttpResponse: The rendered template with the rubric form and rubric list.
     """
+    # Get the user's rubrics ordering them by creation date
+    # and paginate them
     rubric_list = Rubric.objects.filter(user=request.user).order_by("-creation_date")
     paginator = Paginator(rubric_list, 5)
-
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
+    # If the request is a POST, process the form
     if request.method == "POST":
+        # Get the form data and files
         form = RubricForm(request.POST, request.FILES)
         if form.is_valid():
+            # Create a new rubric object with the form data
             rubric = Rubric(
                 name=form.cleaned_data["name"],
                 content=form.cleaned_data["rubric_file"],
                 user=request.user,
             )
             try:
+                # Save the rubric object to the database
                 rubric.save()
                 messages.success(request, "Rúbrica importada correctamente")
                 return render(
@@ -44,6 +55,7 @@ def rubric_page(request):
                     {"form": form, "rubric_list": rubric_list},
                 )
             except IntegrityError:
+                # Handle the case where the rubric already exists
                 messages.error(
                     request, "Error al guardar la rúbrica: Rubrica ya existente"
                 )
@@ -65,6 +77,16 @@ def rubric_page(request):
 def show_rubric(request, rubric_id):
     """
     View for showing a rubric
+    
+    Parameters:
+        request: The HTTP request object.
+        rubric_id: The ID of the rubric to show.
+        
+    Returns:
+        HttpResponse: The rendered template with the rubric details.
+        
+    Raises:
+        Http404: If the rubric does not exist.
     """
     try:
         rubric = Rubric.objects.get(id=rubric_id, user=request.user)
@@ -79,7 +101,18 @@ def show_rubric(request, rubric_id):
 def delete_rubric(request, rubric_id):
     """
     View for deleting a rubric
+    
+    Parameters:
+        request: The HTTP request object.
+        rubric_id: The ID of the rubric to delete.
+        
+    Returns:
+        HttpResponse: A redirect to the rubric page.
+    
+    Raises:
+        Http404: If the rubric does not exist.
     """
+
     rubric = get_object_or_404(Rubric, id=rubric_id, user=request.user)
     rubric.delete()
     messages.success(request, "Rúbrica eliminada correctamente")

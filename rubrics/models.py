@@ -1,7 +1,4 @@
-"""
-This file defines the models for the rubrics app
-"""
-
+""" Model definition for Rubric. """
 from django.db import models
 from django.contrib.auth import get_user_model
 import markdown
@@ -24,7 +21,8 @@ class Rubric(models.Model):
         """
         Meta class for Rubric model.
         """
-
+        # Define the unique constraint for the name and user fields
+        # This ensures that a user cannot have two rubrics with the same name
         constraints = [
             models.UniqueConstraint(
                 fields=("name", "user"), name="unique_rubrics_x_user"
@@ -32,14 +30,31 @@ class Rubric(models.Model):
         ]
 
     def __str__(self):
+        """
+        Overrides the string representation of the Rubric model.
+        
+        Parameters:
+            self (Rubric): The Rubric instance.
+            
+        Returns:
+            str: The name of the rubric.
+        """
         return self.name
 
     def get_html_content(self):
         """
         Returns the HTML content of the rubric.
+
+        Parameters:
+            self (Rubric): The Rubric instance.
+
+        Returns:
+            str: The HTML content of the rubric.
         """
+
         html_content = markdown.markdown(self.content, extensions=["tables"])
 
+        # Add styling to the HTML content
         styled_html = f"""
         <div class="rubric-style">
             <style>

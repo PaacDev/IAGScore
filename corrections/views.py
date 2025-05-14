@@ -1,7 +1,4 @@
-"""
-This module contains views for the corrections app.
-"""
-
+"""Views for the corrections app."""
 import zipfile
 import os
 import logging
@@ -18,7 +15,7 @@ from prompts.models import Prompt
 from rubrics.models import Rubric
 from .forms import CorrectionForm
 from .models import Correction
-from .tasks import ejecuta_evaluacion_llm
+from .tasks import start_llm_evaluation
 
 logger = logging.getLogger(__name__)
 
@@ -75,16 +72,24 @@ def run_model(request, correction_id):
 
     Returns:
         HttpResponse: A redirect to the correction detail view after queuing the task.
+    
+    Raises:
+        Http404: If the correction with the given ID does not exist.
+        Exception: If an error occurs while processing the correction.
     """
+    try:
 
-    correction_obj = Correction.objects.get(id=correction_id)
-    correction_obj.running = True
-    correction_obj.save()
+        correction_obj = Correction.objects.get(id=correction_id)
+        correction_obj.running = True
+        correction_obj.save()
 
-    # Initiate the task asynchronously
-    ejecuta_evaluacion_llm.delay(correction_id)
+        # Initiate the task asynchronously
+        start_llm_evaluation.delay(correction_id)
+    except Correction.DoesNotExist as exc:
+        logger.error("Error: Correction with id %s does not exist", correction_id)
+        raise Http404("Corrección no encontrada.") from exc
+
     return redirect("show_view_correction")
-
 
 @login_required
 @require_GET
@@ -98,6 +103,9 @@ def download_response(request, correction_id):
 
     Return:
         FileResponse: the file to download
+        
+    Raises:
+        Http404: If the correction with the given ID does not exist or if the file does not exist.
     """
 
     try:
@@ -132,6 +140,10 @@ def delete_correction(request, item_id):
 
     Return:
         HttpResponse: A redirect to the corrections view.
+        
+    Raises:
+        Http404: If the correction with the given ID does not exist.
+        Exception: If an error occurs while deleting the correction.
     """
 
     try:
@@ -148,39 +160,63 @@ def delete_correction(request, item_id):
 @require_http_methods(["POST", "GET"])
 def show_new_correction(request):
     """
-    View to display corrections.
+    View to display the form for creating a new correction.
+    
+    - GET: Displays the form.
+    - POST: Processes the form and create new correction.
+    
+    Parameters:
+        request (HttpRequest): The HTTP request object.
+    
+    Returns:
+        HttpResponse: The rendered template for creating a new correction 
+                    or a redirect to the view correction page.
     """
+    # Get the user's rubrics and prompts
     rubric_list = Rubric.objects.filter(user=request.user)
     prompt_list = Prompt.objects.filter(user=request.user)
+    # Get the selected rubric and prompt id from the request
     rubric_select_id = request.GET.get("rubric_id")
     prompt_selected_id = request.GET.get("prompt_id")
+    # Initialize the correction form
     correct_form = CorrectionForm()
+    # Initialize the selected rubric and prompt
     rubric_select = None
     prompt_select = None
 
+    # If rubric_select_id or prompt_selected_id are not None, get the objects
     if rubric_select_id:
         rubric_select = Rubric.objects.get(id=rubric_select_id)
 
     if prompt_selected_id:
         prompt_select = Prompt.objects.get(id=prompt_selected_id)
 
+    # If the request method is POST, process the form
     if request.method == "POST":
+        # Instantiate the form with the POST data and files
         correct_form = CorrectionForm(request.POST, request.FILES)
         if correct_form.is_valid():
+            # Process the correction object without commit
+            # to set the folder path using the user id
             new_corrections = correct_form.save(commit=False)
             new_corrections.user = request.user
+            # Save the correction object to get the id
             new_corrections.save()
+
+            # Process the zip file and save its content
+            # and set the folder path
             path = process_zip_file(
                 request.FILES["zip_file"], request.user, new_corrections.id
             )
             new_corrections.folder_path = path
             new_corrections.save()
+            # Sucess message
             messages.add_message(
                 request, messages.SUCCESS, "Correción creada correctamente"
             )
+        # If the form is not valid, log the errors
         else:
             messages.add_message(request, messages.ERROR, "Error al crear correción")
-
             errors = correct_form.errors.as_data()
 
             # Save the error in messages
@@ -192,7 +228,7 @@ def show_new_correction(request):
                         messages.ERROR,
                         f"Error en el campo '{field}': {error.message}",
                     )
-
+        # Redirect to the view correction page
         return redirect("show_view_correction")
 
     return render(
@@ -213,7 +249,15 @@ def show_new_correction(request):
 def show_view_correction(request):
     """
     Show the view of the corrections table
+    
+    Parameters:
+        request (HttpRequest): The HTTP request object.
+        
+    Returns:
+        HttpResponse: The rendered template for the corrections table.
     """
+    # Get the correction list for the user ordered by date
+    # and paginate the results
     correction_list = Correction.objects.filter(user=request.user).order_by("-date")
     paginator = Paginator(correction_list, 5)
     page_number = request.GET.get("page")
@@ -232,6 +276,12 @@ def show_view_correction(request):
 @require_GET
 def corrections(request):
     """
-    Show the corrections page base
+    Show the corrections base page
+    
+    Parameters:
+        request (HttpRequest): The HTTP request object.
+        
+    Returns:
+        HttpResponse: The rendered template for the corrections base page.
     """
     return render(request, "corrections/correction_base.html")

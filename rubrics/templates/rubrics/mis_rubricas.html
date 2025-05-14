@@ -24,6 +24,9 @@
                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                        for="{{ form.rubric_file.id_for_label }}">{{ form.rubric_file.label }}</label>
                                 {{ form.rubric_file }}
+                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                    {{ form.rubric_file.help_text }}
+                                </p>
                             </div>
                             <button type="submit" class="btn-custom-full">Importar</button>
                         </form>
