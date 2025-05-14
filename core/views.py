@@ -21,8 +21,10 @@ import markdown
 def custom_login(request):
     """
     This view is used to log in the user.
+    
     - GET: Displays the login form.
     - POST: Processes the form and login.
+    
     """
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)

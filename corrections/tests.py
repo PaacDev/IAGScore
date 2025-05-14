@@ -11,9 +11,11 @@ from django.test import TestCase, TransactionTestCase, override_settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from django.http import Http404
 from iagscore import settings
 from prompts.models import Prompt
 from rubrics.models import Rubric
+
 from .forms import CorrectionForm
 from .models import Correction
 
@@ -345,6 +347,7 @@ class CorrectionsViewsTestCase(TransactionTestCase):
             user=self.user,
         )
         self.client.login(username=self.user.email, password=self.password)
+        
 
     def tearDown(self):
         """
@@ -517,3 +520,10 @@ class CorrectionsViewsTestCase(TransactionTestCase):
             f"Directory exists: {os.path.exists(os.path.dirname(response_file_path))}"
         )
         self.assertTrue(os.path.exists(response_file_path))
+
+    def test_correction_not_found(self):
+        response_download = self.client.get(
+            reverse("download_response", kwargs={"correction_id": 1001})
+        )
+
+        self.assertEqual(response_download.status_code, 404)
