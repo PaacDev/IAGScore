@@ -50,7 +50,7 @@ cd IAGScore
 
 ### 2. Crea el archivo `.env`
 
-Copia el archivo de ejemplo (si existe) y complétalo:
+Copia el archivo de ejemplo:
 
 **Linux y MacOs**
 ```bash
