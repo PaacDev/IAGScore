@@ -1,4 +1,6 @@
 \capitulo{4}{Técnicas y herramientas}
+Esta parte de la memoria tiene como objetivo presentar las técnicas metodológicas y las herramientas de desarrollo que se han utilizado para llevar a cabo el proyecto. Si se han estudiado diferentes alternativas de metodologías, herramientas, bibliotecas se puede hacer un resumen de los aspectos más destacados de cada alternativa, incluyendo comparativas entre las distintas opciones y una justificación de las elecciones realizadas. 
+No se pretende que este apartado se convierta en un capítulo de un libro dedicado a cada una de las alternativas, sino comentar los aspectos más destacados de cada opción, con un repaso somero a los fundamentos esenciales y referencias bibliográficas para que el lector pueda ampliar su conocimiento sobre el tema.
 
 \section{Metodologías}
 
@@ -31,3 +33,88 @@ Esta metodología es especialmente útil para equipos que buscan una transición
 o para aquellos que desean aprovechar lo mejor de ambos enfoques.
 Scrumban se centra en la mejora continua, la visualización del trabajo y la colaboración del equipo,
 lo que lo convierte en una opción popular para la gestión de proyectos ágiles~\cite{web:scrumban}.
+
+\subsubsection{Gitflow}
+
+Gitflow~\cite{web:Gitflow} es un modelo de ramificación para el uso de Git que define una 
+estructura clara para gestionar el desarrollo de software en proyectos colaborativos. 
+Organiza el trabajo en ramas específicas con roles definidos, 
+facilitando la escalabilidad y la integración continua.
+
+Las ramas principales en Gitflow son:
+\begin{itemize}
+    \item \textbf{\texttt{main}}: Contiene la versión estable del proyecto, lista para producción.
+    \item \textbf{\texttt{develop}}: Refleja la versión en desarrollo, integrando nuevas funcionalidades.
+    \item \textbf{\texttt{feature/*}}: Ramas temporales para desarrollar nuevas características.
+    \item \textbf{\texttt{release/*}}: Prepara una versión para producción, permitiendo ajustes menores.
+    \item \textbf{\texttt{hotfix/*}}: Corrige errores críticos en la rama \texttt{main}.
+\end{itemize}
+
+Gitflow asegura un flujo ordenado, minimizando conflictos y garantizando estabilidad en la rama \texttt{main}.
+
+\section{Patrones de diseño}
+\subsection{Model-View-Template}
+
+El patrón de diseño MVT (\textit{Model-View-Template}) es la arquitectura que sigue el framework Django para 
+desarrollar aplicaciones web directamente relacionada con el patrón MVC.
+
+Los componentes detallados del patrón MVT son:
+
+\begin{itemize}
+    \item \textbf{Model (Modelo)}: Representa la capa de acceso a datos. Define la estructura de las tablas de la 
+    base de datos y permite interactuar con esos datos. En Django, los modelos se definen como clases que heredan 
+    de \texttt{django.db.models.Model}, y permiten realizar operaciones de consulta, inserción, actualización o 
+    borrado sin necesidad de escribir directamente SQL.
+    
+    \item \textbf{View (Vista)}: Esta capa contiene la lógica de negocio de la aplicación. Las vistas reciben 
+    peticiones HTTP, procesan los datos necesarios y devuelven una respuesta adecuada.
+    
+    \item \textbf{Template (Plantilla)}: Define la presentación de los datos, lo que ve el usuario. 
+    Django utiliza su propio motor de plantillas para combinar datos dinámicos con HTML. 
+    
+\end{itemize}
+
+Una diferencia clave entre el patrón MVT de Django y el clásico MVC es que el propio framework gestiona 
+internamente la lógica de enrutamiento. Al recibir peticiones del usuario, se decide a través del sistema 
+de URLs definido qué vista debe ejecutarse, lo que elimina la necesidad de un controlador explícito. 
+En este sentido, las vistas en Django cumplen una función similar al controlador 
+en otros frameworks, ya que contienen la lógica que determina qué datos recuperar y cómo deben procesarse 
+antes de enviarse a la plantilla correspondiente~\cite{web:djangoMVT}.
+
+\section{Control de versiones}
+
+En este proyecto, se ha optado por Git~\cite{web:Git} debido a la experiencia previa adquirida en asignaturas del grado, 
+en contraste con otras alternativas como Apache Subversion~\cite{web:Subversion}.
+
+\subsubsection{Git}
+
+Git es un sistema de control de versiones distribuido y una de las herramientas 
+más extendidas en el mercado para este propósito. Entre sus características más destacadas se 
+encuentran su eficiencia para manejar proyectos de gran tamaño, la facilidad para crear y fusionar 
+ramas (\textit{branches}), y su compatibilidad con diversas plataformas y servicios como GitHub, GitLab o Bitbucket.
+
+
+\section{Alojamiento del repositorio}
+
+Existen diversas posibilidades relacionadas con el alojamiento de repositorios:
+
+\begin{itemize}
+    \item GitLab~\cite{web:GitLab}
+    \item BitBucket~\cite{web:Bitbucket}
+    \item GitHub~\cite{web:GitHub}
+\end{itemize}
+
+\subsubsection{GitHub}
+
+GitHub es una plataforma en línea para alojar repositorios Git, que 
+facilita la colaboración, el control de versiones y la gestión de proyectos de software. 
+Entre sus características destacan la gestión de ramas y \textit{pull requests}, el seguimiento 
+de incidencias (\textit{issues}), y la integración con herramientas de integración continua como 
+GitHub Actions.
+
+Se ha seleccionado GitHub al estar familiarizado con la plataforma debido al uso de 
+esta herramienta en múltiples asignaturas.
+
+\section{Gestión del proyecto}
+
+\subsubsection{Zube}
