@@ -27,12 +27,26 @@ def rubric_page(request):
     Returns:
         HttpResponse: The rendered template with the rubric form and rubric list.
     """
+    query = request.GET.get('q',"")
+    sort_field = request.GET.get("sort", "date")
+    sort_dir = request.GET.get("dir", "desc")
+    
     # Get the user's rubrics ordering them by creation date
     # and paginate them
-    rubric_list = Rubric.objects.filter(user=request.user).order_by("-creation_date")
+    rubric_list = Rubric.objects.filter(user=request.user)#.order_by("-creation_date")
+    
+    # Sort the correction list based on the sort field and direction
+    sort_prefix = "-" if sort_dir == "desc" else ""
+    order_by_field = f"{sort_prefix}{sort_field}"
+    
+    # Filter the correction list based on the query
+    if query:
+        rubric_list = rubric_list.filter(name__icontains=query)
+
     paginator = Paginator(rubric_list, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
+    
 
     # If the request is a POST, process the form
     if request.method == "POST":
@@ -52,14 +66,21 @@ def rubric_page(request):
                 return render(
                     request,
                     "rubrics/mis_rubricas.html",
-                    {"form": form, "rubric_list": rubric_list},
+                    {"form": form, 
+                     "rubric_list": rubric_list, 
+                     "page_obj": page_obj,
+                     "query": query}
                 )
             except IntegrityError:
                 # Handle the case where the rubric already exists
                 messages.error(
                     request, "Error al guardar la rúbrica: Rubrica ya existente"
                 )
-                return render(request, "rubrics/mis_rubricas.html", {"form": form})
+                return render(request, "rubrics/mis_rubricas.html", {"form": form,
+                                                                     "rubric_list": rubric_list,
+                                                                     "page_obj": page_obj,
+                                                                     "query": query
+                                                                     })
 
         messages.error(request, form.errors.as_text())
     else:
@@ -68,7 +89,10 @@ def rubric_page(request):
     return render(
         request,
         "rubrics/mis_rubricas.html",
-        {"form": form, "rubric_list": rubric_list, "page_obj": page_obj},
+        {"form": form,
+         "rubric_list": rubric_list,
+         "page_obj": page_obj,
+         "query": query}
     )
 
 
