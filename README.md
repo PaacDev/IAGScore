@@ -62,7 +62,7 @@ cp .env.example .env
 ```
 **Windows**
 ```powershell
-copy .env.example .env
+copy env.example .env
 ```
 
 ### 3. Build con Docker Compose

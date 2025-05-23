@@ -5,7 +5,7 @@ from django.http import Http404
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_http_methods, require_GET
 from django.contrib import messages
-from django.db import IntegrityError
+from django.db import transaction,IntegrityError
 from django.core.paginator import Paginator
 from .forms import RubricForm
 from .models import Rubric
@@ -28,7 +28,7 @@ def rubric_page(request):
         HttpResponse: The rendered template with the rubric form and rubric list.
     """
     query = request.GET.get('q',"")
-    sort_field = request.GET.get("sort", "date")
+    sort_field = request.GET.get("sort", "creation_date")
     sort_dir = request.GET.get("dir", "desc")
     
     # Get the user's rubrics ordering them by creation date
@@ -42,6 +42,8 @@ def rubric_page(request):
     # Filter the correction list based on the query
     if query:
         rubric_list = rubric_list.filter(name__icontains=query)
+
+    rubric_list = rubric_list.order_by(order_by_field)
 
     paginator = Paginator(rubric_list, 5)
     page_number = request.GET.get("page")
@@ -61,18 +63,20 @@ def rubric_page(request):
             )
             try:
                 # Save the rubric object to the database
-                rubric.save()
-                messages.success(request, "Rúbrica importada correctamente")
-                return render(
-                    request,
-                    "rubrics/mis_rubricas.html",
-                    {"form": form, 
-                     "rubric_list": rubric_list, 
-                     "page_obj": page_obj,
-                     "query": query}
-                )
+                with transaction.atomic():
+                    rubric.save()
+                    messages.success(request, "Rúbrica importada correctamente")
+                    return render(
+                        request,
+                        "rubrics/mis_rubricas.html",
+                        {"form": form, 
+                         "rubric_list": rubric_list, 
+                         "page_obj": page_obj,
+                         "query": query}
+                    )
             except IntegrityError:
                 # Handle the case where the rubric already exists
+                
                 messages.error(
                     request, "Error al guardar la rúbrica: Rubrica ya existente"
                 )
