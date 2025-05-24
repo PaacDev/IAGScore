@@ -50,7 +50,8 @@ jobs:
         chmod -R 777 coveragereport
         
     - name: Ejecutar pytest con coverage y generar reportes
-      run: docker compose exec web pytest -v --cov=iagscore --cov-config=.github/workflows/.coveragerc --cov-report=term-missing --cov-report=html:/app/coveragereport/html --cov-report=xml:/app/coveragereport/coverage.xml
+      run: docker compose exec web mkdir -p /app/.pytest_cache && chmod -R 777 /app/.pytest_cache
+      run: docker compose exec web pytest -v --cov=. --cov-config=.github/workflows/.coveragerc --cov-report=term-missing --cov-report=html:/app/coveragereport/html --cov-report=xml:/app/coveragereport/coverage.xml
 
     # Comprobamos estructura de directorios después de los tests
     - name: Comprobamos estructura de directorios después de los tests
