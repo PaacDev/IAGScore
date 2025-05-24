@@ -8,8 +8,10 @@
 # The above will handle all files NOT found below
 #
 
+# Auto generate files
 docs/Sphinx/** linguist-vendored
 core/static/core/sphinx_docs/** linguist-vendored
+tailwind/static/css/output.css linguist-vendored
 
 # Documents
 *.bibtex   text diff=bibtex

@@ -10,6 +10,7 @@ from django.core.files.storage import FileSystemStorage
 from django.core.paginator import Paginator
 from django.http import Http404, FileResponse
 from django.contrib import messages
+from django.db.models import Q
 from iagscore import settings
 from prompts.models import Prompt
 from rubrics.models import Rubric
@@ -256,9 +257,30 @@ def show_view_correction(request):
     Returns:
         HttpResponse: The rendered template for the corrections table.
     """
+
+    query = request.GET.get('q',"")
+    sort_field = request.GET.get("sort", "date")
+    sort_dir = request.GET.get("dir", "desc")
+
     # Get the correction list for the user ordered by date
     # and paginate the results
-    correction_list = Correction.objects.filter(user=request.user).order_by("-date")
+    correction_list = Correction.objects.filter(user=request.user)
+
+    # Sort the correction list based on the sort field and direction
+    sort_prefix = "-" if sort_dir == "desc" else ""
+    order_by_field = f"{sort_prefix}{sort_field}"
+    
+    # Filter the correction list based on the query
+    if query:
+        correction_list = correction_list.filter(description__icontains=query)
+    
+    # If the sort field is "last_ejecution_date", filter out None values ("never executed")
+    if sort_field == "last_ejecution_date":
+        correction_list = correction_list.filter(~Q(last_ejecution_date=None))
+
+    # Order the correction list based on the sort field
+    correction_list = correction_list.order_by(order_by_field)
+
     paginator = Paginator(correction_list, 5)
     page_number = request.GET.get("page")
     corrections_obj = paginator.get_page(page_number)
@@ -268,6 +290,9 @@ def show_view_correction(request):
         "corrections/view_correction.html",
         {
             "corrections": corrections_obj,
+            "query": query,
+            "sort": sort_field,
+            "dir": sort_dir,
         },
     )
 

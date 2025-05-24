@@ -5,7 +5,7 @@ from django.http import Http404
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_http_methods, require_GET
 from django.contrib import messages
-from django.db import IntegrityError
+from django.db import transaction,IntegrityError
 from django.core.paginator import Paginator
 from .forms import RubricForm
 from .models import Rubric
@@ -27,12 +27,29 @@ def rubric_page(request):
     Returns:
         HttpResponse: The rendered template with the rubric form and rubric list.
     """
+    query = request.GET.get('q',"")
+    sort_field = request.GET.get("sort", "creation_date")
+    sort_dir = request.GET.get("dir", "desc")
+    
     # Get the user's rubrics ordering them by creation date
     # and paginate them
-    rubric_list = Rubric.objects.filter(user=request.user).order_by("-creation_date")
+    rubric_list = Rubric.objects.filter(user=request.user)#.order_by("-creation_date")
+    
+    # Sort the rubric list based on the sort field and direction
+    sort_prefix = "-" if sort_dir == "desc" else ""
+    order_by_field = f"{sort_prefix}{sort_field}"
+    
+    # Filter the rubric list based on the query
+    if query:
+        rubric_list = rubric_list.filter(name__icontains=query)
+
+    rubric_list = rubric_list.order_by(order_by_field)
+
+    # Paginate the rubric list
     paginator = Paginator(rubric_list, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
+    
 
     # If the request is a POST, process the form
     if request.method == "POST":
@@ -47,19 +64,32 @@ def rubric_page(request):
             )
             try:
                 # Save the rubric object to the database
-                rubric.save()
-                messages.success(request, "Rúbrica importada correctamente")
-                return render(
-                    request,
-                    "rubrics/mis_rubricas.html",
-                    {"form": form, "rubric_list": rubric_list},
-                )
+                with transaction.atomic():
+                    rubric.save()
+                    messages.success(request, "Rúbrica importada correctamente")
+                    return render(
+                        request,
+                        "rubrics/mis_rubricas.html",
+                        {"form": form, 
+                         "rubric_list": rubric_list, 
+                         "page_obj": page_obj,
+                         "query": query,
+                         "sort": sort_field,
+                         "dir": sort_dir,}
+                    )
             except IntegrityError:
                 # Handle the case where the rubric already exists
+                
                 messages.error(
                     request, "Error al guardar la rúbrica: Rubrica ya existente"
                 )
-                return render(request, "rubrics/mis_rubricas.html", {"form": form})
+                return render(request, "rubrics/mis_rubricas.html", {"form": form,
+                                                                     "rubric_list": rubric_list,
+                                                                     "page_obj": page_obj,
+                                                                     "query": query,
+                                                                     "sort": sort_field,
+                                                                     "dir": sort_dir,
+                                                                     })
 
         messages.error(request, form.errors.as_text())
     else:
@@ -68,7 +98,13 @@ def rubric_page(request):
     return render(
         request,
         "rubrics/mis_rubricas.html",
-        {"form": form, "rubric_list": rubric_list, "page_obj": page_obj},
+        {"form": form,
+         "rubric_list": rubric_list,
+         "page_obj": page_obj,
+         "query": query,
+         "sort": sort_field,
+         "dir": sort_dir,
+         }
     )
 
 

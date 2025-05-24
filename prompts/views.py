@@ -29,9 +29,25 @@ def prompt_page(request):
     Returns:
         HttpResponse: The rendered template with the prompt form and prompt list.
     """
+    query = request.GET.get('q',"")
+    sort_field = request.GET.get("sort", "creation_date")
+    sort_dir = request.GET.get("dir", "desc")
+
     # Get the user's prompts ordering them by creation date
     # and paginate them
-    prompt_list = Prompt.objects.filter(user=request.user).order_by("-creation_date")
+    prompt_list = Prompt.objects.filter(user=request.user)#.order_by("-creation_date")
+
+    # Sort the prompt list based on the sort field and direction
+    sort_prefix = "-" if sort_dir == "desc" else ""
+    order_by_field = f"{sort_prefix}{sort_field}"
+
+    # Filter the prompt list based on the query
+    if query:
+        prompt_list = prompt_list.filter(name__icontains=query)
+
+    prompt_list = prompt_list.order_by(order_by_field)
+
+    # Paginate the prompt list
     paginator = Paginator(prompt_list, 5)
     page_numer = request.GET.get("page")
     page_obj = paginator.get_page(page_numer)
@@ -56,7 +72,13 @@ def prompt_page(request):
                 return render(
                     request,
                     "prompts/mis_prompts.html",
-                    {"form": form, "prompt_list": prompt_list},
+                    {"form": form, 
+                     "prompt_list": prompt_list,
+                     "page_obj": page_obj,
+                     "query": query,
+                     "sort": sort_field,
+                     "dir": sort_dir,
+                     },
                 )
             except IntegrityError:
                 # Handle the case where the prompt already exists
@@ -71,7 +93,7 @@ def prompt_page(request):
     return render(
         request,
         "prompts/mis_prompts.html",
-        {"form": form, "prompt_list": prompt_list, "page_obj": page_obj},
+        {"form": form, "prompt_list": prompt_list, "page_obj": page_obj, "query": query, "sort": sort_field, "dir": sort_dir,},
     )
 
 

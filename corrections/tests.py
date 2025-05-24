@@ -11,6 +11,8 @@ from django.test import TestCase, TransactionTestCase, override_settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from django.utils import timezone
+from corrections.tasks import set_tasks_dict
 from iagscore import settings
 from prompts.models import Prompt
 from rubrics.models import Rubric
@@ -537,3 +539,164 @@ class CorrectionsViewsTestCase(TransactionTestCase):
             f"Directory exists: {os.path.exists(os.path.dirname(response_file_path))}"
         )
         self.assertTrue(os.path.exists(response_file_path))
+        url = reverse("download_response", kwargs={"correction_id": correction.id})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "text/plain")
+        self.assertEqual(response["Content-Disposition"], 'attachment; filename="response.txt"')
+
+    def test_run_model_error(self):
+        """
+        Test tdownload the response
+        """
+
+        response = self.client.get(
+            reverse("run_model", kwargs={"correction_id": 1001})
+        )
+
+        self.assertEqual(response.status_code, 404)
+        
+    
+    @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
+    @patch("corrections.tasks.Correction.objects.get")
+    def test_start_llm_evaluation_correction_does_not_exist(self, mock_get):
+        """
+        Simula que la corrección no existe al ejecutar la tarea.
+        """
+        mock_get.side_effect = Correction.DoesNotExist
+        with self.assertRaises(Correction.DoesNotExist):
+            from corrections.tasks import start_llm_evaluation
+            start_llm_evaluation(correction_id=9999)
+        
+    @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
+    @patch("corrections.tasks.OllamaLLM")
+    def test_start_llm_evaluation_generic_exception(self, mock_ollama_class):
+        """
+        Simula una excepción genérica al ejecutar el modelo.
+        """
+        self.client.post(
+            reverse("show_new_correction"),
+            {
+                "rubric": self.rubric.id,
+                "prompt": self.prompt.id,
+                "description": "test_correction",
+                "llm_model": "llama3",
+                "zip_file": self.zip_file,
+            },
+            follow=True,
+        )
+        correction = Correction.objects.get(description="test_correction")
+        # Configurar el mock para lanzar una excepción en .invoke()
+        mock_llm_instance = MagicMock()
+        mock_llm_instance.invoke.side_effect = Exception("Modelo falló")
+        mock_ollama_class.return_value = mock_llm_instance
+
+        from corrections.tasks import start_llm_evaluation
+
+        with self.assertRaises(Exception) as cm:
+            start_llm_evaluation(correction.id)
+
+        self.assertIn("Modelo falló", str(cm.exception))
+
+        # Verifica que se haya marcado como no-running
+        correction.refresh_from_db()
+        self.assertFalse(correction.running)
+
+        
+    def test_download_response_error(self):
+        """
+        Test the download response error
+        """
+        self.client.post(
+            reverse("show_new_correction"),
+            {
+                "rubric": self.rubric.id,
+                "prompt": self.prompt.id,
+                "description": "test_correction",
+                "llm_model": "llama3",
+                "zip_file": self.zip_file,
+            },
+            follow=True,
+        )
+        response = self.client.get(
+            reverse("download_response", kwargs={"correction_id": 1001})
+        )
+        
+        self.assertEqual(response.status_code, 404)
+        correction = Correction.objects.get(description="test_correction")
+        response = self.client.get(
+            reverse("download_response", kwargs={"correction_id": correction.id})
+        )
+        self.assertEqual(response.status_code, 404)
+   
+    @patch("os.listdir", side_effect=FileNotFoundError)
+    def test_set_tasks_dict_folder_not_found(self, mock_listdir):
+        result = set_tasks_dict("nonexistent_folder")
+        self.assertEqual(result, {})
+    
+    @patch("os.listdir", side_effect=PermissionError)
+    def test_set_tasks_dict_permission_denied(self, mock_listdir):
+        result = set_tasks_dict("restricted_folder")
+        self.assertEqual(result, {})
+
+    def test_query_filtering(self):
+        # Create corrections
+        Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="First Test",
+            llm_model="Modelo",
+            folder_path="/media/folder/",
+        )
+        Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="Second Test",
+            llm_model="Modelo",
+            folder_path="/media/folder/",
+        )
+        Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="Another Test",
+            llm_model="Modelo",
+            folder_path="/media/folder/",
+        )
+        response = self.client.get(reverse("show_view_correction"), {"q": "First"})
+        self.assertContains(response, "First Test")
+        self.assertNotContains(response, "Second test")
+        self.assertNotContains(response, "Another one")
+
+    def test_sorting_excludes_null_last_execution_dates(self):
+
+        # Corrections con y sin fecha de ejecución
+        Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="With date",
+            llm_model="Modelo",
+            folder_path="/media/folder/",
+            last_ejecution_date=timezone.now()
+        )
+        
+        Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="Without date",
+            llm_model="Modelo",
+            folder_path="/media/folder/",
+            last_ejecution_date=None
+        )
+
+        response = self.client.get(reverse("show_view_correction") + "?sort=last_ejecution_date")
+
+        # Comprobaciones
+        content = response.content.decode()
+        self.assertIn("With date", content)
+        self.assertNotIn("Without date", content)
