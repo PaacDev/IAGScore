@@ -72,8 +72,30 @@
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="px-6 py-3">Nombre de la Rúbrica</th>
-                    <th scope="col" class="px-6 py-3">Fecha de creación</th>
+                    <th scope="col" class="px-6 py-3">
+                        <a href="?sort=name&dir={% if sort == 'name' and dir == 'asc' %}desc{% else %}asc{% endif %}{% if query %}&q={{ query }}{% endif %}">
+                        Nombre de la Rúbrica
+                        {% if sort == 'name' %}
+                            {% if dir == 'asc' %}
+                              ▲
+                            {% else %}
+                              ▼
+                            {% endif %}
+                        {% endif %}
+                        </a>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <a href="?sort=creation_date&dir={% if sort == 'creation_date' and dir == 'asc' %}desc{% else %}asc{% endif %}{% if query %}&q={{ query }}{% endif %}">
+                        Fecha de creación
+                        {% if sort == 'creation_date' %}
+                            {% if dir == 'asc' %}
+                              ▲
+                            {% else %}
+                              ▼
+                            {% endif %}
+                        {% endif %}
+                        </a>
+                    </th>
                     <th scope="col" class="px-6 py-3"></th>
                 </tr>
             </thead>
@@ -108,7 +130,7 @@
         <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
             {% if page_obj.has_previous %}
             <li>
-                <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}"
+                <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}&sort={{ sort }}&dir={{ dir }}"
                    class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                     Anterior
                 </a>
@@ -116,7 +138,7 @@
             {% endif %}
             {% for page_num in page_obj.paginator.page_range %}
             <li>
-                <a href="?page={{ page_num }}{% if query %}&q={{ query }}{% endif %}"
+                <a href="?page={{ page_num }}{% if query %}&q={{ query }}{% endif %}&sort={{ sort }}&dir={{ dir }}"
                    class="flex items-center justify-center px-3 h-8 leading-tight 
                    {% if page_obj.number == page_num %} 
                     text-blue-600 border border-gray-300 bg-blue-50 dark:border-gray-700 dark:bg-gray-700 dark:text-white 
@@ -129,7 +151,7 @@
         {% endfor %}
         {% if page_obj.has_next %}
                     <li>
-                        <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}"
+                        <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}&sort={{ sort }}&dir={{ dir }}"
                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                             Siguiente
                         </a>

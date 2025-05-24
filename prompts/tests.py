@@ -162,3 +162,28 @@ class PromptViewTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(str(messages_list[0]), "Prompt eliminado correctamente")
         self.assertFalse(Prompt.objects.filter(id=item_id).exists())
+
+    def test_query_filtering(self):
+        """
+        Test the query filtering in the prompt list
+        """
+
+        Prompt.objects.create(
+            name="First Test",
+            prompt="This is a test prompt.",
+            user=self.user,
+        )
+        Prompt.objects.create(
+            name="Second test",
+            prompt="This is another test prompt.",
+            user=self.user,
+        )
+        Prompt.objects.create(
+            name="Another one",
+            prompt="This is yet another test prompt.",
+            user=self.user,
+        )
+        response = self.client.get(reverse("prompts_page"), {"q": "First"})
+        self.assertContains(response, "First Test")
+        self.assertNotContains(response, "Second test")
+        self.assertNotContains(response, "Another one")

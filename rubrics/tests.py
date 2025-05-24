@@ -267,3 +267,27 @@ class RubricViewTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(str(messages_list[0]), "Rúbrica eliminada correctamente")
         self.assertFalse(Rubric.objects.filter(id=self.rubric.id).exists())
+
+    def test_query_filtering(self):
+        """
+        Test the query filtering in the prompt list
+        """
+        Rubric.objects.create(
+            name="First Test",
+            content="# This is a test rubric.",
+            user=self.user,
+        )
+        Rubric.objects.create(
+            name="Second test",
+            content="# This is a test rubric.",
+            user=self.user,
+        )
+        Rubric.objects.create(
+            name="Another one",
+            content="# This is a test rubric.",
+            user=self.user,
+        )
+        response = self.client.get(reverse("rubrics_page"), {"q": "First"})
+        self.assertContains(response, "First Test")
+        self.assertNotContains(response, "Second test")
+        self.assertNotContains(response, "Another one")

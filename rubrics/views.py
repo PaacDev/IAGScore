@@ -35,16 +35,17 @@ def rubric_page(request):
     # and paginate them
     rubric_list = Rubric.objects.filter(user=request.user)#.order_by("-creation_date")
     
-    # Sort the correction list based on the sort field and direction
+    # Sort the rubric list based on the sort field and direction
     sort_prefix = "-" if sort_dir == "desc" else ""
     order_by_field = f"{sort_prefix}{sort_field}"
     
-    # Filter the correction list based on the query
+    # Filter the rubric list based on the query
     if query:
         rubric_list = rubric_list.filter(name__icontains=query)
 
     rubric_list = rubric_list.order_by(order_by_field)
 
+    # Paginate the rubric list
     paginator = Paginator(rubric_list, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -72,7 +73,9 @@ def rubric_page(request):
                         {"form": form, 
                          "rubric_list": rubric_list, 
                          "page_obj": page_obj,
-                         "query": query}
+                         "query": query,
+                         "sort": sort_field,
+                         "dir": sort_dir,}
                     )
             except IntegrityError:
                 # Handle the case where the rubric already exists
@@ -83,7 +86,9 @@ def rubric_page(request):
                 return render(request, "rubrics/mis_rubricas.html", {"form": form,
                                                                      "rubric_list": rubric_list,
                                                                      "page_obj": page_obj,
-                                                                     "query": query
+                                                                     "query": query,
+                                                                     "sort": sort_field,
+                                                                     "dir": sort_dir,
                                                                      })
 
         messages.error(request, form.errors.as_text())
@@ -96,7 +101,10 @@ def rubric_page(request):
         {"form": form,
          "rubric_list": rubric_list,
          "page_obj": page_obj,
-         "query": query}
+         "query": query,
+         "sort": sort_field,
+         "dir": sort_dir,
+         }
     )
 
 
