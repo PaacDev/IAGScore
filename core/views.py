@@ -1,6 +1,7 @@
 """ Views for the core application. """
 
 import os
+from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_safe, require_GET, require_http_methods
@@ -45,7 +46,7 @@ def custom_login(request):
         # If user is not authenticated, show error message
         else:
             messages.add_message(
-                request, messages.ERROR, "Usuario o contraseña incorrectos"
+                request, messages.ERROR, _("Usuario o contraseña incorrectos")
             )
     else:
         # If method is GET, show the login form

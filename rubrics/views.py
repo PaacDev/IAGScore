@@ -1,4 +1,5 @@
 """Views for the rubrics app."""
+from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
@@ -66,7 +67,7 @@ def rubric_page(request):
                 # Save the rubric object to the database
                 with transaction.atomic():
                     rubric.save()
-                    messages.success(request, "Rúbrica importada correctamente")
+                    messages.success(request, _("Rúbrica importada correctamente"))
                     return render(
                         request,
                         "rubrics/mis_rubricas.html",
@@ -81,7 +82,7 @@ def rubric_page(request):
                 # Handle the case where the rubric already exists
                 
                 messages.error(
-                    request, "Error al guardar la rúbrica: Rubrica ya existente"
+                    request, _("Error al guardar la rúbrica: Rubrica ya existente")
                 )
                 return render(request, "rubrics/mis_rubricas.html", {"form": form,
                                                                      "rubric_list": rubric_list,
@@ -127,7 +128,7 @@ def show_rubric(request, rubric_id):
     try:
         rubric = Rubric.objects.get(id=rubric_id, user=request.user)
     except Rubric.DoesNotExist as exc:
-        raise Http404("Rúbrica no encontrada") from exc
+        raise Http404(_("Rúbrica no encontrada")) from exc
 
     return render(request, "rubrics/rubric.html", {"rubric": rubric})
 
@@ -151,5 +152,5 @@ def delete_rubric(request, rubric_id):
 
     rubric = get_object_or_404(Rubric, id=rubric_id, user=request.user)
     rubric.delete()
-    messages.success(request, "Rúbrica eliminada correctamente")
+    messages.success(request, _("Rúbrica eliminada correctamente"))
     return redirect("rubrics_page")

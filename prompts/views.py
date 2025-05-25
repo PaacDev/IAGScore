@@ -1,6 +1,7 @@
 """
 Views for the prompts app.
 """
+from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
@@ -67,7 +68,7 @@ def prompt_page(request):
             try:
                 # Save the prompt object to the database
                 prompt.save()
-                messages.success(request, "Prompt creado correctamente")
+                messages.success(request, _("Prompt creado correctamente"))
                 prompt_list = list(Prompt.objects.filter(user=request.user))
                 return render(
                     request,
@@ -83,7 +84,7 @@ def prompt_page(request):
             except IntegrityError:
                 # Handle the case where the prompt already exists
                 messages.error(
-                    request, "Error al guardar el prompt: Prompt ya existente"
+                    request, _("Error al guardar el prompt: Prompt ya existente")
                 )
                 return render(request, "prompts/mis_prompts.html", {"form": form})
         messages.error(request, form.errors.as_text())
@@ -116,7 +117,7 @@ def show_prompt(request, prompt_id):
     try:
         prompt = Prompt.objects.get(id=prompt_id, user=request.user)
     except Prompt.DoesNotExist as exc:
-        raise Http404("Prompt no encontrado") from exc
+        raise Http404(_("Prompt no encontrado")) from exc
 
     return render(request, "prompts/show_prompt.html", {"prompt": prompt})
 
@@ -139,5 +140,5 @@ def delete_prompt(request, prompt_id):
     """
     prompt = get_object_or_404(Prompt, id=prompt_id, user=request.user)
     prompt.delete()
-    messages.success(request, "Prompt eliminado correctamente")
+    messages.success(request, _("Prompt eliminado correctamente"))
     return redirect("prompts_page")

@@ -1,4 +1,5 @@
 {% extends "core/base.html" %}
+{% load i18n %}
 {% block title %}
     Prompts
 {% endblock title %}
@@ -8,12 +9,12 @@
             <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
-                        id="title">Nuevo prompt</h1>
+                        id="title">{% trans "Nuevo prompt" %}</h1>
                     {% if messages %}
                         {% for message in messages %}<div class="{{ message.tags }}">{{ message }}</div>{% endfor %}
                     {% endif %}
                     <!-- Sección de crear prompt -->
-                    <button onclick="showSection('new')" class="btn-custom-full">Nuevo prompt</button>
+                    <button onclick="showSection('new')" class="btn-custom-full">{% trans "Nuevo prompt" %}</button>
                     <div id="new-import" class="hidden space-y-4 md:space-y-6">
                         <form action="" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
@@ -27,7 +28,7 @@
                                        for="{{ form.prompt.id_for_label }}">Prompt</label>
                                 {{ form.prompt }}
                             </div>
-                            <button type="submit" class="btn-custom-full">Importar</button>
+                            <button type="submit" class="btn-custom-full">{% trans "Importar" %}</button>
                         </form>
                     </div>
                 </div>
@@ -44,14 +45,14 @@
                 <div class="w-full md:w-1/2">
 
                   <form class="flex items-center" method="get" action="">
-                    <label for="simple-search" class="sr-only">Buscar</label>
+                    <label for="simple-search" class="sr-only">{% trans "Buscar" %}</label>
                     <div class="relative w-full">
                       <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                           <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                         </svg>
                       </div>
-                      <input type="text" name="q" value="{{ query }}" id="simple-search" class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Buscar..." required="">
+                      <input type="text" name="q" value="{{ query }}" id="simple-search" class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="{% trans 'Buscar...' %}" required="">
                     </div>
                   </form>
 
@@ -61,7 +62,7 @@
                     <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                     </svg>
-                    Nuevo Prompt
+                    {% trans "Nuevo Prompt" %}
                   </button>
                 </div>
               </div>
@@ -74,7 +75,7 @@
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         <a href="?sort=name&dir={% if sort == 'name' and dir == 'asc' %}desc{% else %}asc{% endif %}{% if query %}&q={{ query }}{% endif %}">
-                        Nombre del prompt
+                        {% trans "Nombre del prompt" %}
                         {% if sort == 'name' %}
                             {% if dir == 'asc' %}
                               ▲
@@ -86,7 +87,7 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <a href="?sort=creation_date&dir={% if sort == 'creation_date' and dir == 'asc' %}desc{% else %}asc{% endif %}{% if query %}&q={{ query }}{% endif %}">
-                        Fecha de creación
+                        {% trans "Fecha de creación" %}
                         {% if sort == 'creation_date' %}
                             {% if dir == 'asc' %}
                               ▲
@@ -109,7 +110,7 @@
                         <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ prompt.creation_date| date:"d/m/Y H:i" }}</td>
                         <td class="px-6 py-4">
                             <a href="{% url 'show_prompt' prompt.id %}"
-                               class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Mostrar</a>
+                               class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{% trans "Mostrar" %}</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -118,9 +119,9 @@
         <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
              aria-label="Table navigation">
             <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
-                Mostrando
+                {% trans "Mostrando" %}
                 <span class="font-semibold text-gray-900 dark:text-white">{{ page_obj.start_index }} - {{ page_obj.end_index }}</span>
-                de
+                {% trans "de" %}
                 <span class="font-semibold text-gray-900 dark:text-white">{{ page_obj.paginator.count }}</span>
             </span>
             <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
@@ -128,7 +129,7 @@
                     <li>
                         <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}&sort={{ sort }}&dir={{ dir }}"
                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            Anterior
+                           {% trans  "Anterior" %}
                         </a>
                     </li>
                 {% endif %}
@@ -144,7 +145,7 @@
                     <li>
                         <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}&sort={{ sort }}&dir={{ dir }}"
                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            Siguiente
+                            {% trans "Siguiente" %}
                         </a>
                     </li>
                 {% endif %}

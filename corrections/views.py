@@ -2,6 +2,7 @@
 import zipfile
 import os
 import logging
+from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
@@ -88,7 +89,7 @@ def run_model(request, correction_id):
         start_llm_evaluation.delay(correction_id)
     except Correction.DoesNotExist as exc:
         logger.error("Error: Correction with id %s does not exist", correction_id)
-        raise Http404("Corrección no encontrada.") from exc
+        raise Http404(_("Corrección no encontrada.")) from exc
 
     return redirect("show_view_correction")
 
@@ -112,7 +113,7 @@ def download_response(request, correction_id):
     try:
         correction_obj = Correction.objects.get(id=correction_id)
     except Correction.DoesNotExist as exc:
-        raise Http404("Corrección no encontrada.") from exc
+        raise Http404(_("Corrección no encontrada.")) from exc
 
     # Absolute path to the file
     base_path = settings.MEDIA_ROOT
@@ -121,7 +122,7 @@ def download_response(request, correction_id):
     )
 
     if not os.path.exists(file_path):
-        raise Http404("El archivo no existe.")
+        raise Http404(_("El archivo no existe."))
 
     return FileResponse(
         open(file_path, "rb"), as_attachment=True, filename="response.txt"
@@ -151,7 +152,7 @@ def delete_correction(request, item_id):
         correction_obj = Correction.objects.get(id=item_id)
         correction_obj.delete()
     except Correction.DoesNotExist as exc:
-        raise Http404("Corrección no encontrada.") from exc
+        raise Http404(_("Corrección no encontrada.")) from exc
 
     return redirect("show_view_correction")
 
@@ -213,11 +214,11 @@ def show_new_correction(request):
             new_corrections.save()
             # Sucess message
             messages.add_message(
-                request, messages.SUCCESS, "Correción creada correctamente"
+                request, messages.SUCCESS, _("Correción creada correctamente")
             )
         # If the form is not valid, log the errors
         else:
-            messages.add_message(request, messages.ERROR, "Error al crear correción")
+            messages.add_message(request, messages.ERROR, _("Error al crear correción"))
             errors = correct_form.errors.as_data()
 
             # Save the error in messages

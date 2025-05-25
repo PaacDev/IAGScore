@@ -1,4 +1,5 @@
 {% extends "corrections/correction_base.html" %}
+{% load i18n %}
 {% block content %}
     {{ block.super }}
     <!-- Opcion nueva Correcion -->
@@ -13,7 +14,7 @@
                 <select name="prompt_id"
                         id="prompt_id"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="">Selecciona un prompt</option>
+                    <option value="">{% trans "Selecciona un prompt" %}</option>
                     {% for prompt in prompt_list %}
                         <option value="{{ prompt.id }}"
                                 {% if prompt_select.id == prompt.id %}selected{% endif %}>{{ prompt.name }}</option>
@@ -21,18 +22,18 @@
                 </select>
                 <label for="rubric_id"
                        class="block mt-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Rúbrica
+                    {% trans "Rúbrica" %}
                 </label>
                 <select name="rubric_id"
                         id="rubric_id"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="">Selecciona una rúbrica</option>
+                    <option value="">{% trans "Selecciona una rúbrica" %}</option>
                     {% for rubric in rubric_list %}
                         <option value="{{ rubric.id }}"
                                 {% if rubric.id == rubric_select.id %}selected{% endif %}>{{ rubric.name }}</option>
                     {% endfor %}
                 </select>
-                <button id="show-button" type="submit" class="btn-custom">Seleccionar</button>
+                <button id="show-button" type="submit" class="btn-custom">{% trans "Seleccionar" %}</button>
             </form>
             <!-- Formulario para descripcion y guardar configuración -->
             <form class="max-w-sm mx-auto"
@@ -42,19 +43,19 @@
                 {% csrf_token %}
                 <!-- Campo para controlar el form enviado-->
                 <label for="{{ correct_form.zip_file.id_for_label }}"
-                       class="block mt-2 text-sm font-medium text-gray-900 dark:text-white">Selecciona Fichero</label>
+                       class="block mt-2 text-sm font-medium text-gray-900 dark:text-white">{% trans "Selecciona Fichero" %}</label>
                 {{ correct_form.zip_file }}
                 <label for="{{ correct_form.description.id_for_label }}"
-                       class="block mt-2 text-sm font-medium text-gray-900 dark:text-white">Descripcion</label>
+                       class="block mt-2 text-sm font-medium text-gray-900 dark:text-white">{% trans "Descripcion" %}</label>
                 {{ correct_form.description }}
                 <label for="{{ correct_form.llm_model.id_for_label }}"
-                       class="block mt-2 text-sm font-medium text-gray-900 dark:text-white">Modelo</label>
+                       class="block mt-2 text-sm font-medium text-gray-900 dark:text-white">{% trans "Modelo" %}</label>
                 {{ correct_form.llm_model }}
-                <h3 class="p-2 mt-2 text-2xl font-bold dark:text-white">Configuración del modelo</h3>
+                <h3 class="p-2 mt-2 text-2xl font-bold dark:text-white">{% trans "Configuración del modelo" %}</h3>
                 <div class="grid grid-cols-3 gap-4">
                     <div class="col-span-1">
                         <label for="{{ correct_form.model_temp.id_for_label }}"
-                               class="block mt-2 text-sm font-medium text-gray-900 dark:text-white">Temperatura</label>
+                               class="block mt-2 text-sm font-medium text-gray-900 dark:text-white">{% trans "Temperatura" %}</label>
                         {{ correct_form.model_temp }}
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                             {{ correct_form.model_temp.help_text }}
@@ -79,7 +80,7 @@
                     <div class="grid grid-cols-1 gap-4">
                         <div class="col-span-1">
                             <label for="{{ correct_form.output_format.id_for_label }}"
-                                   class="block mt-2 text-sm font-medium text-gray-900 dark:text-white">Formato salida</label>
+                                   class="block mt-2 text-sm font-medium text-gray-900 dark:text-white">{% trans "Formato salida" %}</label>
                             {{ correct_form.output_format }}
                         </div>
                     </div>
@@ -93,25 +94,25 @@
                        name="prompt"
                        id="hidden_prompt_id"
                        value="{{ prompt_select.id }}">
-                <button type="submit" class="btn-custom">Guardar configuracion</button>
+                <button type="submit" class="btn-custom">{% trans "Guardar configuracion" %}</button>
             </form>
         </div>
         <!-- Visualización de Rubrica y Prompt seleccionados -->
         <div class="flex flex-col px-[30px] pt-5 basis-1/2">
             <div class="mt-2 p-5 border border-gray-200">
-                <h3 class=" p-2 text-3xl font-bold dark:text-white">Prompt Seleccionado</h3>
+                <h3 class=" p-2 text-3xl font-bold dark:text-white">{% trans "Prompt Seleccionado" %}</h3>
                 {% if prompt_select %}
                     {{ prompt_select.prompt }}
                 {% else %}
-                    Ninguna
+                    {% trans "Ninguna" %}
                 {% endif %}
             </div>
             <div class="p-5 border border-gray-200">
-                <h3 class=" p-2 text-3xl font-bold dark:text-white">Rubrica Seleccionada</h3>
+                <h3 class=" p-2 text-3xl font-bold dark:text-white">{% trans "Rubrica Seleccionada" %}</h3>
                 {% if rubric_select %}
                     {{ rubric_select.get_html_content|safe }}
                 {% else %}
-                    Ninguna
+                   {% trans "Ninguna" %}
                 {% endif %}
             </div>
         </div>
