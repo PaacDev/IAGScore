@@ -148,8 +148,17 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    ¡Bienvenido a la documentación de IAGScore!
+                </a>
+            </li>
+        </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">IAGScore</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts.html">Accounts aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html">Core aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="prompts.html">Prompts aplication module</a></li>
@@ -198,18 +207,50 @@
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/pac1006/IAGScore" target="_blank"
-   class="btn btn-sm btn-source-repository-button"
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/pac1006/IAGScore" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
-
+<span class="btn__text-container">Repository</span>
 </a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/pac1006/IAGScore/issues/new?title=Issue%20on%20page%20%2Fgenindex.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
 
 
 
@@ -454,8 +495,6 @@ document.write(`
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="corrections.html#corrections.views.corrections">corrections() (in module corrections.views)</a>
-</li>
       <li>
     corrections.admin
 
@@ -543,6 +582,8 @@ document.write(`
         <li><a href="rubrics.html#rubrics.forms.RubricForm.declared_fields">(rubrics.forms.RubricForm attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="accounts.html#accounts.apps.AccountsConfig.default_auto_field">default_auto_field (accounts.apps.AccountsConfig attribute)</a>
 
       <ul>
@@ -555,19 +596,9 @@ document.write(`
         <li><a href="rubrics.html#rubrics.apps.RubricsConfig.default_auto_field">(rubrics.apps.RubricsConfig attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="corrections.html#corrections.views.delete_correction">delete_correction() (in module corrections.views)</a>
-</li>
       <li><a href="corrections.html#corrections.signals.delete_correction_folder">delete_correction_folder() (in module corrections.signals)</a>
 </li>
-      <li><a href="prompts.html#prompts.views.delete_prompt">delete_prompt() (in module prompts.views)</a>
-</li>
-      <li><a href="rubrics.html#rubrics.views.delete_rubric">delete_rubric() (in module rubrics.views)</a>
-</li>
       <li><a href="corrections.html#corrections.models.Correction.description">description (corrections.models.Correction attribute)</a>
-</li>
-      <li><a href="corrections.html#corrections.views.download_response">download_response() (in module corrections.views)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -619,6 +650,8 @@ document.write(`
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="corrections.html#corrections.models.Correction.get_output_format_display">get_output_format_display() (corrections.models.Correction method)</a>
+</li>
       <li><a href="prompts.html#prompts.models.Prompt.get_previous_by_creation_date">get_previous_by_creation_date() (prompts.models.Prompt method)</a>
 
       <ul>
@@ -855,6 +888,10 @@ document.write(`
 </li>
       </ul></li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="corrections.html#corrections.models.Correction.output_format">output_format (corrections.models.Correction attribute)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="P">P</h2>
@@ -882,18 +919,16 @@ document.write(`
 </li>
       <li><a href="corrections.html#corrections.models.Correction.prompt_id">prompt_id (corrections.models.Correction attribute)</a>
 </li>
-      <li><a href="prompts.html#prompts.views.prompt_page">prompt_page() (in module prompts.views)</a>
-</li>
       <li><a href="prompts.html#prompts.admin.PromptAdmin.prompt_preview">prompt_preview() (prompts.admin.PromptAdmin method)</a>
 </li>
       <li><a href="prompts.html#prompts.admin.PromptAdmin">PromptAdmin (class in prompts.admin)</a>
 </li>
       <li><a href="prompts.html#prompts.forms.PromptForm">PromptForm (class in prompts.forms)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="prompts.html#prompts.forms.PromptForm.Meta">PromptForm.Meta (class in prompts.forms)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     prompts
 
@@ -972,8 +1007,6 @@ document.write(`
 </li>
       <li><a href="corrections.html#corrections.models.Correction.rubric_id">rubric_id (corrections.models.Correction attribute)</a>
 </li>
-      <li><a href="rubrics.html#rubrics.views.rubric_page">rubric_page() (in module rubrics.views)</a>
-</li>
       <li><a href="rubrics.html#rubrics.admin.RubricAdmin">RubricAdmin (class in rubrics.admin)</a>
 </li>
       <li><a href="rubrics.html#rubrics.forms.RubricForm">RubricForm (class in rubrics.forms)</a>
@@ -1028,8 +1061,6 @@ document.write(`
       </ul></li>
       <li><a href="rubrics.html#rubrics.apps.RubricsConfig">RubricsConfig (class in rubrics.apps)</a>
 </li>
-      <li><a href="corrections.html#corrections.views.run_model">run_model() (in module corrections.views)</a>
-</li>
       <li><a href="corrections.html#corrections.models.Correction.running">running (corrections.models.Correction attribute)</a>
 </li>
   </ul></td>
@@ -1053,14 +1084,6 @@ document.write(`
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="corrections.html#corrections.tasks.set_tasks_dict">set_tasks_dict() (in module corrections.tasks)</a>
-</li>
-      <li><a href="corrections.html#corrections.views.show_new_correction">show_new_correction() (in module corrections.views)</a>
-</li>
-      <li><a href="prompts.html#prompts.views.show_prompt">show_prompt() (in module prompts.views)</a>
-</li>
-      <li><a href="rubrics.html#rubrics.views.show_rubric">show_rubric() (in module rubrics.views)</a>
-</li>
-      <li><a href="corrections.html#corrections.views.show_view_correction">show_view_correction() (in module corrections.views)</a>
 </li>
       <li><a href="corrections.html#corrections.tasks.start_llm_evaluation">start_llm_evaluation() (in module corrections.tasks)</a>
 </li>
