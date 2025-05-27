@@ -1,4 +1,5 @@
 {% extends "corrections/correction_base.html" %}
+{% load i18n %}
 {% block content %}
     {{ block.super }}
     <!-- Opcion mostrar Correciones realizadas -->
@@ -14,14 +15,14 @@
                 <div class="w-full md:w-1/2">
 
                   <form class="flex items-center" method="get" action="">
-                    <label for="simple-search" class="sr-only">Buscar</label>
+                    <label for="simple-search" class="sr-only">{% trans "Buscar" %}</label>
                     <div class="relative w-full">
                       <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                           <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                         </svg>
                       </div>
-                      <input type="text" name="q" value="{{ query }}" id="simple-search" class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Buscar..." required="">
+                      <input type="text" name="q" value="{{ query }}" id="simple-search" class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="{% trans 'Buscar...' %}" required="">
                     </div>
                   </form>
 
@@ -31,7 +32,7 @@
                     <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                     </svg>
-                    Nueva corrección
+                    {% trans "Nueva corrección" %}
                   </button>
                 </div>
               </div>
@@ -45,7 +46,7 @@
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         <a href="?sort=description&dir={% if sort == 'description' and dir == 'asc' %}desc{% else %}asc{% endif %}{% if query %}&q={{ query }}{% endif %}">
-                        Descripción de la correccción
+                        {% trans "Descripción de la correccción" %}
                         {% if sort == 'description' %}
                             {% if dir == 'asc' %}
                               ▲
@@ -57,7 +58,7 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <a href="?sort=date&dir={% if sort == 'date' and dir == 'asc' %}desc{% else %}asc{% endif %}{% if query %}&q={{ query }}{% endif %}">
-                        Fecha de creación
+                        {% trans "Fecha de creación" %}
                         {% if sort == 'date' %}
                             {% if dir == 'asc' %}
                               ▲
@@ -69,7 +70,7 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <a href="?sort=last_ejecution_date&dir={% if sort == 'last_ejecution_date' and dir == 'asc' %}desc{% else %}asc{% endif %}{% if query %}&q={{ query }}{% endif %}">
-                        Última ejecución
+                        {% trans "Última ejecución" %}
                         {% if sort == 'last_ejecution_date' %}
                             {% if dir == 'asc' %}
                               ▲
@@ -79,10 +80,10 @@
                         {% endif %}
                         </a>
                     </th>
-                    <th scope="col" class="px-6 py-3">Visualización</th>
-                    <th scope="col" class="px-6 py-3">Ejecución</th>
-                    <th scope="col" class="px-6 py-3">Resultado última ejecución</th>
-                    <th scope="col" class="px-6 py-3">Acción</th>
+                    <th scope="col" class="px-6 py-3">{% trans "Visualización" %}</th>
+                    <th scope="col" class="px-6 py-3">{% trans "Ejecución" %}</th>
+                    <th scope="col" class="px-6 py-3">{% trans "Resultado última ejecución" %}</th>
+                    <th scope="col" class="px-6 py-3">{% trans "Acción" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -99,40 +100,40 @@
                             {% if correction.last_ejecution_date %}
                                 {{ correction.last_ejecution_date|date:"d/m/Y H:i" }}
                             {% else %}
-                                Nunca ejecutada
+                                {% trans "Nunca ejecutada" %}
                             {% endif %}
                         </td>
                         <td class="px-6 py-4">
                             <button onclick="showConfig('config', {{ correction.id }})"
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                Mostrar configuracion
+                                {% trans "Mostrar configuracion" %}
                             </button>
                         </td>
                         <td class="px-6 py-4">
                             {% if correction.running %}
-                                <span class="font-medium text-gray-400 cursor-not-allowed">Ejecutando...</span>
+                                <span class="font-medium text-gray-400 cursor-not-allowed">{% trans "Ejecutando..." %}</span>
                             {% else %}
                                 <a href="{% url 'run_model' correction.id %}"
-                                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Ejecutar</a>
+                                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{% trans "Ejecutar" %}</a>
                             {% endif %}
                         </td>
                         <td class="px-6 py-4">
                             {% if correction.last_ejecution_date %}
                                 <a href="{% url 'download_response' correction.id %}"
                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                    Descargar último resultado
+                                    {% trans "Descargar último resultado" %}
                                 </a>
                             {% else %}
-                                <span class="font-medium text-gray-400 cursor-not-allowed">Descargar úlimo resultado</span>
+                                <span class="font-medium text-gray-400 cursor-not-allowed">{% trans "Descargar úlimo resultado" %}</span>
                             {% endif %}
                         </td>
                         <td class="px-6 py-4">
                             {% if correction.running %}
-                                <span class="font-medium text-gray-400 cursor-not-allowed">Eliminar</span>
+                                <span class="font-medium text-gray-400 cursor-not-allowed">{% trans "Eliminar" %}</span>
                             {% else %}
                                 <button onclick="openDeleteModal({{ correction.id }})"
                                         class="font-medium text-red-600 dark:text-red-500 hover:underline">
-                                    Eliminar
+                                    {% trans "Eliminar" %}
                                 </button>
                             {% endif %}
                         </td>
@@ -143,11 +144,11 @@
         <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
              aria-label="Table navigation">
             <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
-                Mostrando
+                {% trans "Mostrando" %}
                 <span class="font-semibold text-gray-900 dark:text-white">
                     {{ corrections.start_index }} - {{ corrections.end_index }}
                 </span>
-                de
+                {% trans "de" %}
                 <span class="font-semibold text-gray-900 dark:text-white">{{ corrections.paginator.count }}</span>
             </span>
             <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
@@ -155,7 +156,7 @@
                     <li>
                         <a href="?page={{ corrections.previous_page_number }}{% if query %}&q={{ query }}{% endif %}&sort={{ sort }}&dir={{ dir }}"
                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            Anterior
+                            {% trans "Anterior" %}
                         </a>
                     </li>
                 {% endif %}
@@ -171,7 +172,7 @@
                     <li>
                         <a href="?page={{ corrections.next_page_number }}{% if query %}&q={{ query }}{% endif %}&sort={{ sort }}&dir={{ dir }}"
                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            Siguiente
+                            {% trans "Siguiente" %}
                         </a>
                     </li>
                 {% endif %}
@@ -186,7 +187,7 @@
                class="mx-20 mt-4 hidden">
                <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
                   <div class="flex flex-col pb-3">
-                      <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Corrección:</dt>
+                      <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">{% trans "Corrección:" %}</dt>
                       <dd class="text-lg font-semibold">
                           {{ correction.description }}
                       </dd>
@@ -194,7 +195,7 @@
                   <div class="flex flex-row">
                 
                     <div class="flex flex-col pb-3">
-                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Rubrica:</dt>
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">{% trans "Rubrica:" %}</dt>
                         <dd class="text-lg font-semibold">
                             {{ correction.rubric.name }}
                         </dd>
@@ -210,14 +211,14 @@
                   </div>
                   <div class="flex flex-row">
                   <div class="flex flex-col py-3">
-                      <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Modelo</dt>
+                      <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">{% trans "Modelo" %}</dt>
                       <dd class="text-lg font-semibold">
                           {{ correction.llm_model }}
                       </dd>
                   </div>
                   
                 <div class="flex flex-col py-3 px-5">
-                    <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Temperatura:</dt>
+                    <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">{% trans "Temperatura:" %}</dt>
                     <dd class="text-lg font-semibold">
                         {{ correction.model_temp }}
                     </dd>
@@ -235,10 +236,10 @@
                     </dd>
                 </div>
                 <div class="flex flex-col py-3 px-5">
-                    <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Respuesta:</dt>
+                    <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">{% trans "Respuesta:" %}</dt>
                     <dd class="text-lg font-semibold">
                         {% if correction.output_format == '' %}
-                            Texto
+                            {% trans "Texto" %}
                         {% else %}
                             {{ correction.output_format }}
                         {% endif %}
@@ -272,19 +273,19 @@
                     <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                 </svg>
                 <p class="mb-4 text-gray-500 dark:text-gray-300">
-                    Si eliminas esta corrección se eliminará la correción realizada y todas las tareas asociadas ¿Estás seguro?
+                    {% trans "Si eliminas esta corrección se eliminará la correción realizada y todas las tareas asociadas ¿Estás seguro?" %}
                 </p>
                 <div class="flex justify-center items-center space-x-4">
                     <button data-modal-toggle="deleteModal"
                             type="button"
                             class="py-2 px-3 text-sm font-medium text-gray-500 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">
-                        Cancelar
+                        {% trans "Cancelar" %}
                     </button>
                     <form method="post" id="deleteForm" action="">
                         {% csrf_token %}
                         <button type="submit"
                                 class="py-2 px-3 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">
-                            Sí, eliminar
+                            {% trans "Sí, eliminar" %}
                         </button>
                     </form>
                 </div>

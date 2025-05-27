@@ -1,4 +1,5 @@
 """ Form for registering a Prompt. """
+from django.utils.translation import gettext_lazy as _
 from django import forms
 from django.forms import ModelForm
 from .models import Prompt
@@ -16,12 +17,12 @@ class PromptForm(ModelForm):
 
         model = Prompt
         fields = ["name"]
-        labels = {"name": "nombre"}
+        labels = {"name": _("nombre")}
 
     # Specific style attributes for fields.
 
     name = forms.CharField(
-        label="Nombre",
+        label=_("Nombre"),
         widget=forms.TextInput(
             attrs={
                 "id": "Nombre",
@@ -38,7 +39,7 @@ class PromptForm(ModelForm):
                 "id": "prompt",
                 "class": "input-custom",
                 "rows": 4,
-                "placeholder": "Escribe tu prompt aquí...",
+                "placeholder": _("Escribe tu prompt aquí..."),
             }
         ),
         required=True,

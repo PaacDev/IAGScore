@@ -7,6 +7,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.contrib import messages
+from django.utils.translation import activate
 from .models import Prompt
 
 User = get_user_model()
@@ -132,6 +133,7 @@ class PromptViewTestCase(TestCase):
         """
         Test the show prompt view
         """
+        activate("es")
         prompt = Prompt.objects.create(
             name="Test Prompt",
             prompt="This is a test prompt.",

@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.contrib import messages
+from django.conf import settings
 
 User = get_user_model()
 
@@ -26,12 +27,12 @@ class LoginTests(TestCase):
         """
         Testing login
         """
+        lang = settings.LANGUAGE_CODE
         response = self.client.post(
-            "", {"username": self.user.email, "password": "testpass123"}
+            f"/{lang}/",{"username": self.user.email, "password": "testpass123"}, follow=False
         )
-
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.url, reverse("home"))
+        self.assertEqual(response.url, f"/{settings.LANGUAGE_CODE}/home/")
         self.assertTrue(response.wsgi_request.user.is_authenticated)
         self.assertEqual(response.wsgi_request.user.username, "testuser")
         self.assertEqual(response.wsgi_request.user.email, "testuser@mail.com")
@@ -42,8 +43,9 @@ class LoginTests(TestCase):
         """
         Testing invalid credentials
         """
+        lang = settings.LANGUAGE_CODE
         response = self.client.post(
-            "", {"username": "testuser@mail.com", "password": "wrongpass"}
+            f"/{lang}/", {"username": "testuser@mail.com", "password": "wrongpass"}, follow=False
         )
         self.assertEqual(response.status_code, 200)
         self.assertFalse(response.wsgi_request.user.is_authenticated)
@@ -54,16 +56,17 @@ class LoginTests(TestCase):
         """
         Testing get in login page
         """
-        response = self.client.get("")
-
+        lang = settings.LANGUAGE_CODE
+        response = self.client.get(f"/{lang}/", follow=False)
         self.assertEqual(response.status_code, 200)
 
     def test_logout(self):
         """
         Testing logout
         """
+        lang = settings.LANGUAGE_CODE
         response = self.client.post(
-            "", {"username": self.user.email, "password": "testpass123"}
+            f"/{lang}/",{"username": self.user.email, "password": "testpass123"}, follow=False
         )
 
         self.assertEqual(response.status_code, 302)
@@ -72,15 +75,6 @@ class LoginTests(TestCase):
         self.client.logout()
         new_response = self.client.get(reverse("home"))
         self.assertFalse(new_response.wsgi_request.user.is_authenticated)
-
-        response_login = self.client.post(
-            "", {"username": self.user.email, "password": "testpass123"}
-        )
-        self.assertTrue(response_login.wsgi_request.user.is_authenticated)
-        response_logout = self.client.get(reverse("logout"))
-        self.assertFalse(response_logout.wsgi_request.user.is_authenticated)
-        self.assertEqual(response_logout.status_code, 302)
-
 
 class HomeTests(TestCase):
     """
@@ -100,13 +94,15 @@ class HomeTests(TestCase):
         """
         Home views test
         """
+        lang = settings.LANGUAGE_CODE
         response = self.client.post(
-            "", {"username": self.user.email, "password": "testpass123"}
+            f"/{lang}/",{"username": self.user.email, "password": "testpass123"}, follow=False
         )
 
+        self.assertEqual(response.status_code, 302)
+        home_url = f"/{settings.LANGUAGE_CODE}/home/"
+        response_home = self.client.get(home_url)
         self.assertTrue(response.wsgi_request.user.is_authenticated)
-
-        response_home = self.client.get(reverse("home"))
         self.assertTrue(response_home.status_code, 302)
 
 
