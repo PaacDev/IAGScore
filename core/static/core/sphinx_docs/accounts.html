@@ -45,7 +45,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Core aplication module" href="core.html" />
-    <link rel="prev" title="¡Bienvenido a la documentación de IAGScore!" href="index.html" />
+    <link rel="prev" title="IAGScore" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -149,8 +149,17 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Welcome to the IAGScore Documentation!
+                </a>
+            </li>
+        </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">IAGScore</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Accounts aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html">Core aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="prompts.html">Prompts aplication module</a></li>
@@ -199,18 +208,67 @@
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/pac1006/IAGScore" target="_blank"
-   class="btn btn-sm btn-source-repository-button"
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/pac1006/IAGScore" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
-
+<span class="btn__text-container">Repository</span>
 </a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/pac1006/IAGScore/edit/main/docs/accounts.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/pac1006/IAGScore/issues/new?title=Issue%20on%20page%20%2Faccounts.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
 
 
 
@@ -409,7 +467,7 @@ document.write(`
 <p>Register the custom user model with the Django admin site.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="accounts.admin.CustomUserAdmin">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accounts.admin.</span></span><span class="sig-name descname"><span class="pre">CustomUserAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accounts/admin.html#CustomUserAdmin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.admin.CustomUserAdmin" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accounts.admin.</span></span><span class="sig-name descname"><span class="pre">CustomUserAdmin</span></span><a class="reference internal" href="_modules/accounts/admin.html#CustomUserAdmin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.admin.CustomUserAdmin" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">UserAdmin</span></code></p>
 <p>Register the custom user model with the admin site.</p>
 <dl class="py attribute">
@@ -446,7 +504,7 @@ document.write(`
 <p>App configuration for the accounts Django app.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="accounts.apps.AccountsConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accounts.apps.</span></span><span class="sig-name descname"><span class="pre">AccountsConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accounts/apps.html#AccountsConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.apps.AccountsConfig" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accounts.apps.</span></span><span class="sig-name descname"><span class="pre">AccountsConfig</span></span><a class="reference internal" href="_modules/accounts/apps.html#AccountsConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.apps.AccountsConfig" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code></p>
 <p>Accounts configuration</p>
 <dl class="py attribute">
@@ -467,7 +525,7 @@ document.write(`
 <p>Django form for handling user registration.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="accounts.forms.RegisterForm">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accounts.forms.</span></span><span class="sig-name descname"><span class="pre">RegisterForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_id='id_%s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_suffix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_permitted=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_required_attribute=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accounts/forms.html#RegisterForm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.forms.RegisterForm" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accounts.forms.</span></span><span class="sig-name descname"><span class="pre">RegisterForm</span></span><a class="reference internal" href="_modules/accounts/forms.html#RegisterForm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.forms.RegisterForm" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></p>
 <p>Class to create the user registration form</p>
 <dl class="py class">
@@ -542,7 +600,7 @@ document.write(`
 <p>Model definition for the CustomUser.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="accounts.models.CustomUser">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accounts.models.</span></span><span class="sig-name descname"><span class="pre">CustomUser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accounts/models.html#CustomUser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.models.CustomUser" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accounts.models.</span></span><span class="sig-name descname"><span class="pre">CustomUser</span></span><a class="reference internal" href="_modules/accounts/models.html#CustomUser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.models.CustomUser" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractUser</span></code></p>
 <p>Class to define the Custom user model</p>
 <dl class="py exception">
@@ -759,7 +817,7 @@ object the first time, the query is executed.</p>
 <p>Views for the accounts application.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="accounts.views.profile">
-<span class="sig-prename descclassname"><span class="pre">accounts.views.</span></span><span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accounts/views.html#profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.views.profile" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">accounts.views.</span></span><span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#accounts.views.profile" title="Link to this definition">#</a></dt>
 <dd><p>This view is used to display the user profile.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -776,7 +834,7 @@ object the first time, the query is executed.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="accounts.views.register">
-<span class="sig-prename descclassname"><span class="pre">accounts.views.</span></span><span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accounts/views.html#register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.views.register" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">accounts.views.</span></span><span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#accounts.views.register" title="Link to this definition">#</a></dt>
 <dd><p>This view is used to register a new user.</p>
 <ul class="simple">
 <li><p>GET: Displays the registration form.</p></li>
@@ -810,12 +868,12 @@ object the first time, the query is executed.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="intro.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">¡Bienvenido a la documentación de IAGScore!</p>
+        <p class="prev-next-title">IAGScore</p>
       </div>
     </a>
     <a class="right-next"

@@ -148,11 +148,20 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Welcome to the IAGScore Documentation!
+                </a>
+            </li>
+        </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../accounts.html">accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">IAGScore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../accounts.html">Accounts aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../core.html">Core aplication module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../prompts.html">prompts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../prompts.html">Prompts aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rubrics.html">Rubrics aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../corrections.html">Corrections aplication module</a></li>
 </ul>
@@ -198,18 +207,50 @@
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/pac1006/IAGScore" target="_blank"
-   class="btn btn-sm btn-source-repository-button"
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/pac1006/IAGScore" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
-
+<span class="btn__text-container">Repository</span>
 </a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/pac1006/IAGScore/issues/new?title=Issue%20on%20page%20%2F_modules/rubrics/forms.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
 
 
 
@@ -274,6 +315,7 @@ document.write(`
                   
   <h1>Source code for rubrics.forms</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot; Form for registering a Rubric. &quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.utils.translation</span><span class="w"> </span><span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django</span><span class="w"> </span><span class="kn">import</span> <span class="n">forms</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.forms</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelForm</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Rubric</span>
@@ -296,15 +338,15 @@ document.write(`
 
         <span class="n">model</span> <span class="o">=</span> <span class="n">Rubric</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Nombre&quot;</span><span class="p">}</span></div>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Nombre&quot;</span><span class="p">)}</span></div>
 
 
     <span class="c1"># Specific style attributes for fields.</span>
 
     <span class="n">rubric_file</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">FileField</span><span class="p">(</span>
-        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Archivo Markdown&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Archivo Markdown&quot;</span><span class="p">),</span>
         <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;Sube un archivo Markdown con la rúbrica&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Sube un archivo Markdown con la rúbrica&quot;</span><span class="p">),</span>
         <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">ClearableFileInput</span><span class="p">(</span>
             <span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
                 <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;rubic_file&quot;</span><span class="p">,</span>
@@ -314,7 +356,7 @@ document.write(`
     <span class="p">)</span>
 
     <span class="n">name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
-        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Nombre&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Nombre&quot;</span><span class="p">),</span>
         <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span>
             <span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
                 <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Nombre&quot;</span><span class="p">,</span>
@@ -342,12 +384,12 @@ document.write(`
         <span class="n">file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rubric_file&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">file</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.md&quot;</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">forms</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;El archivo subido no es un archivo Markdown&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">forms</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;El archivo subido no es un archivo Markdown&quot;</span><span class="p">))</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">UnicodeDecodeError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">forms</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;El archivo debe estar codificado en UTF-8&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+            <span class="k">raise</span> <span class="n">forms</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;El archivo debe estar codificado en UTF-8&quot;</span><span class="p">))</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
 
         <span class="k">return</span> <span class="n">content</span></div>
 </div>

@@ -2,6 +2,7 @@
 import shutil
 import os
 import logging
+from django.utils.translation import gettext as _
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 from iagscore import settings
@@ -32,9 +33,9 @@ def delete_correction_folder(sender, instance, **kwargs):
     if os.path.exists(folder_path) and os.path.isdir(folder_path):
         try:
             shutil.rmtree(folder_path)
-            logger.info("Carpeta eliminada: %s", folder_path)
+            logger.info(_("Carpeta eliminada: %s"), folder_path)
         except OSError as e:
-            logger.error("Error al eliminar la carpeta %s: %s", folder_path, e)
+            logger.error(_("Error al eliminar la carpeta %s: %s"), folder_path, e)
 
     else:
-        logger.warning("La carpeta no existe o no es un directorio.")
+        logger.warning(_("La carpeta no existe o no es un directorio."))

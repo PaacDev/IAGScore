@@ -3,18 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-¡Bienvenido a la documentación de IAGScore!
-===========================================
+   Add your content using ``reStructuredText`` syntax. See the
+   `reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
+   documentation for details.
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+Welcome to the IAGScore Documentation!
+======================================
+
+Welcome to the documentation for the **IAGScore** project, developed as part of a Final Degree Project.
 
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   intro.md
    accounts
    core
    prompts

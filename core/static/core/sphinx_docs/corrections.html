@@ -148,11 +148,20 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Welcome to the IAGScore Documentation!
+                </a>
+            </li>
+        </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="accounts.html">accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">IAGScore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accounts.html">Accounts aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html">Core aplication module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="prompts.html">prompts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prompts.html">Prompts aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rubrics.html">Rubrics aplication module</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Corrections aplication module</a></li>
 </ul>
@@ -198,18 +207,67 @@
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/pac1006/IAGScore" target="_blank"
-   class="btn btn-sm btn-source-repository-button"
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/pac1006/IAGScore" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
-
+<span class="btn__text-container">Repository</span>
 </a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/pac1006/IAGScore/edit/main/docs/corrections.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/pac1006/IAGScore/issues/new?title=Issue%20on%20page%20%2Fcorrections.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
 
 
 
@@ -363,6 +421,7 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.description"><code class="docutils literal notranslate"><span class="pre">Correction.description</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.folder_path"><code class="docutils literal notranslate"><span class="pre">Correction.folder_path</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.get_next_by_date"><code class="docutils literal notranslate"><span class="pre">Correction.get_next_by_date()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.get_output_format_display"><code class="docutils literal notranslate"><span class="pre">Correction.get_output_format_display()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.get_previous_by_date"><code class="docutils literal notranslate"><span class="pre">Correction.get_previous_by_date()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.id"><code class="docutils literal notranslate"><span class="pre">Correction.id</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.last_ejecution_date"><code class="docutils literal notranslate"><span class="pre">Correction.last_ejecution_date</span></code></a></li>
@@ -371,6 +430,7 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.model_top_k"><code class="docutils literal notranslate"><span class="pre">Correction.model_top_k</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.model_top_p"><code class="docutils literal notranslate"><span class="pre">Correction.model_top_p</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.objects"><code class="docutils literal notranslate"><span class="pre">Correction.objects</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.output_format"><code class="docutils literal notranslate"><span class="pre">Correction.output_format</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.prompt"><code class="docutils literal notranslate"><span class="pre">Correction.prompt</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.prompt_id"><code class="docutils literal notranslate"><span class="pre">Correction.prompt_id</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.rubric"><code class="docutils literal notranslate"><span class="pre">Correction.rubric</span></code></a></li>
@@ -392,13 +452,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-corrections.views">views</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.corrections"><code class="docutils literal notranslate"><span class="pre">corrections()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.delete_correction"><code class="docutils literal notranslate"><span class="pre">delete_correction()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.download_response"><code class="docutils literal notranslate"><span class="pre">download_response()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.process_zip_file"><code class="docutils literal notranslate"><span class="pre">process_zip_file()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.run_model"><code class="docutils literal notranslate"><span class="pre">run_model()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.show_new_correction"><code class="docutils literal notranslate"><span class="pre">show_new_correction()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.show_view_correction"><code class="docutils literal notranslate"><span class="pre">show_view_correction()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -420,7 +474,7 @@ document.write(`
 <p>Register the correction model with the Django admin site.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="corrections.admin.CorrectionAdmin">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">corrections.admin.</span></span><span class="sig-name descname"><span class="pre">CorrectionAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/admin.html#CorrectionAdmin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.admin.CorrectionAdmin" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">corrections.admin.</span></span><span class="sig-name descname"><span class="pre">CorrectionAdmin</span></span><a class="reference internal" href="_modules/corrections/admin.html#CorrectionAdmin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.admin.CorrectionAdmin" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelAdmin</span></code></p>
 <p>Register the Correction model to the admin panel.</p>
 <dl class="py attribute">
@@ -451,7 +505,7 @@ document.write(`
 <p>App configuration for the corrections Django app.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="corrections.apps.CorrectionsConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">corrections.apps.</span></span><span class="sig-name descname"><span class="pre">CorrectionsConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/apps.html#CorrectionsConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.apps.CorrectionsConfig" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">corrections.apps.</span></span><span class="sig-name descname"><span class="pre">CorrectionsConfig</span></span><a class="reference internal" href="_modules/corrections/apps.html#CorrectionsConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.apps.CorrectionsConfig" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code></p>
 <p>Corrections configurations.</p>
 <dl class="py attribute">
@@ -479,7 +533,7 @@ This method is called when the app is ready.</p>
 <p>Form for registering a Correction.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="corrections.forms.CorrectionForm">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">corrections.forms.</span></span><span class="sig-name descname"><span class="pre">CorrectionForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_id='id_%s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_suffix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_permitted=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_required_attribute=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/forms.html#CorrectionForm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.forms.CorrectionForm" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">corrections.forms.</span></span><span class="sig-name descname"><span class="pre">CorrectionForm</span></span><a class="reference internal" href="_modules/corrections/forms.html#CorrectionForm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.forms.CorrectionForm" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></p>
 <p>Class to create a form for a new correction entry in the database.</p>
 <dl class="py class">
@@ -489,12 +543,12 @@ This method is called when the app is ready.</p>
 <p>Class to define the fields of the corrections form.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="corrections.forms.CorrectionForm.Meta.fields">
-<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['description',</span> <span class="pre">'llm_model',</span> <span class="pre">'rubric',</span> <span class="pre">'prompt',</span> <span class="pre">'model_temp',</span> <span class="pre">'model_top_p',</span> <span class="pre">'model_top_k']</span></em><a class="headerlink" href="#corrections.forms.CorrectionForm.Meta.fields" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['description',</span> <span class="pre">'llm_model',</span> <span class="pre">'rubric',</span> <span class="pre">'prompt',</span> <span class="pre">'model_temp',</span> <span class="pre">'model_top_p',</span> <span class="pre">'model_top_k',</span> <span class="pre">'output_format']</span></em><a class="headerlink" href="#corrections.forms.CorrectionForm.Meta.fields" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="corrections.forms.CorrectionForm.Meta.labels">
-<span class="sig-name descname"><span class="pre">labels</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'description':</span> <span class="pre">'Descripción',</span> <span class="pre">'llm_model':</span> <span class="pre">'Modelo</span> <span class="pre">usado',</span> <span class="pre">'model_temp':</span> <span class="pre">'Temperatura',</span> <span class="pre">'model_top_k':</span> <span class="pre">'Top</span> <span class="pre">K',</span> <span class="pre">'model_top_p':</span> <span class="pre">'Top</span> <span class="pre">P',</span> <span class="pre">'prompt':</span> <span class="pre">'Prompt',</span> <span class="pre">'rubric':</span> <span class="pre">'Rúbrica'}</span></em><a class="headerlink" href="#corrections.forms.CorrectionForm.Meta.labels" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">labels</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'description':</span> <span class="pre">'Descripción',</span> <span class="pre">'llm_model':</span> <span class="pre">'Modelo</span> <span class="pre">usado',</span> <span class="pre">'model_temp':</span> <span class="pre">'Temperatura',</span> <span class="pre">'model_top_k':</span> <span class="pre">'Top</span> <span class="pre">K',</span> <span class="pre">'model_top_p':</span> <span class="pre">'Top</span> <span class="pre">P',</span> <span class="pre">'output_format':</span> <span class="pre">'Formato</span> <span class="pre">de</span> <span class="pre">salida',</span> <span class="pre">'prompt':</span> <span class="pre">'Prompt',</span> <span class="pre">'rubric':</span> <span class="pre">'Rúbrica'}</span></em><a class="headerlink" href="#corrections.forms.CorrectionForm.Meta.labels" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -512,7 +566,7 @@ This method is called when the app is ready.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="corrections.forms.CorrectionForm.base_fields">
-<span class="sig-name descname"><span class="pre">base_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'description':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'llm_model':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_temp':</span> <span class="pre">&lt;django.forms.fields.FloatField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_top_k':</span> <span class="pre">&lt;django.forms.fields.IntegerField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_top_p':</span> <span class="pre">&lt;django.forms.fields.FloatField</span> <span class="pre">object&gt;,</span> <span class="pre">'prompt':</span> <span class="pre">&lt;django.forms.models.ModelChoiceField</span> <span class="pre">object&gt;,</span> <span class="pre">'rubric':</span> <span class="pre">&lt;django.forms.models.ModelChoiceField</span> <span class="pre">object&gt;,</span> <span class="pre">'zip_file':</span> <span class="pre">&lt;django.forms.fields.FileField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#corrections.forms.CorrectionForm.base_fields" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">base_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'description':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'llm_model':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_temp':</span> <span class="pre">&lt;django.forms.fields.FloatField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_top_k':</span> <span class="pre">&lt;django.forms.fields.IntegerField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_top_p':</span> <span class="pre">&lt;django.forms.fields.FloatField</span> <span class="pre">object&gt;,</span> <span class="pre">'output_format':</span> <span class="pre">&lt;django.forms.fields.ChoiceField</span> <span class="pre">object&gt;,</span> <span class="pre">'prompt':</span> <span class="pre">&lt;django.forms.models.ModelChoiceField</span> <span class="pre">object&gt;,</span> <span class="pre">'rubric':</span> <span class="pre">&lt;django.forms.models.ModelChoiceField</span> <span class="pre">object&gt;,</span> <span class="pre">'zip_file':</span> <span class="pre">&lt;django.forms.fields.FileField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#corrections.forms.CorrectionForm.base_fields" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -537,7 +591,7 @@ This method is called when the app is ready.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="corrections.forms.CorrectionForm.declared_fields">
-<span class="sig-name descname"><span class="pre">declared_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'description':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'llm_model':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_temp':</span> <span class="pre">&lt;django.forms.fields.FloatField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_top_k':</span> <span class="pre">&lt;django.forms.fields.IntegerField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_top_p':</span> <span class="pre">&lt;django.forms.fields.FloatField</span> <span class="pre">object&gt;,</span> <span class="pre">'zip_file':</span> <span class="pre">&lt;django.forms.fields.FileField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#corrections.forms.CorrectionForm.declared_fields" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">declared_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'description':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'llm_model':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_temp':</span> <span class="pre">&lt;django.forms.fields.FloatField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_top_k':</span> <span class="pre">&lt;django.forms.fields.IntegerField</span> <span class="pre">object&gt;,</span> <span class="pre">'model_top_p':</span> <span class="pre">&lt;django.forms.fields.FloatField</span> <span class="pre">object&gt;,</span> <span class="pre">'output_format':</span> <span class="pre">&lt;django.forms.fields.ChoiceField</span> <span class="pre">object&gt;,</span> <span class="pre">'zip_file':</span> <span class="pre">&lt;django.forms.fields.FileField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#corrections.forms.CorrectionForm.declared_fields" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
@@ -554,7 +608,7 @@ This method is called when the app is ready.</p>
 <p>Model definition for Correction.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="corrections.models.Correction">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">corrections.models.</span></span><span class="sig-name descname"><span class="pre">Correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/models.html#Correction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.models.Correction" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">corrections.models.</span></span><span class="sig-name descname"><span class="pre">Correction</span></span><a class="reference internal" href="_modules/corrections/models.html#Correction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.models.Correction" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
 <p>Model representing a correction.</p>
 <dl class="py exception">
@@ -598,6 +652,11 @@ object the first time, the query is executed.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="corrections.models.Correction.get_next_by_date">
 <span class="sig-name descname"><span class="pre">get_next_by_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">date&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#corrections.models.Correction.get_next_by_date" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="corrections.models.Correction.get_output_format_display">
+<span class="sig-name descname"><span class="pre">get_output_format_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">output_format&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#corrections.models.Correction.get_output_format_display" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -651,6 +710,13 @@ object the first time, the query is executed.</p>
 <dt class="sig sig-object py" id="corrections.models.Correction.objects">
 <span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#corrections.models.Correction.objects" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="corrections.models.Correction.output_format">
+<span class="sig-name descname"><span class="pre">output_format</span></span><a class="headerlink" href="#corrections.models.Correction.output_format" title="Link to this definition">#</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="corrections.models.Correction.prompt">
@@ -778,72 +844,6 @@ when it is deleted.</p>
 <span id="views"></span><h2>views<a class="headerlink" href="#module-corrections.views" title="Link to this heading">#</a></h2>
 <p>Views for the corrections app.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="corrections.views.corrections">
-<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">corrections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#corrections"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.corrections" title="Link to this definition">#</a></dt>
-<dd><p>Show the corrections base page</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>) – The HTTP request object.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The rendered template for the corrections base page.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>HttpResponse</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="corrections.views.delete_correction">
-<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">delete_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#delete_correction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.delete_correction" title="Link to this definition">#</a></dt>
-<dd><p>Delete one correction</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> – the HTTP request object</p></li>
-<li><p><strong>id</strong> – The id of the correction</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A redirect to the corrections view.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>HttpResponse</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>Http404</strong> – If the correction with the given ID does not exist.</p></li>
-<li><p><strong>Exception</strong> – If an error occurs while deleting the correction.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="corrections.views.download_response">
-<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">download_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correction_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#download_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.download_response" title="Link to this definition">#</a></dt>
-<dd><p>Download the file whit the response if exist</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong></p></li>
-<li><p><strong>correction_id</strong> – The ID of the correction</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>the file to download</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>FileResponse</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>Http404</strong> – If the correction with the given ID does not exist or if the file does not exist.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="corrections.views.process_zip_file">
 <span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">process_zip_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zip_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_correction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#process_zip_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.process_zip_file" title="Link to this definition">#</a></dt>
 <dd><p>Process the ZIP file containing Java files and save them.</p>
@@ -858,74 +858,6 @@ when it is deleted.</p>
 </dl>
 <dl class="simple">
 <dt>Returns</dt><dd><p>str: The path where the files were saved.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="corrections.views.run_model">
-<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">run_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correction_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#run_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.run_model" title="Link to this definition">#</a></dt>
-<dd><p>Call the task to run the model in async mode</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<em>HttpRequest</em>) – The HTTP request object.</p></li>
-<li><p><strong>correction_id</strong> (<em>int</em>) – The ID of the correction to process.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A redirect to the correction detail view after queuing the task.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>HttpResponse</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>Http404</strong> – If the correction with the given ID does not exist.</p></li>
-<li><p><strong>Exception</strong> – If an error occurs while processing the correction.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="corrections.views.show_new_correction">
-<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">show_new_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#show_new_correction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.show_new_correction" title="Link to this definition">#</a></dt>
-<dd><p>View to display the form for creating a new correction.</p>
-<ul class="simple">
-<li><p>GET: Displays the form.</p></li>
-<li><p>POST: Processes the form and create new correction.</p></li>
-</ul>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>) – The HTTP request object.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>The rendered template for creating a new correction</dt><dd><p>or a redirect to the view correction page.</p>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>HttpResponse</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="corrections.views.show_view_correction">
-<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">show_view_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#show_view_correction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.show_view_correction" title="Link to this definition">#</a></dt>
-<dd><p>Show the view of the corrections table</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>) – The HTTP request object.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The rendered template for the corrections table.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>HttpResponse</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1014,6 +946,7 @@ when it is deleted.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.description"><code class="docutils literal notranslate"><span class="pre">Correction.description</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.folder_path"><code class="docutils literal notranslate"><span class="pre">Correction.folder_path</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.get_next_by_date"><code class="docutils literal notranslate"><span class="pre">Correction.get_next_by_date()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.get_output_format_display"><code class="docutils literal notranslate"><span class="pre">Correction.get_output_format_display()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.get_previous_by_date"><code class="docutils literal notranslate"><span class="pre">Correction.get_previous_by_date()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.id"><code class="docutils literal notranslate"><span class="pre">Correction.id</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.last_ejecution_date"><code class="docutils literal notranslate"><span class="pre">Correction.last_ejecution_date</span></code></a></li>
@@ -1022,6 +955,7 @@ when it is deleted.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.model_top_k"><code class="docutils literal notranslate"><span class="pre">Correction.model_top_k</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.model_top_p"><code class="docutils literal notranslate"><span class="pre">Correction.model_top_p</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.objects"><code class="docutils literal notranslate"><span class="pre">Correction.objects</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.output_format"><code class="docutils literal notranslate"><span class="pre">Correction.output_format</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.prompt"><code class="docutils literal notranslate"><span class="pre">Correction.prompt</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.prompt_id"><code class="docutils literal notranslate"><span class="pre">Correction.prompt_id</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.models.Correction.rubric"><code class="docutils literal notranslate"><span class="pre">Correction.rubric</span></code></a></li>
@@ -1043,13 +977,7 @@ when it is deleted.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-corrections.views">views</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.corrections"><code class="docutils literal notranslate"><span class="pre">corrections()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.delete_correction"><code class="docutils literal notranslate"><span class="pre">delete_correction()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.download_response"><code class="docutils literal notranslate"><span class="pre">download_response()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.process_zip_file"><code class="docutils literal notranslate"><span class="pre">process_zip_file()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.run_model"><code class="docutils literal notranslate"><span class="pre">run_model()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.show_new_correction"><code class="docutils literal notranslate"><span class="pre">show_new_correction()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.show_view_correction"><code class="docutils literal notranslate"><span class="pre">show_view_correction()</span></code></a></li>
 </ul>
 </li>
 </ul>

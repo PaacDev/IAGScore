@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE>
 <html lang="es" class="h-full bg-white">
     <head>
@@ -17,13 +18,13 @@
                 {% endif %}
             </div>
             <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-                <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Entra con tu cuenta</h2>
+                <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">{% trans "Entra con tu cuenta" %}</h2>
             </div>
             <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form class="space-y-6" method="post">
                     {% csrf_token %}
                     <div>
-                        <label for="email" class="block text-sm/6 font-medium text-gray-900">Email</label>
+                        <label for="email" class="block text-sm/6 font-medium text-gray-900">{% trans "Email" %}</label>
                         <div class="mt-2">
                             <input type="email"
                                    name="username"
@@ -35,9 +36,9 @@
                     </div>
                     <div>
                         <div class="flex items-center justify-between">
-                            <label for="password" class="block text-sm/6 font-medium text-gray-900">Contraseña</label>
+                            <label for="password" class="block text-sm/6 font-medium text-gray-900">{% trans "Contraseña" %}</label>
                             <div class="text-sm">
-                                <a href="#" class="font-semibold text-gray-600 hover:text-gray-400">¿Olvidaste tu contraseña?</a>
+                                <a href="#" class="font-semibold text-gray-600 hover:text-gray-400">{% trans "¿Olvidaste tu contraseña?" %}</a>
                             </div>
                         </div>
                         <div class="mt-2">
@@ -57,9 +58,9 @@
                     </div>
                 </form>
                 <p class="mt-10 text-center text-sm/6 text-gray-500">
-                    ¿No tienes una cuenta?
+                    {% trans "¿No tienes una cuenta?" %}
                     <a href="{% url 'register' %}"
-                       class="font-semibold text-gray-600 hover:text-gray-400">Registrate aquí</a>
+                       class="font-semibold text-gray-600 hover:text-gray-400">{% trans "Registrate aquí" %}</a>
                 </p>
             </div>
         </div>

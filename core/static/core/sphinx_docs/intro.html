@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Welcome to the IAGScore Documentation! &#8212; iagscore  documentation</title>
+    <title>IAGScore &#8212; iagscore  documentation</title>
   
   
   
@@ -41,10 +41,11 @@
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="IAGScore" href="intro.html" />
+    <link rel="next" title="Accounts aplication module" href="accounts.html" />
+    <link rel="prev" title="Welcome to the IAGScore Documentation!" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -107,8 +108,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -127,7 +126,7 @@
     
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="index.html">
   
   
   
@@ -152,15 +151,15 @@
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
                     Welcome to the IAGScore Documentation!
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="intro.html">IAGScore</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">IAGScore</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accounts.html">Accounts aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html">Core aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="prompts.html">Prompts aplication module</a></li>
@@ -237,7 +236,7 @@
       
       
       
-      <li><a href="https://github.com/pac1006/IAGScore/edit/main/docs/index.rst" target="_blank"
+      <li><a href="https://github.com/pac1006/IAGScore/edit/main/docs/intro.md" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -254,7 +253,7 @@
       
       
       
-      <li><a href="https://github.com/pac1006/IAGScore/issues/new?title=Issue%20on%20page%20%2Findex.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/pac1006/IAGScore/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -284,7 +283,7 @@
       
       
       
-      <li><a href="_sources/index.rst" target="_blank"
+      <li><a href="_sources/intro.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -294,7 +293,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.rst</span>
+<span class="btn__text-container">.md</span>
 </a>
 </li>
       
@@ -368,7 +367,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Welcome to the IAGScore Documentation!</h1>
+    <h1>IAGScore</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -378,10 +377,24 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Welcome to the IAGScore Documentation!</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#indices-y-tablas">Índices y tablas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteristicas-principales">Características principales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tecnologias-utilizadas">Tecnologías utilizadas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requisitos-previos">Requisitos previos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-inicial">Configuración inicial</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clonar-el-repositorio">1. Clonar el repositorio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crea-el-archivo-env">2. Crea el archivo <code class="docutils literal notranslate"><span class="pre">.env</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-con-docker-compose">3. Build con Docker Compose</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#levanta-proyecto">4. Levanta proyecto</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pull-modelo-llama3-1">5. Pull Modelo Llama3.1</a></li>
 </ul>
-
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-opcional">Configuración opcional</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crea-superusuario-django">6. Crea superusuario Django</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#licencia">Licencia</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autor">Autor</a></li>
+</ul>
             </nav>
         </div>
     </div>
@@ -392,71 +405,120 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="welcome-to-the-iagscore-documentation">
-<h1>Welcome to the IAGScore Documentation!<a class="headerlink" href="#welcome-to-the-iagscore-documentation" title="Link to this heading">#</a></h1>
-<p>Welcome to the documentation for the <strong>IAGScore</strong> project, developed as part of a Final Degree Project.</p>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="intro.html">IAGScore</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="intro.html#caracteristicas-principales">Características principales</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intro.html#tecnologias-utilizadas">Tecnologías utilizadas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intro.html#requisitos-previos">Requisitos previos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intro.html#configuracion-inicial">Configuración inicial</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intro.html#configuracion-opcional">Configuración opcional</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intro.html#licencia">Licencia</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intro.html#autor">Autor</a></li>
+  <section id="iagscore">
+<h1>IAGScore<a class="headerlink" href="#iagscore" title="Link to this heading">#</a></h1>
+<p><strong>IAGScore</strong> es una plataforma desarrollada para un <strong>Trabajo Fin de Grado (TFG)</strong> que permite a los usuarios subir tareas (archivos) y evaluarlas automáticamente usando <strong>modelos de lenguaje</strong> e inteligencia artificial, basándose en un <strong>prompt personalizado</strong> y una <strong>rúbrica en formato Markdown</strong> proporcionada por el usuario.</p>
+<hr class="docutils" />
+<section id="caracteristicas-principales">
+<h2>Características principales<a class="headerlink" href="#caracteristicas-principales" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Evaluación automática de entregas usando IA (Ollama)</p></li>
+<li><p>Prompt libre creado por el usuario</p></li>
+<li><p>Rúbricas personalizadas en formato <code class="docutils literal notranslate"><span class="pre">.md</span></code></p></li>
+<li><p>Backend Django + PostgreSQL</p></li>
+<li><p>Estilos con Tailwind + Flowbite</p></li>
+<li><p>Procesamiento asíncrono con Celery y Redis</p></li>
+<li><p>Desplegado de contenedores con Docker Compose</p></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="accounts.html">Accounts aplication module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="accounts.html#module-accounts.admin">admin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="accounts.html#module-accounts.apps">apps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="accounts.html#module-accounts.forms">forms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="accounts.html#module-accounts.models">models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="accounts.html#module-accounts.views">views</a></li>
+</section>
+<hr class="docutils" />
+<section id="tecnologias-utilizadas">
+<h2>Tecnologías utilizadas<a class="headerlink" href="#tecnologias-utilizadas" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.djangoproject.com/">Django</a></p></li>
+<li><p><a class="reference external" href="https://www.postgresql.org/">PostgreSQL</a></p></li>
+<li><p><a class="reference external" href="https://ollama.com/">Ollama</a></p></li>
+<li><p><a class="reference external" href="https://docs.celeryq.dev/">Celery</a></p></li>
+<li><p><a class="reference external" href="https://redis.io/">Redis</a></p></li>
+<li><p><a class="reference external" href="https://docs.docker.com/">Docker &amp; Docker Compose</a></p></li>
+<li><p><a class="reference external" href="https://tailwindcss.com/">TailwindCSS</a> + <a class="reference external" href="https://flowbite.com/">Flowbite</a></p></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="core.html">Core aplication module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="core.html#module-core.apps">apps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="core.html#module-core.views">views</a></li>
+</section>
+<hr class="docutils" />
+<section id="requisitos-previos">
+<h2>Requisitos previos<a class="headerlink" href="#requisitos-previos" title="Link to this heading">#</a></h2>
+<p>Asegúrate de tener instalado:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://git-scm.com/">Git</a></p></li>
+<li><p><a class="reference external" href="https://www.docker.com/">Docker</a></p></li>
+<li><p><a class="reference external" href="https://docs.docker.com/compose/">Docker Compose</a>
+<em>(incluido con Docker en versiones recientes)</em></p></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="prompts.html">Prompts aplication module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="prompts.html#module-prompts.admin">admin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="prompts.html#module-prompts.apps">apps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="prompts.html#module-prompts.forms">forms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="prompts.html#module-prompts.models">models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="prompts.html#module-prompts.views">views</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="rubrics.html">Rubrics aplication module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="rubrics.html#module-rubrics.admin">admin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rubrics.html#module-rubrics.apps">apps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rubrics.html#module-rubrics.forms">forms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rubrics.html#module-rubrics.models">models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rubrics.html#module-rubrics.views">views</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="corrections.html">Corrections aplication module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="corrections.html#module-corrections.admin">admin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="corrections.html#module-corrections.apps">apps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="corrections.html#module-corrections.forms">forms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="corrections.html#module-corrections.models">models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="corrections.html#module-corrections.signals">signals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="corrections.html#module-corrections.tasks">tasks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="corrections.html#module-corrections.views">views</a></li>
-</ul>
-</li>
-</ul>
+</section>
+<hr class="docutils" />
+<section id="configuracion-inicial">
+<h2>Configuración inicial<a class="headerlink" href="#configuracion-inicial" title="Link to this heading">#</a></h2>
+<section id="clonar-el-repositorio">
+<h3>1. Clonar el repositorio<a class="headerlink" href="#clonar-el-repositorio" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/pac1006/IAGScore.git
+<span class="nb">cd</span><span class="w"> </span>IAGScore<span class="w"> </span>
+</pre></div>
 </div>
 </section>
-<section id="indices-y-tablas">
-<h1>Índices y tablas<a class="headerlink" href="#indices-y-tablas" title="Link to this heading">#</a></h1>
+<section id="crea-el-archivo-env">
+<h3>2. Crea el archivo <code class="docutils literal notranslate"><span class="pre">.env</span></code><a class="headerlink" href="#crea-el-archivo-env" title="Link to this heading">#</a></h3>
+<p>Copia el archivo de ejemplo:</p>
+<p><strong>Linux y MacOs</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>.env.example<span class="w"> </span>.env
+</pre></div>
+</div>
+<p><strong>Windows</strong></p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">copy </span><span class="n">env</span><span class="p">.</span><span class="n">example</span> <span class="p">.</span><span class="n">env</span>
+</pre></div>
+</div>
+</section>
+<section id="build-con-docker-compose">
+<h3>3. Build con Docker Compose<a class="headerlink" href="#build-con-docker-compose" title="Link to this heading">#</a></h3>
+<p>Antes de ejecutar este comando, asegúrate de que Docker esté en funcionamiento.
+Basta con abrir Docker Desktop y verificar que está activo.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>compose<span class="w"> </span>build
+</pre></div>
+</div>
+</section>
+<section id="levanta-proyecto">
+<h3>4. Levanta proyecto<a class="headerlink" href="#levanta-proyecto" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>compose<span class="w"> </span>up
+</pre></div>
+</div>
+</section>
+<section id="pull-modelo-llama3-1">
+<h3>5. Pull Modelo Llama3.1<a class="headerlink" href="#pull-modelo-llama3-1" title="Link to this heading">#</a></h3>
+<p>Levantado el proyecto, se debe de hacer Pull del modelo en la primera ejecución.</p>
+<p>En otra terminal, en la raiz del proyecto, IAGScore</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>ollama<span class="w"> </span>ollama<span class="w"> </span>pull<span class="w"> </span>llama3.1
+</pre></div>
+</div>
+<p><em>(Este paso únicamente es necesario hacerlo en la primera ejecución ya que
+una vez hecho el pull, el modelo permanece en Ollama.
+)</em></p>
+</section>
+</section>
+<section id="configuracion-opcional">
+<h2>Configuración opcional<a class="headerlink" href="#configuracion-opcional" title="Link to this heading">#</a></h2>
+<section id="crea-superusuario-django">
+<h3>6. Crea superusuario Django<a class="headerlink" href="#crea-superusuario-django" title="Link to this heading">#</a></h3>
+<p>Opcionalmente se puede crear un superusuario para poder acceder al panel de administracion de Django</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>web<span class="w"> </span>python3<span class="w"> </span>manage.py<span class="w"> </span>createsuperuser
+</pre></div>
+</div>
+<p>Deberás introducir:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+<li><p>Email</p></li>
+<li><p>Username</p></li>
+<li><p>Password</p></li>
 </ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="licencia">
+<h2>Licencia<a class="headerlink" href="#licencia" title="Link to this heading">#</a></h2>
+<p>Este proyecto está licenciado bajo la <strong>MIT License</strong>.</p>
+</section>
+<hr class="docutils" />
+<section id="autor">
+<h2>Autor<a class="headerlink" href="#autor" title="Link to this heading">#</a></h2>
+<p>Desarrollado por <a class="reference external" href="https://github.com/pac1006">Pedro Antonio Abellaneda Canales</a>.</p>
+</section>
 </section>
 
 
@@ -470,12 +532,21 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome to the IAGScore Documentation!</p>
+      </div>
+    </a>
     <a class="right-next"
-       href="intro.html"
+       href="accounts.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">IAGScore</p>
+        <p class="prev-next-title">Accounts aplication module</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -495,10 +566,24 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Welcome to the IAGScore Documentation!</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#indices-y-tablas">Índices y tablas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteristicas-principales">Características principales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tecnologias-utilizadas">Tecnologías utilizadas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requisitos-previos">Requisitos previos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-inicial">Configuración inicial</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clonar-el-repositorio">1. Clonar el repositorio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crea-el-archivo-env">2. Crea el archivo <code class="docutils literal notranslate"><span class="pre">.env</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-con-docker-compose">3. Build con Docker Compose</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#levanta-proyecto">4. Levanta proyecto</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pull-modelo-llama3-1">5. Pull Modelo Llama3.1</a></li>
 </ul>
-
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-opcional">Configuración opcional</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crea-superusuario-django">6. Crea superusuario Django</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#licencia">Licencia</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autor">Autor</a></li>
+</ul>
   </nav></div>
 
 </div></div>
