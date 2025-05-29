@@ -1,12 +1,13 @@
 """Views for the rubrics app."""
+
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.http import require_http_methods, require_GET
+from django.views.decorators.http import require_http_methods, require_GET, require_POST
 from django.contrib import messages
-from django.db import transaction,IntegrityError
+from django.db import transaction, IntegrityError
 from django.core.paginator import Paginator
 from .forms import RubricForm
 from .models import Rubric
@@ -18,28 +19,30 @@ from .models import Rubric
 def rubric_page(request):
     """
     View for import a new rubric.
-    
+
     - GET: Displays the form.
     - POST: Processes the form and create new rubric.
-    
+
     Parameters:
         request: The HTTP request object.
-        
+
     Returns:
         HttpResponse: The rendered template with the rubric form and rubric list.
     """
-    query = request.GET.get('q',"")
+    query = request.GET.get("q", "")
     sort_field = request.GET.get("sort", "creation_date")
     sort_dir = request.GET.get("dir", "desc")
-    
+
     # Get the user's rubrics ordering them by creation date
     # and paginate them
-    rubric_list = Rubric.objects.filter(user=request.user)#.order_by("-creation_date")
-    
+    rubric_list = Rubric.objects.filter(
+        user=request.user
+    )  # .order_by("-creation_date")
+
     # Sort the rubric list based on the sort field and direction
     sort_prefix = "-" if sort_dir == "desc" else ""
     order_by_field = f"{sort_prefix}{sort_field}"
-    
+
     # Filter the rubric list based on the query
     if query:
         rubric_list = rubric_list.filter(name__icontains=query)
@@ -50,7 +53,6 @@ def rubric_page(request):
     paginator = Paginator(rubric_list, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    
 
     # If the request is a POST, process the form
     if request.method == "POST":
@@ -68,29 +70,40 @@ def rubric_page(request):
                 with transaction.atomic():
                     rubric.save()
                     messages.success(request, _("Rúbrica importada correctamente"))
+                    rubric_list = rubric_list.order_by(order_by_field)
+                    paginator = Paginator(rubric_list, 5)
+                    page_number = request.GET.get("page")
+                    page_obj = paginator.get_page(page_number)
                     return render(
                         request,
                         "rubrics/mis_rubricas.html",
-                        {"form": form, 
-                         "rubric_list": rubric_list, 
-                         "page_obj": page_obj,
-                         "query": query,
-                         "sort": sort_field,
-                         "dir": sort_dir,}
+                        {
+                            "form": form,
+                            "rubric_list": rubric_list,
+                            "page_obj": page_obj,
+                            "query": query,
+                            "sort": sort_field,
+                            "dir": sort_dir,
+                        },
                     )
             except IntegrityError:
                 # Handle the case where the rubric already exists
-                
+
                 messages.error(
                     request, _("Error al guardar la rúbrica: Rubrica ya existente")
                 )
-                return render(request, "rubrics/mis_rubricas.html", {"form": form,
-                                                                     "rubric_list": rubric_list,
-                                                                     "page_obj": page_obj,
-                                                                     "query": query,
-                                                                     "sort": sort_field,
-                                                                     "dir": sort_dir,
-                                                                     })
+                return render(
+                    request,
+                    "rubrics/mis_rubricas.html",
+                    {
+                        "form": form,
+                        "rubric_list": rubric_list,
+                        "page_obj": page_obj,
+                        "query": query,
+                        "sort": sort_field,
+                        "dir": sort_dir,
+                    },
+                )
 
         messages.error(request, form.errors.as_text())
     else:
@@ -99,13 +112,14 @@ def rubric_page(request):
     return render(
         request,
         "rubrics/mis_rubricas.html",
-        {"form": form,
-         "rubric_list": rubric_list,
-         "page_obj": page_obj,
-         "query": query,
-         "sort": sort_field,
-         "dir": sort_dir,
-         }
+        {
+            "form": form,
+            "rubric_list": rubric_list,
+            "page_obj": page_obj,
+            "query": query,
+            "sort": sort_field,
+            "dir": sort_dir,
+        },
     )
 
 
@@ -114,14 +128,14 @@ def rubric_page(request):
 def show_rubric(request, rubric_id):
     """
     View for showing a rubric
-    
+
     Parameters:
         request: The HTTP request object.
         rubric_id: The ID of the rubric to show.
-        
+
     Returns:
         HttpResponse: The rendered template with the rubric details.
-        
+
     Raises:
         Http404: If the rubric does not exist.
     """
@@ -134,18 +148,18 @@ def show_rubric(request, rubric_id):
 
 
 @login_required
-@require_GET
+@require_POST
 def delete_rubric(request, rubric_id):
     """
     View for deleting a rubric
-    
+
     Parameters:
         request: The HTTP request object.
         rubric_id: The ID of the rubric to delete.
-        
+
     Returns:
         HttpResponse: A redirect to the rubric page.
-    
+
     Raises:
         Http404: If the rubric does not exist.
     """

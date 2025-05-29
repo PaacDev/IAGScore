@@ -1,4 +1,5 @@
 """Signal handlers for the Correction model."""
+
 import shutil
 import os
 import logging
@@ -9,7 +10,8 @@ from iagscore import settings
 from .models import Correction
 
 logger = logging.getLogger(__name__)
-#logger.propagate = False
+# logger.propagate = False
+
 
 @receiver(pre_delete, sender=Correction)
 def delete_correction_folder(sender, instance, **kwargs):

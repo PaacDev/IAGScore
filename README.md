@@ -114,3 +114,9 @@ Consulta el archivo [LICENSE](LICENSE) para más detalles.
 ## Autor
 
 Desarrollado por [Pedro Antonio Abellaneda Canales](https://github.com/pac1006).
+
+---
+## Solución de errores
+
+Consulta la [guía de solución de errores](./TROUBLESHOOTING.md) para ver cómo resolver problemas comunes.
+

@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 libpq-dev \
 curl \
 gettext \
+unrar-free \
+p7zip-full \
 && curl --proto '=https' --tlsv1.2 -sSf -L https://deb.nodesource.com/setup_18.x | bash - \
 && apt-get install -y --no-install-recommends nodejs \
 && rm -rf /var/lib/apt/lists/* 

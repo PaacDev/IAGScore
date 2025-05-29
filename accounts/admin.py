@@ -1,4 +1,4 @@
-""" Register the custom user model with the Django admin site. """
+"""Register the custom user model with the Django admin site."""
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin

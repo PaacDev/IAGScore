@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-26 11:12+0200\n"
+"POT-Creation-Date: 2025-05-29 17:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,7 +49,7 @@ msgid "Términos y Condiciones"
 msgstr "Terms and Conditions"
 
 #: accounts/templates/accounts/register.html:45
-msgid "Ya tienes una cuenta?"
+msgid "¿Ya tienes una cuenta?"
 msgstr "Already have an account?"
 
 #: accounts/templates/accounts/register.html:45
@@ -60,7 +60,7 @@ msgstr "Login with my account"
 msgid "Usuario creado correctamente"
 msgstr "User created successfully"
 
-#: core/templates/core/home.html:12
+#: core/templates/core/home.html:13
 msgid ""
 "Bienvenidos a IAGScore, aplicación para la integración de rúbricas y "
 "correción de ejercicios de programación"
@@ -68,22 +68,26 @@ msgstr ""
 "Welcome to IAGScore, an application for integrating rubrics and correcting "
 "programming exercises"
 
-#: core/templates/core/home.html:26
+#: core/templates/core/home.html:28
+msgid "Entra aquí para crear un nuevo prompt o consultar los prompts creaddos."
+msgstr "Enter here to create a new prompt or consult the prompts already created."
+
+#: core/templates/core/home.html:39
 #: rubrics/templates/rubrics/mis_rubricas.html:3
 msgid "Rubricas"
 msgstr "Rubrics"
 
-#: core/templates/core/home.html:28
-msgid "Importa una rúbrica nueva"
-msgstr "Import a new rubric"
+#: core/templates/core/home.html:41
+msgid "Consulta tus rúbricas o importa una nueva"
+msgstr "Consult your rubrics or import a new one"
 
-#: core/templates/core/home.html:42
-msgid "Entra aquí para crear un nuevo prompt"
-msgstr "Enter here to create a new prompt"
+#: core/templates/core/home.html:52 core/templates/core/partials/navbar.html:38
+msgid "Correcciones"
+msgstr "Corrections"
 
-#: core/templates/core/home.html:56
-msgid "Detalles sobre los LLMs utilizados"
-msgstr "Details about the LLMs used"
+#: core/templates/core/home.html:54
+msgid "Visualiza las correcciones, crea una nueva o ejecuta una existente"
+msgstr "View corrections, create a new one or execute an existing one."
 
 #: core/templates/core/llm_info.html:5
 msgid "Model Info"
@@ -102,8 +106,8 @@ msgid ""
 "El modelo que se emplea por defecto para llevar a cabo las valoraciones "
 "automáticas forma parte de la biblioteca"
 msgstr ""
-"The model used by default to carry out the "
-" automatic valuations is part of the library"
+"The model used by default to carry out the  automatic valuations is part of "
+"the library"
 
 #: core/templates/core/llm_info.html:14
 msgid "Ollama"
@@ -154,7 +158,7 @@ msgstr ""
 
 #: core/templates/core/llm_info.html:24
 msgid "Top-p (top_p = 0.9):"
-msgstr ""
+msgstr "Top-p (top_p = 0.9):"
 
 #: core/templates/core/llm_info.html:24
 #, python-format
@@ -164,14 +168,14 @@ msgid ""
 "las palabras más probables que, juntas, suman el 90 %% de la probabilidad "
 "total, lo que contribuye a respuestas más naturales y relevantes."
 msgstr ""
-" sets a cumulative probability threshold to limit the set of "
-"possible next words. With a value of 0.9, the model considers only "
-"the most likely words that, together, add up to 90% of the "
-"total probability, contributing to more natural and relevant responses."
+" sets a cumulative probability threshold to limit the set of possible next "
+"words. With a value of 0.9, the model considers only the most likely words "
+"that, together, add up to 90 %% of the total probability, contributing to "
+"more natural and relevant responses."
 
 #: core/templates/core/llm_info.html:27
 msgid "Top-k (top_k = 40):"
-msgstr ""
+msgstr "Top-k (top_k = 40):"
 
 #: core/templates/core/llm_info.html:27
 msgid ""
@@ -180,10 +184,9 @@ msgid ""
 "inesperados o irrelevantes, manteniendo el enfoque en las opciones más "
 "plausibles."
 msgstr ""
-"restricts the maximum number of possible options to the 40 most "
-"likely words at each generation step. This reduces the risk of "
-"unexpected or irrelevant results, while keeping the focus on the most "
-"plausible options."
+"restricts the maximum number of possible options to the 40 most likely words "
+"at each generation step. This reduces the risk of unexpected or irrelevant "
+"results, while keeping the focus on the most plausible options."
 
 #: core/templates/core/llm_info.html:31
 msgid ""
@@ -211,6 +214,22 @@ msgstr "Email"
 msgid "¿Olvidaste tu contraseña?"
 msgstr "Forgot your password?"
 
+#: core/templates/core/login.html:61
+msgid "¿No tienes una cuenta?"
+msgstr "Don't have an account?"
+
+#: core/templates/core/login.html:63
+msgid "Registrate aquí"
+msgstr "Register here"
+
+#: core/templates/core/partials/footer.html:9
+msgid "Diseñado por Pedro Antonio Abellaneda Canales"
+msgstr "Design by Pedro Antonio Abellaneda Canales"
+
+#: core/templates/core/partials/footer.html:13
+msgid "Todos los derechos reservados"
+msgstr "All Rights Reserved"
+
 #: core/templates/core/partials/navbar.html:9
 msgid "Perfil"
 msgstr "Profile"
@@ -219,15 +238,11 @@ msgstr "Profile"
 msgid "Rúbricas"
 msgstr "Rubrics"
 
-#: core/templates/core/partials/navbar.html:38
-msgid "Correcciones"
-msgstr "Corrections"
-
 #: core/templates/core/partials/navbar.html:44
 msgid "Documentación"
 msgstr "Documentation"
 
-#: core/views.py:49
+#: core/views.py:51
 msgid "Usuario o contraseña incorrectos"
 msgstr "Incorrect login or password"
 
@@ -240,7 +255,7 @@ msgid "Modelo usado"
 msgstr "Used model"
 
 #: corrections/forms.py:23
-#: corrections/templates/corrections/new_correction.html:25
+#: corrections/templates/corrections/new_correction.html:26
 msgid "Rúbrica"
 msgstr "Rubric"
 
@@ -249,16 +264,16 @@ msgid "Prompt"
 msgstr "Prompt"
 
 #: corrections/forms.py:25 corrections/forms.py:70
-#: corrections/templates/corrections/new_correction.html:58
+#: corrections/templates/corrections/new_correction.html:68
 msgid "Temperatura"
 msgstr "Temperature"
 
-#: corrections/forms.py:28 corrections/forms.py:115
+#: corrections/forms.py:28 corrections/forms.py:118
 msgid "Formato de salida"
 msgstr "Output format"
 
 #: corrections/forms.py:34
-#: corrections/templates/corrections/new_correction.html:49
+#: corrections/templates/corrections/new_correction.html:54
 msgid "Descripcion"
 msgstr "Description"
 
@@ -271,24 +286,25 @@ msgid "Archivo ZIP"
 msgstr "ZIP File"
 
 #: corrections/forms.py:59
-msgid "Sube un archivo ZIP con las tareas"
-msgstr "Upload a ZIP file with tasks"
+msgid "Formatos permitidos: .zip, .rar, .7z o .tar"
+msgstr "Allowed formats: .zip, .rar, .7z or .tar"
 
-#: corrections/forms.py:81
+#: corrections/forms.py:82
 msgid "Temperatura del modelo (0.0 - 1.0)"
 msgstr "Model temperature (0.0 - 1.0)"
 
-#: corrections/forms.py:96
+#: corrections/forms.py:98
 msgid "Top P del modelo (0.0 - 1.0)"
 msgstr "Top P of the model (0.0 - 1.0)"
 
-#: corrections/forms.py:111
+#: corrections/forms.py:114
 msgid "Top K del modelo (0 - 100)"
 msgstr "Top K of the model (0 - 100)"
 
-#: corrections/forms.py:146
-msgid "El archivo subido no es un archivo ZIP"
-msgstr "Uploaded file is not a ZIP file"
+#: corrections/forms.py:149
+msgid ""
+"El archivo subido no es un archivo con extensión .zip, .rar, .7z o .tar."
+msgstr "The uploaded file is not a .zip, .rar, .7z or .tar file."
 
 #: corrections/signals.py:36
 #, python-format
@@ -305,56 +321,57 @@ msgid "La carpeta no existe o no es un directorio."
 msgstr "The folder does not exist or is not a directory."
 
 #: corrections/templates/corrections/correction_base.html:13
-msgid "Ver Correcciones"
-msgstr "View Corrections"
+msgid "Ver correcciones"
+msgstr "View corrections"
 
 #: corrections/templates/corrections/correction_base.html:18
-msgid "Nueva Corrección"
-msgstr "New Correction"
+#: corrections/templates/corrections/view_correction.html:35
+msgid "Nueva corrección"
+msgstr "New correction"
 
-#: corrections/templates/corrections/new_correction.html:17
+#: corrections/templates/corrections/new_correction.html:18
 msgid "Selecciona un prompt"
 msgstr "Select a prompt"
 
-#: corrections/templates/corrections/new_correction.html:30
+#: corrections/templates/corrections/new_correction.html:32
 msgid "Selecciona una rúbrica"
 msgstr "Select a rubric"
 
-#: corrections/templates/corrections/new_correction.html:36
+#: corrections/templates/corrections/new_correction.html:38
 msgid "Seleccionar"
 msgstr "Select"
 
-#: corrections/templates/corrections/new_correction.html:46
+#: corrections/templates/corrections/new_correction.html:48
 msgid "Selecciona Fichero"
 msgstr "Select File"
 
-#: corrections/templates/corrections/new_correction.html:52
-#: corrections/templates/corrections/view_correction.html:214
+#: corrections/templates/corrections/new_correction.html:57
+#: corrections/templates/corrections/view_correction.html:240
 msgid "Modelo"
 msgstr "Model"
 
-#: corrections/templates/corrections/new_correction.html:54
+#: corrections/templates/corrections/new_correction.html:64
 msgid "Configuración del modelo"
 msgstr "Model Configuration"
 
-#: corrections/templates/corrections/new_correction.html:83
+#: corrections/templates/corrections/new_correction.html:93
 msgid "Formato salida"
 msgstr "Output format"
 
-#: corrections/templates/corrections/new_correction.html:97
+#: corrections/templates/corrections/new_correction.html:107
 msgid "Guardar configuracion"
 msgstr "Save configuration"
 
-#: corrections/templates/corrections/new_correction.html:103
+#: corrections/templates/corrections/new_correction.html:113
 msgid "Prompt Seleccionado"
 msgstr "Promp Selected"
 
-#: corrections/templates/corrections/new_correction.html:107
-#: corrections/templates/corrections/new_correction.html:115
+#: corrections/templates/corrections/new_correction.html:117
+#: corrections/templates/corrections/new_correction.html:125
 msgid "Ninguna"
 msgstr "None"
 
-#: corrections/templates/corrections/new_correction.html:111
+#: corrections/templates/corrections/new_correction.html:121
 msgid "Rubrica Seleccionada"
 msgstr "Rubric Selected"
 
@@ -369,10 +386,6 @@ msgstr "Search"
 #: rubrics/templates/rubrics/mis_rubricas.html:55
 msgid "Buscar..."
 msgstr "Search..."
-
-#: corrections/templates/corrections/view_correction.html:35
-msgid "Nueva corrección"
-msgstr "New Correction"
 
 #: corrections/templates/corrections/view_correction.html:49
 msgid "Descripción de la correccción"
@@ -401,85 +414,97 @@ msgid "Resultado última ejecución"
 msgstr "Last Run Result"
 
 #: corrections/templates/corrections/view_correction.html:86
+msgid "Tiempo respuesta"
+msgstr "Response time"
+
+#: corrections/templates/corrections/view_correction.html:87
 msgid "Acción"
 msgstr "Action"
 
-#: corrections/templates/corrections/view_correction.html:103
+#: corrections/templates/corrections/view_correction.html:104
 msgid "Nunca ejecutada"
 msgstr "Never executed"
 
-#: corrections/templates/corrections/view_correction.html:109
+#: corrections/templates/corrections/view_correction.html:110
 msgid "Mostrar configuracion"
 msgstr "Show configuration"
 
-#: corrections/templates/corrections/view_correction.html:114
+#: corrections/templates/corrections/view_correction.html:115
 msgid "Ejecutando..."
 msgstr "Running..."
 
-#: corrections/templates/corrections/view_correction.html:117
+#: corrections/templates/corrections/view_correction.html:118
 msgid "Ejecutar"
 msgstr "Run"
 
-#: corrections/templates/corrections/view_correction.html:124
+#: corrections/templates/corrections/view_correction.html:125
 msgid "Descargar último resultado"
 msgstr "Download last result"
 
-#: corrections/templates/corrections/view_correction.html:127
+#: corrections/templates/corrections/view_correction.html:128
 msgid "Descargar úlimo resultado"
 msgstr "Download last result"
 
-#: corrections/templates/corrections/view_correction.html:132
-#: corrections/templates/corrections/view_correction.html:136
+#: corrections/templates/corrections/view_correction.html:142
+#: corrections/templates/corrections/view_correction.html:151
+msgid "Clonar"
+msgstr "Clone"
+
+#: corrections/templates/corrections/view_correction.html:146
+#: corrections/templates/corrections/view_correction.html:156
+#: prompts/templates/prompts/mis_prompts.html:115
 #: prompts/templates/prompts/show_prompt.html:12
-#: rubrics/templates/rubrics/rubric.html:12
+#: rubrics/templates/rubrics/mis_rubricas.html:117
+#: rubrics/templates/rubrics/rubric.html:10
+#: rubrics/templates/rubrics/rubric.html:19
 msgid "Eliminar"
 msgstr "Delete"
 
-#: corrections/templates/corrections/view_correction.html:147
-#: prompts/templates/prompts/mis_prompts.html:122
-#: rubrics/templates/rubrics/mis_rubricas.html:124
+#: corrections/templates/corrections/view_correction.html:167
+#: prompts/templates/prompts/mis_prompts.html:125
+#: rubrics/templates/rubrics/mis_rubricas.html:127
 msgid "Mostrando"
 msgstr "Showing"
 
-#: corrections/templates/corrections/view_correction.html:151
-#: prompts/templates/prompts/mis_prompts.html:124
-#: rubrics/templates/rubrics/mis_rubricas.html:128
+#: corrections/templates/corrections/view_correction.html:171
+#: prompts/templates/prompts/mis_prompts.html:127
+#: rubrics/templates/rubrics/mis_rubricas.html:131
 msgid "de"
 msgstr "of"
 
-#: corrections/templates/corrections/view_correction.html:159
-#: prompts/templates/prompts/mis_prompts.html:132
-#: rubrics/templates/rubrics/mis_rubricas.html:136
+#: corrections/templates/corrections/view_correction.html:179
+#: prompts/templates/prompts/mis_prompts.html:135
+#: rubrics/templates/rubrics/mis_rubricas.html:139
 msgid "Anterior"
 msgstr "Previous"
 
-#: corrections/templates/corrections/view_correction.html:175
-#: prompts/templates/prompts/mis_prompts.html:148
-#: rubrics/templates/rubrics/mis_rubricas.html:157
+#: corrections/templates/corrections/view_correction.html:195
+#: prompts/templates/prompts/mis_prompts.html:151
+#: rubrics/templates/rubrics/mis_rubricas.html:160
 msgid "Siguiente"
 msgstr "Next"
 
-#: corrections/templates/corrections/view_correction.html:190
+#: corrections/templates/corrections/view_correction.html:210
 msgid "Corrección:"
 msgstr "Correction"
 
-#: corrections/templates/corrections/view_correction.html:198
+#: corrections/templates/corrections/view_correction.html:228
 msgid "Rubrica:"
 msgstr "Rubric"
 
-#: corrections/templates/corrections/view_correction.html:221
+#: corrections/templates/corrections/view_correction.html:247
 msgid "Temperatura:"
 msgstr "Temperature:"
 
-#: corrections/templates/corrections/view_correction.html:239
-msgid "Respuesta:"
-msgstr "Answer:"
+#: corrections/templates/corrections/view_correction.html:265
+msgid "Formato salida:"
+msgstr "Output format:"
 
-#: corrections/templates/corrections/view_correction.html:242
+#: corrections/templates/corrections/view_correction.html:268
 msgid "Texto"
 msgstr "Text"
 
-#: corrections/templates/corrections/view_correction.html:276
+#: corrections/templates/corrections/view_correction.html:302
 msgid ""
 "Si eliminas esta corrección se eliminará la correción realizada y todas las "
 "tareas asociadas ¿Estás seguro?"
@@ -487,29 +512,53 @@ msgstr ""
 "If you delete this correction, the correction performed and all associated "
 "tasks will be deleted. Are you sure?"
 
-#: corrections/templates/corrections/view_correction.html:282
+#: corrections/templates/corrections/view_correction.html:308
+#: prompts/templates/prompts/mis_prompts.html:189
+#: rubrics/templates/rubrics/mis_rubricas.html:198
 msgid "Cancelar"
 msgstr "Cancel"
 
-#: corrections/templates/corrections/view_correction.html:288
+#: corrections/templates/corrections/view_correction.html:314
+#: prompts/templates/prompts/mis_prompts.html:195
+#: rubrics/templates/rubrics/mis_rubricas.html:204
 msgid "Sí, eliminar"
 msgstr "Yes, delete"
 
-#: corrections/views.py:92 corrections/views.py:116 corrections/views.py:155
+#: corrections/views.py:117
+msgid "Corrección en proceso. Revisa el resultado más tarde."
+msgstr "Correction in progress. Check the result later."
+
+#: corrections/views.py:121 corrections/views.py:145 corrections/views.py:187
+#: corrections/views.py:396
 msgid "Corrección no encontrada."
 msgstr "Correction not found."
 
-#: corrections/views.py:125
+#: corrections/views.py:154
 msgid "El archivo no existe."
 msgstr "The file does not exist."
 
-#: corrections/views.py:217
-msgid "Correción creada correctamente"
+#: corrections/views.py:184
+#, fuzzy, python-format
+#| msgid "Correción creada correctamente"
+msgid "Corrección: %s, eliminada correctamente."
 msgstr "Correction sucessfully created"
 
-#: corrections/views.py:221
+#: corrections/views.py:261
+msgid "Corrección creada correctamente"
+msgstr "Correction sucessfully created"
+
+#: corrections/views.py:265
 msgid "Error al crear correción"
 msgstr "Error when creating correction"
+
+#: corrections/views.py:393
+#, python-format
+msgid ""
+"Datos clonados de la corrección: %s. Puedes editarlos antes de crear una "
+"nueva corrección. Debes incluir un archivo comprimido con las tareas"
+msgstr ""
+"Cloned data from correction: %s. You can edit it before creating a new "
+"correction. You must include a compressed file with the tasks"
 
 #: prompts/forms.py:20
 msgid "nombre"
@@ -525,9 +574,8 @@ msgid "Nuevo prompt"
 msgstr "New prompt"
 
 #: prompts/templates/prompts/mis_prompts.html:31
-#: rubrics/templates/rubrics/mis_rubricas.html:32
-msgid "Importar"
-msgstr "Import"
+msgid "Guardar"
+msgstr "Save"
 
 #: prompts/templates/prompts/mis_prompts.html:65
 msgid "Nuevo Prompt"
@@ -542,23 +590,32 @@ msgstr "Prompt name"
 msgid "Mostrar"
 msgstr "Show"
 
+#: prompts/templates/prompts/mis_prompts.html:183
+msgid ""
+"Si eliminas este prompt se eliminarán las correciónes realizadas con el "
+"mismo y todas las tareas asociadas ¿Estás seguro?"
+msgstr ""
+"If you delete this prompt, all corrections made with it and all associated "
+"tasks will be deleted. Are you sure?"
+
 #: prompts/templates/prompts/show_prompt.html:8
-#: rubrics/templates/rubrics/rubric.html:8
+#: rubrics/templates/rubrics/rubric.html:6
+#: rubrics/templates/rubrics/rubric.html:15
 msgid "Volver"
 msgstr "Back"
 
 #: prompts/templates/prompts/show_prompt.html:28
-#: rubrics/templates/rubrics/rubric.html:28
+#: rubrics/templates/rubrics/rubric.html:35
 msgid "Esta acción no puede deshacerse, ¿Estás seguro?"
 msgstr "This action cannot be undone, are you sure?"
 
 #: prompts/templates/prompts/show_prompt.html:30
-#: rubrics/templates/rubrics/rubric.html:30
+#: rubrics/templates/rubrics/rubric.html:37
 msgid "Si, eliminar"
 msgstr "Yes, delete"
 
 #: prompts/templates/prompts/show_prompt.html:32
-#: rubrics/templates/rubrics/rubric.html:32
+#: rubrics/templates/rubrics/rubric.html:39
 msgid "No, cancelar"
 msgstr "No, cancel"
 
@@ -566,15 +623,15 @@ msgstr "No, cancel"
 msgid "Prompt creado correctamente"
 msgstr "Prompt sucessfully created"
 
-#: prompts/views.py:87
+#: prompts/views.py:90
 msgid "Error al guardar el prompt: Prompt ya existente"
 msgstr "Error saving prompt: Prompt already exists."
 
-#: prompts/views.py:120
+#: prompts/views.py:123
 msgid "Prompt no encontrado"
 msgstr "Prompt not found"
 
-#: prompts/views.py:143
+#: prompts/views.py:146
 msgid "Prompt eliminado correctamente"
 msgstr "Prompt successfully removed"
 
@@ -602,6 +659,10 @@ msgstr "New rubric"
 msgid "Nueva rúbrica"
 msgstr "New Rubric"
 
+#: rubrics/templates/rubrics/mis_rubricas.html:32
+msgid "Importar"
+msgstr "Import"
+
 #: rubrics/templates/rubrics/mis_rubricas.html:65
 msgid "Nueva Rubrica"
 msgstr "New Rubric"
@@ -610,19 +671,26 @@ msgstr "New Rubric"
 msgid "Nombre de la Rúbrica"
 msgstr "Name of the rubric"
 
+#: rubrics/templates/rubrics/mis_rubricas.html:192
+msgid ""
+"Si eliminas esta rúbrica se eliminarán las correciónes realizadas con ella y "
+"todas las tareas asociadas a esa corrección ¿Estás seguro?"
+msgstr ""
+"If you delete this rubric, all corrections made with it and all tasks associated with those corrections will be deleted. Are you sure?"
+
 #: rubrics/views.py:70
 msgid "Rúbrica importada correctamente"
 msgstr "Rubric imported correctly"
 
-#: rubrics/views.py:85
+#: rubrics/views.py:89
 msgid "Error al guardar la rúbrica: Rubrica ya existente"
 msgstr "Error when saving the rubric: Existing rubric"
 
-#: rubrics/views.py:131
+#: rubrics/views.py:135
 msgid "Rúbrica no encontrada"
 msgstr "Rubric not found"
 
-#: rubrics/views.py:155
+#: rubrics/views.py:159
 msgid "Rúbrica eliminada correctamente"
 msgstr "Rubric successfully removed"
 
@@ -2210,3 +2278,12 @@ msgstr ""
 #: venv/lib/python3.10/site-packages/python_docs_theme/layout.html:96
 msgid "Menu"
 msgstr ""
+
+#~ msgid "Importa una rúbrica nueva"
+#~ msgstr "Import a new rubric"
+
+#~ msgid "Detalles sobre los LLMs utilizados"
+#~ msgstr "Details about the LLMs used"
+
+#~ msgid "Sube un archivo ZIP con las tareas"
+#~ msgstr "Upload a ZIP file with tasks"

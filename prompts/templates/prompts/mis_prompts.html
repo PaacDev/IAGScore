@@ -4,11 +4,11 @@
     Prompts
 {% endblock title %}
 {% block content %}
-    <section class="bg-white p-6 dark:bg-gray-900">
+    <section class="bg-white p-6">
         <div class="flex flex-col items-center justify-top px-6 py-8 mx-auto lg:py-0">
-            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="w-full bg-white rounded-lg md:mt-0 sm:max-w-md xl:p-0">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+                    <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl"
                         id="title">{% trans "Nuevo prompt" %}</h1>
                     {% if messages %}
                         {% for message in messages %}<div class="{{ message.tags }}">{{ message }}</div>{% endfor %}
@@ -19,16 +19,16 @@
                         <form action="" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="mb-4">
-                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                <label class="block mb-2 text-sm font-medium text-gray-900"
                                        for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
                                 {{ form.name }}
                             </div>
                             <div class="mb-4">
-                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                <label class="block mb-2 text-sm font-medium text-gray-900"
                                        for="{{ form.prompt.id_for_label }}">Prompt</label>
                                 {{ form.prompt }}
                             </div>
-                            <button type="submit" class="btn-custom-full">{% trans "Importar" %}</button>
+                            <button type="submit" class="btn-custom-full">{% trans "Guardar" %}</button>
                         </form>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
         <!-- Tabla + Header -->
          
             <!-- Header Prompts -->
-            <div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
+            <div class="relative bg-white shadow-md sm:rounded-lg">
               <div class="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4">
                 <div class="w-full md:w-1/2">
 
@@ -58,7 +58,7 @@
 
                 </div>
                 <div class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
-                  <button type="button" class="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                  <button type="button" onclick="showSection('new')" class="flex items-center btn-custom">
                     <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                     </svg>
@@ -111,6 +111,9 @@
                         <td class="px-6 py-4">
                             <a href="{% url 'show_prompt' prompt.id %}"
                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{% trans "Mostrar" %}</a>
+                            <button onclick="openDeleteModal('{{ prompt.id }}', 'prompts')" class="text-red-600 pl-3 hover:underline">
+                            {% trans "Eliminar" %}
+                            </button>
                         </td>
                     </tr>
                 {% endfor %}
@@ -118,17 +121,17 @@
         </table>
         <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
              aria-label="Table navigation">
-            <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+            <span class="text-sm font-normal text-gray-500 mb-4 md:mb-0 block w-full md:inline md:w-auto">
                 {% trans "Mostrando" %}
-                <span class="font-semibold text-gray-900 dark:text-white">{{ page_obj.start_index }} - {{ page_obj.end_index }}</span>
+                <span class="font-semibold text-gray-900">{{ page_obj.start_index }} - {{ page_obj.end_index }}</span>
                 {% trans "de" %}
-                <span class="font-semibold text-gray-900 dark:text-white">{{ page_obj.paginator.count }}</span>
+                <span class="font-semibold text-gray-900">{{ page_obj.paginator.count }}</span>
             </span>
             <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
                 {% if page_obj.has_previous %}
                     <li>
                         <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}&sort={{ sort }}&dir={{ dir }}"
-                           class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                           class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">
                            {% trans  "Anterior" %}
                         </a>
                     </li>
@@ -136,7 +139,7 @@
                 {% for page_num in page_obj.paginator.page_range %}
                     <li>
                         <a href="?page={{ page_num }}{% if query %}&q={{ query }}{% endif %}&sort={{ sort }}&dir={{ dir }}"
-                           class="flex items-center justify-center px-3 h-8 leading-tight {% if page_obj.number == page_num %} text-blue-600 border border-gray-300 bg-blue-50 dark:border-gray-700 dark:bg-gray-700 dark:text-white {% else %} text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white {% endif %}">
+                           class="flex items-center justify-center px-3 h-8 leading-tight {% if page_obj.number == page_num %} text-blue-600 border border-gray-300 bg-blue-50 {% else %} text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 {% endif %}">
                             {{ page_num }}
                         </a>
                     </li>
@@ -144,7 +147,7 @@
                 {% if page_obj.has_next %}
                     <li>
                         <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}&sort={{ sort }}&dir={{ dir }}"
-                           class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                           class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700">
                             {% trans "Siguiente" %}
                         </a>
                     </li>
@@ -152,7 +155,50 @@
             </ul>
         </nav>
     </div>
-    </section>
-    {% load static %}
+</section>
+<!-- Modal  -->
+<div id="deleteModal"
+         tabindex="-1"
+         aria-hidden="true"
+         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+        <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+            <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                <button type="button"
+                    class="absolute top-2.5 right-2.5 text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                    onclick="document.getElementById('deleteModal').classList.add('hidden')">
+                    <svg class="w-5 h-5"
+                         fill="currentColor"
+                         viewBox="0 0 20 20"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <svg class="w-11 h-11 mb-3.5 mx-auto text-gray-400 dark:text-gray-500"
+                     fill="currentColor"
+                     viewBox="0 0 20 20"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                </svg>
+                <p class="mb-4 text-gray-500 dark:text-gray-300">
+                    {% trans "Si eliminas este prompt se eliminarán las correciónes realizadas con el mismo y todas las tareas asociadas ¿Estás seguro?" %}
+                </p>
+                <div class="flex justify-center items-center space-x-4">
+                    <button type="button"
+                        onclick="document.getElementById('deleteModal').classList.add('hidden')"
+                        class="py-2 px-3 text-sm font-medium text-gray-500 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">
+                        {% trans "Cancelar" %}
+                    </button>
+                    <form method="post" id="deleteForm" action="#">
+                        {% csrf_token %}
+                        <button type="submit"
+                                class="py-2 px-3 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">
+                            {% trans "Sí, eliminar" %}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% load static %}
     <script src="{% static 'js/scripts.js' %}"></script>
 {% endblock content %}

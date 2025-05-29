@@ -262,7 +262,7 @@ class RubricViewTestCase(TestCase):
         """
         Test the delete rubric view
         """
-        response = self.client.get(reverse("delete_rubric", args=[self.rubric.id]))
+        response = self.client.post(reverse("delete_rubric", args=[self.rubric.id]))
         messages_list = list(messages.get_messages(response.wsgi_request))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(str(messages_list[0]), "Rúbrica eliminada correctamente")

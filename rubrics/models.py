@@ -1,4 +1,5 @@
-""" Model definition for Rubric. """
+"""Model definition for Rubric."""
+
 from django.db import models
 from django.contrib.auth import get_user_model
 import markdown
@@ -21,6 +22,7 @@ class Rubric(models.Model):
         """
         Meta class for Rubric model.
         """
+
         # Define the unique constraint for the name and user fields
         # This ensures that a user cannot have two rubrics with the same name
         constraints = [
@@ -32,10 +34,10 @@ class Rubric(models.Model):
     def __str__(self):
         """
         Overrides the string representation of the Rubric model.
-        
+
         Parameters:
             self (Rubric): The Rubric instance.
-            
+
         Returns:
             str: The name of the rubric.
         """

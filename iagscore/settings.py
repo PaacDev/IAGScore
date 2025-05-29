@@ -71,7 +71,7 @@ TEMPLATES = [
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
-                'django.template.context_processors.i18n',
+                "django.template.context_processors.i18n",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
@@ -93,7 +93,7 @@ DATABASES = {
         "NAME": config("DB_NAME", default="iagscore"),
         "USER": config("DB_USER", default="dj_user"),
         "PASSWORD": config("DB_PASSWORD"),
-        "HOST": config("DB_HOST"), 
+        "HOST": config("DB_HOST"),
         "PORT": config("DB_PORT", default="5432"),
     }
 }
@@ -138,12 +138,12 @@ USE_I18N = True
 USE_TZ = True
 
 LANGUAGES = [
-    ('es', 'Español'),
-    ('en', 'English'),
+    ("es", "Español"),
+    ("en", "English"),
 ]
 
 LOCALE_PATHS = [
-    BASE_DIR / 'locale',
+    BASE_DIR / "locale",
 ]
 
 # Static files (CSS, JavaScript, Images)
@@ -174,10 +174,10 @@ LOGOUT_REDIRECT_URL = "/"
 # https://docs.celeryproject.org/en/stable/django/first-steps-with-django.html
 
 # No Docker
-#CELERY_BROKER_URL = "redis://localhost:6379/0"
+# CELERY_BROKER_URL = "redis://localhost:6379/0"
 
 # Docker
-#CELERY_BROKER_URL = 'redis://redis:6379/0'
+# CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_BROKER_URL = config("CELERY_BROKER_URL")
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"

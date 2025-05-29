@@ -1,4 +1,5 @@
-""" Form for registering a Prompt. """
+"""Form for registering a Prompt."""
+
 from django.utils.translation import gettext_lazy as _
 from django import forms
 from django.forms import ModelForm
@@ -37,9 +38,10 @@ class PromptForm(ModelForm):
         widget=forms.Textarea(
             attrs={
                 "id": "prompt",
-                "class": "input-custom",
+                "class": "input-custom resize w-auto max-w-full",
                 "rows": 4,
                 "placeholder": _("Escribe tu prompt aquí..."),
+                "style": "resize: both !important; width: auto !important; max-width: none !important; min-width: 100%;",
             }
         ),
         required=True,

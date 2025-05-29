@@ -1,4 +1,5 @@
-""" Django form for handling user registration. """
+"""Django form for handling user registration."""
+
 from django.utils.translation import gettext_lazy as _
 from django import forms
 from .models import CustomUser
@@ -22,7 +23,7 @@ class RegisterForm(forms.ModelForm):
             "password": _("Contraseña"),
         }
 
-    #Specific style attributes for fields
+    # Specific style attributes for fields
 
     email = forms.EmailField(
         label=_("Correo electrónico"),
@@ -61,11 +62,11 @@ class RegisterForm(forms.ModelForm):
     def save(self, commit=True):
         """
         Override the save method to set the username and email fields
-        
+
         Parameters:
             commit (bool): If True, save the user instance to the database.
             self (RegisterForm): The form instance.
-            
+
         Returns:
             user (CustomUser): The saved user instance.
         """

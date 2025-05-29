@@ -1,4 +1,4 @@
-""" Tests for the core app. """
+"""Tests for the core app."""
 
 from django.test import TestCase
 from django.urls import reverse
@@ -29,7 +29,9 @@ class LoginTests(TestCase):
         """
         lang = settings.LANGUAGE_CODE
         response = self.client.post(
-            f"/{lang}/",{"username": self.user.email, "password": "testpass123"}, follow=False
+            f"/{lang}/",
+            {"username": self.user.email, "password": "testpass123"},
+            follow=False,
         )
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, f"/{settings.LANGUAGE_CODE}/home/")
@@ -45,7 +47,9 @@ class LoginTests(TestCase):
         """
         lang = settings.LANGUAGE_CODE
         response = self.client.post(
-            f"/{lang}/", {"username": "testuser@mail.com", "password": "wrongpass"}, follow=False
+            f"/{lang}/",
+            {"username": "testuser@mail.com", "password": "wrongpass"},
+            follow=False,
         )
         self.assertEqual(response.status_code, 200)
         self.assertFalse(response.wsgi_request.user.is_authenticated)
@@ -66,7 +70,9 @@ class LoginTests(TestCase):
         """
         lang = settings.LANGUAGE_CODE
         response = self.client.post(
-            f"/{lang}/",{"username": self.user.email, "password": "testpass123"}, follow=False
+            f"/{lang}/",
+            {"username": self.user.email, "password": "testpass123"},
+            follow=False,
         )
 
         self.assertEqual(response.status_code, 302)
@@ -75,6 +81,7 @@ class LoginTests(TestCase):
         self.client.logout()
         new_response = self.client.get(reverse("home"))
         self.assertFalse(new_response.wsgi_request.user.is_authenticated)
+
 
 class HomeTests(TestCase):
     """
@@ -96,7 +103,9 @@ class HomeTests(TestCase):
         """
         lang = settings.LANGUAGE_CODE
         response = self.client.post(
-            f"/{lang}/",{"username": self.user.email, "password": "testpass123"}, follow=False
+            f"/{lang}/",
+            {"username": self.user.email, "password": "testpass123"},
+            follow=False,
         )
 
         self.assertEqual(response.status_code, 302)
@@ -126,6 +135,7 @@ class TermAndPrivTest(TestCase):
         response = self.client.get(reverse("terminos"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "core/terminos.html")
+
 
 class LLMViewsTest(TestCase):
     """

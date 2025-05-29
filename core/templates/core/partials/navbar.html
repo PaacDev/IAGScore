@@ -10,7 +10,7 @@
       <button type="button" class="btn-custom" onclick="location.href='{% url 'logout' %}'">Logout</button>
       <form action="{% url 'set_language' %}" method="post">
       {% csrf_token %}
-      <select name="language" onchange="this.form.submit()" class="bg-gray-100 dark:bg-gray-800 text-sm rounded border border-gray-300 dark:border-gray-600 p-1">
+      <select name="language" onchange="this.form.submit()" class="bg-gray-100 dark:bg-gray-800 text-sm rounded border border-gray-300 dark:border-gray-600 dark:text-white p-1">
           <option value="es" {% if LANGUAGE_CODE == 'es' %}selected{% endif %}>ES</option>
           <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>EN</option>
       </select>

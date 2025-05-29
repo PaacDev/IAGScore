@@ -53,7 +53,7 @@ Copia el archivo de ejemplo:
 
 **Linux y MacOs**
 ```bash
-cp .env.example .env
+cp env.example .env
 ```
 **Windows**
 ```powershell

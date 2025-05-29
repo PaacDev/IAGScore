@@ -253,6 +253,9 @@ class CorrectionFormTestCase(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_valid_form_default_fields(self):
+        """
+        Test a valid CorrectionForm with default fields
+        """
         data = {
             "rubric": self.rubric,
             "prompt": self.prompt,
@@ -266,7 +269,7 @@ class CorrectionFormTestCase(TestCase):
         correction = form.save(commit=False)
         correction.user = self.user
         correction.save()
-        
+
         self.assertTrue(correction.model_temp, 0.8)
         self.assertTrue(correction.model_top_p, 0.9)
         self.assertTrue(correction.model_top_k, 40)
@@ -416,7 +419,7 @@ class CorrectionsViewsTestCase(TransactionTestCase):
             follow=True,
         )
 
-        self.assertContains(response, "Correción creada correctamente")
+        self.assertContains(response, "Corrección creada correctamente")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "corrections/view_correction.html")
 
@@ -544,20 +547,19 @@ class CorrectionsViewsTestCase(TransactionTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "text/plain")
-        self.assertEqual(response["Content-Disposition"], 'attachment; filename="response.txt"')
+        self.assertEqual(
+            response["Content-Disposition"], 'attachment; filename="response.txt"'
+        )
 
     def test_run_model_error(self):
         """
         Test tdownload the response
         """
 
-        response = self.client.get(
-            reverse("run_model", kwargs={"correction_id": 1001})
-        )
+        response = self.client.get(reverse("run_model", kwargs={"correction_id": 1001}))
 
         self.assertEqual(response.status_code, 404)
-        
-    
+
     @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
     @patch("corrections.tasks.Correction.objects.get")
     def test_start_llm_evaluation_correction_does_not_exist(self, mock_get):
@@ -567,8 +569,9 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         mock_get.side_effect = Correction.DoesNotExist
         with self.assertRaises(Correction.DoesNotExist):
             from corrections.tasks import start_llm_evaluation
+
             start_llm_evaluation(correction_id=9999)
-        
+
     @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
     @patch("corrections.tasks.OllamaLLM")
     def test_start_llm_evaluation_generic_exception(self, mock_ollama_class):
@@ -603,7 +606,6 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         correction.refresh_from_db()
         self.assertFalse(correction.running)
 
-        
     def test_download_response_error(self):
         """
         Test the download response error
@@ -622,19 +624,22 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         response = self.client.get(
             reverse("download_response", kwargs={"correction_id": 1001})
         )
-        
+
         self.assertEqual(response.status_code, 404)
         correction = Correction.objects.get(description="test_correction")
         response = self.client.get(
             reverse("download_response", kwargs={"correction_id": correction.id})
         )
         self.assertEqual(response.status_code, 404)
-   
+
     @patch("os.listdir", side_effect=FileNotFoundError)
     def test_set_tasks_dict_folder_not_found(self, mock_listdir):
+        """
+        Test set_tasks_dict when the folder does not exist
+        """
         result = set_tasks_dict("nonexistent_folder")
         self.assertEqual(result, {})
-    
+
     @patch("os.listdir", side_effect=PermissionError)
     def test_set_tasks_dict_permission_denied(self, mock_listdir):
         result = set_tasks_dict("restricted_folder")
@@ -681,9 +686,9 @@ class CorrectionsViewsTestCase(TransactionTestCase):
             description="With date",
             llm_model="Modelo",
             folder_path="/media/folder/",
-            last_ejecution_date=timezone.now()
+            last_ejecution_date=timezone.now(),
         )
-        
+
         Correction.objects.create(
             prompt=self.prompt,
             rubric=self.rubric,
@@ -691,10 +696,12 @@ class CorrectionsViewsTestCase(TransactionTestCase):
             description="Without date",
             llm_model="Modelo",
             folder_path="/media/folder/",
-            last_ejecution_date=None
+            last_ejecution_date=None,
         )
 
-        response = self.client.get(reverse("show_view_correction") + "?sort=last_ejecution_date")
+        response = self.client.get(
+            reverse("show_view_correction") + "?sort=last_ejecution_date"
+        )
 
         # Comprobaciones
         content = response.content.decode()

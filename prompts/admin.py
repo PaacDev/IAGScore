@@ -1,4 +1,5 @@
-""" Register the prompt model with the Django admin site. """
+"""Register the prompt model with the Django admin site."""
+
 from django.contrib import admin
 from .models import Prompt
 
@@ -8,6 +9,7 @@ class PromptAdmin(admin.ModelAdmin):
     """
     Register the Prompt model to the admin panel.
     """
+
     # Fields to display in the list view.
     list_display = ("name", "user", "prompt_preview")
     # Fields to filter the list view.
@@ -21,7 +23,7 @@ class PromptAdmin(admin.ModelAdmin):
     def prompt_preview(self, obj):
         """
         Preview of the prompt content (first 50 characters).
-        
+
         Parameters:
             obj (Prompt): The Promp object to preview.
             self (PromptAdmin): The PromptAdmin instance.
