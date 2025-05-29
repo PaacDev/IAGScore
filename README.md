@@ -80,9 +80,10 @@ docker compose up
 ```
 
 ### 5. Pull Modelo Llama3.1
-Levantado el proyecto, se debe de hacer Pull del modelo en la primera ejecución.
 
-En otra terminal, en la raiz del proyecto, IAGScore
+Una vez levantado el proyecto, es necesario hacer **pull del modelo** que se desea usar en la primera ejecución.
+
+Por ejemplo, para descargar el modelo `llama3.1`, ejecuta en otra terminal desde la raíz del proyecto (`IAGScore`):
 
 ```bash
 docker compose exec ollama ollama pull llama3.1
@@ -90,10 +91,52 @@ docker compose exec ollama ollama pull llama3.1
 *(Este paso únicamente es necesario hacerlo en la primera ejecución ya que
 una vez hecho el pull, el modelo permanece en Ollama.
 )*
+
+#### Recursos del sistema y configuración
+
+El modelo `llama3.1` requiere una cantidad significativa de recursos (RAM, CPU y posiblemente GPU).
+
+Asegúrate de que Docker Desktop tenga suficiente memoria y CPU asignados:
+
+- Ve a **Docker Desktop > Settings > Resources**.
+- Se recomienda asignar al menos **8–12 GB de RAM** y **4 CPUs** para un rendimiento adecuado.
+
+---
+
+#### Otros modelos disponibles
+
+Puedes hacer **pull de cualquier otro modelo** soportado por Ollama.
+
+```bash
+docker compose exec ollama ollama pull <nombre-del-modelo>
+```
+
+Por ejemplo:
+
+```bash
+docker compose exec ollama ollama pull mistral
+```
+
+#### Modelos cargados
+
+Puedes consultar tus modelos cargados en Ollama
+
+```bash
+docker compose exec ollama ollama list
+```
+
+#### Eliminar modelos
+
+Puedes eliminar un modelo cargado en Ollama ejecutando el siguiente comando
+
+```bash
+docker compose exec ollama ollama rm <nombre-del-modelo>
+```
+
 ## Configuración opcional
 
 ### 6. Crea superusuario Django
-Opcionalmente se puede crear un superusuario para poder acceder al panel de administracion de Django
+Opcionalmente se puede crear un superusuario para poder acceder al panel de administración de Django
 
 ```bash
 docker compose exec web python3 manage.py createsuperuser
