@@ -354,7 +354,7 @@ def show_view_correction(request):
         request,
         "corrections/view_correction.html",
         {
-            "corrections": corrections_obj,
+            "page_obj": corrections_obj,
             "query": query,
             "sort": sort_field,
             "dir": sort_dir,
@@ -377,9 +377,7 @@ def corrections(request):
     return render(request, "corrections/correction_base.html")
 
 
-login_required
-
-
+@login_required
 @require_GET
 def correction_clone(request, item_id):
     """
