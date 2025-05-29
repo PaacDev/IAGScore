@@ -547,8 +547,9 @@ class CorrectionsViewsTestCase(TransactionTestCase):
 
     @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
     @patch("corrections.views.ollama.list")
+    @patch("corrections.tasks.ollama.list")
     @patch("corrections.tasks.OllamaLLM")
-    def test_run_model_and_download(self, mock_ollama_class, mock_ollama_list):
+    def test_run_model_and_download(self, mock_ollama_class, mock_ollama_list_task , mock_ollama_list_view):
         """
         Test tdownload the response
         """
@@ -557,7 +558,13 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         mock_ollama_class.return_value = mock_llm_instance
         
         # Mocking the Ollama list to simulate list of models
-        mock_ollama_list.return_value = {
+        mock_ollama_list_task.return_value = {
+            "models": [
+                {"model": "llama3"},
+                {"model": "mistral"},
+            ]
+        }
+        mock_ollama_list_view.return_value = {
             "models": [
                 {"model": "llama3"},
                 {"model": "mistral"},
@@ -626,9 +633,9 @@ class CorrectionsViewsTestCase(TransactionTestCase):
             start_llm_evaluation(correction_id=9999)
 
     @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
-    @patch("corrections.views.ollama.list")
     @patch("corrections.tasks.OllamaLLM")
-    def test_start_llm_evaluation_generic_exception(self, mock_ollama_class, mock_ollama_list):
+    @patch("corrections.views.ollama.list")
+    def test_start_llm_evaluation_generic_exception(self, mock_ollama_list,mock_ollama_class):
         """
         Simula una excepción genérica al ejecutar el modelo.
         """
