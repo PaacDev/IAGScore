@@ -120,7 +120,10 @@
             <div class="p-5 border border-gray-200">
                 <h3 class=" p-2 text-3xl font-bold">{% trans "Rubrica Seleccionada" %}</h3>
                 {% if rubric_select %}
+                    <div class="rubric-style">
+                    {% include "core/partials/rubric_style.html" %}
                     {{ rubric_select.get_html_content|safe }}
+                    </div>
                 {% else %}
                    {% trans "Ninguna" %}
                 {% endif %}

@@ -55,27 +55,5 @@ class Rubric(models.Model):
         """
 
         html_content = markdown.markdown(self.content, extensions=["tables"])
-
-        # Add styling to the HTML content
-        styled_html = f"""
-        <div class="rubric-style">
-            <style>
-                .rubric-style table {{
-                    border-collapse: collapse;
-                    width: 100%;
-                }}
-                .rubric-style td, .rubric-style th {{
-                    border: 1px solid black;
-                    padding: 8px;
-                    text-align: center;
-                }}
-                .rubric-style h1 {{
-                    color: #333;
-                    font-size: 2em;
-                    font-family: Arial, sans-serif;
-                }}
-            </style>
-            {html_content}
-        </div>
-        """
-        return styled_html
+        
+        return html_content

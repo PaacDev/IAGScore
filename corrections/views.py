@@ -106,6 +106,21 @@ def run_model(request, correction_id):
         correction_obj.running = True
         correction_obj.save()
 
+        models = ollama.list()
+        model_names = [model["model"] for model in models["models"]]
+
+        if correction_obj.llm_model not in model_names:
+            correction_obj.running = False
+            correction_obj.save()
+            messages.add_message(
+                request,
+                messages.ERROR,
+                _(
+                    "El modelo seleccionado para esta corrección no está cargado en Ollama."
+                ),
+            )
+            return redirect("show_view_correction")
+
         # Initiate the task asynchronously
         start_llm_evaluation.delay(correction_id)
 
@@ -114,6 +129,7 @@ def run_model(request, correction_id):
             messages.SUCCESS,
             _("Corrección en proceso. Revisa el resultado más tarde."),
         )
+
     except Correction.DoesNotExist as exc:
         logger.error("Error: Correction with id %s does not exist", correction_id)
         raise Http404(_("Corrección no encontrada.")) from exc
@@ -362,6 +378,8 @@ def corrections(request):
 
 
 login_required
+
+
 @require_GET
 def correction_clone(request, item_id):
     """

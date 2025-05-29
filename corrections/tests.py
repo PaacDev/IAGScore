@@ -407,7 +407,7 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         response = self.client.get(reverse("show_new_correction"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "corrections/new_correction.html")
-        
+
     @patch("corrections.views.ollama.list")
     def test_show_new_correction_view_post(self, mock_ollama_list):
         """
@@ -438,7 +438,9 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         self.assertTemplateUsed(response, "corrections/view_correction.html")
 
     @patch("corrections.views.ollama.list")
-    def test_show_new_correction_view_get_with_rubric_and_prompt(self, mock_ollama_list):
+    def test_show_new_correction_view_get_with_rubric_and_prompt(
+        self, mock_ollama_list
+    ):
         """
         Test the new correction view with valid rubric_id and prompt_id
         """
@@ -463,6 +465,7 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         self.assertQuerySetEqual(
             response.context["prompt_list"], Prompt.objects.filter(user=self.user)
         )
+
     @patch("corrections.views.ollama.list")
     def test_show_new_correction_view_post_invalid(self, mock_ollama_list):
         """
@@ -496,7 +499,7 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         """
         Test the new correction view
         """
-        
+
         # Mocking the Ollama list to simulate list of models
         mock_ollama_list.return_value = {
             "models": [
@@ -549,14 +552,16 @@ class CorrectionsViewsTestCase(TransactionTestCase):
     @patch("corrections.views.ollama.list")
     @patch("corrections.tasks.ollama.list")
     @patch("corrections.tasks.OllamaLLM")
-    def test_run_model_and_download(self, mock_ollama_class, mock_ollama_list_task , mock_ollama_list_view):
+    def test_run_model_and_download(
+        self, mock_ollama_class, mock_ollama_list_task, mock_ollama_list_view
+    ):
         """
         Test tdownload the response
         """
         mock_llm_instance = MagicMock()
         mock_llm_instance.invoke.return_value = "simulate model response"
         mock_ollama_class.return_value = mock_llm_instance
-        
+
         # Mocking the Ollama list to simulate list of models
         mock_ollama_list_task.return_value = {
             "models": [
@@ -635,7 +640,9 @@ class CorrectionsViewsTestCase(TransactionTestCase):
     @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
     @patch("corrections.tasks.OllamaLLM")
     @patch("corrections.views.ollama.list")
-    def test_start_llm_evaluation_generic_exception(self, mock_ollama_list,mock_ollama_class):
+    def test_start_llm_evaluation_generic_exception(
+        self, mock_ollama_list, mock_ollama_class
+    ):
         """
         Simula una excepción genérica al ejecutar el modelo.
         """

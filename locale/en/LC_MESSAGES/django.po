@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-29 17:24+0200\n"
+"POT-Creation-Date: 2025-05-29 22:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,16 +18,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: accounts/forms.py:20 accounts/forms.py:39 accounts/forms.py:44
-#: prompts/forms.py:25 rubrics/forms.py:21 rubrics/forms.py:38
+#: accounts/forms.py:21 accounts/forms.py:40 accounts/forms.py:45
+#: prompts/forms.py:26 rubrics/forms.py:21 rubrics/forms.py:38
 msgid "Nombre"
 msgstr "Name"
 
-#: accounts/forms.py:21 accounts/forms.py:28
+#: accounts/forms.py:22 accounts/forms.py:29
 msgid "Correo electrónico"
 msgstr "Email"
 
-#: accounts/forms.py:22 accounts/forms.py:51 core/templates/core/login.html:39
+#: accounts/forms.py:23 accounts/forms.py:52 core/templates/core/login.html:39
 msgid "Contraseña"
 msgstr "Password"
 
@@ -56,7 +56,7 @@ msgstr "Already have an account?"
 msgid "Entrar con mi cuenta"
 msgstr "Login with my account"
 
-#: accounts/views.py:51
+#: accounts/views.py:52
 msgid "Usuario creado correctamente"
 msgstr "User created successfully"
 
@@ -70,7 +70,8 @@ msgstr ""
 
 #: core/templates/core/home.html:28
 msgid "Entra aquí para crear un nuevo prompt o consultar los prompts creaddos."
-msgstr "Enter here to create a new prompt or consult the prompts already created."
+msgstr ""
+"Enter here to create a new prompt or consult the prompts already created."
 
 #: core/templates/core/home.html:39
 #: rubrics/templates/rubrics/mis_rubricas.html:3
@@ -242,81 +243,81 @@ msgstr "Rubrics"
 msgid "Documentación"
 msgstr "Documentation"
 
-#: core/views.py:51
+#: core/views.py:49
 msgid "Usuario o contraseña incorrectos"
 msgstr "Incorrect login or password"
 
-#: corrections/forms.py:21
+#: corrections/forms.py:31
 msgid "Descripción"
 msgstr "Description"
 
-#: corrections/forms.py:22
+#: corrections/forms.py:32
 msgid "Modelo usado"
 msgstr "Used model"
 
-#: corrections/forms.py:23
+#: corrections/forms.py:33
 #: corrections/templates/corrections/new_correction.html:26
 msgid "Rúbrica"
 msgstr "Rubric"
 
-#: corrections/forms.py:24
+#: corrections/forms.py:34
 msgid "Prompt"
 msgstr "Prompt"
 
-#: corrections/forms.py:25 corrections/forms.py:70
+#: corrections/forms.py:35 corrections/forms.py:80
 #: corrections/templates/corrections/new_correction.html:68
 msgid "Temperatura"
 msgstr "Temperature"
 
-#: corrections/forms.py:28 corrections/forms.py:118
+#: corrections/forms.py:38 corrections/forms.py:128
 msgid "Formato de salida"
 msgstr "Output format"
 
-#: corrections/forms.py:34
+#: corrections/forms.py:44
 #: corrections/templates/corrections/new_correction.html:54
 msgid "Descripcion"
 msgstr "Description"
 
-#: corrections/forms.py:45
+#: corrections/forms.py:55
 msgid "modelo"
 msgstr "model"
 
-#: corrections/forms.py:57
+#: corrections/forms.py:67
 msgid "Archivo ZIP"
 msgstr "ZIP File"
 
-#: corrections/forms.py:59
+#: corrections/forms.py:69
 msgid "Formatos permitidos: .zip, .rar, .7z o .tar"
 msgstr "Allowed formats: .zip, .rar, .7z or .tar"
 
-#: corrections/forms.py:82
+#: corrections/forms.py:92
 msgid "Temperatura del modelo (0.0 - 1.0)"
 msgstr "Model temperature (0.0 - 1.0)"
 
-#: corrections/forms.py:98
+#: corrections/forms.py:108
 msgid "Top P del modelo (0.0 - 1.0)"
 msgstr "Top P of the model (0.0 - 1.0)"
 
-#: corrections/forms.py:114
+#: corrections/forms.py:124
 msgid "Top K del modelo (0 - 100)"
 msgstr "Top K of the model (0 - 100)"
 
-#: corrections/forms.py:149
+#: corrections/forms.py:160
 msgid ""
 "El archivo subido no es un archivo con extensión .zip, .rar, .7z o .tar."
 msgstr "The uploaded file is not a .zip, .rar, .7z or .tar file."
 
-#: corrections/signals.py:36
+#: corrections/signals.py:38
 #, python-format
 msgid "Carpeta eliminada: %s"
 msgstr "Deleted folder: %s"
 
-#: corrections/signals.py:38
+#: corrections/signals.py:40
 #, python-format
 msgid "Error al eliminar la carpeta %s: %s"
 msgstr "Error when deleting folder %s: %s"
 
-#: corrections/signals.py:41
+#: corrections/signals.py:43
 msgid "La carpeta no existe o no es un directorio."
 msgstr "The folder does not exist or is not a directory."
 
@@ -524,34 +525,37 @@ msgstr "Cancel"
 msgid "Sí, eliminar"
 msgstr "Yes, delete"
 
-#: corrections/views.py:117
+#: corrections/views.py:119
+msgid "El modelo seleccionado para esta corrección no está cargado en Ollama."
+msgstr "The model selected for this correction is not loaded in Ollama."
+
+#: corrections/views.py:130
 msgid "Corrección en proceso. Revisa el resultado más tarde."
 msgstr "Correction in progress. Check the result later."
 
-#: corrections/views.py:121 corrections/views.py:145 corrections/views.py:187
-#: corrections/views.py:396
+#: corrections/views.py:135 corrections/views.py:160 corrections/views.py:204
+#: corrections/views.py:421
 msgid "Corrección no encontrada."
 msgstr "Correction not found."
 
-#: corrections/views.py:154
+#: corrections/views.py:169
 msgid "El archivo no existe."
 msgstr "The file does not exist."
 
-#: corrections/views.py:184
-#, fuzzy, python-format
-#| msgid "Correción creada correctamente"
+#: corrections/views.py:201
+#, python-format
 msgid "Corrección: %s, eliminada correctamente."
-msgstr "Correction sucessfully created"
+msgstr "Correction: %s, correctly removed."
 
-#: corrections/views.py:261
+#: corrections/views.py:280
 msgid "Corrección creada correctamente"
 msgstr "Correction sucessfully created"
 
-#: corrections/views.py:265
+#: corrections/views.py:284
 msgid "Error al crear correción"
 msgstr "Error when creating correction"
 
-#: corrections/views.py:393
+#: corrections/views.py:416
 #, python-format
 msgid ""
 "Datos clonados de la corrección: %s. Puedes editarlos antes de crear una "
@@ -560,11 +564,11 @@ msgstr ""
 "Cloned data from correction: %s. You can edit it before creating a new "
 "correction. You must include a compressed file with the tasks"
 
-#: prompts/forms.py:20
+#: prompts/forms.py:21
 msgid "nombre"
 msgstr "name"
 
-#: prompts/forms.py:42
+#: prompts/forms.py:43
 msgid "Escribe tu prompt aquí..."
 msgstr "Write your prompt here..."
 
@@ -619,19 +623,19 @@ msgstr "Yes, delete"
 msgid "No, cancelar"
 msgstr "No, cancel"
 
-#: prompts/views.py:71
+#: prompts/views.py:74
 msgid "Prompt creado correctamente"
 msgstr "Prompt sucessfully created"
 
-#: prompts/views.py:90
+#: prompts/views.py:94
 msgid "Error al guardar el prompt: Prompt ya existente"
 msgstr "Error saving prompt: Prompt already exists."
 
-#: prompts/views.py:123
+#: prompts/views.py:134
 msgid "Prompt no encontrado"
 msgstr "Prompt not found"
 
-#: prompts/views.py:146
+#: prompts/views.py:157
 msgid "Prompt eliminado correctamente"
 msgstr "Prompt successfully removed"
 
@@ -643,11 +647,11 @@ msgstr "Markdown file"
 msgid "Sube un archivo Markdown con la rúbrica"
 msgstr "Upload a Markdown file with the rubric"
 
-#: rubrics/forms.py:64
+#: rubrics/forms.py:65
 msgid "El archivo subido no es un archivo Markdown"
 msgstr "Uploaded file is not a Markdown file"
 
-#: rubrics/forms.py:69
+#: rubrics/forms.py:72
 msgid "El archivo debe estar codificado en UTF-8"
 msgstr "The file must be UTF-8 encoded."
 
@@ -676,21 +680,22 @@ msgid ""
 "Si eliminas esta rúbrica se eliminarán las correciónes realizadas con ella y "
 "todas las tareas asociadas a esa corrección ¿Estás seguro?"
 msgstr ""
-"If you delete this rubric, all corrections made with it and all tasks associated with those corrections will be deleted. Are you sure?"
+"If you delete this rubric, all corrections made with it and all tasks "
+"associated with those corrections will be deleted. Are you sure?"
 
-#: rubrics/views.py:70
+#: rubrics/views.py:72
 msgid "Rúbrica importada correctamente"
 msgstr "Rubric imported correctly"
 
-#: rubrics/views.py:89
+#: rubrics/views.py:93
 msgid "Error al guardar la rúbrica: Rubrica ya existente"
 msgstr "Error when saving the rubric: Existing rubric"
 
-#: rubrics/views.py:135
+#: rubrics/views.py:145
 msgid "Rúbrica no encontrada"
 msgstr "Rubric not found"
 
-#: rubrics/views.py:159
+#: rubrics/views.py:169
 msgid "Rúbrica eliminada correctamente"
 msgstr "Rubric successfully removed"
 

@@ -19,6 +19,8 @@ urlpatterns = [
     path("view/", views.show_view_correction, name="show_view_correction"),
     path("delete/<int:item_id>/", views.delete_correction, name="delete_correction"),
     path(
-        "corrections/<int:item_id>/clone/", views.correction_clone, name="correction_clone"
+        "corrections/<int:item_id>/clone/",
+        views.correction_clone,
+        name="correction_clone",
     ),
 ]

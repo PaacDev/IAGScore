@@ -3,6 +3,7 @@
 import os
 import logging
 import ollama
+from django.utils.translation import gettext_lazy as _
 from django.core.files.storage import FileSystemStorage
 from django.core.files.base import ContentFile
 from django.utils import timezone
@@ -35,24 +36,14 @@ def start_llm_evaluation(correction_id):
         correction_obj = Correction.objects.get(id=correction_id)
 
         model = correction_obj.llm_model
-            # Get the list of models pulled from Ollama
-        models = ollama.list()
-        model_names = [model["model"] for model in models["models"]]
-        
-        if model not in model_names:
-            logger.error(
-                "Modelo '%s' no está disponible en Ollama. Descárgalo primero con `ollama pull %s`",
-                model,
-                model,
-            )
-            raise ValueError(f"Modelo '{model}' no está disponible en Ollama. Descárgalo primero con `ollama pull {model}`")
-        
+        # Get the list of models pulled from Ollama
+
         logger.info(
             "Starting evaluation task for correction id: %s with model: %s",
-        correction_id,
-        model,
+            correction_id,
+            model,
         )
-        
+
         base_path = settings.MEDIA_ROOT
         tasks_dict = set_tasks_dict(correction_obj.folder_path)
         logger.info("output format: %s", correction_obj.output_format)
@@ -64,7 +55,7 @@ def start_llm_evaluation(correction_id):
             temperature=correction_obj.model_temp,
             top_p=correction_obj.model_top_p,
             top_k=correction_obj.model_top_k,
-            num_ctx=8192,
+            num_ctx=131072,
         )
 
         # Set the location for storing the response file

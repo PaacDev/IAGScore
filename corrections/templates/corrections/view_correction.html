@@ -229,7 +229,10 @@
                         <details class="text-lg font-semibold cursor-pointer">
                         <summary class="text-blue-700 underline">{{ correction.rubric.name }}</summary>
                         <div class="mt-2">
-                            {{ correction.rubric.get_html_content|safe }}
+                                <div class="rubric-style">
+                                {% include "core/partials/rubric_style.html" %}
+                                {{ correction.rubric.get_html_content|safe }}
+                                </div>
                         </div>
                         </details>
                     </div>
