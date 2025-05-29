@@ -1,4 +1,6 @@
 """Form for registering a Correction."""
+
+from django.utils.translation import gettext_lazy as _
 from django import forms
 from django.forms import ModelForm
 from .models import Correction
@@ -15,22 +17,31 @@ class CorrectionForm(ModelForm):
         """
 
         model = Correction
-        fields = ["description", "llm_model", "rubric", "prompt", "model_temp", "model_top_p", "model_top_k", "output_format"]
+        fields = [
+            "description",
+            "llm_model",
+            "rubric",
+            "prompt",
+            "model_temp",
+            "model_top_p",
+            "model_top_k",
+            "output_format",
+        ]
         labels = {
-            "description": "Descripción",
-            "llm_model": "Modelo usado",
-            "rubric": "Rúbrica",
-            "prompt": "Prompt",
-            "model_temp": "Temperatura",
+            "description": _("Descripción"),
+            "llm_model": _("Modelo usado"),
+            "rubric": _("Rúbrica"),
+            "prompt": _("Prompt"),
+            "model_temp": _("Temperatura"),
             "model_top_p": "Top P",
             "model_top_k": "Top K",
-            "output_format": "Formato de salida",
+            "output_format": _("Formato de salida"),
         }
 
     # Specific style attributes for fields.
 
     description = forms.CharField(
-        label="Descripcion",
+        label=_("Descripcion"),
         widget=forms.TextInput(
             attrs={
                 "id": "description",
@@ -41,7 +52,7 @@ class CorrectionForm(ModelForm):
     )
 
     llm_model = forms.CharField(
-        label="modelo",
+        label=_("modelo"),
         widget=forms.TextInput(
             attrs={
                 "id": "model",
@@ -49,13 +60,13 @@ class CorrectionForm(ModelForm):
             }
         ),
         required=True,
-        initial="llama3"
+        initial="llama3",
     )
 
     zip_file = forms.FileField(
-        label="Archivo ZIP",
+        label=_("Archivo ZIP"),
         required=True,
-        help_text="Sube un archivo ZIP con las tareas",
+        help_text=_("Formatos permitidos: .zip, .rar, .7z o .tar"),
         widget=forms.ClearableFileInput(
             attrs={
                 "id": "zip_file",
@@ -66,52 +77,55 @@ class CorrectionForm(ModelForm):
     )
 
     model_temp = forms.FloatField(
-        label="Temperatura",
-        widget=forms.TextInput(
+        label=_("Temperatura"),
+        widget=forms.NumberInput(
             attrs={
                 "id": "model_temp",
                 "class": "input-custom",
+                "step": "0.1",
             }
         ),
         required=False,
         initial=0.8,
         min_value=0.0,
         max_value=1.0,
-        help_text="Temperatura del modelo (0.0 - 1.0)",
+        help_text=_("Temperatura del modelo (0.0 - 1.0)"),
     )
 
     model_top_p = forms.FloatField(
         label="Top P",
-        widget=forms.TextInput(
+        widget=forms.NumberInput(
             attrs={
                 "id": "model_top_p",
                 "class": "input-custom",
+                "step": "0.1",
             }
         ),
         required=False,
         initial=0.9,
         min_value=0.0,
         max_value=1.0,
-        help_text="Top P del modelo (0.0 - 1.0)",
+        help_text=_("Top P del modelo (0.0 - 1.0)"),
     )
 
     model_top_k = forms.IntegerField(
         label="Top K",
-        widget=forms.TextInput(
+        widget=forms.NumberInput(
             attrs={
                 "id": "model_top_k",
                 "class": "input-custom",
+                "step": "1",
             }
         ),
         required=False,
         initial=40,
         min_value=0,
         max_value=100,
-        help_text="Top K del modelo (0 - 100)",
+        help_text=_("Top K del modelo (0 - 100)"),
     )
-    
+
     output_format = forms.ChoiceField(
-        label="Formato de salida",
+        label=_("Formato de salida"),
         choices=[
             ("", "TXT"),
             ("json", "JSON"),
@@ -125,23 +139,26 @@ class CorrectionForm(ModelForm):
         required=False,
         initial="TXT",
     )
-    
 
     def clean_zip_file(self):
         """
         Validate the zip file.
-        
+
         Parameters:
             self (CorrectionForm): The instance of the form.
-            
+
         Returns:
             file: The uploaded file if it is a valid ZIP.
-            
+
         Raises:
             ValidationError: If the uploaded file is not a ZIP.
         """
         file = self.cleaned_data.get("zip_file")
-        if not file.name.endswith(".zip"):
-            raise forms.ValidationError("El archivo subido no es un archivo ZIP")
+        if not file.name.endswith((".zip", ".rar", ".7z", ".tar")):
+            raise forms.ValidationError(
+                _(
+                    "El archivo subido no es un archivo con extensión .zip, .rar, .7z o .tar."
+                )
+            )
 
         return file

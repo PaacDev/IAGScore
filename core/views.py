@@ -1,6 +1,7 @@
-""" Views for the core application. """
+"""Views for the core application."""
 
 import os
+from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_safe, require_GET, require_http_methods
@@ -45,12 +46,13 @@ def custom_login(request):
         # If user is not authenticated, show error message
         else:
             messages.add_message(
-                request, messages.ERROR, "Usuario o contraseña incorrectos"
+                request, messages.ERROR, _("Usuario o contraseña incorrectos")
             )
     else:
         # If method is GET, show the login form
         form = AuthenticationForm()
     return render(request, "core/login.html", {"form": form})
+
 
 @require_GET
 @login_required
@@ -65,6 +67,7 @@ def home(request):
         HttpResponse : The rendered home page.
     """
     return render(request, "core/home.html")
+
 
 @require_GET
 def logout_view(request):
@@ -93,7 +96,10 @@ def terminos(request):
         HttpResponse : The rendered terms and conditions page.
     """
     # Path md terminos
-    md_terminos = os.path.join(settings.STATICFILES_DIRS[2], "core/docs", "terminos.md")
+    language = getattr(request, "LANGUAGE_CODE", "es")
+    name = "terminos.md" if language == "es" else "terms.md"
+
+    md_terminos = os.path.join(settings.STATICFILES_DIRS[2], "core/docs", name)
 
     # Open the file and save its content to a variable
     with open(md_terminos, "r", encoding="utf-8") as f:
@@ -116,9 +122,10 @@ def privacidad(request):
         HttpResponse: The rendered privacy page.
     """
     # Path md
-    md_privacidad = os.path.join(
-        settings.STATICFILES_DIRS[2], "core/docs", "privacidad.md"
-    )
+    language = getattr(request, "LANGUAGE_CODE", "es")
+    name = "privacidad.md" if language == "es" else "privacity.md"
+
+    md_privacidad = os.path.join(settings.STATICFILES_DIRS[2], "core/docs", name)
 
     # Open the file and save its content to a variable
     with open(md_privacidad, "r", encoding="utf-8") as f:
@@ -127,6 +134,7 @@ def privacidad(request):
     # Convert Markdown content to HTML and render it
     html_content = markdown.markdown(md_content, output_format="html")
     return render(request, "core/privacidad.html", {"content": html_content})
+
 
 @require_safe
 def llm_section(request):

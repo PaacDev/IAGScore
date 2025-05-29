@@ -8,7 +8,7 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
-      - static_volume:/app/static
+      #- static_volume:/app/static
       - media_volume:/app/media
     depends_on:
       postgres_db:
@@ -70,7 +70,7 @@ services:
       context: .
     volumes:
       - .:/app
-      - static_volume:/app/static
+      #- static_volume:/app/static
       - media_volume:/app/media
     command: celery -A iagscore worker -E --loglevel=info
     depends_on:

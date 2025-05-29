@@ -1,4 +1,5 @@
 """URL patterns for the prompts app."""
+
 from django.urls import path
 from . import views
 

@@ -195,4 +195,4 @@ tailwind/node_modules/
 bandit_report.txt
 
 # pytest
-pytest.ini
+# pytest.ini

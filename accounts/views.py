@@ -1,5 +1,6 @@
-""" Views for the accounts application. """
+"""Views for the accounts application."""
 
+from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -28,7 +29,7 @@ def profile(request):
 def register(request):
     """
     This view is used to register a new user.
-    
+
     - GET: Displays the registration form.
     - POST: Processes the form and creates the user.
 
@@ -48,7 +49,7 @@ def register(request):
             user_form.save()
             # Add a success message and redirect to login
             messages.add_message(
-                request, messages.SUCCESS, "Usuario creado correctamente"
+                request, messages.SUCCESS, _("Usuario creado correctamente")
             )
             return redirect("login")
         # If the form is not valid, add an error message

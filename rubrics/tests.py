@@ -40,33 +40,12 @@ class RubricModelTestCase(TestCase):
             content="# This is a test rubric.",
             user=self.user,
         )
-        rubric_style = f"""
-        <div class="rubric-style">
-            <style>
-                .rubric-style table {{
-                    border-collapse: collapse;
-                    width: 100%;
-                }}
-                .rubric-style td, .rubric-style th {{
-                    border: 1px solid black;
-                    padding: 8px;
-                    text-align: center;
-                }}
-                .rubric-style h1 {{
-                    color: #333;
-                    font-size: 2em;
-                    font-family: Arial, sans-serif;
-                }}
-            </style>
-            <h1>This is a test rubric.</h1>
-        </div>
-        """
 
         self.assertEqual(rubric.name, "Test Rubric")
         self.assertEqual(rubric.content, "# This is a test rubric.")
         self.assertEqual(rubric.user, self.user)
         self.assertEqual(str(rubric), "Test Rubric")
-        self.assertEqual(rubric.get_html_content().strip(), rubric_style.strip())
+        self.assertEqual(rubric.get_html_content(), "<h1>This is a test rubric.</h1>")
 
 
 class RubricFormTestCase(TestCase):
@@ -262,8 +241,32 @@ class RubricViewTestCase(TestCase):
         """
         Test the delete rubric view
         """
-        response = self.client.get(reverse("delete_rubric", args=[self.rubric.id]))
+        response = self.client.post(reverse("delete_rubric", args=[self.rubric.id]))
         messages_list = list(messages.get_messages(response.wsgi_request))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(str(messages_list[0]), "Rúbrica eliminada correctamente")
         self.assertFalse(Rubric.objects.filter(id=self.rubric.id).exists())
+
+    def test_query_filtering(self):
+        """
+        Test the query filtering in the prompt list
+        """
+        Rubric.objects.create(
+            name="First Test",
+            content="# This is a test rubric.",
+            user=self.user,
+        )
+        Rubric.objects.create(
+            name="Second test",
+            content="# This is a test rubric.",
+            user=self.user,
+        )
+        Rubric.objects.create(
+            name="Another one",
+            content="# This is a test rubric.",
+            user=self.user,
+        )
+        response = self.client.get(reverse("rubrics_page"), {"q": "First"})
+        self.assertContains(response, "First Test")
+        self.assertNotContains(response, "Second test")
+        self.assertNotContains(response, "Another one")

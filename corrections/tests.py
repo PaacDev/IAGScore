@@ -11,11 +11,12 @@ from django.test import TestCase, TransactionTestCase, override_settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from django.http import Http404
+from django.utils import timezone
+from corrections.tasks import set_tasks_dict
 from iagscore import settings
 from prompts.models import Prompt
 from rubrics.models import Rubric
-
+from .tasks import start_llm_evaluation
 from .forms import CorrectionForm
 from .models import Correction
 
@@ -266,7 +267,7 @@ class CorrectionFormTestCase(TestCase):
         correction = form.save(commit=False)
         correction.user = self.user
         correction.save()
-        
+
         self.assertTrue(correction.model_temp, 0.8)
         self.assertTrue(correction.model_top_p, 0.9)
         self.assertTrue(correction.model_top_k, 40)
@@ -392,18 +393,34 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "corrections/view_correction.html")
 
-    def test_show_new_correction_view_get(self):
+    @patch("corrections.views.ollama.list")
+    def test_show_new_correction_view_get(self, mock_ollama_list):
         """
         Test the new correction view
         """
+        # Mocking the Ollama list to simulate list of models
+        mock_ollama_list.return_value = {
+            "models": [
+                {"model": "llama3"},
+                {"model": "mistral"},
+            ]
+        }
         response = self.client.get(reverse("show_new_correction"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "corrections/new_correction.html")
 
-    def test_show_new_correction_view_post(self):
+    @patch("corrections.views.ollama.list")
+    def test_show_new_correction_view_post(self, mock_ollama_list):
         """
         Test the new correction view
         """
+        # Mocking the Ollama list to simulate list of models
+        mock_ollama_list.return_value = {
+            "models": [
+                {"model": "llama3"},
+                {"model": "mistral"},
+            ]
+        }
 
         response = self.client.post(
             reverse("show_new_correction"),
@@ -417,14 +434,24 @@ class CorrectionsViewsTestCase(TransactionTestCase):
             follow=True,
         )
 
-        self.assertContains(response, "Correción creada correctamente")
+        self.assertContains(response, "Corrección creada correctamente")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "corrections/view_correction.html")
 
-    def test_show_new_correction_view_get_with_rubric_and_prompt(self):
+    @patch("corrections.views.ollama.list")
+    def test_show_new_correction_view_get_with_rubric_and_prompt(
+        self, mock_ollama_list
+    ):
         """
         Test the new correction view with valid rubric_id and prompt_id
         """
+        # Mocking the Ollama list to simulate list of models
+        mock_ollama_list.return_value = {
+            "models": [
+                {"model": "llama3"},
+                {"model": "mistral"},
+            ]
+        }
         response = self.client.get(
             reverse("show_new_correction"),
             {"rubric_id": self.rubric.id, "prompt_id": self.prompt.id},
@@ -440,10 +467,18 @@ class CorrectionsViewsTestCase(TransactionTestCase):
             response.context["prompt_list"], Prompt.objects.filter(user=self.user)
         )
 
-    def test_show_new_correction_view_post_invalid(self):
+    @patch("corrections.views.ollama.list")
+    def test_show_new_correction_view_post_invalid(self, mock_ollama_list):
         """
         Test the new correction view invalid post
         """
+        # Mocking the Ollama list to simulate list of models
+        mock_ollama_list.return_value = {
+            "models": [
+                {"model": "llama3"},
+                {"model": "mistral"},
+            ]
+        }
 
         response = self.client.post(
             reverse("show_new_correction"),
@@ -460,10 +495,19 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         self.assertContains(response, "Error al crear correción")
         self.assertEqual(response.status_code, 200)
 
-    def test_delete_correction_view(self):
+    @patch("corrections.views.ollama.list")
+    def test_delete_correction_view(self, mock_ollama_list):
         """
         Test the new correction view
         """
+
+        # Mocking the Ollama list to simulate list of models
+        mock_ollama_list.return_value = {
+            "models": [
+                {"model": "llama3"},
+                {"model": "mistral"},
+            ]
+        }
 
         self.client.post(
             reverse("show_new_correction"),
@@ -486,10 +530,18 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         self.assertEqual(response_delete.status_code, 302)
         self.assertRedirects(response_delete, reverse("show_view_correction"))
 
-    def test_delete_correction_view_error(self):
+    @patch("corrections.views.ollama.list")
+    def test_delete_correction_view_error(self, mock_ollama_list):
         """
         Test the delete correction invalid
         """
+        # Mocking the Ollama list to simulate list of models
+        mock_ollama_list.return_value = {
+            "models": [
+                {"model": "llama3"},
+                {"model": "mistral"},
+            ]
+        }
 
         response_delete = self.client.post(
             reverse("delete_correction", kwargs={"item_id": 1001})
@@ -498,14 +550,32 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         self.assertEqual(response_delete.status_code, 404)
 
     @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
+    @patch("corrections.views.ollama.list")
+    @patch("corrections.tasks.ollama.list")
     @patch("corrections.tasks.OllamaLLM")
-    def test_run_model_and_download(self, mock_ollama_class):
+    def test_run_model_and_download(
+        self, mock_ollama_class, mock_ollama_list_task, mock_ollama_list_view
+    ):
         """
         Test tdownload the response
         """
         mock_llm_instance = MagicMock()
         mock_llm_instance.invoke.return_value = "simulate model response"
         mock_ollama_class.return_value = mock_llm_instance
+
+        # Mocking the Ollama list to simulate list of models
+        mock_ollama_list_task.return_value = {
+            "models": [
+                {"model": "llama3"},
+                {"model": "mistral"},
+            ]
+        }
+        mock_ollama_list_view.return_value = {
+            "models": [
+                {"model": "llama3"},
+                {"model": "mistral"},
+            ]
+        }
 
         response = self.client.post(
             reverse("show_new_correction"),
@@ -540,10 +610,181 @@ class CorrectionsViewsTestCase(TransactionTestCase):
             f"Directory exists: {os.path.exists(os.path.dirname(response_file_path))}"
         )
         self.assertTrue(os.path.exists(response_file_path))
+        url = reverse("download_response", kwargs={"correction_id": correction.id})
+        response = self.client.get(url)
 
-    def test_correction_not_found(self):
-        response_download = self.client.get(
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "text/plain")
+        self.assertEqual(
+            response["Content-Disposition"], 'attachment; filename="response.txt"'
+        )
+
+    def test_run_model_error(self):
+        """
+        Test tdownload the response
+        """
+
+        response = self.client.get(reverse("run_model", kwargs={"correction_id": 1001}))
+
+        self.assertEqual(response.status_code, 404)
+
+    @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
+    @patch("corrections.tasks.Correction.objects.get")
+    def test_start_llm_evaluation_correction_does_not_exist(self, mock_get):
+        """
+        Simula que la corrección no existe al ejecutar la tarea.
+        """
+        mock_get.side_effect = Correction.DoesNotExist
+        with self.assertRaises(Correction.DoesNotExist):
+            start_llm_evaluation(correction_id=9999)
+
+    @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
+    @patch("corrections.tasks.OllamaLLM")
+    @patch("corrections.views.ollama.list")
+    def test_start_llm_evaluation_generic_exception(
+        self, mock_ollama_list, mock_ollama_class
+    ):
+        """
+        Simula una excepción genérica al ejecutar el modelo.
+        """
+        # Mocking the Ollama list to simulate list of models
+        mock_ollama_list.return_value = {
+            "models": [
+                {"model": "llama3"},
+                {"model": "mistral"},
+            ]
+        }
+        self.client.post(
+            reverse("show_new_correction"),
+            {
+                "rubric": self.rubric.id,
+                "prompt": self.prompt.id,
+                "description": "test_correction",
+                "llm_model": "llama3",
+                "zip_file": self.zip_file,
+            },
+            follow=True,
+        )
+        correction = Correction.objects.get(description="test_correction")
+        # Configurar el mock para lanzar una excepción en .invoke()
+        mock_llm_instance = MagicMock()
+        mock_llm_instance.invoke.side_effect = Exception("Modelo falló")
+        mock_ollama_class.return_value = mock_llm_instance
+
+        from corrections.tasks import start_llm_evaluation
+
+        with self.assertRaises(Exception) as cm:
+            start_llm_evaluation(correction.id)
+
+        self.assertIn("Modelo falló", str(cm.exception))
+
+        # Verifica que se haya marcado como no-running
+        correction.refresh_from_db()
+        self.assertFalse(correction.running)
+
+    @patch("corrections.views.ollama.list")
+    def test_download_response_error(self, mock_ollama_list):
+        """
+        Test the download response error
+        """
+        # Mocking the Ollama list to simulate list of models
+        mock_ollama_list.return_value = {
+            "models": [
+                {"model": "llama3"},
+                {"model": "mistral"},
+            ]
+        }
+        self.client.post(
+            reverse("show_new_correction"),
+            {
+                "rubric": self.rubric.id,
+                "prompt": self.prompt.id,
+                "description": "test_correction",
+                "llm_model": "llama3",
+                "zip_file": self.zip_file,
+            },
+            follow=True,
+        )
+        response = self.client.get(
             reverse("download_response", kwargs={"correction_id": 1001})
         )
 
-        self.assertEqual(response_download.status_code, 404)
+        self.assertEqual(response.status_code, 404)
+        correction = Correction.objects.get(description="test_correction")
+        response = self.client.get(
+            reverse("download_response", kwargs={"correction_id": correction.id})
+        )
+        self.assertEqual(response.status_code, 404)
+
+    @patch("os.listdir", side_effect=FileNotFoundError)
+    def test_set_tasks_dict_folder_not_found(self, mock_listdir):
+        result = set_tasks_dict("nonexistent_folder")
+        self.assertEqual(result, {})
+
+    @patch("os.listdir", side_effect=PermissionError)
+    def test_set_tasks_dict_permission_denied(self, mock_listdir):
+        result = set_tasks_dict("restricted_folder")
+        self.assertEqual(result, {})
+
+    def test_query_filtering(self):
+        # Create corrections
+        Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="First Test",
+            llm_model="Modelo",
+            folder_path="/media/folder/",
+        )
+        Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="Second Test",
+            llm_model="Modelo",
+            folder_path="/media/folder/",
+        )
+        Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="Another Test",
+            llm_model="Modelo",
+            folder_path="/media/folder/",
+        )
+        response = self.client.get(reverse("show_view_correction"), {"q": "First"})
+        self.assertContains(response, "First Test")
+        self.assertNotContains(response, "Second test")
+        self.assertNotContains(response, "Another one")
+
+    def test_sorting_excludes_null_last_execution_dates(self):
+
+        # Corrections con y sin fecha de ejecución
+        Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="With date",
+            llm_model="Modelo",
+            folder_path="/media/folder/",
+            last_ejecution_date=timezone.now(),
+        )
+
+        Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="Without date",
+            llm_model="Modelo",
+            folder_path="/media/folder/",
+            last_ejecution_date=None,
+        )
+
+        response = self.client.get(
+            reverse("show_view_correction") + "?sort=last_ejecution_date"
+        )
+
+        # Comprobaciones
+        content = response.content.decode()
+        self.assertIn("With date", content)
+        self.assertNotIn("Without date", content)

@@ -2,7 +2,7 @@ name: Django Develop CI
 
 on:
   push:
-    branches: ["develop", "feature/**"]
+    branches: ["develop", "feature/**", "release/**"]
   pull_request:
     branches: ["develop"]
 
@@ -49,10 +49,13 @@ jobs:
         mkdir -p coveragereport/html  # Creamos el directorio para el reporte HTML
         chmod -R 777 coveragereport
         
-    # Ejecutamos los test en el contenedor Django
-    - name: Ejecución Django tests
-      run: docker compose exec web coverage run --rcfile=.github/workflows/.coveragerc manage.py test
+    - name: Confirm pytest.ini exists
+      run: docker compose exec web ls -l /app/pytest.ini
 
+    - name: Run tests with coverage
+      run: |
+        docker compose exec web pytest
+        
     # Comprobamos estructura de directorios después de los tests
     - name: Comprobamos estructura de directorios después de los tests
       run: |
@@ -63,12 +66,6 @@ jobs:
         echo "Estructura app/coveragereport"
         docker compose exec web ls -lra /app/coveragereport || echo "coveragereport not found"
         docker compose exec web ls -lra /app/coveragereport/html || echo "html not found"
-    
-    # Generamos los reportes de coverage
-    - name: Generamos los reportes de coverage
-      run: |
-        docker compose exec web coverage html --rcfile=.github/workflows/.coveragerc -d /app/coveragereport/html
-        docker compose exec web coverage xml --rcfile=.github/workflows/.coveragerc -o /app/coveragereport/coverage.xml
 
     # Copiamos los reportes fuera del contenedor
     - name: Copiamos reportes fuera del contenedor

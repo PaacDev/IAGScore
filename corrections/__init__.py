@@ -1,1 +1,1 @@
-""" Module for Corrections management """
+"""Module for Corrections management"""

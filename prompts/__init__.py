@@ -1,1 +1,1 @@
-""" Module for Prompts management """
+"""Module for Prompts management"""

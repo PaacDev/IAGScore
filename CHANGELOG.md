@@ -4,4 +4,14 @@
 - Características: Evaluación automática de tareas con IA.
 
 ## [1.0.1] - 2025-05-14
-- Se añade gitattributes para correción de errores
+- Se añade gitattributes para corrección de errores
+
+## [1.2.0] - 2025-05-29
+### Nuevas funcionalidades
+- Internacionalización implementada.
+- Búsqueda y ordenamiento en tablas.
+- Soporte para distintos modelos de Ollama.
+
+### Mejoras
+- Documentados errores al levantar desde unidad externa.
+- Añadidas imágenes en la interfaz.
