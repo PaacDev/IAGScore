@@ -5,6 +5,7 @@ import logging
 from django.core.files.storage import FileSystemStorage
 from django.core.files.base import ContentFile
 from django.utils import timezone
+from django.contrib import messages
 from celery import shared_task
 from langchain_ollama import OllamaLLM
 from iagscore import settings
@@ -100,9 +101,15 @@ def start_llm_evaluation(correction_id):
         return final_time.total_seconds()
 
     except Correction.DoesNotExist:
+        messages.ERROR(
+            "Error: Correction with id {} does not exist".format(correction_id)
+        )
         logger.error("Error: Correction with id %s does not exist", correction_id)
         raise
     except Exception as e:
+        messages.ERROR(
+            "Error executing task for correction id {}: {}".format(correction_id, e)
+        )
         logger.error("Error executing task: %s", e)
         correction_obj.running = False
         correction_obj.save()

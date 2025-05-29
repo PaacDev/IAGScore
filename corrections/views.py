@@ -57,15 +57,11 @@ def process_zip_file(archive_path, user, id_correction):
     fs = FileSystemStorage(location=full_path)
 
     temp_extract_path = os.path.join(full_path, "temp_extract")
-    logger.info("Temporary extraction path: %s", temp_extract_path)
     # Ensure the directory exists
     os.makedirs(temp_extract_path, exist_ok=True)
 
     # Extract the compressed file
     Archive(archive_path).extractall(temp_extract_path)
-    logger.info("-------------------------------    --------------------------------")
-    logger.info("Extracted files to: %s", temp_extract_path)
-    logger.info("-------------------------------    --------------------------------")
 
     # Delete non-Java files
     for root, dirs, files in os.walk(temp_extract_path):
