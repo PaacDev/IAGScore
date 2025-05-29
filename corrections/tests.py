@@ -368,6 +368,7 @@ class CorrectionsViewsTestCase(TransactionTestCase):
             user=self.user,
         )
         self.client.login(username=self.user.email, password=self.password)
+        
 
     def tearDown(self):
         """

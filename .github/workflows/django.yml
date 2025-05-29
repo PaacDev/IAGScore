@@ -90,8 +90,8 @@ jobs:
           -Dsonar.projectKey=pac1006_IAGScore
           -Dsonar.organization=pac1006
           -Dsonar.sources=.
-          -Dsonar.exclusions=**/*test*.py
-          -Dsonar.coverage.exclusions=**/tailwind/**,**/node_modules/**,**/migrations/**
+          -Dsonar.exclusions=**/*test*.py,**/tailwind/**,**/core/static/core/**,**/static/**,**/docs/**
+          -Dsonar.coverage.exclusions=**/tailwind/**,**/node_modules/**,**/migrations/**,**/core/static/core/**,**/static/**
           -Dsonar.python.coverage.reportPaths=coveragereport/coverage.xml
 
     # Detenemos y limpiamos los contenedores
