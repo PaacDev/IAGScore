@@ -1,12 +1,13 @@
 """
 Views for the prompts app.
 """
+
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.http import require_http_methods, require_GET
+from django.views.decorators.http import require_http_methods, require_GET, require_POST
 from django.contrib import messages
 from django.db import IntegrityError
 from django.core.paginator import Paginator
@@ -20,23 +21,25 @@ from .models import Prompt
 def prompt_page(request):
     """
     View for creating a new prompt.
-    
+
     - GET: Displays the form.
     - POST: Processes the form and create new prompt.
-    
+
     Parameters:
         request: The HTTP request object.
-        
+
     Returns:
         HttpResponse: The rendered template with the prompt form and prompt list.
     """
-    query = request.GET.get('q',"")
+    query = request.GET.get("q", "")
     sort_field = request.GET.get("sort", "creation_date")
     sort_dir = request.GET.get("dir", "desc")
 
     # Get the user's prompts ordering them by creation date
     # and paginate them
-    prompt_list = Prompt.objects.filter(user=request.user)#.order_by("-creation_date")
+    prompt_list = Prompt.objects.filter(
+        user=request.user
+    )  # .order_by("-creation_date")
 
     # Sort the prompt list based on the sort field and direction
     sort_prefix = "-" if sort_dir == "desc" else ""
@@ -70,16 +73,20 @@ def prompt_page(request):
                 prompt.save()
                 messages.success(request, _("Prompt creado correctamente"))
                 prompt_list = list(Prompt.objects.filter(user=request.user))
+                paginator = Paginator(prompt_list, 5)
+                page_numer = request.GET.get("page")
+                page_obj = paginator.get_page(page_numer)
                 return render(
                     request,
                     "prompts/mis_prompts.html",
-                    {"form": form, 
-                     "prompt_list": prompt_list,
-                     "page_obj": page_obj,
-                     "query": query,
-                     "sort": sort_field,
-                     "dir": sort_dir,
-                     },
+                    {
+                        "form": form,
+                        "prompt_list": prompt_list,
+                        "page_obj": page_obj,
+                        "query": query,
+                        "sort": sort_field,
+                        "dir": sort_dir,
+                    },
                 )
             except IntegrityError:
                 # Handle the case where the prompt already exists
@@ -94,7 +101,14 @@ def prompt_page(request):
     return render(
         request,
         "prompts/mis_prompts.html",
-        {"form": form, "prompt_list": prompt_list, "page_obj": page_obj, "query": query, "sort": sort_field, "dir": sort_dir,},
+        {
+            "form": form,
+            "prompt_list": prompt_list,
+            "page_obj": page_obj,
+            "query": query,
+            "sort": sort_field,
+            "dir": sort_dir,
+        },
     )
 
 
@@ -103,11 +117,11 @@ def prompt_page(request):
 def show_prompt(request, prompt_id):
     """
     View for showing a prompt
-    
+
     Parameters:
         request: The HTTP request object.
         prompt_id: The ID of the prompt to show.
-        
+
     Returns:
         HttpResponse: The rendered template with the prompt details.
 
@@ -123,18 +137,18 @@ def show_prompt(request, prompt_id):
 
 
 @login_required
-@require_GET
+@require_POST
 def delete_prompt(request, prompt_id):
     """
     View for deleting a prompt
-    
+
     Parameters:
         request: The HTTP request object.
         prompt_id: The ID of the prompt to delete.
-        
+
     Returns:
         HttpResponse: Redirects to the prompt page with a success message.
-        
+
     Raises:
         Http404: If the prompt does not exist.
     """

@@ -1,4 +1,5 @@
-""" Views for the accounts application. """
+"""Views for the accounts application."""
+
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -28,7 +29,7 @@ def profile(request):
 def register(request):
     """
     This view is used to register a new user.
-    
+
     - GET: Displays the registration form.
     - POST: Processes the form and creates the user.
 

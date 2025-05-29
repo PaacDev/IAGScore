@@ -1,1 +1,1 @@
-""" Module for user account management. """
+"""Module for user account management."""

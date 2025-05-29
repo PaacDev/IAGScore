@@ -1,4 +1,4 @@
-""" Register the rubric model with the Django admin site. """
+"""Register the rubric model with the Django admin site."""
 
 from django.contrib import admin
 from .models import Rubric
@@ -23,7 +23,7 @@ class RubricAdmin(admin.ModelAdmin):
     def content_preview(self, obj):
         """
         Preview of the rubric content (first 50 characters).
-        
+
         Parameters:
             obj (Rubric): The Rubric object to preview.
             self (RubricAdmin): The RubricAdmin instance.

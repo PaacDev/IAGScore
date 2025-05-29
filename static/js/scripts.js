@@ -27,9 +27,11 @@ function showConfig(section, correctionId)
         sectionElement.classList.add('hidden');
     }
 }
-function openDeleteModal(id) {
+function openDeleteModal(id, element) {
     const form = document.getElementById('deleteForm');
-    form.action = `/corrections/delete/${id}/`;
+    // Detecta el prefijo del idioma actual en la URL
+    const langPrefix = window.location.pathname.split('/')[1];
+    form.action = `/${langPrefix}/${element}/delete/${id}/`;
     const modal = document.getElementById('deleteModal');
     const modalInstance = new window.Modal(modal);
     modalInstance.show();

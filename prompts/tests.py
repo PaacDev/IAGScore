@@ -159,7 +159,7 @@ class PromptViewTestCase(TestCase):
         )
 
         item_id = prompt.id
-        response = self.client.get(reverse("delete_prompt", args=[prompt.id]))
+        response = self.client.post(reverse("delete_prompt", args=[prompt.id]))
         messages_list = list(messages.get_messages(response.wsgi_request))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(str(messages_list[0]), "Prompt eliminado correctamente")

@@ -1,4 +1,5 @@
-""" Model definition for Prompt. """
+"""Model definition for Prompt."""
+
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -20,6 +21,7 @@ class Prompt(models.Model):
         """
         Meta class for Prompt model.
         """
+
         # Define the unique constraint for the name and user fields
         # This ensures that a user cannot have two prompts with the same name
         constraints = [
@@ -31,10 +33,10 @@ class Prompt(models.Model):
     def __str__(self):
         """
         Overrides the string representation of the Prompt model.
-        
+
         Parameters:
             self (Prompt): The Prompt instance.
-            
+
         Returns:
             str: The name of the prompt.
         """

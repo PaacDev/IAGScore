@@ -1,1 +1,1 @@
-""" Module for Rubric management """
+"""Module for Rubric management"""
