@@ -626,11 +626,19 @@ class CorrectionsViewsTestCase(TransactionTestCase):
             start_llm_evaluation(correction_id=9999)
 
     @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
+    @patch("corrections.views.ollama.list")
     @patch("corrections.tasks.OllamaLLM")
-    def test_start_llm_evaluation_generic_exception(self, mock_ollama_class):
+    def test_start_llm_evaluation_generic_exception(self, mock_ollama_class, mock_ollama_list):
         """
         Simula una excepción genérica al ejecutar el modelo.
         """
+        # Mocking the Ollama list to simulate list of models
+        mock_ollama_list.return_value = {
+            "models": [
+                {"model": "llama3"},
+                {"model": "mistral"},
+            ]
+        }
         self.client.post(
             reverse("show_new_correction"),
             {
