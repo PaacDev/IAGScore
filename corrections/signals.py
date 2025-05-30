@@ -10,7 +10,6 @@ from iagscore import settings
 from .models import Correction
 
 logger = logging.getLogger(__name__)
-# logger.propagate = False
 
 
 @receiver(pre_delete, sender=Correction)

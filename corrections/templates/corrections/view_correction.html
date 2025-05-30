@@ -137,7 +137,7 @@
     </div>
       </section>
       <!-- Carga de las correciones y visualización de la seleccionada -->
-      {% for correction in corrections %}
+      {% for correction in page_obj %}
           <div name="config-section"
                id="config-import-{{ correction.id }}"
                class="mx-20 mt-4 hidden">
@@ -172,7 +172,6 @@
                         </div>
                         </details>
                     </div>
-
                   </div>
                   <div class="flex flex-row">
                   <div class="flex flex-col py-3">

@@ -6,11 +6,11 @@ WORKDIR /app
 
 # Instalar dependencias del sistema (incluyendo Node.js para Tailwind)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-libpq-dev \
 curl \
 gettext \
-unrar-free \
+libpq-dev \
 p7zip-full \
+unrar-free \
 && curl --proto '=https' --tlsv1.2 -sSf -L https://deb.nodesource.com/setup_18.x | bash - \
 && apt-get install -y --no-install-recommends nodejs \
 && rm -rf /var/lib/apt/lists/* 
