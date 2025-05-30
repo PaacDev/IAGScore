@@ -173,11 +173,7 @@ LOGOUT_REDIRECT_URL = "/"
 # Celery config
 # https://docs.celeryproject.org/en/stable/django/first-steps-with-django.html
 
-# No Docker
-# CELERY_BROKER_URL = "redis://localhost:6379/0"
-
-# Docker
-# CELERY_BROKER_URL = 'redis://redis:6379/0'
+# Celery settings
 CELERY_BROKER_URL = config("CELERY_BROKER_URL")
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
