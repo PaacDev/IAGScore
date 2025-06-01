@@ -152,7 +152,10 @@ def delete_prompt(request, prompt_id):
     Raises:
         Http404: If the prompt does not exist.
     """
-    prompt = get_object_or_404(Prompt, id=prompt_id, user=request.user)
-    prompt.delete()
-    messages.success(request, _("Prompt eliminado correctamente"))
+    try:
+        prompt = Prompt.objects.get(id=prompt_id, user=request.user)
+        prompt.delete()
+        messages.success(request, _("Prompt eliminado correctamente"))
+    except Prompt.DoesNotExist as exc:
+        raise Http404(_("Prompt no encontrado")) from exc
     return redirect("prompts_page")

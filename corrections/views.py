@@ -279,6 +279,8 @@ def show_new_correction(request):
             messages.add_message(
                 request, messages.SUCCESS, _("Corrección creada correctamente")
             )
+            # Redirect to the view correction page
+            return redirect("show_view_correction")
         # If the form is not valid, log the errors
         else:
             messages.add_message(request, messages.ERROR, _("Error al crear correción"))
@@ -288,13 +290,19 @@ def show_new_correction(request):
             for field, error_list in errors.items():
                 for error in error_list:
                     logger.error("Error en el campo %s: %s", field, error.message)
+                    if field == 'llm_model':
+                        field = _("Modelo")
+                    elif field == 'rubric':
+                        field = _("Rúbrica")
+                    elif field == 'prompt':
+                        field = ("Prompt")
                     messages.add_message(
                         request,
                         messages.ERROR,
                         f"Error en el campo '{field}': {error.message}",
                     )
-        # Redirect to the view correction page
-        return redirect("show_view_correction")
+            # Redirect to the view correction page
+            return redirect("show_new_correction")
 
     return render(
         request,

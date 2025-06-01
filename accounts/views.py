@@ -53,7 +53,10 @@ def register(request):
             )
             return redirect("login")
         # If the form is not valid, add an error message
-        messages.add_message(request, messages.ERROR, user_form.errors.as_text())
+        #messages.add_message(request, messages.ERROR, user_form.errors.as_text())
+        for field, errors in user_form.errors.items():
+            for error in errors:
+                messages.error(request, f"{error}")
     else:
         # If method is GET, create an empty form
         user_form = RegisterForm()

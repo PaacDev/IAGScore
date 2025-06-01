@@ -15,3 +15,11 @@
 ### Mejoras
 - Documentados errores al levantar desde unidad externa.
 - Añadidas imágenes en la interfaz.
+
+## [1.2.1] - 2025-05-30
+### Correcciones
+- Fix null error when toggling config section visibility.
+
+## [1.2.2] - 2025-06-01
+### Correcciones
+- Fix issue with context window length.
