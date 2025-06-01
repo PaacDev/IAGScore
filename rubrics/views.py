@@ -12,7 +12,6 @@ from django.core.paginator import Paginator
 from .forms import RubricForm
 from .models import Rubric
 
-
 @login_required
 @require_http_methods(["GET", "POST"])
 @csrf_protect
@@ -163,8 +162,11 @@ def delete_rubric(request, rubric_id):
     Raises:
         Http404: If the rubric does not exist.
     """
+    try:
+        rubric = Rubric.objects.get(id=rubric_id, user=request.user)
+        rubric.delete()
+        messages.success(request, _("Rúbrica eliminada correctamente"))
+    except Rubric.DoesNotExist as exc:
+        raise Http404(_("Rúbrica no encontrada")) from exc
 
-    rubric = get_object_or_404(Rubric, id=rubric_id, user=request.user)
-    rubric.delete()
-    messages.success(request, _("Rúbrica eliminada correctamente"))
     return redirect("rubrics_page")

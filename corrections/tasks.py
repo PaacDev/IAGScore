@@ -55,7 +55,7 @@ def start_llm_evaluation(correction_id):
             temperature=correction_obj.model_temp,
             top_p=correction_obj.model_top_p,
             top_k=correction_obj.model_top_k,
-            num_ctx=131072,
+            num_ctx=8000,
         )
 
         # Set the location for storing the response file
