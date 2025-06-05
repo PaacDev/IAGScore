@@ -21,7 +21,8 @@ def profile(request):
     Returns:
         HttpResponse (HttpResponse): The rendered profile page.
     """
-    return render(request, "accounts/profile.html")
+    user = request.user
+    return render(request, "accounts/profile.html", {"user": user})
 
 
 @require_http_methods(["POST", "GET"])
@@ -53,7 +54,7 @@ def register(request):
             )
             return redirect("login")
         # If the form is not valid, add an error message
-        #messages.add_message(request, messages.ERROR, user_form.errors.as_text())
+        # messages.add_message(request, messages.ERROR, user_form.errors.as_text())
         for field, errors in user_form.errors.items():
             for error in errors:
                 messages.error(request, f"{error}")

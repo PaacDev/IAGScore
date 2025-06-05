@@ -194,5 +194,7 @@ tailwind/node_modules/
 .bandit.yaml
 bandit_report.txt
 
-# pytest
-# pytest.ini
+#plantuml
+*.puml
+*plantuml
+puml/

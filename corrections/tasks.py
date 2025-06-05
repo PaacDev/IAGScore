@@ -2,12 +2,10 @@
 
 import os
 import logging
-import ollama
 from django.utils.translation import gettext_lazy as _
 from django.core.files.storage import FileSystemStorage
 from django.core.files.base import ContentFile
 from django.utils import timezone
-from django.contrib import messages
 from celery import shared_task
 from langchain_ollama import OllamaLLM
 from iagscore import settings
@@ -55,7 +53,7 @@ def start_llm_evaluation(correction_id):
             temperature=correction_obj.model_temp,
             top_p=correction_obj.model_top_p,
             top_k=correction_obj.model_top_k,
-            num_ctx=8000,
+            num_ctx=correction_obj.model_context_length,
         )
 
         # Set the location for storing the response file
@@ -63,21 +61,27 @@ def start_llm_evaluation(correction_id):
 
         # Initialize the file storage system at the specified location
         fs = FileSystemStorage(location=location)
+        tasks_text = "\n".join(f"{name}:\n{content}" for name, content in tasks_dict.items())
 
         # Invoke the LLM model with the prompt, rubric and tasks
-        response = llm_model.invoke(
-            correction_obj.prompt.prompt
-            + "\n"
-            + correction_obj.rubric.content
-            + "\n"
-            + str(tasks_dict)
-        )
+        logger.info("Entrada:")
+        logger.info("-"*50)
         entrada_total = (
             correction_obj.prompt.prompt
             + "\n"
             + correction_obj.rubric.content
             + "\n"
-            + str(tasks_dict)
+            + tasks_text
+        )
+        logger.info(entrada_total)
+        logger.info("-"*50)
+        response = llm_model.invoke(
+            correction_obj.prompt.prompt
+            + "\n"
+            + correction_obj.rubric.content
+            + "\n"
+            + tasks_text
+            #+ str(tasks_dict)
         )
         logger.info("LLM response: %s", entrada_total)
         # Create a file system storage object

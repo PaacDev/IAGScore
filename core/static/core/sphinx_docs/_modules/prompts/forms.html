@@ -314,7 +314,8 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for prompts.forms</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot; Form for registering a Prompt. &quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Form for registering a Prompt.&quot;&quot;&quot;</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.utils.translation</span><span class="w"> </span><span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django</span><span class="w"> </span><span class="kn">import</span> <span class="n">forms</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.forms</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelForm</span>
@@ -358,9 +359,10 @@ document.write(`
         <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">(</span>
             <span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
                 <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;prompt&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;input-custom&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;input-custom resize w-auto max-w-full&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;rows&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
                 <span class="s2">&quot;placeholder&quot;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Escribe tu prompt aquí...&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;resize: both !important; width: auto !important; max-width: none !important; min-width: 100%;&quot;</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">),</span>
         <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>

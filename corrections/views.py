@@ -24,6 +24,20 @@ from .models import Correction
 from .tasks import start_llm_evaluation
 
 logger = logging.getLogger(__name__)
+# Valid file extensions for the corrections
+VALID_EXTENSION = (
+    ".java",
+    ".sql",
+    ".py",
+    ".cs",
+    ".js",
+    ".ts",
+    ".cpp",
+    ".rs",
+    ".php",
+    ".md",
+    ".txt",
+)
 
 
 def process_zip_file(archive_path, user, id_correction):
@@ -70,12 +84,16 @@ def process_zip_file(archive_path, user, id_correction):
 
         for file in files:
             logger.info("Processing file: %s", file)
-            # Check if the file is a Java file
-            if file.endswith(".java") and not file.startswith(("_", ".")):
+            # Check if the file is a valid extension and does not start with "_" or "."
+            if file.endswith(VALID_EXTENSION) and not file.startswith(("_", ".")):
                 file_path = os.path.join(root, file)
+                # Get the relative path and create a safe name
+                relative_path = os.path.relpath(file_path, temp_extract_path)
+                safe_name = relative_path.replace(os.path.sep, "_")
+
                 with open(file_path, "rb") as f:
                     # Save the file
-                    fs.save(file, f)
+                    fs.save(safe_name, f)
 
     # Remove the temporary extraction directory
     shutil.rmtree(temp_extract_path)
@@ -233,7 +251,6 @@ def show_new_correction(request):
     rubric_select_id = request.GET.get("rubric_id")
     prompt_selected_id = request.GET.get("prompt_id")
     # Initialize the correction form
-    # correct_form = CorrectionForm()
     correct_form = (
         CorrectionForm(initial=clone_data) if clone_data else CorrectionForm()
     )
@@ -281,28 +298,27 @@ def show_new_correction(request):
             )
             # Redirect to the view correction page
             return redirect("show_view_correction")
-        # If the form is not valid, log the errors
-        else:
-            messages.add_message(request, messages.ERROR, _("Error al crear correción"))
-            errors = correct_form.errors.as_data()
 
-            # Save the error in messages
-            for field, error_list in errors.items():
-                for error in error_list:
-                    logger.error("Error en el campo %s: %s", field, error.message)
-                    if field == 'llm_model':
-                        field = _("Modelo")
-                    elif field == 'rubric':
-                        field = _("Rúbrica")
-                    elif field == 'prompt':
-                        field = ("Prompt")
-                    messages.add_message(
-                        request,
-                        messages.ERROR,
-                        f"Error en el campo '{field}': {error.message}",
-                    )
-            # Redirect to the view correction page
-            return redirect("show_new_correction")
+        # If the form is not valid, log the errors
+        messages.add_message(request, messages.ERROR, _("Error al crear correción"))
+        errors = correct_form.errors.as_data()
+        # Save the error in messages
+        for field, error_list in errors.items():
+            for error in error_list:
+                logger.error("Error en el campo %s: %s", field, error.message)
+                if field == "llm_model":
+                    field = _("Modelo")
+                elif field == "rubric":
+                    field = _("Rúbrica")
+                elif field == "prompt":
+                    field = "Prompt"
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    f"Error en el campo '{field}': {error.message}",
+                )
+        # Redirect to the view correction page
+        return redirect("show_new_correction")
 
     return render(
         request,
@@ -429,3 +445,48 @@ def correction_clone(request, item_id):
         raise Http404(_("Corrección no encontrada.")) from exc
 
     return redirect("show_new_correction")
+
+@login_required
+@require_GET
+def show_tasks(request, item_id):
+    """
+    Show the tasks of a correction
+
+    Parameters:
+        request (HttpRequest): The HTTP request object.
+        item_id (int): The ID of the correction.
+
+    Returns:
+        HttpResponse: The rendered template for the tasks of the correction.
+    """
+    try:
+        correction = Correction.objects.get(pk=item_id, user=request.user)
+        path_folder_tasks = correction.folder_path
+
+        tasks_name = []
+        # Get the path to the tasks folder
+        base_path = settings.MEDIA_ROOT
+        tasks_folder_path = os.path.join(base_path, path_folder_tasks)
+        logger.info("Tasks folder path: %s", tasks_folder_path)
+        # Check if the tasks folder exists
+        if not os.path.exists(tasks_folder_path):
+            raise Http404(_("No se encontraron tareas para esta corrección."))
+        # List all files in the tasks folder
+        for file_name in os.listdir(tasks_folder_path):
+            logger.info("Processing file: %s", file_name)
+            # Check if the file is a valid extension and does not start with "_" or "."
+            if file_name.endswith(VALID_EXTENSION) and not file_name.startswith(("_", ".")):
+                tasks_name.append(file_name)
+        if not tasks_name:
+            raise Http404(_("No se encontraron tareas para esta corrección."))
+        
+    except Correction.DoesNotExist as exc:
+        raise Http404(_("Corrección no encontrada.")) from exc
+
+    return render(
+        request,
+        "corrections/tasks.html",
+        {"correction": correction,
+        "tasks_name": tasks_name,
+         },
+    )

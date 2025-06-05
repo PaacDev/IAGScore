@@ -5,6 +5,13 @@ from django import forms
 from django.forms import ModelForm
 from .models import Correction
 
+# Choices for the model context length
+# (int, str) tuples for the dropdown selection in the form.
+MODEL_CONTEXT_CHOICES = [
+    (2048, "2048 tokens"),
+    (4096, "4096 tokens"),
+    (8192, "8192 tokens"),
+]
 
 class CorrectionForm(ModelForm):
     """
@@ -26,6 +33,7 @@ class CorrectionForm(ModelForm):
             "model_top_p",
             "model_top_k",
             "output_format",
+            "model_context_length",
         ]
         labels = {
             "description": _("Descripción"),
@@ -36,6 +44,7 @@ class CorrectionForm(ModelForm):
             "model_top_p": "Top P",
             "model_top_k": "Top K",
             "output_format": _("Formato de salida"),
+            "model_context_length": _("Ventana de contexto del modelo"),
         }
 
     # Specific style attributes for fields.
@@ -138,6 +147,19 @@ class CorrectionForm(ModelForm):
         ),
         required=False,
         initial="TXT",
+    )
+    
+    model_context_length = forms.ChoiceField(
+        label=_("Ventana de contexto del modelo"),
+        choices=MODEL_CONTEXT_CHOICES,
+        widget=forms.Select(
+            attrs={
+                "id": "model_context_length",
+                "class": "input-custom",
+            }
+        ),
+        required=False,
+        initial=2048,
     )
 
     def clean_zip_file(self):

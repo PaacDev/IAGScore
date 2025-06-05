@@ -8,6 +8,8 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib import messages
+from django.contrib.admin.sites import AdminSite
+from .admin import RubricAdmin
 from .models import Rubric
 from .forms import RubricForm
 
@@ -247,6 +249,14 @@ class RubricViewTestCase(TestCase):
         self.assertEqual(str(messages_list[0]), "Rúbrica eliminada correctamente")
         self.assertFalse(Rubric.objects.filter(id=self.rubric.id).exists())
 
+    def test_delete_rubric_view_not_found(self):
+        """
+        Test the delete rubric view when the rubric does not exist
+        """
+        response = self.client.post(reverse("delete_rubric", args=[9999]))
+        self.assertEqual(response.status_code, 404)
+        self.assertRaises(Rubric.DoesNotExist, Rubric.objects.get, id=9999)
+
     def test_query_filtering(self):
         """
         Test the query filtering in the prompt list
@@ -270,3 +280,51 @@ class RubricViewTestCase(TestCase):
         self.assertContains(response, "First Test")
         self.assertNotContains(response, "Second test")
         self.assertNotContains(response, "Another one")
+
+
+class RubricAdminTest(TestCase):
+    """
+    Test case for the RubricAdmin.
+    """
+    def setUp(self):
+        """
+        Set up the test case
+        """
+        self.site = AdminSite()
+        self.admin = RubricAdmin(Rubric, self.site)
+        self.user = User.objects.create_user(
+            username="testuser", email="testuser@mail.com", password="testpass123"
+        )
+
+    def test_content_preview_short_content(self):
+        """
+        Test the content preview for short content
+        """
+        short_content = "C" * 49
+        rubric = Rubric.objects.create(
+            name="Test", content=short_content, user_id=self.user.id
+        )
+        result = self.admin.content_preview(rubric)
+        self.assertEqual(result, short_content)
+
+    def test_content_preview_long_content(self):
+        """
+        Test the content preview for long content
+        """
+        long_content = "A" * 51
+        rubric = Rubric.objects.create(
+            name="Test", content=long_content, user_id=self.user.id
+        )
+        result = self.admin.content_preview(rubric)
+        self.assertEqual(result, "A" * 50 + "...")
+
+    def test_content_preview_exact_50(self):
+        """
+        Test the content preview for exactly 50 characters
+        """
+        exact_content = "B" * 50
+        rubric = Rubric.objects.create(
+            name="Test", content=exact_content, user_id=self.user.id
+        )
+        result = self.admin.content_preview(rubric)
+        self.assertEqual(result, exact_content)

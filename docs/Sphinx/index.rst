@@ -24,8 +24,8 @@ Welcome to the documentation for the **IAGScore** project, developed as part of 
    rubrics
    corrections
 
-Índices y tablas
-================
+Indices and tables
+==================
 
 * :ref:`genindex`
 * :ref:`modindex`
