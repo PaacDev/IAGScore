@@ -4,6 +4,9 @@ This module contains de Test Cases for a correction app
 
 import logging
 import os
+import shutil
+import tempfile
+import uuid
 import zipfile
 import io
 from unittest.mock import MagicMock, patch
@@ -555,9 +558,7 @@ class CorrectionsViewsTestCase(TransactionTestCase):
     @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
     @patch("corrections.views.ollama.list")
     @patch("corrections.tasks.OllamaLLM")
-    def test_run_model_and_download(
-        self, mock_ollama_class, mock_ollama_list_view
-    ):
+    def test_run_model_and_download(self, mock_ollama_class, mock_ollama_list_view):
         """
         Test tdownload the response
         """
@@ -796,15 +797,23 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         self.assertIn("With date", content)
         self.assertNotIn("Without date", content)
 
-    def test_correction_clone(self):
+    @patch("corrections.views.ollama.list")
+    def test_correction_clone(self, mock_ollama_list):
         """
         Test the correction_clone view correctly clones data and redirects.
         """
+        # Mocking the Ollama list to simulate list of models
+        mock_ollama_list.return_value = {
+            "models": [
+                {"model": "llama3"},
+                {"model": "mistral"},
+            ]
+        }
         # Crear una instancia de Correction
         correction = Correction.objects.create(
             user=self.user,
             description="Original Correction",
-            llm_model="gpt-4",
+            llm_model="llama3",
             model_temp=0.7,
             model_top_p=0.9,
             model_top_k=40,
@@ -826,6 +835,70 @@ class CorrectionsViewsTestCase(TransactionTestCase):
             any("Datos clonados de la corrección" in m.message for m in messages)
         )
 
+    def test_show_tasks_view_success_and_errors(self):
+        """
+        Test show_tasks view with valid and invalid cases.
+        """
+        # Temporal folder for tasks
+        folder_relative_path = f"test_correction_{uuid.uuid4().hex}"
+        base_path = os.path.join(settings.MEDIA_ROOT, folder_relative_path)
+        tasks_path = base_path
+        os.makedirs(tasks_path)
+
+        # Simulate valid and invalid task files
+        valid_file = "valid_task.java"
+        invalid_file = "_hidden.java"
+        with open(os.path.join(tasks_path, valid_file), "w") as f:
+            f.write("// valid task")
+        with open(os.path.join(tasks_path, invalid_file), "w") as f:
+            f.write("// invalid task")
+
+        # correction instance
+        correction = Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="Test correction with tasks",
+            llm_model="llama3",
+            folder_path=folder_relative_path,
+        )
+
+        with patch("corrections.views.VALID_EXTENSION", ".java"):
+            response = self.client.get(
+                reverse("show_tasks", kwargs={"item_id": correction.id})
+            )
+
+        # Response checks
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, valid_file)
+        self.assertNotContains(response, invalid_file)
+
+        # Raise an error correction does not exist
+        response = self.client.get(reverse("show_tasks", kwargs={"item_id": 9999}))
+        self.assertEqual(response.status_code, 404)
+        # Raise an error if the folder does not exist
+        with patch("os.path.exists", return_value=False):
+            response = self.client.get(
+                reverse("show_tasks", kwargs={"item_id": correction.id})
+            )
+            self.assertEqual(response.status_code, 404)
+
+        # Remove all files in the tasks folder
+        for file in os.listdir(tasks_path):
+            os.remove(os.path.join(tasks_path, file))
+        # Crear solo archivos inválidos
+        invalid_file = "_ignored_task.java"
+        with open(os.path.join(tasks_path, invalid_file), "w") as f:
+            f.write("// this should not be counted")
+
+        response = self.client.get(
+            reverse("show_tasks", kwargs={"item_id": correction.id})
+        )
+        self.assertEqual(response.status_code, 404)
+
+        # Clean up the temporary folder
+        shutil.rmtree(base_path)
+
 
 class DeleteCorrectionFolderTests(TestCase):
     """
@@ -833,7 +906,7 @@ class DeleteCorrectionFolderTests(TestCase):
     """
 
     def setUp(self):
-        """ 
+        """
         Set up the test case
         """
         # Crea una instancia falsa de Correction

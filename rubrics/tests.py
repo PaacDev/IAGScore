@@ -286,6 +286,7 @@ class RubricAdminTest(TestCase):
     """
     Test case for the RubricAdmin.
     """
+
     def setUp(self):
         """
         Set up the test case

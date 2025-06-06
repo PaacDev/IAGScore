@@ -446,6 +446,7 @@ def correction_clone(request, item_id):
 
     return redirect("show_new_correction")
 
+
 @login_required
 @require_GET
 def show_tasks(request, item_id):
@@ -475,18 +476,22 @@ def show_tasks(request, item_id):
         for file_name in os.listdir(tasks_folder_path):
             logger.info("Processing file: %s", file_name)
             # Check if the file is a valid extension and does not start with "_" or "."
-            if file_name.endswith(VALID_EXTENSION) and not file_name.startswith(("_", ".")):
+            if file_name.endswith(VALID_EXTENSION) and not file_name.startswith(
+                ("_", ".")
+            ):
                 tasks_name.append(file_name)
+
         if not tasks_name:
             raise Http404(_("No se encontraron tareas para esta corrección."))
-        
+
     except Correction.DoesNotExist as exc:
         raise Http404(_("Corrección no encontrada.")) from exc
 
     return render(
         request,
         "corrections/tasks.html",
-        {"correction": correction,
-        "tasks_name": tasks_name,
-         },
+        {
+            "correction": correction,
+            "tasks_name": tasks_name,
+        },
     )

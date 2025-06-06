@@ -13,6 +13,7 @@ MODEL_CONTEXT_CHOICES = [
     (8192, "8192 tokens"),
 ]
 
+
 class CorrectionForm(ModelForm):
     """
     Class to create a form for a new correction entry in the database.
@@ -148,7 +149,7 @@ class CorrectionForm(ModelForm):
         required=False,
         initial="TXT",
     )
-    
+
     model_context_length = forms.ChoiceField(
         label=_("Ventana de contexto del modelo"),
         choices=MODEL_CONTEXT_CHOICES,

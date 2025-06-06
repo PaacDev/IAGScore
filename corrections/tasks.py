@@ -61,11 +61,13 @@ def start_llm_evaluation(correction_id):
 
         # Initialize the file storage system at the specified location
         fs = FileSystemStorage(location=location)
-        tasks_text = "\n".join(f"{name}:\n{content}" for name, content in tasks_dict.items())
+        tasks_text = "\n".join(
+            f"{name}:\n{content}" for name, content in tasks_dict.items()
+        )
 
         # Invoke the LLM model with the prompt, rubric and tasks
         logger.info("Entrada:")
-        logger.info("-"*50)
+        logger.info("-" * 50)
         entrada_total = (
             correction_obj.prompt.prompt
             + "\n"
@@ -74,14 +76,14 @@ def start_llm_evaluation(correction_id):
             + tasks_text
         )
         logger.info(entrada_total)
-        logger.info("-"*50)
+        logger.info("-" * 50)
         response = llm_model.invoke(
             correction_obj.prompt.prompt
             + "\n"
             + correction_obj.rubric.content
             + "\n"
             + tasks_text
-            #+ str(tasks_dict)
+            # + str(tasks_dict)
         )
         logger.info("LLM response: %s", entrada_total)
         # Create a file system storage object
