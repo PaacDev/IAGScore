@@ -1,9 +1,15 @@
 # IAGScore
-[![Django Develop CI](https://github.com/pac1006/IAGScore/actions/workflows/django_develop.yml/badge.svg?branch=develop)](https://github.com/pac1006/IAGScore/actions/workflows/django_develop.yml)
+[![Django CI](https://github.com/pac1006/IAGScore/actions/workflows/django.yml/badge.svg)](https://github.com/pac1006/IAGScore/actions/workflows/django.yml)
+
+[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-highlight.svg)](https://sonarcloud.io/summary/new_code?id=pac1006_IAGScore)
+
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=pac1006_IAGScore&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=pac1006_IAGScore)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=pac1006_IAGScore&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=pac1006_IAGScore)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=pac1006_IAGScore&metric=coverage)](https://sonarcloud.io/summary/new_code?id=pac1006_IAGScore)
+
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=pac1006_IAGScore&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=pac1006_IAGScore)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=pac1006_IAGScore&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=pac1006_IAGScore)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=pac1006_IAGScore&metric=bugs)](https://sonarcloud.io/summary/new_code?id=pac1006_IAGScore)
 
 **IAGScore** es una plataforma desarrollada para un **Trabajo Fin de Grado (TFG)** que permite a los usuarios subir tareas (archivos) y evaluarlas automáticamente usando **modelos de lenguaje** e inteligencia artificial, basándose en un **prompt personalizado** y una **rúbrica en formato Markdown** proporcionada por el usuario.
 
