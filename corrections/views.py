@@ -422,7 +422,7 @@ def correction_clone(request, item_id):
 
         # Prepare the initial data for the clone
         initial_data = {
-            "description": correction.description,
+            "description": correction.description + "_clon",
             "llm_model": correction.llm_model,
             "model_temp": correction.model_temp,
             "model_top_p": correction.model_top_p,

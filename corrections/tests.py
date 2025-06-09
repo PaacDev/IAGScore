@@ -5,7 +5,6 @@ This module contains de Test Cases for a correction app
 import logging
 import os
 import shutil
-import tempfile
 import uuid
 import zipfile
 import io
@@ -668,8 +667,6 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         mock_llm_instance.invoke.side_effect = Exception("Modelo falló")
         mock_ollama_class.return_value = mock_llm_instance
 
-        from corrections.tasks import start_llm_evaluation
-
         with self.assertRaises(Exception) as cm:
             start_llm_evaluation(correction.id)
 
@@ -716,7 +713,7 @@ class CorrectionsViewsTestCase(TransactionTestCase):
     @patch("os.listdir", side_effect=FileNotFoundError)
     def test_set_tasks_dict_folder_not_found(self, mock_listdir):
         """
-        Test set_tasks_dict when the folder does not exist
+        Test set_tasks_dict when the folder does nclearot exist
         """
         result = set_tasks_dict("nonexistent_folder")
         self.assertEqual(result, {})

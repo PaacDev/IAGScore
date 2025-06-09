@@ -44,7 +44,6 @@ def start_llm_evaluation(correction_id):
 
         base_path = settings.MEDIA_ROOT
         tasks_dict = set_tasks_dict(correction_obj.folder_path)
-        logger.info("output format: %s", correction_obj.output_format)
 
         # Set the model name and parameters
         llm_model = OllamaLLM(
@@ -66,26 +65,14 @@ def start_llm_evaluation(correction_id):
         )
 
         # Invoke the LLM model with the prompt, rubric and tasks
-        logger.info("Entrada:")
-        logger.info("-" * 50)
-        entrada_total = (
-            correction_obj.prompt.prompt
-            + "\n"
-            + correction_obj.rubric.content
-            + "\n"
-            + tasks_text
-        )
-        logger.info(entrada_total)
-        logger.info("-" * 50)
         response = llm_model.invoke(
             correction_obj.prompt.prompt
             + "\n"
             + correction_obj.rubric.content
             + "\n"
             + tasks_text
-            # + str(tasks_dict)
         )
-        logger.info("LLM response: %s", entrada_total)
+
         # Create a file system storage object
         file_content = ContentFile(response)
         filename = "response.txt"
@@ -97,11 +84,6 @@ def start_llm_evaluation(correction_id):
         # Update the correction object
         correction_obj.last_ejecution_date = timezone.now()
         final_time = correction_obj.last_ejecution_date - run_time
-        logger.info(
-            "Execution time for correction id %s: %s seconds",
-            correction_id,
-            final_time.total_seconds(),
-        )
         correction_obj.running = False
         correction_obj.llm_model = model
         correction_obj.time_last_ejecution = final_time.total_seconds()

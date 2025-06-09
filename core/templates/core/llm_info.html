@@ -27,13 +27,16 @@
 
     <ul class="mb-4 text-lg font-normal text-gray-500 dark:text-gray-400 list-disc ps-6">
         <li>
-            <strong>{% trans "Temperatura (temperature):" %}</strong> {% trans "Determina la aleatoriedad de las respuestas. Valores más altos generan respuestas más creativas." %}
+            <strong>{% trans "Temperatura:" %}</strong> {% trans "Determina la aleatoriedad de las respuestas. Valores más altos generan respuestas más creativas." %}
         </li>
         <li>
-            <strong>{% trans "Top-p (nucleus sampling):" %}</strong> {% trans "Limita el conjunto de palabras consideradas, según su probabilidad acumulada." %}
+            <strong>{% trans "Top-p:" %}</strong> {% trans "Limita el conjunto de palabras consideradas, según su probabilidad acumulada." %}
         </li>
         <li>
             <strong>{% trans "Top-k:" %}</strong> {% trans "Restringe el número de opciones a las k palabras más probables en cada paso." %}
+        </li>
+        <li>
+            <strong>{% trans "Ventana de contexto:" %}</strong> {% trans "Define cuántas palabras del texto previo se consideran para generar la respuesta." %}
         </li>
     </ul>
 

@@ -148,6 +148,17 @@ Deberás introducir:
 
 ---
 
+### 7. Carpeta `ejemplos` – Recursos de prueba
+
+Una vez que la aplicación esté en funcionamiento y el modelo cargado, puedes utilizar los materiales incluidos en la carpeta `ejemplos` del repositorio para hacer pruebas de manera rápida:
+
+- Un **prompt** predefinido para copiar y pegar directamente.
+- Una **rúbrica en formato Markdown** lista para importar.
+- Un **archivo comprimido con tareas Java** basadas en el problema de Fibonacci, útil para evaluar el funcionamiento del sistema de corrección automática.
+
+Esta carpeta es ideal para realizar pruebas sin necesidad de crear archivos desde cero. Te permite comprobar el flujo completo.
+
+---
 ## Licencia
 
 Este proyecto está licenciado bajo la **MIT License**.  
