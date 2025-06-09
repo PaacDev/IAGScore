@@ -453,7 +453,15 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-corrections.views">views</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.correction_clone"><code class="docutils literal notranslate"><span class="pre">correction_clone()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.corrections"><code class="docutils literal notranslate"><span class="pre">corrections()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.delete_correction"><code class="docutils literal notranslate"><span class="pre">delete_correction()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.download_response"><code class="docutils literal notranslate"><span class="pre">download_response()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.process_zip_file"><code class="docutils literal notranslate"><span class="pre">process_zip_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.run_model"><code class="docutils literal notranslate"><span class="pre">run_model()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.show_new_correction"><code class="docutils literal notranslate"><span class="pre">show_new_correction()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.show_tasks"><code class="docutils literal notranslate"><span class="pre">show_tasks()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.show_view_correction"><code class="docutils literal notranslate"><span class="pre">show_view_correction()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -854,6 +862,95 @@ when it is deleted.</p>
 <span id="views"></span><h2>views<a class="headerlink" href="#module-corrections.views" title="Link to this heading">#</a></h2>
 <p>Views for the corrections app.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="corrections.views.correction_clone">
+<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">correction_clone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#correction_clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.correction_clone" title="Link to this definition">#</a></dt>
+<dd><p>Clone a correction object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The HTTP request object.</p></li>
+<li><p><strong>id</strong> (<em>int</em>) – The primary key of the correction to clone.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirect to the view correction page after cloning.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Http404</strong> – If the correction with the given ID does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="corrections.views.corrections">
+<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">corrections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#corrections"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.corrections" title="Link to this definition">#</a></dt>
+<dd><p>Show the corrections base page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>) – The HTTP request object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered template for the corrections base page.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="corrections.views.delete_correction">
+<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">delete_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#delete_correction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.delete_correction" title="Link to this definition">#</a></dt>
+<dd><p>Delete one correction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – the HTTP request object</p></li>
+<li><p><strong>id</strong> – The id of the correction</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirect to the corrections view.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>Http404</strong> – If the correction with the given ID does not exist.</p></li>
+<li><p><strong>Exception</strong> – If an error occurs while deleting the correction.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="corrections.views.download_response">
+<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">download_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correction_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#download_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.download_response" title="Link to this definition">#</a></dt>
+<dd><p>Download the file whit the response if exist</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong></p></li>
+<li><p><strong>correction_id</strong> – The ID of the correction</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the file to download</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>FileResponse</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Http404</strong> – If the correction with the given ID does not exist or if the file does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="corrections.views.process_zip_file">
 <span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">process_zip_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">archive_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_correction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#process_zip_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.process_zip_file" title="Link to this definition">#</a></dt>
 <dd><p>Process the ZIP file containing Java files and save them.</p>
@@ -868,6 +965,94 @@ when it is deleted.</p>
 </dl>
 <dl class="simple">
 <dt>Returns</dt><dd><p>str: The path where the files were saved.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="corrections.views.run_model">
+<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">run_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correction_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#run_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.run_model" title="Link to this definition">#</a></dt>
+<dd><p>Call the task to run the model in async mode</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The HTTP request object.</p></li>
+<li><p><strong>correction_id</strong> (<em>int</em>) – The ID of the correction to process.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirect to the correction detail view after queuing the task.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>Http404</strong> – If the correction with the given ID does not exist.</p></li>
+<li><p><strong>Exception</strong> – If an error occurs while processing the correction.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="corrections.views.show_new_correction">
+<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">show_new_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#show_new_correction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.show_new_correction" title="Link to this definition">#</a></dt>
+<dd><p>View to display the form for creating a new correction.</p>
+<ul class="simple">
+<li><p>GET: Displays the form.</p></li>
+<li><p>POST: Processes the form and create new correction.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>) – The HTTP request object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The rendered template for creating a new correction</dt><dd><p>or a redirect to the view correction page.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="corrections.views.show_tasks">
+<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">show_tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#show_tasks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.show_tasks" title="Link to this definition">#</a></dt>
+<dd><p>Show the tasks of a correction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The HTTP request object.</p></li>
+<li><p><strong>item_id</strong> (<em>int</em>) – The ID of the correction.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered template for the tasks of the correction.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="corrections.views.show_view_correction">
+<span class="sig-prename descclassname"><span class="pre">corrections.views.</span></span><span class="sig-name descname"><span class="pre">show_view_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/corrections/views.html#show_view_correction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#corrections.views.show_view_correction" title="Link to this definition">#</a></dt>
+<dd><p>Show the view of the corrections table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>) – The HTTP request object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered template for the corrections table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
 </dd>
 </dl>
 </dd></dl>
@@ -988,7 +1173,15 @@ when it is deleted.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-corrections.views">views</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.correction_clone"><code class="docutils literal notranslate"><span class="pre">correction_clone()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.corrections"><code class="docutils literal notranslate"><span class="pre">corrections()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.delete_correction"><code class="docutils literal notranslate"><span class="pre">delete_correction()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.download_response"><code class="docutils literal notranslate"><span class="pre">download_response()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.process_zip_file"><code class="docutils literal notranslate"><span class="pre">process_zip_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.run_model"><code class="docutils literal notranslate"><span class="pre">run_model()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.show_new_correction"><code class="docutils literal notranslate"><span class="pre">show_new_correction()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.show_tasks"><code class="docutils literal notranslate"><span class="pre">show_tasks()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections.views.show_view_correction"><code class="docutils literal notranslate"><span class="pre">show_view_correction()</span></code></a></li>
 </ul>
 </li>
 </ul>
