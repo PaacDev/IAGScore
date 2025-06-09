@@ -59,7 +59,7 @@ html_theme_options = {
 html_static_path = ["_static"]
 
 # Extensión de autodoc de Sphinx
-autodoc_mock_imports = ["django"]
+#autodoc_mock_imports = ["django"]
 
 # Para métodos privados
 autodoc_typehints = "description"
@@ -73,3 +73,5 @@ intersphinx_mapping = {
     "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
 }
 intersphinx_disabled_domains = ["std"]
+autodoc_preserve_defaults = True
+autodoc_typehints = "description"

@@ -329,6 +329,7 @@ document.write(`
     <span class="p">(</span><span class="mi">8192</span><span class="p">,</span> <span class="s2">&quot;8192 tokens&quot;</span><span class="p">),</span>
 <span class="p">]</span>
 
+
 <div class="viewcode-block" id="CorrectionForm">
 <a class="viewcode-back" href="../../corrections.html#corrections.forms.CorrectionForm">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CorrectionForm</span><span class="p">(</span><span class="n">ModelForm</span><span class="p">):</span>
@@ -469,7 +470,7 @@ document.write(`
         <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">initial</span><span class="o">=</span><span class="s2">&quot;TXT&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    
+
     <span class="n">model_context_length</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">ChoiceField</span><span class="p">(</span>
         <span class="n">label</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Ventana de contexto del modelo&quot;</span><span class="p">),</span>
         <span class="n">choices</span><span class="o">=</span><span class="n">MODEL_CONTEXT_CHOICES</span><span class="p">,</span>

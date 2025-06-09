@@ -362,7 +362,6 @@ document.write(`
 
         <span class="n">base_path</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_ROOT</span>
         <span class="n">tasks_dict</span> <span class="o">=</span> <span class="n">set_tasks_dict</span><span class="p">(</span><span class="n">correction_obj</span><span class="o">.</span><span class="n">folder_path</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;output format: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">correction_obj</span><span class="o">.</span><span class="n">output_format</span><span class="p">)</span>
 
         <span class="c1"># Set the model name and parameters</span>
         <span class="n">llm_model</span> <span class="o">=</span> <span class="n">OllamaLLM</span><span class="p">(</span>
@@ -379,29 +378,19 @@ document.write(`
 
         <span class="c1"># Initialize the file storage system at the specified location</span>
         <span class="n">fs</span> <span class="o">=</span> <span class="n">FileSystemStorage</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">)</span>
-        <span class="n">tasks_text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="si">{</span><span class="n">content</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">tasks_dict</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+        <span class="n">tasks_text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="si">{</span><span class="n">content</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">tasks_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">)</span>
 
         <span class="c1"># Invoke the LLM model with the prompt, rubric and tasks</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Entrada:&quot;</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
-        <span class="n">entrada_total</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">correction_obj</span><span class="o">.</span><span class="n">prompt</span><span class="o">.</span><span class="n">prompt</span>
-            <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="o">+</span> <span class="n">correction_obj</span><span class="o">.</span><span class="n">rubric</span><span class="o">.</span><span class="n">content</span>
-            <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="o">+</span> <span class="n">tasks_text</span>
-        <span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">entrada_total</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">llm_model</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span>
             <span class="n">correction_obj</span><span class="o">.</span><span class="n">prompt</span><span class="o">.</span><span class="n">prompt</span>
             <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="o">+</span> <span class="n">correction_obj</span><span class="o">.</span><span class="n">rubric</span><span class="o">.</span><span class="n">content</span>
             <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="o">+</span> <span class="n">tasks_text</span>
-            <span class="c1">#+ str(tasks_dict)</span>
         <span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;LLM response: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">entrada_total</span><span class="p">)</span>
+
         <span class="c1"># Create a file system storage object</span>
         <span class="n">file_content</span> <span class="o">=</span> <span class="n">ContentFile</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;response.txt&quot;</span>
@@ -413,11 +402,6 @@ document.write(`
         <span class="c1"># Update the correction object</span>
         <span class="n">correction_obj</span><span class="o">.</span><span class="n">last_ejecution_date</span> <span class="o">=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
         <span class="n">final_time</span> <span class="o">=</span> <span class="n">correction_obj</span><span class="o">.</span><span class="n">last_ejecution_date</span> <span class="o">-</span> <span class="n">run_time</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="s2">&quot;Execution time for correction id </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2"> seconds&quot;</span><span class="p">,</span>
-            <span class="n">correction_id</span><span class="p">,</span>
-            <span class="n">final_time</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span>
-        <span class="p">)</span>
         <span class="n">correction_obj</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">correction_obj</span><span class="o">.</span><span class="n">llm_model</span> <span class="o">=</span> <span class="n">model</span>
         <span class="n">correction_obj</span><span class="o">.</span><span class="n">time_last_ejecution</span> <span class="o">=</span> <span class="n">final_time</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>

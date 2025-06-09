@@ -420,6 +420,8 @@ document.write(`
 
 
 
+<div class="viewcode-block" id="run_model">
+<a class="viewcode-back" href="../../corrections.html#corrections.views.run_model">[docs]</a>
 <span class="nd">@login_required</span>
 <span class="nd">@require_GET</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">run_model</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">correction_id</span><span class="p">):</span>
@@ -471,9 +473,12 @@ document.write(`
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error: Correction with id </span><span class="si">%s</span><span class="s2"> does not exist&quot;</span><span class="p">,</span> <span class="n">correction_id</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">Http404</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Corrección no encontrada.&quot;</span><span class="p">))</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
 
-    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;show_view_correction&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;show_view_correction&quot;</span><span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="download_response">
+<a class="viewcode-back" href="../../corrections.html#corrections.views.download_response">[docs]</a>
 <span class="nd">@login_required</span>
 <span class="nd">@require_GET</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">download_response</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">correction_id</span><span class="p">):</span>
@@ -507,9 +512,12 @@ document.write(`
 
     <span class="k">return</span> <span class="n">FileResponse</span><span class="p">(</span>
         <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">),</span> <span class="n">as_attachment</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;response.txt&quot;</span>
-    <span class="p">)</span>
+    <span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="delete_correction">
+<a class="viewcode-back" href="../../corrections.html#corrections.views.delete_correction">[docs]</a>
 <span class="nd">@login_required</span>
 <span class="nd">@require_POST</span>
 <span class="nd">@csrf_protect</span>
@@ -540,9 +548,12 @@ document.write(`
     <span class="k">except</span> <span class="n">Correction</span><span class="o">.</span><span class="n">DoesNotExist</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">Http404</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Corrección no encontrada.&quot;</span><span class="p">))</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
 
-    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;show_view_correction&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;show_view_correction&quot;</span><span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="show_new_correction">
+<a class="viewcode-back" href="../../corrections.html#corrections.views.show_new_correction">[docs]</a>
 <span class="nd">@login_required</span>
 <span class="nd">@csrf_protect</span>
 <span class="nd">@require_http_methods</span><span class="p">([</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;GET&quot;</span><span class="p">])</span>
@@ -650,9 +661,12 @@ document.write(`
             <span class="s2">&quot;correct_form&quot;</span><span class="p">:</span> <span class="n">correct_form</span><span class="p">,</span>
             <span class="s2">&quot;model_names&quot;</span><span class="p">:</span> <span class="n">model_names</span><span class="p">,</span>
         <span class="p">},</span>
-    <span class="p">)</span>
+    <span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="show_view_correction">
+<a class="viewcode-back" href="../../corrections.html#corrections.views.show_view_correction">[docs]</a>
 <span class="nd">@login_required</span>
 <span class="nd">@require_GET</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_view_correction</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
@@ -702,9 +716,12 @@ document.write(`
             <span class="s2">&quot;sort&quot;</span><span class="p">:</span> <span class="n">sort_field</span><span class="p">,</span>
             <span class="s2">&quot;dir&quot;</span><span class="p">:</span> <span class="n">sort_dir</span><span class="p">,</span>
         <span class="p">},</span>
-    <span class="p">)</span>
+    <span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="corrections">
+<a class="viewcode-back" href="../../corrections.html#corrections.views.corrections">[docs]</a>
 <span class="nd">@login_required</span>
 <span class="nd">@require_GET</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">corrections</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
@@ -717,9 +734,12 @@ document.write(`
 <span class="sd">    Returns:</span>
 <span class="sd">        HttpResponse: The rendered template for the corrections base page.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;corrections/correction_base.html&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;corrections/correction_base.html&quot;</span><span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="correction_clone">
+<a class="viewcode-back" href="../../corrections.html#corrections.views.correction_clone">[docs]</a>
 <span class="nd">@login_required</span>
 <span class="nd">@require_GET</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">correction_clone</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">item_id</span><span class="p">):</span>
@@ -741,7 +761,7 @@ document.write(`
 
         <span class="c1"># Prepare the initial data for the clone</span>
         <span class="n">initial_data</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">correction</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">correction</span><span class="o">.</span><span class="n">description</span> <span class="o">+</span> <span class="s2">&quot;_clon&quot;</span><span class="p">,</span>
             <span class="s2">&quot;llm_model&quot;</span><span class="p">:</span> <span class="n">correction</span><span class="o">.</span><span class="n">llm_model</span><span class="p">,</span>
             <span class="s2">&quot;model_temp&quot;</span><span class="p">:</span> <span class="n">correction</span><span class="o">.</span><span class="n">model_temp</span><span class="p">,</span>
             <span class="s2">&quot;model_top_p&quot;</span><span class="p">:</span> <span class="n">correction</span><span class="o">.</span><span class="n">model_top_p</span><span class="p">,</span>
@@ -763,8 +783,12 @@ document.write(`
     <span class="k">except</span> <span class="n">Correction</span><span class="o">.</span><span class="n">DoesNotExist</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">Http404</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Corrección no encontrada.&quot;</span><span class="p">))</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
 
-    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;show_new_correction&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;show_new_correction&quot;</span><span class="p">)</span></div>
 
+
+
+<div class="viewcode-block" id="show_tasks">
+<a class="viewcode-back" href="../../corrections.html#corrections.views.show_tasks">[docs]</a>
 <span class="nd">@login_required</span>
 <span class="nd">@require_GET</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_tasks</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">item_id</span><span class="p">):</span>
@@ -794,21 +818,26 @@ document.write(`
         <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">tasks_folder_path</span><span class="p">):</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Processing file: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
             <span class="c1"># Check if the file is a valid extension and does not start with &quot;_&quot; or &quot;.&quot;</span>
-            <span class="k">if</span> <span class="n">file_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">VALID_EXTENSION</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">file_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">file_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">VALID_EXTENSION</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">file_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span>
+                <span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+            <span class="p">):</span>
                 <span class="n">tasks_name</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="ow">not</span> <span class="n">tasks_name</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">Http404</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;No se encontraron tareas para esta corrección.&quot;</span><span class="p">))</span>
-        
+
     <span class="k">except</span> <span class="n">Correction</span><span class="o">.</span><span class="n">DoesNotExist</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">Http404</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Corrección no encontrada.&quot;</span><span class="p">))</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
 
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span>
         <span class="n">request</span><span class="p">,</span>
         <span class="s2">&quot;corrections/tasks.html&quot;</span><span class="p">,</span>
-        <span class="p">{</span><span class="s2">&quot;correction&quot;</span><span class="p">:</span> <span class="n">correction</span><span class="p">,</span>
-        <span class="s2">&quot;tasks_name&quot;</span><span class="p">:</span> <span class="n">tasks_name</span><span class="p">,</span>
-         <span class="p">},</span>
-    <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;correction&quot;</span><span class="p">:</span> <span class="n">correction</span><span class="p">,</span>
+            <span class="s2">&quot;tasks_name&quot;</span><span class="p">:</span> <span class="n">tasks_name</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">)</span></div>
+
 </pre></div>
 
                 </article>

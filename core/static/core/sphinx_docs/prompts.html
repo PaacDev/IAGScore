@@ -432,7 +432,12 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-prompts.views">views</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-prompts.views">views</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompts.views.delete_prompt"><code class="docutils literal notranslate"><span class="pre">delete_prompt()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompts.views.prompt_page"><code class="docutils literal notranslate"><span class="pre">prompt_page()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompts.views.show_prompt"><code class="docutils literal notranslate"><span class="pre">show_prompt()</span></code></a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -686,6 +691,73 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 <section id="module-prompts.views">
 <span id="views"></span><h2>views<a class="headerlink" href="#module-prompts.views" title="Link to this heading">#</a></h2>
 <p>Views for the prompts app.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="prompts.views.delete_prompt">
+<span class="sig-prename descclassname"><span class="pre">prompts.views.</span></span><span class="sig-name descname"><span class="pre">delete_prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prompt_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prompts/views.html#delete_prompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prompts.views.delete_prompt" title="Link to this definition">#</a></dt>
+<dd><p>View for deleting a prompt</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – The HTTP request object.</p></li>
+<li><p><strong>prompt_id</strong> – The ID of the prompt to delete.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Redirects to the prompt page with a success message.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Http404</strong> – If the prompt does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="prompts.views.prompt_page">
+<span class="sig-prename descclassname"><span class="pre">prompts.views.</span></span><span class="sig-name descname"><span class="pre">prompt_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prompts/views.html#prompt_page"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prompts.views.prompt_page" title="Link to this definition">#</a></dt>
+<dd><p>View for creating a new prompt.</p>
+<ul class="simple">
+<li><p>GET: Displays the form.</p></li>
+<li><p>POST: Processes the form and create new prompt.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – The HTTP request object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered template with the prompt form and prompt list.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="prompts.views.show_prompt">
+<span class="sig-prename descclassname"><span class="pre">prompts.views.</span></span><span class="sig-name descname"><span class="pre">show_prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prompt_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prompts/views.html#show_prompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prompts.views.show_prompt" title="Link to this definition">#</a></dt>
+<dd><p>View for showing a prompt</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – The HTTP request object.</p></li>
+<li><p><strong>prompt_id</strong> – The ID of the prompt to show.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered template with the prompt details.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Http404</strong> – If the prompt does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 
@@ -789,7 +861,12 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-prompts.views">views</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-prompts.views">views</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompts.views.delete_prompt"><code class="docutils literal notranslate"><span class="pre">delete_prompt()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompts.views.prompt_page"><code class="docutils literal notranslate"><span class="pre">prompt_page()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompts.views.show_prompt"><code class="docutils literal notranslate"><span class="pre">show_prompt()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
