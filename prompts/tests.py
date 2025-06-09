@@ -7,8 +7,10 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.contrib import messages
+from django.contrib.admin.sites import AdminSite
 from django.utils.translation import activate
 from .models import Prompt
+from .admin import PromptAdmin
 
 User = get_user_model()
 # Silence Django 404 logging during tests
@@ -165,6 +167,21 @@ class PromptViewTestCase(TestCase):
         self.assertEqual(str(messages_list[0]), "Prompt eliminado correctamente")
         self.assertFalse(Prompt.objects.filter(id=item_id).exists())
 
+    def test_delete_prompt_view_raise(self):
+        """
+        Test the delete prompt view with a non-existing prompt
+        """
+        prompt = Prompt.objects.create(
+            name="Test Prompt",
+            prompt="This is a test prompt.",
+            user=self.user,
+        )
+
+        item_id = prompt.id + 1
+        response = self.client.post(reverse("delete_prompt", args=[item_id]))
+        self.assertEqual(response.status_code, 404)
+        self.assertRaises(Prompt.DoesNotExist, Prompt.objects.get, id=item_id)
+
     def test_query_filtering(self):
         """
         Test the query filtering in the prompt list
@@ -189,3 +206,52 @@ class PromptViewTestCase(TestCase):
         self.assertContains(response, "First Test")
         self.assertNotContains(response, "Second test")
         self.assertNotContains(response, "Another one")
+
+
+class PromptAdminTest(TestCase):
+    """
+    Test case for the PromptAdmin class.
+    """
+
+    def setUp(self):
+        """
+        Set up the test case.
+        """
+        self.site = AdminSite()
+        self.admin = PromptAdmin(Prompt, self.site)
+        self.user = User.objects.create_user(
+            username="testuser", email="testuser@mail.com", password="testpass123"
+        )
+
+    def test_prompt_preview_short_content(self):
+        """
+        Test the prompt_preview method with content shorter than 50 characters.
+        """
+        short_content = "C" * 49
+        prompt = Prompt.objects.create(
+            name="Test", prompt=short_content, user_id=self.user.id
+        )
+        result = self.admin.prompt_preview(prompt)
+        self.assertEqual(result, short_content)
+
+    def test_prompt_preview_long_content(self):
+        """
+        Test the prompt_preview method with content longer than 50 characters.
+        """
+        long_content = "A" * 51  # 60 characters
+        prompt = Prompt.objects.create(
+            name="Test", prompt=long_content, user_id=self.user.id
+        )
+        result = self.admin.prompt_preview(prompt)
+        self.assertEqual(result, "A" * 50 + "...")
+
+    def test_prompt_preview_exact_50(self):
+        """
+        Test the prompt_preview method with content exactly 50 characters long.
+        """
+        exact_content = "B" * 50
+        prompt = Prompt.objects.create(
+            name="Test", prompt=exact_content, user_id=self.user.id
+        )
+        result = self.admin.prompt_preview(prompt)
+        self.assertEqual(result, exact_content)

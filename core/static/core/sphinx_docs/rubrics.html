@@ -434,7 +434,12 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-rubrics.views">views</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-rubrics.views">views</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.delete_rubric"><code class="docutils literal notranslate"><span class="pre">delete_rubric()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.rubric_page"><code class="docutils literal notranslate"><span class="pre">rubric_page()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.show_rubric"><code class="docutils literal notranslate"><span class="pre">show_rubric()</span></code></a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -725,6 +730,73 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 <section id="module-rubrics.views">
 <span id="views"></span><h2>views<a class="headerlink" href="#module-rubrics.views" title="Link to this heading">#</a></h2>
 <p>Views for the rubrics app.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="rubrics.views.delete_rubric">
+<span class="sig-prename descclassname"><span class="pre">rubrics.views.</span></span><span class="sig-name descname"><span class="pre">delete_rubric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rubric_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubrics/views.html#delete_rubric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rubrics.views.delete_rubric" title="Link to this definition">#</a></dt>
+<dd><p>View for deleting a rubric</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – The HTTP request object.</p></li>
+<li><p><strong>rubric_id</strong> – The ID of the rubric to delete.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirect to the rubric page.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Http404</strong> – If the rubric does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rubrics.views.rubric_page">
+<span class="sig-prename descclassname"><span class="pre">rubrics.views.</span></span><span class="sig-name descname"><span class="pre">rubric_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubrics/views.html#rubric_page"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rubrics.views.rubric_page" title="Link to this definition">#</a></dt>
+<dd><p>View for import a new rubric.</p>
+<ul class="simple">
+<li><p>GET: Displays the form.</p></li>
+<li><p>POST: Processes the form and create new rubric.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – The HTTP request object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered template with the rubric form and rubric list.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rubrics.views.show_rubric">
+<span class="sig-prename descclassname"><span class="pre">rubrics.views.</span></span><span class="sig-name descname"><span class="pre">show_rubric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rubric_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubrics/views.html#show_rubric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rubrics.views.show_rubric" title="Link to this definition">#</a></dt>
+<dd><p>View for showing a rubric</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – The HTTP request object.</p></li>
+<li><p><strong>rubric_id</strong> – The ID of the rubric to show.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered template with the rubric details.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Http404</strong> – If the rubric does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 
@@ -830,7 +902,12 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-rubrics.views">views</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-rubrics.views">views</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.delete_rubric"><code class="docutils literal notranslate"><span class="pre">delete_rubric()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.rubric_page"><code class="docutils literal notranslate"><span class="pre">rubric_page()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics.views.show_rubric"><code class="docutils literal notranslate"><span class="pre">show_rubric()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

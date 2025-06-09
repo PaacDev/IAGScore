@@ -315,9 +315,12 @@ document.write(`
                   
   <h1>Source code for corrections.views</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Views for the corrections app.&quot;&quot;&quot;</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ollama</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.utils.translation</span><span class="w"> </span><span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.shortcuts</span><span class="w"> </span><span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.contrib.auth.decorators</span><span class="w"> </span><span class="kn">import</span> <span class="n">login_required</span>
@@ -328,6 +331,7 @@ document.write(`
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">Http404</span><span class="p">,</span> <span class="n">FileResponse</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.contrib</span><span class="w"> </span><span class="kn">import</span> <span class="n">messages</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.db.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyunpack</span><span class="w"> </span><span class="kn">import</span> <span class="n">Archive</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">iagscore</span><span class="w"> </span><span class="kn">import</span> <span class="n">settings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">prompts.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Prompt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rubrics.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Rubric</span>
@@ -336,16 +340,30 @@ document.write(`
 <span class="kn">from</span><span class="w"> </span><span class="nn">.tasks</span><span class="w"> </span><span class="kn">import</span> <span class="n">start_llm_evaluation</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="c1"># Valid file extensions for the corrections</span>
+<span class="n">VALID_EXTENSION</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;.java&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.sql&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.py&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.cs&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.js&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.ts&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.cpp&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.rs&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.php&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.md&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.txt&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 
 
 <div class="viewcode-block" id="process_zip_file">
 <a class="viewcode-back" href="../../corrections.html#corrections.views.process_zip_file">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">process_zip_file</span><span class="p">(</span><span class="n">zip_file</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">id_correction</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_zip_file</span><span class="p">(</span><span class="n">archive_path</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">id_correction</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Process the ZIP file containing Java files and save them.</span>
 
 <span class="sd">    Parameters:</span>
-<span class="sd">        zip_file: File to proceess</span>
+<span class="sd">        archive_file: File to proceess</span>
 <span class="sd">        user: User that making te request</span>
 <span class="sd">        id_correction: The id to the correction</span>
 
@@ -353,34 +371,57 @@ document.write(`
 <span class="sd">        str: The path where the files were saved.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="c1"># Get the file extension</span>
+    <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">archive_path</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># If it&#39;s a Django UploadedFile, save it to a temporary file</span>
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">ext</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">archive_path</span><span class="o">.</span><span class="n">chunks</span><span class="p">():</span>
+            <span class="n">tmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+        <span class="n">archive_path</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">name</span>
+
     <span class="n">base_path</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_ROOT</span>
     <span class="n">folder_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;corrections/</span><span class="si">{</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">id_correction</span><span class="si">}</span><span class="s2">/&quot;</span>
     <span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="n">folder_path</span><span class="p">)</span>
+    <span class="c1"># Ensure the directory exists</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">full_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="c1"># File system storage object pointing to the specified path</span>
     <span class="n">fs</span> <span class="o">=</span> <span class="n">FileSystemStorage</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="n">full_path</span><span class="p">)</span>
 
-    <span class="c1"># Unzip the file</span>
-    <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zip_ref</span><span class="p">:</span>
-        <span class="n">files_list</span> <span class="o">=</span> <span class="n">zip_ref</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span>
-        <span class="c1"># List of files .java</span>
-        <span class="n">entregas</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">file</span>
-            <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files_list</span>
-            <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.java&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">file</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">))</span>
-        <span class="p">]</span>
+    <span class="n">temp_extract_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">full_path</span><span class="p">,</span> <span class="s2">&quot;temp_extract&quot;</span><span class="p">)</span>
+    <span class="c1"># Ensure the directory exists</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">temp_extract_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="c1"># Save the java files in the full_path</span>
-        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">entregas</span><span class="p">:</span>
-            <span class="n">filename_only</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>  <span class="c1"># Add only the files</span>
-            <span class="k">with</span> <span class="n">zip_ref</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">extracted_file</span><span class="p">:</span>
-                <span class="c1"># Save the extracted file</span>
-                <span class="n">fs</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename_only</span><span class="p">,</span> <span class="n">extracted_file</span><span class="p">)</span>
+    <span class="c1"># Extract the compressed file</span>
+    <span class="n">Archive</span><span class="p">(</span><span class="n">archive_path</span><span class="p">)</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">temp_extract_path</span><span class="p">)</span>
+
+    <span class="c1"># Delete non-Java files</span>
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">temp_extract_path</span><span class="p">):</span>
+        <span class="c1"># Skip directories that start with &quot;_&quot; or &quot;.&quot;</span>
+        <span class="n">dirs</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dirs</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">d</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">))]</span>
+
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Processing file: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+            <span class="c1"># Check if the file is a valid extension and does not start with &quot;_&quot; or &quot;.&quot;</span>
+            <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">VALID_EXTENSION</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">file</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)):</span>
+                <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+                <span class="c1"># Get the relative path and create a safe name</span>
+                <span class="n">relative_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">temp_extract_path</span><span class="p">)</span>
+                <span class="n">safe_name</span> <span class="o">=</span> <span class="n">relative_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="c1"># Save the file</span>
+                    <span class="n">fs</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">safe_name</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># Remove the temporary extraction directory</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">temp_extract_path</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">folder_path</span></div>
 
 
 
+<div class="viewcode-block" id="run_model">
+<a class="viewcode-back" href="../../corrections.html#corrections.views.run_model">[docs]</a>
 <span class="nd">@login_required</span>
 <span class="nd">@require_GET</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">run_model</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">correction_id</span><span class="p">):</span>
@@ -393,7 +434,7 @@ document.write(`
 
 <span class="sd">    Returns:</span>
 <span class="sd">        HttpResponse: A redirect to the correction detail view after queuing the task.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Raises:</span>
 <span class="sd">        Http404: If the correction with the given ID does not exist.</span>
 <span class="sd">        Exception: If an error occurs while processing the correction.</span>
@@ -404,14 +445,40 @@ document.write(`
         <span class="n">correction_obj</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">correction_obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
+        <span class="n">models</span> <span class="o">=</span> <span class="n">ollama</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+        <span class="n">model_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">model</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="p">[</span><span class="s2">&quot;models&quot;</span><span class="p">]]</span>
+
+        <span class="k">if</span> <span class="n">correction_obj</span><span class="o">.</span><span class="n">llm_model</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">model_names</span><span class="p">:</span>
+            <span class="n">correction_obj</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">correction_obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span>
+                <span class="n">request</span><span class="p">,</span>
+                <span class="n">messages</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
+                <span class="n">_</span><span class="p">(</span>
+                    <span class="s2">&quot;El modelo seleccionado para esta corrección no está cargado en Ollama.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;show_view_correction&quot;</span><span class="p">)</span>
+
         <span class="c1"># Initiate the task asynchronously</span>
         <span class="n">start_llm_evaluation</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="n">correction_id</span><span class="p">)</span>
+
+        <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span>
+            <span class="n">request</span><span class="p">,</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span>
+            <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Corrección en proceso. Revisa el resultado más tarde.&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+
     <span class="k">except</span> <span class="n">Correction</span><span class="o">.</span><span class="n">DoesNotExist</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error: Correction with id </span><span class="si">%s</span><span class="s2"> does not exist&quot;</span><span class="p">,</span> <span class="n">correction_id</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">Http404</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Corrección no encontrada.&quot;</span><span class="p">))</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
 
-    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;show_view_correction&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;show_view_correction&quot;</span><span class="p">)</span></div>
 
+
+
+<div class="viewcode-block" id="download_response">
+<a class="viewcode-back" href="../../corrections.html#corrections.views.download_response">[docs]</a>
 <span class="nd">@login_required</span>
 <span class="nd">@require_GET</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">download_response</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">correction_id</span><span class="p">):</span>
@@ -424,7 +491,7 @@ document.write(`
 
 <span class="sd">    Return:</span>
 <span class="sd">        FileResponse: the file to download</span>
-<span class="sd">        </span>
+
 <span class="sd">    Raises:</span>
 <span class="sd">        Http404: If the correction with the given ID does not exist or if the file does not exist.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -445,9 +512,12 @@ document.write(`
 
     <span class="k">return</span> <span class="n">FileResponse</span><span class="p">(</span>
         <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">),</span> <span class="n">as_attachment</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;response.txt&quot;</span>
-    <span class="p">)</span>
+    <span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="delete_correction">
+<a class="viewcode-back" href="../../corrections.html#corrections.views.delete_correction">[docs]</a>
 <span class="nd">@login_required</span>
 <span class="nd">@require_POST</span>
 <span class="nd">@csrf_protect</span>
@@ -461,7 +531,7 @@ document.write(`
 
 <span class="sd">    Return:</span>
 <span class="sd">        HttpResponse: A redirect to the corrections view.</span>
-<span class="sd">        </span>
+
 <span class="sd">    Raises:</span>
 <span class="sd">        Http404: If the correction with the given ID does not exist.</span>
 <span class="sd">        Exception: If an error occurs while deleting the correction.</span>
@@ -470,29 +540,40 @@ document.write(`
     <span class="k">try</span><span class="p">:</span>
         <span class="n">correction_obj</span> <span class="o">=</span> <span class="n">Correction</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">item_id</span><span class="p">)</span>
         <span class="n">correction_obj</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span>
+            <span class="n">request</span><span class="p">,</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span>
+            <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Corrección: </span><span class="si">%s</span><span class="s2">, eliminada correctamente.&quot;</span> <span class="o">%</span> <span class="n">correction_obj</span><span class="o">.</span><span class="n">description</span><span class="p">),</span>
+        <span class="p">)</span>
     <span class="k">except</span> <span class="n">Correction</span><span class="o">.</span><span class="n">DoesNotExist</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">Http404</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Corrección no encontrada.&quot;</span><span class="p">))</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
 
-    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;show_view_correction&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;show_view_correction&quot;</span><span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="show_new_correction">
+<a class="viewcode-back" href="../../corrections.html#corrections.views.show_new_correction">[docs]</a>
 <span class="nd">@login_required</span>
 <span class="nd">@csrf_protect</span>
 <span class="nd">@require_http_methods</span><span class="p">([</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;GET&quot;</span><span class="p">])</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_new_correction</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    View to display the form for creating a new correction.</span>
-<span class="sd">    </span>
+
 <span class="sd">    - GET: Displays the form.</span>
 <span class="sd">    - POST: Processes the form and create new correction.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters:</span>
 <span class="sd">        request (HttpRequest): The HTTP request object.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns:</span>
-<span class="sd">        HttpResponse: The rendered template for creating a new correction </span>
+<span class="sd">        HttpResponse: The rendered template for creating a new correction</span>
 <span class="sd">                    or a redirect to the view correction page.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check if there is any clone data in the session</span>
+    <span class="n">clone_data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;correction_clone_data&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
     <span class="c1"># Get the user&#39;s rubrics and prompts</span>
     <span class="n">rubric_list</span> <span class="o">=</span> <span class="n">Rubric</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
     <span class="n">prompt_list</span> <span class="o">=</span> <span class="n">Prompt</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
@@ -500,10 +581,20 @@ document.write(`
     <span class="n">rubric_select_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rubric_id&quot;</span><span class="p">)</span>
     <span class="n">prompt_selected_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prompt_id&quot;</span><span class="p">)</span>
     <span class="c1"># Initialize the correction form</span>
-    <span class="n">correct_form</span> <span class="o">=</span> <span class="n">CorrectionForm</span><span class="p">()</span>
+    <span class="n">correct_form</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">CorrectionForm</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="n">clone_data</span><span class="p">)</span> <span class="k">if</span> <span class="n">clone_data</span> <span class="k">else</span> <span class="n">CorrectionForm</span><span class="p">()</span>
+    <span class="p">)</span>
     <span class="c1"># Initialize the selected rubric and prompt</span>
     <span class="n">rubric_select</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">prompt_select</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">clone_data</span><span class="p">:</span>
+        <span class="n">rubric_select_id</span> <span class="o">=</span> <span class="n">clone_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rubric&quot;</span><span class="p">)</span>
+        <span class="n">prompt_selected_id</span> <span class="o">=</span> <span class="n">clone_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prompt&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Get the list of models pulled from Ollama</span>
+    <span class="n">models</span> <span class="o">=</span> <span class="n">ollama</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+    <span class="n">model_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">model</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="p">[</span><span class="s2">&quot;models&quot;</span><span class="p">]]</span>
 
     <span class="c1"># If rubric_select_id or prompt_selected_id are not None, get the objects</span>
     <span class="k">if</span> <span class="n">rubric_select_id</span><span class="p">:</span>
@@ -533,24 +624,31 @@ document.write(`
             <span class="n">new_corrections</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
             <span class="c1"># Sucess message</span>
             <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span>
-                <span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Correción creada correctamente&quot;</span><span class="p">)</span>
+                <span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Corrección creada correctamente&quot;</span><span class="p">)</span>
             <span class="p">)</span>
-        <span class="c1"># If the form is not valid, log the errors</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Error al crear correción&quot;</span><span class="p">))</span>
-            <span class="n">errors</span> <span class="o">=</span> <span class="n">correct_form</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">as_data</span><span class="p">()</span>
+            <span class="c1"># Redirect to the view correction page</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;show_view_correction&quot;</span><span class="p">)</span>
 
-            <span class="c1"># Save the error in messages</span>
-            <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">error_list</span> <span class="ow">in</span> <span class="n">errors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">error_list</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error en el campo </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">field</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
-                    <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span>
-                        <span class="n">request</span><span class="p">,</span>
-                        <span class="n">messages</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
-                        <span class="sa">f</span><span class="s2">&quot;Error en el campo &#39;</span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-                    <span class="p">)</span>
+        <span class="c1"># If the form is not valid, log the errors</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Error al crear correción&quot;</span><span class="p">))</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="n">correct_form</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">as_data</span><span class="p">()</span>
+        <span class="c1"># Save the error in messages</span>
+        <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">error_list</span> <span class="ow">in</span> <span class="n">errors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">error_list</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error en el campo </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">field</span> <span class="o">==</span> <span class="s2">&quot;llm_model&quot;</span><span class="p">:</span>
+                    <span class="n">field</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Modelo&quot;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">field</span> <span class="o">==</span> <span class="s2">&quot;rubric&quot;</span><span class="p">:</span>
+                    <span class="n">field</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Rúbrica&quot;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">field</span> <span class="o">==</span> <span class="s2">&quot;prompt&quot;</span><span class="p">:</span>
+                    <span class="n">field</span> <span class="o">=</span> <span class="s2">&quot;Prompt&quot;</span>
+                <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span>
+                    <span class="n">request</span><span class="p">,</span>
+                    <span class="n">messages</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;Error en el campo &#39;</span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
         <span class="c1"># Redirect to the view correction page</span>
-        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;show_view_correction&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;show_new_correction&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span>
         <span class="n">request</span><span class="p">,</span>
@@ -561,24 +659,28 @@ document.write(`
             <span class="s2">&quot;rubric_select&quot;</span><span class="p">:</span> <span class="n">rubric_select</span><span class="p">,</span>
             <span class="s2">&quot;prompt_select&quot;</span><span class="p">:</span> <span class="n">prompt_select</span><span class="p">,</span>
             <span class="s2">&quot;correct_form&quot;</span><span class="p">:</span> <span class="n">correct_form</span><span class="p">,</span>
+            <span class="s2">&quot;model_names&quot;</span><span class="p">:</span> <span class="n">model_names</span><span class="p">,</span>
         <span class="p">},</span>
-    <span class="p">)</span>
+    <span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="show_view_correction">
+<a class="viewcode-back" href="../../corrections.html#corrections.views.show_view_correction">[docs]</a>
 <span class="nd">@login_required</span>
 <span class="nd">@require_GET</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_view_correction</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Show the view of the corrections table</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters:</span>
 <span class="sd">        request (HttpRequest): The HTTP request object.</span>
-<span class="sd">        </span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        HttpResponse: The rendered template for the corrections table.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">query</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;q&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="n">sort_field</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sort&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">)</span>
     <span class="n">sort_dir</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dir&quot;</span><span class="p">,</span> <span class="s2">&quot;desc&quot;</span><span class="p">)</span>
 
@@ -589,11 +691,11 @@ document.write(`
     <span class="c1"># Sort the correction list based on the sort field and direction</span>
     <span class="n">sort_prefix</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span> <span class="k">if</span> <span class="n">sort_dir</span> <span class="o">==</span> <span class="s2">&quot;desc&quot;</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
     <span class="n">order_by_field</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sort_prefix</span><span class="si">}{</span><span class="n">sort_field</span><span class="si">}</span><span class="s2">&quot;</span>
-    
+
     <span class="c1"># Filter the correction list based on the query</span>
     <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
         <span class="n">correction_list</span> <span class="o">=</span> <span class="n">correction_list</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">description__icontains</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
-    
+
     <span class="c1"># If the sort field is &quot;last_ejecution_date&quot;, filter out None values (&quot;never executed&quot;)</span>
     <span class="k">if</span> <span class="n">sort_field</span> <span class="o">==</span> <span class="s2">&quot;last_ejecution_date&quot;</span><span class="p">:</span>
         <span class="n">correction_list</span> <span class="o">=</span> <span class="n">correction_list</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">~</span><span class="n">Q</span><span class="p">(</span><span class="n">last_ejecution_date</span><span class="o">=</span><span class="kc">None</span><span class="p">))</span>
@@ -609,27 +711,133 @@ document.write(`
         <span class="n">request</span><span class="p">,</span>
         <span class="s2">&quot;corrections/view_correction.html&quot;</span><span class="p">,</span>
         <span class="p">{</span>
-            <span class="s2">&quot;corrections&quot;</span><span class="p">:</span> <span class="n">corrections_obj</span><span class="p">,</span>
+            <span class="s2">&quot;page_obj&quot;</span><span class="p">:</span> <span class="n">corrections_obj</span><span class="p">,</span>
             <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
             <span class="s2">&quot;sort&quot;</span><span class="p">:</span> <span class="n">sort_field</span><span class="p">,</span>
             <span class="s2">&quot;dir&quot;</span><span class="p">:</span> <span class="n">sort_dir</span><span class="p">,</span>
         <span class="p">},</span>
-    <span class="p">)</span>
+    <span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="corrections">
+<a class="viewcode-back" href="../../corrections.html#corrections.views.corrections">[docs]</a>
 <span class="nd">@login_required</span>
 <span class="nd">@require_GET</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">corrections</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Show the corrections base page</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters:</span>
 <span class="sd">        request (HttpRequest): The HTTP request object.</span>
-<span class="sd">        </span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        HttpResponse: The rendered template for the corrections base page.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;corrections/correction_base.html&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;corrections/correction_base.html&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="correction_clone">
+<a class="viewcode-back" href="../../corrections.html#corrections.views.correction_clone">[docs]</a>
+<span class="nd">@login_required</span>
+<span class="nd">@require_GET</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">correction_clone</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">item_id</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clone a correction object.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        request (HttpRequest): The HTTP request object.</span>
+<span class="sd">        id (int): The primary key of the correction to clone.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        HttpResponse: A redirect to the view correction page after cloning.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Http404: If the correction with the given ID does not exist.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">correction</span> <span class="o">=</span> <span class="n">Correction</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">item_id</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+
+        <span class="c1"># Prepare the initial data for the clone</span>
+        <span class="n">initial_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">correction</span><span class="o">.</span><span class="n">description</span> <span class="o">+</span> <span class="s2">&quot;_clon&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;llm_model&quot;</span><span class="p">:</span> <span class="n">correction</span><span class="o">.</span><span class="n">llm_model</span><span class="p">,</span>
+            <span class="s2">&quot;model_temp&quot;</span><span class="p">:</span> <span class="n">correction</span><span class="o">.</span><span class="n">model_temp</span><span class="p">,</span>
+            <span class="s2">&quot;model_top_p&quot;</span><span class="p">:</span> <span class="n">correction</span><span class="o">.</span><span class="n">model_top_p</span><span class="p">,</span>
+            <span class="s2">&quot;model_top_k&quot;</span><span class="p">:</span> <span class="n">correction</span><span class="o">.</span><span class="n">model_top_k</span><span class="p">,</span>
+            <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="n">correction</span><span class="o">.</span><span class="n">output_format</span><span class="p">,</span>
+            <span class="s2">&quot;rubric&quot;</span><span class="p">:</span> <span class="n">correction</span><span class="o">.</span><span class="n">rubric</span><span class="o">.</span><span class="n">id</span> <span class="k">if</span> <span class="n">correction</span><span class="o">.</span><span class="n">rubric</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">correction</span><span class="o">.</span><span class="n">prompt</span><span class="o">.</span><span class="n">id</span> <span class="k">if</span> <span class="n">correction</span><span class="o">.</span><span class="n">prompt</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;correction_clone_data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">initial_data</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span>
+            <span class="n">request</span><span class="p">,</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+            <span class="n">_</span><span class="p">(</span>
+                <span class="s2">&quot;Datos clonados de la corrección: </span><span class="si">%s</span><span class="s2">. Puedes editarlos antes de crear una nueva corrección. Debes incluir un archivo comprimido con las tareas&quot;</span>
+            <span class="p">)</span>
+            <span class="o">%</span> <span class="n">correction</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="n">Correction</span><span class="o">.</span><span class="n">DoesNotExist</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">Http404</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Corrección no encontrada.&quot;</span><span class="p">))</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;show_new_correction&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="show_tasks">
+<a class="viewcode-back" href="../../corrections.html#corrections.views.show_tasks">[docs]</a>
+<span class="nd">@login_required</span>
+<span class="nd">@require_GET</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">show_tasks</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">item_id</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Show the tasks of a correction</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        request (HttpRequest): The HTTP request object.</span>
+<span class="sd">        item_id (int): The ID of the correction.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        HttpResponse: The rendered template for the tasks of the correction.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">correction</span> <span class="o">=</span> <span class="n">Correction</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">item_id</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">path_folder_tasks</span> <span class="o">=</span> <span class="n">correction</span><span class="o">.</span><span class="n">folder_path</span>
+
+        <span class="n">tasks_name</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Get the path to the tasks folder</span>
+        <span class="n">base_path</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_ROOT</span>
+        <span class="n">tasks_folder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="n">path_folder_tasks</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Tasks folder path: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">tasks_folder_path</span><span class="p">)</span>
+        <span class="c1"># Check if the tasks folder exists</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tasks_folder_path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">Http404</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;No se encontraron tareas para esta corrección.&quot;</span><span class="p">))</span>
+        <span class="c1"># List all files in the tasks folder</span>
+        <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">tasks_folder_path</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Processing file: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+            <span class="c1"># Check if the file is a valid extension and does not start with &quot;_&quot; or &quot;.&quot;</span>
+            <span class="k">if</span> <span class="n">file_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">VALID_EXTENSION</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">file_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span>
+                <span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="n">tasks_name</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">tasks_name</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">Http404</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;No se encontraron tareas para esta corrección.&quot;</span><span class="p">))</span>
+
+    <span class="k">except</span> <span class="n">Correction</span><span class="o">.</span><span class="n">DoesNotExist</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">Http404</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Corrección no encontrada.&quot;</span><span class="p">))</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span>
+        <span class="n">request</span><span class="p">,</span>
+        <span class="s2">&quot;corrections/tasks.html&quot;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;correction&quot;</span><span class="p">:</span> <span class="n">correction</span><span class="p">,</span>
+            <span class="s2">&quot;tasks_name&quot;</span><span class="p">:</span> <span class="n">tasks_name</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">)</span></div>
+
 </pre></div>
 
                 </article>

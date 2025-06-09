@@ -23,4 +23,5 @@ urlpatterns = [
         views.correction_clone,
         name="correction_clone",
     ),
+    path("tasks/<int:item_id>", views.show_tasks, name="show_tasks"),
 ]

@@ -4,7 +4,7 @@
     {{ block.super }}
     <!-- Opcion mostrar Correciones realizadas -->
      
-    <section class="bg-gray-50 flex items-top">
+    <section class="flex items-top">
         {% url 'show_new_correction' as new_correction_url %}
       {% include "core/partials/table_header.html" with button_text=_("Nueva corrección") use_link=True button_href=new_correction_url %}
 
@@ -75,9 +75,13 @@
                         </td>
                         <td class="px-6 py-4">
                             <button onclick="showConfig('config', {{ correction.id }})"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                {% trans "Mostrar configuracion" %}
+                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline" title="Ver configuración de la corrección">
+                                {% trans "Configuracion" %}
                             </button>
+                            <a href="{% url 'show_tasks' correction.id %}"
+                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline" title="Ver tareas de la corrección">
+                                {% trans "Tareas" %}
+                            <a/>
                         </td>
                         <td class="px-6 py-4">
                             {% if correction.running %}

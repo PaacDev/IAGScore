@@ -1,21 +1,20 @@
 {% load i18n %}
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    {% load static %}
-    <link href="{% static 'css/output.css' %}" rel="stylesheet">
-    <title>{% block title %}IAGScore - Simply Base{% endblock %}</title>
-    <script 
-    src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"
-    integrity="sha384-hzWrhEQNZWAGmbtcZxlX6XbXB7GDosqTGezOkQSPB5oCmPlRUgbRuGyW9IU57pQ/"
-    crossorigin="anonymous"
-    ></script>
-</head>
-<body>
-    <div class="p-20 justify-center md:container md:mx-auto">
-    {% block content %}
-    {% endblock %}
-    </div>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        {% load static %}
+        <link href="{% static 'css/output.css' %}" rel="stylesheet">
+        <title>
+            {% block title %}IAGScore - Simply Base{% endblock %}
+        </title>
+        <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"
+                integrity="sha384-hzWrhEQNZWAGmbtcZxlX6XbXB7GDosqTGezOkQSPB5oCmPlRUgbRuGyW9IU57pQ/"
+                crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="p-20 justify-center md:container md:mx-auto">
+            {% block content %}{% endblock %}
+        </div>
+    </body>
 </html>

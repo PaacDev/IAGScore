@@ -190,9 +190,14 @@ media/
 # tailwind
 tailwind/node_modules/
 
+#flake8
+.flake8
+
 # bandit
 .bandit.yaml
 bandit_report.txt
 
-# pytest
-# pytest.ini
+#plantuml
+*.puml
+*plantuml
+puml/

@@ -148,11 +148,20 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Welcome to the IAGScore Documentation!
+                </a>
+            </li>
+        </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../accounts.html">accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">IAGScore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../accounts.html">Accounts aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../core.html">Core aplication module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../prompts.html">prompts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../prompts.html">Prompts aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rubrics.html">Rubrics aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../corrections.html">Corrections aplication module</a></li>
 </ul>
@@ -198,18 +207,50 @@
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/pac1006/IAGScore" target="_blank"
-   class="btn btn-sm btn-source-repository-button"
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/pac1006/IAGScore" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
-
+<span class="btn__text-container">Repository</span>
 </a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/pac1006/IAGScore/issues/new?title=Issue%20on%20page%20%2F_modules/rubrics/views.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
 
 
 
@@ -274,13 +315,15 @@ document.write(`
                   
   <h1>Source code for rubrics.views</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Views for the rubrics app.&quot;&quot;&quot;</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">django.shortcuts</span><span class="w"> </span><span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">get_object_or_404</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.utils.translation</span><span class="w"> </span><span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.shortcuts</span><span class="w"> </span><span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.contrib.auth.decorators</span><span class="w"> </span><span class="kn">import</span> <span class="n">login_required</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">Http404</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.views.decorators.csrf</span><span class="w"> </span><span class="kn">import</span> <span class="n">csrf_protect</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">django.views.decorators.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">require_http_methods</span><span class="p">,</span> <span class="n">require_GET</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.views.decorators.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">require_http_methods</span><span class="p">,</span> <span class="n">require_GET</span><span class="p">,</span> <span class="n">require_POST</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.contrib</span><span class="w"> </span><span class="kn">import</span> <span class="n">messages</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">django.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">IntegrityError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">transaction</span><span class="p">,</span> <span class="n">IntegrityError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.core.paginator</span><span class="w"> </span><span class="kn">import</span> <span class="n">Paginator</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.forms</span><span class="w"> </span><span class="kn">import</span> <span class="n">RubricForm</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Rubric</span>
@@ -294,19 +337,37 @@ document.write(`
 <span class="k">def</span><span class="w"> </span><span class="nf">rubric_page</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    View for import a new rubric.</span>
-<span class="sd">    </span>
+
 <span class="sd">    - GET: Displays the form.</span>
 <span class="sd">    - POST: Processes the form and create new rubric.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters:</span>
 <span class="sd">        request: The HTTP request object.</span>
-<span class="sd">        </span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        HttpResponse: The rendered template with the rubric form and rubric list.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;q&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">sort_field</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sort&quot;</span><span class="p">,</span> <span class="s2">&quot;creation_date&quot;</span><span class="p">)</span>
+    <span class="n">sort_dir</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dir&quot;</span><span class="p">,</span> <span class="s2">&quot;desc&quot;</span><span class="p">)</span>
+
     <span class="c1"># Get the user&#39;s rubrics ordering them by creation date</span>
     <span class="c1"># and paginate them</span>
-    <span class="n">rubric_list</span> <span class="o">=</span> <span class="n">Rubric</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s2">&quot;-creation_date&quot;</span><span class="p">)</span>
+    <span class="n">rubric_list</span> <span class="o">=</span> <span class="n">Rubric</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+        <span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+    <span class="p">)</span>  <span class="c1"># .order_by(&quot;-creation_date&quot;)</span>
+
+    <span class="c1"># Sort the rubric list based on the sort field and direction</span>
+    <span class="n">sort_prefix</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span> <span class="k">if</span> <span class="n">sort_dir</span> <span class="o">==</span> <span class="s2">&quot;desc&quot;</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">order_by_field</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sort_prefix</span><span class="si">}{</span><span class="n">sort_field</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="c1"># Filter the rubric list based on the query</span>
+    <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
+        <span class="n">rubric_list</span> <span class="o">=</span> <span class="n">rubric_list</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name__icontains</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+
+    <span class="n">rubric_list</span> <span class="o">=</span> <span class="n">rubric_list</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">order_by_field</span><span class="p">)</span>
+
+    <span class="c1"># Paginate the rubric list</span>
     <span class="n">paginator</span> <span class="o">=</span> <span class="n">Paginator</span><span class="p">(</span><span class="n">rubric_list</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
     <span class="n">page_number</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;page&quot;</span><span class="p">)</span>
     <span class="n">page_obj</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">get_page</span><span class="p">(</span><span class="n">page_number</span><span class="p">)</span>
@@ -324,19 +385,43 @@ document.write(`
             <span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="c1"># Save the rubric object to the database</span>
-                <span class="n">rubric</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-                <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Rúbrica importada correctamente&quot;</span><span class="p">)</span>
+                <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">():</span>
+                    <span class="n">rubric</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                    <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Rúbrica importada correctamente&quot;</span><span class="p">))</span>
+                    <span class="n">rubric_list</span> <span class="o">=</span> <span class="n">rubric_list</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">order_by_field</span><span class="p">)</span>
+                    <span class="n">paginator</span> <span class="o">=</span> <span class="n">Paginator</span><span class="p">(</span><span class="n">rubric_list</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+                    <span class="n">page_number</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;page&quot;</span><span class="p">)</span>
+                    <span class="n">page_obj</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">get_page</span><span class="p">(</span><span class="n">page_number</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">render</span><span class="p">(</span>
+                        <span class="n">request</span><span class="p">,</span>
+                        <span class="s2">&quot;rubrics/mis_rubricas.html&quot;</span><span class="p">,</span>
+                        <span class="p">{</span>
+                            <span class="s2">&quot;form&quot;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span>
+                            <span class="s2">&quot;rubric_list&quot;</span><span class="p">:</span> <span class="n">rubric_list</span><span class="p">,</span>
+                            <span class="s2">&quot;page_obj&quot;</span><span class="p">:</span> <span class="n">page_obj</span><span class="p">,</span>
+                            <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
+                            <span class="s2">&quot;sort&quot;</span><span class="p">:</span> <span class="n">sort_field</span><span class="p">,</span>
+                            <span class="s2">&quot;dir&quot;</span><span class="p">:</span> <span class="n">sort_dir</span><span class="p">,</span>
+                        <span class="p">},</span>
+                    <span class="p">)</span>
+            <span class="k">except</span> <span class="n">IntegrityError</span><span class="p">:</span>
+                <span class="c1"># Handle the case where the rubric already exists</span>
+
+                <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="n">request</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Error al guardar la rúbrica: Rubrica ya existente&quot;</span><span class="p">)</span>
+                <span class="p">)</span>
                 <span class="k">return</span> <span class="n">render</span><span class="p">(</span>
                     <span class="n">request</span><span class="p">,</span>
                     <span class="s2">&quot;rubrics/mis_rubricas.html&quot;</span><span class="p">,</span>
-                    <span class="p">{</span><span class="s2">&quot;form&quot;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span> <span class="s2">&quot;rubric_list&quot;</span><span class="p">:</span> <span class="n">rubric_list</span><span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;form&quot;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span>
+                        <span class="s2">&quot;rubric_list&quot;</span><span class="p">:</span> <span class="n">rubric_list</span><span class="p">,</span>
+                        <span class="s2">&quot;page_obj&quot;</span><span class="p">:</span> <span class="n">page_obj</span><span class="p">,</span>
+                        <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
+                        <span class="s2">&quot;sort&quot;</span><span class="p">:</span> <span class="n">sort_field</span><span class="p">,</span>
+                        <span class="s2">&quot;dir&quot;</span><span class="p">:</span> <span class="n">sort_dir</span><span class="p">,</span>
+                    <span class="p">},</span>
                 <span class="p">)</span>
-            <span class="k">except</span> <span class="n">IntegrityError</span><span class="p">:</span>
-                <span class="c1"># Handle the case where the rubric already exists</span>
-                <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Error al guardar la rúbrica: Rubrica ya existente&quot;</span>
-                <span class="p">)</span>
-                <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;rubrics/mis_rubricas.html&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;form&quot;</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span>
 
         <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">as_text</span><span class="p">())</span>
     <span class="k">else</span><span class="p">:</span>
@@ -345,7 +430,14 @@ document.write(`
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span>
         <span class="n">request</span><span class="p">,</span>
         <span class="s2">&quot;rubrics/mis_rubricas.html&quot;</span><span class="p">,</span>
-        <span class="p">{</span><span class="s2">&quot;form&quot;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span> <span class="s2">&quot;rubric_list&quot;</span><span class="p">:</span> <span class="n">rubric_list</span><span class="p">,</span> <span class="s2">&quot;page_obj&quot;</span><span class="p">:</span> <span class="n">page_obj</span><span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;form&quot;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span>
+            <span class="s2">&quot;rubric_list&quot;</span><span class="p">:</span> <span class="n">rubric_list</span><span class="p">,</span>
+            <span class="s2">&quot;page_obj&quot;</span><span class="p">:</span> <span class="n">page_obj</span><span class="p">,</span>
+            <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
+            <span class="s2">&quot;sort&quot;</span><span class="p">:</span> <span class="n">sort_field</span><span class="p">,</span>
+            <span class="s2">&quot;dir&quot;</span><span class="p">:</span> <span class="n">sort_dir</span><span class="p">,</span>
+        <span class="p">},</span>
     <span class="p">)</span></div>
 
 
@@ -357,21 +449,21 @@ document.write(`
 <span class="k">def</span><span class="w"> </span><span class="nf">show_rubric</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">rubric_id</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    View for showing a rubric</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters:</span>
 <span class="sd">        request: The HTTP request object.</span>
 <span class="sd">        rubric_id: The ID of the rubric to show.</span>
-<span class="sd">        </span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        HttpResponse: The rendered template with the rubric details.</span>
-<span class="sd">        </span>
+
 <span class="sd">    Raises:</span>
 <span class="sd">        Http404: If the rubric does not exist.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">rubric</span> <span class="o">=</span> <span class="n">Rubric</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">rubric_id</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">Rubric</span><span class="o">.</span><span class="n">DoesNotExist</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">Http404</span><span class="p">(</span><span class="s2">&quot;Rúbrica no encontrada&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+        <span class="k">raise</span> <span class="n">Http404</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Rúbrica no encontrada&quot;</span><span class="p">))</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
 
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;rubrics/rubric.html&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;rubric&quot;</span><span class="p">:</span> <span class="n">rubric</span><span class="p">})</span></div>
 
@@ -380,25 +472,28 @@ document.write(`
 <div class="viewcode-block" id="delete_rubric">
 <a class="viewcode-back" href="../../rubrics.html#rubrics.views.delete_rubric">[docs]</a>
 <span class="nd">@login_required</span>
-<span class="nd">@require_GET</span>
+<span class="nd">@require_POST</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">delete_rubric</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">rubric_id</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    View for deleting a rubric</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters:</span>
 <span class="sd">        request: The HTTP request object.</span>
 <span class="sd">        rubric_id: The ID of the rubric to delete.</span>
-<span class="sd">        </span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        HttpResponse: A redirect to the rubric page.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Raises:</span>
 <span class="sd">        Http404: If the rubric does not exist.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">rubric</span> <span class="o">=</span> <span class="n">Rubric</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">rubric_id</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">rubric</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Rúbrica eliminada correctamente&quot;</span><span class="p">))</span>
+    <span class="k">except</span> <span class="n">Rubric</span><span class="o">.</span><span class="n">DoesNotExist</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">Http404</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Rúbrica no encontrada&quot;</span><span class="p">))</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
 
-    <span class="n">rubric</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Rubric</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">rubric_id</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
-    <span class="n">rubric</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
-    <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Rúbrica eliminada correctamente&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;rubrics_page&quot;</span><span class="p">)</span></div>
 
 </pre></div>

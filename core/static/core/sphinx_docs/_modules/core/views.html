@@ -148,11 +148,20 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Welcome to the IAGScore Documentation!
+                </a>
+            </li>
+        </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../accounts.html">accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">IAGScore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../accounts.html">Accounts aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../core.html">Core aplication module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../prompts.html">prompts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../prompts.html">Prompts aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rubrics.html">Rubrics aplication module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../corrections.html">Corrections aplication module</a></li>
 </ul>
@@ -198,18 +207,50 @@
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/pac1006/IAGScore" target="_blank"
-   class="btn btn-sm btn-source-repository-button"
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/pac1006/IAGScore" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
-
+<span class="btn__text-container">Repository</span>
 </a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/pac1006/IAGScore/issues/new?title=Issue%20on%20page%20%2F_modules/core/views.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
 
 
 
@@ -273,9 +314,10 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for core.views</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot; Views for the core application. &quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Views for the core application.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.utils.translation</span><span class="w"> </span><span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.shortcuts</span><span class="w"> </span><span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.contrib.auth.decorators</span><span class="w"> </span><span class="kn">import</span> <span class="n">login_required</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.views.decorators.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">require_safe</span><span class="p">,</span> <span class="n">require_GET</span><span class="p">,</span> <span class="n">require_http_methods</span>
@@ -322,12 +364,13 @@ document.write(`
         <span class="c1"># If user is not authenticated, show error message</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span>
-                <span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;Usuario o contraseña incorrectos&quot;</span>
+                <span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Usuario o contraseña incorrectos&quot;</span><span class="p">)</span>
             <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># If method is GET, show the login form</span>
         <span class="n">form</span> <span class="o">=</span> <span class="n">AuthenticationForm</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;core/login.html&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;form&quot;</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span></div>
+
 
 
 <div class="viewcode-block" id="home">
@@ -345,6 +388,7 @@ document.write(`
 <span class="sd">        HttpResponse : The rendered home page.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;core/home.html&quot;</span><span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="logout_view">
@@ -379,7 +423,10 @@ document.write(`
 <span class="sd">        HttpResponse : The rendered terms and conditions page.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Path md terminos</span>
-    <span class="n">md_terminos</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">STATICFILES_DIRS</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;core/docs&quot;</span><span class="p">,</span> <span class="s2">&quot;terminos.md&quot;</span><span class="p">)</span>
+    <span class="n">language</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;LANGUAGE_CODE&quot;</span><span class="p">,</span> <span class="s2">&quot;es&quot;</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;terminos.md&quot;</span> <span class="k">if</span> <span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;es&quot;</span> <span class="k">else</span> <span class="s2">&quot;terms.md&quot;</span>
+
+    <span class="n">md_terminos</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">STATICFILES_DIRS</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;core/docs&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
     <span class="c1"># Open the file and save its content to a variable</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">md_terminos</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -405,9 +452,10 @@ document.write(`
 <span class="sd">        HttpResponse: The rendered privacy page.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Path md</span>
-    <span class="n">md_privacidad</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-        <span class="n">settings</span><span class="o">.</span><span class="n">STATICFILES_DIRS</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;core/docs&quot;</span><span class="p">,</span> <span class="s2">&quot;privacidad.md&quot;</span>
-    <span class="p">)</span>
+    <span class="n">language</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;LANGUAGE_CODE&quot;</span><span class="p">,</span> <span class="s2">&quot;es&quot;</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;privacidad.md&quot;</span> <span class="k">if</span> <span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;es&quot;</span> <span class="k">else</span> <span class="s2">&quot;privacity.md&quot;</span>
+
+    <span class="n">md_privacidad</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">STATICFILES_DIRS</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;core/docs&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
     <span class="c1"># Open the file and save its content to a variable</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">md_privacidad</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -416,6 +464,7 @@ document.write(`
     <span class="c1"># Convert Markdown content to HTML and render it</span>
     <span class="n">html_content</span> <span class="o">=</span> <span class="n">markdown</span><span class="o">.</span><span class="n">markdown</span><span class="p">(</span><span class="n">md_content</span><span class="p">,</span> <span class="n">output_format</span><span class="o">=</span><span class="s2">&quot;html&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;core/privacidad.html&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">html_content</span><span class="p">})</span></div>
+
 
 
 <div class="viewcode-block" id="llm_section">

@@ -7,10 +7,7 @@
     <div class="mx-5 flex flex-row">
         <div class=" px-[30px] pt-5 basis-1/2 ">
             <form class="my-4 max-w-sm mx-auto mt-4" method="get" id="filter-form">
-                <label for="prompt_id"
-                       class="block mt-2 text-sm font-medium text-gray-900">
-                    Prompt
-                </label>
+                <label for="prompt_id" class="block mt-2 text-sm font-medium text-gray-900">Prompt</label>
                 <select name="prompt_id"
                         id="prompt_id"
                         onchange="this.form.submit()"
@@ -21,10 +18,7 @@
                                 {% if prompt_select.id == prompt.id %}selected{% endif %}>{{ prompt.name }}</option>
                     {% endfor %}
                 </select>
-                <label for="rubric_id"
-                       class="block mt-2 text-sm font-medium text-gray-900">
-                    {% trans "Rúbrica" %}
-                </label>
+                <label for="rubric_id" class="block mt-2 text-sm font-medium text-gray-900">{% trans "Rúbrica" %}</label>
                 <select name="rubric_id"
                         id="rubric_id"
                         onchange="this.form.submit()"
@@ -46,19 +40,16 @@
                 <label for="{{ correct_form.zip_file.id_for_label }}"
                        class="block mt-2 text-sm font-medium text-gray-900">{% trans "Selecciona Fichero" %}</label>
                 {{ correct_form.zip_file }}
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            {{ correct_form.zip_file.help_text }}
-                        </p>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ correct_form.zip_file.help_text }}</p>
                 <label for="{{ correct_form.description.id_for_label }}"
                        class="block mt-2 text-sm font-medium text-gray-900">{% trans "Descripcion" %}</label>
                 {{ correct_form.description }}
                 <label for="{{ correct_form.llm_model.id_for_label }}"
                        class="block mt-2 text-sm font-medium text-gray-900">{% trans "Modelo" %}</label>
-                <select name="llm_model" id="{{ correct_form.llm_model.id_for_label }}"
-                class="block w-full p-2 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    {% for model_name in model_names %}
-                    <option value="{{ model_name }}">{{ model_name }}</option>
-                {% endfor %}
+                <select name="llm_model"
+                        id="{{ correct_form.llm_model.id_for_label }}"
+                        class="block w-full p-2 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    {% for model_name in model_names %}<option value="{{ model_name }}">{{ model_name }}</option>{% endfor %}
                 </select>
                 <h3 class="p-2 mt-2 text-2xl font-bold">{% trans "Configuración del modelo" %}</h3>
                 <div class="grid grid-cols-3 gap-4">
@@ -66,30 +57,31 @@
                         <label for="{{ correct_form.model_temp.id_for_label }}"
                                class="block mt-2 text-sm font-medium text-gray-900">{% trans "Temperatura" %}</label>
                         {{ correct_form.model_temp }}
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            {{ correct_form.model_temp.help_text }}
-                        </p>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ correct_form.model_temp.help_text }}</p>
                     </div>
                     <div class="col-span-1">
                         <label for="{{ correct_form.model_top_p.id_for_label }}"
                                class="block mt-2 text-sm font-medium text-gray-900">Top P</label>
                         {{ correct_form.model_top_p }}
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            {{ correct_form.model_top_p.help_text }}
-                        </p>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ correct_form.model_top_p.help_text }}</p>
                     </div>
                     <div class="col-span-1">
                         <label for="{{ correct_form.model_top_k.id_for_label }}"
                                class="block mt-2 text-sm font-medium text-gray-900">Top K</label>
-                        {{ correct_form.model_top_k }}
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            {{ correct_form.model_top_k.help_text }}
-                        </p>
+                            {{ correct_form.model_top_k }}
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ correct_form.model_top_k.help_text }}</p>
+                    </div>
+                    <div class="col-span-1">
+                        <label for="{{ correct_form.model_context_length.id_for_label }}"
+                               class="block mt-2 text-sm font-medium text-gray-900">{% trans "Ventana contexto" %}</label>
+                            {{ correct_form.model_context_length }}
                     </div>
                     <div class="grid grid-cols-1 gap-4">
                         <div class="col-span-1">
                             <label for="{{ correct_form.output_format.id_for_label }}"
-                                   class="block mt-2 text-sm font-medium text-gray-900">{% trans "Formato salida" %}</label>
+                                   class="block mt-2 text-sm font-medium text-gray-900">
+                                {% trans "Formato salida" %}
+                            </label>
                             {{ correct_form.output_format }}
                         </div>
                     </div>
@@ -120,11 +112,11 @@
                 <h3 class=" p-2 text-3xl font-bold">{% trans "Rubrica Seleccionada" %}</h3>
                 {% if rubric_select %}
                     <div class="rubric-style">
-                    {% include "core/partials/rubric_style.html" %}
-                    {{ rubric_select.get_html_content|safe }}
+                        {% include "core/partials/rubric_style.html" %}
+                        {{ rubric_select.get_html_content|safe }}
                     </div>
                 {% else %}
-                   {% trans "Ninguna" %}
+                    {% trans "Ninguna" %}
                 {% endif %}
             </div>
         </div>

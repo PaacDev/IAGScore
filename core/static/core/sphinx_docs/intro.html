@@ -377,23 +377,23 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteristicas-principales">Características principales</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tecnologias-utilizadas">Tecnologías utilizadas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requisitos-previos">Requisitos previos</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-inicial">Configuración inicial</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clonar-el-repositorio">1. Clonar el repositorio</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crea-el-archivo-env">2. Crea el archivo <code class="docutils literal notranslate"><span class="pre">.env</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-con-docker-compose">3. Build con Docker Compose</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#levanta-proyecto">4. Levanta proyecto</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pull-modelo-llama3-1">5. Pull Modelo Llama3.1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-features">Main Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technologies-used">Technologies Used</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-setup">Initial Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-the-repository">1. Clone the repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-env-file">2. Create the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-with-docker-compose">3. Build with Docker Compose</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#start-the-project">4. Start the project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pull-llama3-1-model">5. Pull Llama3.1 Model</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-opcional">Configuración opcional</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crea-superusuario-django">6. Crea superusuario Django</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-setup">Optional Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-django-superuser">6. Create Django superuser</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#licencia">Licencia</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autor">Autor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#author">Author</a></li>
 </ul>
             </nav>
         </div>
@@ -407,23 +407,23 @@ document.write(`
                   
   <section id="iagscore">
 <h1>IAGScore<a class="headerlink" href="#iagscore" title="Link to this heading">#</a></h1>
-<p><strong>IAGScore</strong> es una plataforma desarrollada para un <strong>Trabajo Fin de Grado (TFG)</strong> que permite a los usuarios subir tareas (archivos) y evaluarlas automáticamente usando <strong>modelos de lenguaje</strong> e inteligencia artificial, basándose en un <strong>prompt personalizado</strong> y una <strong>rúbrica en formato Markdown</strong> proporcionada por el usuario.</p>
+<p><strong>IAGScore</strong> is a platform developed for a <strong>Final Degree Project (TFG)</strong> that allows users to upload tasks (files) and evaluate them automatically using <strong>language models</strong> and artificial intelligence, based on a <strong>custom prompt</strong> and a <strong>Markdown-formatted rubric</strong> provided by the user.</p>
 <hr class="docutils" />
-<section id="caracteristicas-principales">
-<h2>Características principales<a class="headerlink" href="#caracteristicas-principales" title="Link to this heading">#</a></h2>
+<section id="main-features">
+<h2>Main Features<a class="headerlink" href="#main-features" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Evaluación automática de entregas usando IA (Ollama)</p></li>
-<li><p>Prompt libre creado por el usuario</p></li>
-<li><p>Rúbricas personalizadas en formato <code class="docutils literal notranslate"><span class="pre">.md</span></code></p></li>
+<li><p>Automatic evaluation of submissions using AI</p></li>
+<li><p>Free-form prompt created by the user</p></li>
+<li><p>Custom rubrics in <code class="docutils literal notranslate"><span class="pre">.md</span></code> format</p></li>
 <li><p>Backend Django + PostgreSQL</p></li>
-<li><p>Estilos con Tailwind + Flowbite</p></li>
-<li><p>Procesamiento asíncrono con Celery y Redis</p></li>
-<li><p>Desplegado de contenedores con Docker Compose</p></li>
+<li><p>Styling with Tailwind + Flowbite</p></li>
+<li><p>Asynchronous processing with Celery and Redis</p></li>
+<li><p>Container deployment with Docker Compose</p></li>
 </ul>
 </section>
 <hr class="docutils" />
-<section id="tecnologias-utilizadas">
-<h2>Tecnologías utilizadas<a class="headerlink" href="#tecnologias-utilizadas" title="Link to this heading">#</a></h2>
+<section id="technologies-used">
+<h2>Technologies Used<a class="headerlink" href="#technologies-used" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.djangoproject.com/">Django</a></p></li>
 <li><p><a class="reference external" href="https://www.postgresql.org/">PostgreSQL</a></p></li>
@@ -435,31 +435,31 @@ document.write(`
 </ul>
 </section>
 <hr class="docutils" />
-<section id="requisitos-previos">
-<h2>Requisitos previos<a class="headerlink" href="#requisitos-previos" title="Link to this heading">#</a></h2>
-<p>Asegúrate de tener instalado:</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
+<p>Make sure you have installed:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://git-scm.com/">Git</a></p></li>
 <li><p><a class="reference external" href="https://www.docker.com/">Docker</a></p></li>
-<li><p><a class="reference external" href="https://docs.docker.com/compose/">Docker Compose</a>
-<em>(incluido con Docker en versiones recientes)</em></p></li>
+<li><p><a class="reference external" href="https://docs.docker.com/compose/">Docker Compose</a><br />
+<em>(included with Docker in recent versions)</em></p></li>
 </ul>
 </section>
 <hr class="docutils" />
-<section id="configuracion-inicial">
-<h2>Configuración inicial<a class="headerlink" href="#configuracion-inicial" title="Link to this heading">#</a></h2>
-<section id="clonar-el-repositorio">
-<h3>1. Clonar el repositorio<a class="headerlink" href="#clonar-el-repositorio" title="Link to this heading">#</a></h3>
+<section id="initial-setup">
+<h2>Initial Setup<a class="headerlink" href="#initial-setup" title="Link to this heading">#</a></h2>
+<section id="clone-the-repository">
+<h3>1. Clone the repository<a class="headerlink" href="#clone-the-repository" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/pac1006/IAGScore.git
 <span class="nb">cd</span><span class="w"> </span>IAGScore<span class="w"> </span>
 </pre></div>
 </div>
 </section>
-<section id="crea-el-archivo-env">
-<h3>2. Crea el archivo <code class="docutils literal notranslate"><span class="pre">.env</span></code><a class="headerlink" href="#crea-el-archivo-env" title="Link to this heading">#</a></h3>
-<p>Copia el archivo de ejemplo:</p>
-<p><strong>Linux y MacOs</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>.env.example<span class="w"> </span>.env
+<section id="create-the-env-file">
+<h3>2. Create the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file<a class="headerlink" href="#create-the-env-file" title="Link to this heading">#</a></h3>
+<p>Copy the example file:</p>
+<p><strong>Linux and MacOS</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>env.example<span class="w"> </span>.env
 </pre></div>
 </div>
 <p><strong>Windows</strong></p>
@@ -467,41 +467,41 @@ document.write(`
 </pre></div>
 </div>
 </section>
-<section id="build-con-docker-compose">
-<h3>3. Build con Docker Compose<a class="headerlink" href="#build-con-docker-compose" title="Link to this heading">#</a></h3>
-<p>Antes de ejecutar este comando, asegúrate de que Docker esté en funcionamiento.
-Basta con abrir Docker Desktop y verificar que está activo.</p>
+<section id="build-with-docker-compose">
+<h3>3. Build with Docker Compose<a class="headerlink" href="#build-with-docker-compose" title="Link to this heading">#</a></h3>
+<p>Before running this command, make sure Docker is running.<br />
+Just open Docker Desktop and verify that it is active.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>compose<span class="w"> </span>build
 </pre></div>
 </div>
 </section>
-<section id="levanta-proyecto">
-<h3>4. Levanta proyecto<a class="headerlink" href="#levanta-proyecto" title="Link to this heading">#</a></h3>
+<section id="start-the-project">
+<h3>4. Start the project<a class="headerlink" href="#start-the-project" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>compose<span class="w"> </span>up
 </pre></div>
 </div>
 </section>
-<section id="pull-modelo-llama3-1">
-<h3>5. Pull Modelo Llama3.1<a class="headerlink" href="#pull-modelo-llama3-1" title="Link to this heading">#</a></h3>
-<p>Levantado el proyecto, se debe de hacer Pull del modelo en la primera ejecución.</p>
-<p>En otra terminal, en la raiz del proyecto, IAGScore</p>
+<section id="pull-llama3-1-model">
+<h3>5. Pull Llama3.1 Model<a class="headerlink" href="#pull-llama3-1-model" title="Link to this heading">#</a></h3>
+<p>Once the project is up, you must pull the model on the first run.</p>
+<p>In another terminal, at the root of the project, IAGScore:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>ollama<span class="w"> </span>ollama<span class="w"> </span>pull<span class="w"> </span>llama3.1
 </pre></div>
 </div>
-<p><em>(Este paso únicamente es necesario hacerlo en la primera ejecución ya que
-una vez hecho el pull, el modelo permanece en Ollama.
-)</em></p>
+<p><em>(This step only needs to be done the first time since<br />
+once the pull is done, the model remains in Ollama.)</em></p>
 </section>
 </section>
-<section id="configuracion-opcional">
-<h2>Configuración opcional<a class="headerlink" href="#configuracion-opcional" title="Link to this heading">#</a></h2>
-<section id="crea-superusuario-django">
-<h3>6. Crea superusuario Django<a class="headerlink" href="#crea-superusuario-django" title="Link to this heading">#</a></h3>
-<p>Opcionalmente se puede crear un superusuario para poder acceder al panel de administracion de Django</p>
+<hr class="docutils" />
+<section id="optional-setup">
+<h2>Optional Setup<a class="headerlink" href="#optional-setup" title="Link to this heading">#</a></h2>
+<section id="create-django-superuser">
+<h3>6. Create Django superuser<a class="headerlink" href="#create-django-superuser" title="Link to this heading">#</a></h3>
+<p>Optionally, a superuser can be created to access the Django admin panel.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>web<span class="w"> </span>python3<span class="w"> </span>manage.py<span class="w"> </span>createsuperuser
 </pre></div>
 </div>
-<p>Deberás introducir:</p>
+<p>You will need to enter:</p>
 <ul class="simple">
 <li><p>Email</p></li>
 <li><p>Username</p></li>
@@ -510,14 +510,14 @@ una vez hecho el pull, el modelo permanece en Ollama.
 </section>
 </section>
 <hr class="docutils" />
-<section id="licencia">
-<h2>Licencia<a class="headerlink" href="#licencia" title="Link to this heading">#</a></h2>
-<p>Este proyecto está licenciado bajo la <strong>MIT License</strong>.</p>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading">#</a></h2>
+<p>This project is licensed under the <strong>MIT License</strong>.</p>
 </section>
 <hr class="docutils" />
-<section id="autor">
-<h2>Autor<a class="headerlink" href="#autor" title="Link to this heading">#</a></h2>
-<p>Desarrollado por <a class="reference external" href="https://github.com/pac1006">Pedro Antonio Abellaneda Canales</a>.</p>
+<section id="author">
+<h2>Author<a class="headerlink" href="#author" title="Link to this heading">#</a></h2>
+<p>Developed by <a class="reference external" href="https://github.com/pac1006">Pedro Antonio Abellaneda Canales</a>.</p>
 </section>
 </section>
 
@@ -566,23 +566,23 @@ una vez hecho el pull, el modelo permanece en Ollama.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteristicas-principales">Características principales</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tecnologias-utilizadas">Tecnologías utilizadas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requisitos-previos">Requisitos previos</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-inicial">Configuración inicial</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clonar-el-repositorio">1. Clonar el repositorio</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crea-el-archivo-env">2. Crea el archivo <code class="docutils literal notranslate"><span class="pre">.env</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-con-docker-compose">3. Build con Docker Compose</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#levanta-proyecto">4. Levanta proyecto</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pull-modelo-llama3-1">5. Pull Modelo Llama3.1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-features">Main Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technologies-used">Technologies Used</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-setup">Initial Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-the-repository">1. Clone the repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-env-file">2. Create the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-with-docker-compose">3. Build with Docker Compose</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#start-the-project">4. Start the project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pull-llama3-1-model">5. Pull Llama3.1 Model</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-opcional">Configuración opcional</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crea-superusuario-django">6. Crea superusuario Django</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-setup">Optional Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-django-superuser">6. Create Django superuser</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#licencia">Licencia</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autor">Autor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#author">Author</a></li>
 </ul>
   </nav></div>
 

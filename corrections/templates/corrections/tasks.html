@@ -1,0 +1,43 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+{% block title %}
+    Tasks
+{% endblock title %}
+
+{% block content %}
+<div class="max-w-screen-xl px-4 mx-auto lg:px-12 w-full">
+    <h1 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">{% trans "Tareas disponibles" %}</h1>
+    <group class=" p-5 justify-center inline-flex rounded-md shadow-xs">
+    <button type="button"
+            onclick="location.href='{% url 'show_view_correction' %}'"
+            class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+        {% trans "Volver" %}
+    </button>
+    </group>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for name in tasks_name %}
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow hover:shadow-md transition duration-300">
+                <div class="flex items-center p-4 space-x-4">
+                    <!-- Icono de archivo -->
+                    <div class="flex-shrink-0 text-blue-600 dark:text-blue-300">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h6l6 6v11a2 2 0 01-2 2H5a2 2 0 01-2-2V5z" />
+                        </svg>
+                    </div>
+                    <!-- Nombre del archivo -->
+                    <div class="text-sm font-medium text-gray-900 dark:text-white break-words">
+                        {{ name }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <group class=" p-5 justify-center inline-flex rounded-md shadow-xs">
+    <button type="button"
+            onclick="location.href='{% url 'show_view_correction' %}'"
+            class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+        {% trans "Volver" %}
+    </button>
+    </group>
+</div>
+{% endblock content %}
