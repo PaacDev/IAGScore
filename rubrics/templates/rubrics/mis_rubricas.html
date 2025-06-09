@@ -1,6 +1,8 @@
 {% extends "core/base.html" %}
 {% load i18n %}
-{% block title %}{% trans "Rubricas" %}{% endblock title %}
+{% block title %}
+    {% trans "Rubricas" %}
+{% endblock title %}
 {% block content %}
     <section class="bg-white p-6">
         <div class="flex flex-col items-center justify-top px-6 py-8 mx-auto lg:py-0">
@@ -25,9 +27,7 @@
                                 <label class="block mb-2 text-sm font-medium text-gray-900"
                                        for="{{ form.rubric_file.id_for_label }}">{{ form.rubric_file.label }}</label>
                                 {{ form.rubric_file }}
-                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                                    {{ form.rubric_file.help_text }}
-                                </p>
+                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ form.rubric_file.help_text }}</p>
                             </div>
                             <button type="submit" class="btn-custom-full">{% trans "Importar" %}</button>
                         </form>
@@ -35,8 +35,7 @@
                 </div>
             </div>
         </div>
-       {% include "core/partials/table_header.html" with button_text=_("Nueva Rubrica") %}
-
+        {% include "core/partials/table_header.html" with button_text=_("Nueva Rubrica") %}
         <!-- Tabla de Rubricas -->
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             {% include "core/partials/titles_table.html" with title_name=_("Nombre de la Rúbrica") %}
@@ -53,9 +52,8 @@
                         <td class="px-6 py-4">
                             <a href="{% url 'show_rubric' rubric.id %}"
                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{% trans "Mostrar" %}</a>
-                               <button onclick="openDeleteModal('{{ rubric.id }}', 'rubrics')" class="text-red-600 pl-3 hover:underline">
-                                {% trans "Eliminar" %}
-                                </button>
+                            <button onclick="openDeleteModal('{{ rubric.id }}', 'rubrics')"
+                                    class="text-red-600 pl-3 hover:underline">{% trans "Eliminar" %}</button>
                         </td>
                     </tr>
                 {% endfor %}
@@ -63,12 +61,12 @@
         </table>
         <!-- Paginación -->
         {% if page_obj %}
-        {% include "core/partials/nav_tables.html" %}
+            {% include "core/partials/nav_tables.html" %}
         {% endif %}
-        </div>
-    </section>
-    <!-- Modal  -->
-    {% include "core/partials/modal.html" with modal_text=_("Si eliminas esta rúbrica se eliminarán las correciónes realizadas con ella y todas las tareas asociadas a esa corrección ¿Estás seguro?") %}
+    </div>
+</section>
+<!-- Modal  -->
+{% include "core/partials/modal.html" with modal_text=_("Si eliminas esta rúbrica se eliminarán las correciónes realizadas con ella y todas las tareas asociadas a esa corrección ¿Estás seguro?") %}
 {% load static %}
 <script src="{% static 'js/scripts.js' %}"></script>
 {% endblock content %}

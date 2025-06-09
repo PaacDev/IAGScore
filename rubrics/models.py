@@ -55,5 +55,5 @@ class Rubric(models.Model):
         """
 
         html_content = markdown.markdown(self.content, extensions=["tables"])
-        
+
         return html_content

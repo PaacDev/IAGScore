@@ -1,110 +1,114 @@
 # IAGScore
 
-**IAGScore** es una plataforma desarrollada para un **Trabajo Fin de Grado (TFG)** que permite a los usuarios subir tareas (archivos) y evaluarlas automáticamente usando **modelos de lenguaje** e inteligencia artificial, basándose en un **prompt personalizado** y una **rúbrica en formato Markdown** proporcionada por el usuario.
+**IAGScore** is a platform developed for a **Final Degree Project (TFG)** that allows users to upload tasks (files) and evaluate them automatically using **language models** and artificial intelligence, based on a **custom prompt** and a **Markdown-formatted rubric** provided by the user.
 
 ---
 
-## Características principales
+## Main Features
 
-- Evaluación automática de entregas usando IA (Ollama)
-- Prompt libre creado por el usuario
-- Rúbricas personalizadas en formato `.md`
-- Backend Django + PostgreSQL
-- Estilos con Tailwind + Flowbite
-- Procesamiento asíncrono con Celery y Redis
-- Desplegado de contenedores con Docker Compose
+- Automatic evaluation of submissions using AI  
+- Free-form prompt created by the user  
+- Custom rubrics in `.md` format  
+- Backend Django + PostgreSQL  
+- Styling with Tailwind + Flowbite  
+- Asynchronous processing with Celery and Redis  
+- Container deployment with Docker Compose
 
 ---
 
-## Tecnologías utilizadas
+## Technologies Used
 
-- [Django](https://www.djangoproject.com/)
-- [PostgreSQL](https://www.postgresql.org/)
-- [Ollama](https://ollama.com/)
-- [Celery](https://docs.celeryq.dev/)
-- [Redis](https://redis.io/)
-- [Docker & Docker Compose](https://docs.docker.com/)
+- [Django](https://www.djangoproject.com/)  
+- [PostgreSQL](https://www.postgresql.org/)  
+- [Ollama](https://ollama.com/)  
+- [Celery](https://docs.celeryq.dev/)  
+- [Redis](https://redis.io/)  
+- [Docker & Docker Compose](https://docs.docker.com/)  
 - [TailwindCSS](https://tailwindcss.com/) + [Flowbite](https://flowbite.com/)
 
 ---
 
-## Requisitos previos
+## Prerequisites
 
-Asegúrate de tener instalado:
-- [Git](https://git-scm.com/)
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
- *(incluido con Docker en versiones recientes)*
+Make sure you have installed:  
+- [Git](https://git-scm.com/)  
+- [Docker](https://www.docker.com/)  
+- [Docker Compose](https://docs.docker.com/compose/)  
+ *(included with Docker in recent versions)*
 
 ---
 
-## Configuración inicial
+## Initial Setup
 
-### 1. Clonar el repositorio
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/pac1006/IAGScore.git
 cd IAGScore 
 ```
 
-### 2. Crea el archivo `.env`
+### 2. Create the `.env` file
 
-Copia el archivo de ejemplo:
+Copy the example file:
 
-**Linux y MacOs**
+**Linux and MacOS**
 ```bash
-cp .env.example .env
+cp env.example .env
 ```
 **Windows**
 ```powershell
 copy env.example .env
 ```
 
-### 3. Build con Docker Compose
-Antes de ejecutar este comando, asegúrate de que Docker esté en funcionamiento.
-Basta con abrir Docker Desktop y verificar que está activo.
+### 3. Build with Docker Compose  
+Before running this command, make sure Docker is running.  
+Just open Docker Desktop and verify that it is active.
 
 ```bash
 docker compose build
 ```
 
-### 4. Levanta proyecto 
+### 4. Start the project
 
 ```bash
 docker compose up
 ```
 
-### 5. Pull Modelo Llama3.1
-Levantado el proyecto, se debe de hacer Pull del modelo en la primera ejecución.
+### 5. Pull Llama3.1 Model  
+Once the project is up, you must pull the model on the first run.
 
-En otra terminal, en la raiz del proyecto, IAGScore
+In another terminal, at the root of the project, IAGScore:
 
 ```bash
 docker compose exec ollama ollama pull llama3.1
 ```
-*(Este paso únicamente es necesario hacerlo en la primera ejecución ya que
-una vez hecho el pull, el modelo permanece en Ollama.
-)*
-## Configuración opcional
+*(This step only needs to be done the first time since  
+once the pull is done, the model remains in Ollama.)*
 
-### 6. Crea superusuario Django
-Opcionalmente se puede crear un superusuario para poder acceder al panel de administracion de Django
+---
+
+## Optional Setup
+
+### 6. Create Django superuser  
+Optionally, a superuser can be created to access the Django admin panel.
 
 ```bash
 docker compose exec web python3 manage.py createsuperuser
 ```
-Deberás introducir:
-- Email
-- Username
+
+You will need to enter:
+- Email  
+- Username  
 - Password
 
 ---
 
-## Licencia
+## License
 
-Este proyecto está licenciado bajo la **MIT License**.  
+This project is licensed under the **MIT License**.
 
 ---
-## Autor
 
-Desarrollado por [Pedro Antonio Abellaneda Canales](https://github.com/pac1006).
+## Author
+
+Developed by [Pedro Antonio Abellaneda Canales](https://github.com/pac1006).

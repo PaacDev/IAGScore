@@ -4,12 +4,15 @@ This module contains de Test Cases for a correction app
 
 import logging
 import os
+import shutil
+import uuid
 import zipfile
 import io
 from unittest.mock import MagicMock, patch
 from django.test import TestCase, TransactionTestCase, override_settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth import get_user_model
+from django.contrib.messages import get_messages
 from django.urls import reverse
 from django.utils import timezone
 from corrections.tasks import set_tasks_dict
@@ -254,6 +257,9 @@ class CorrectionFormTestCase(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_valid_form_default_fields(self):
+        """
+        Test a valid CorrectionForm with default fields
+        """
         data = {
             "rubric": self.rubric,
             "prompt": self.prompt,
@@ -368,7 +374,6 @@ class CorrectionsViewsTestCase(TransactionTestCase):
             user=self.user,
         )
         self.client.login(username=self.user.email, password=self.password)
-        
 
     def tearDown(self):
         """
@@ -551,11 +556,8 @@ class CorrectionsViewsTestCase(TransactionTestCase):
 
     @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
     @patch("corrections.views.ollama.list")
-    @patch("corrections.tasks.ollama.list")
     @patch("corrections.tasks.OllamaLLM")
-    def test_run_model_and_download(
-        self, mock_ollama_class, mock_ollama_list_task, mock_ollama_list_view
-    ):
+    def test_run_model_and_download(self, mock_ollama_class, mock_ollama_list_view):
         """
         Test tdownload the response
         """
@@ -564,12 +566,6 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         mock_ollama_class.return_value = mock_llm_instance
 
         # Mocking the Ollama list to simulate list of models
-        mock_ollama_list_task.return_value = {
-            "models": [
-                {"model": "llama3"},
-                {"model": "mistral"},
-            ]
-        }
         mock_ollama_list_view.return_value = {
             "models": [
                 {"model": "llama3"},
@@ -671,8 +667,6 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         mock_llm_instance.invoke.side_effect = Exception("Modelo falló")
         mock_ollama_class.return_value = mock_llm_instance
 
-        from corrections.tasks import start_llm_evaluation
-
         with self.assertRaises(Exception) as cm:
             start_llm_evaluation(correction.id)
 
@@ -718,15 +712,24 @@ class CorrectionsViewsTestCase(TransactionTestCase):
 
     @patch("os.listdir", side_effect=FileNotFoundError)
     def test_set_tasks_dict_folder_not_found(self, mock_listdir):
+        """
+        Test set_tasks_dict when the folder does nclearot exist
+        """
         result = set_tasks_dict("nonexistent_folder")
         self.assertEqual(result, {})
 
     @patch("os.listdir", side_effect=PermissionError)
     def test_set_tasks_dict_permission_denied(self, mock_listdir):
+        """
+        Test set_tasks_dict when there is a permission error
+        """
         result = set_tasks_dict("restricted_folder")
         self.assertEqual(result, {})
 
     def test_query_filtering(self):
+        """
+        Test the query filtering in the correction list
+        """
         # Create corrections
         Correction.objects.create(
             prompt=self.prompt,
@@ -758,7 +761,9 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         self.assertNotContains(response, "Another one")
 
     def test_sorting_excludes_null_last_execution_dates(self):
-
+        """
+        Test that sorting by last_ejecution_date excludes corrections with null dates.
+        """
         # Corrections con y sin fecha de ejecución
         Correction.objects.create(
             prompt=self.prompt,
@@ -788,3 +793,169 @@ class CorrectionsViewsTestCase(TransactionTestCase):
         content = response.content.decode()
         self.assertIn("With date", content)
         self.assertNotIn("Without date", content)
+
+    @patch("corrections.views.ollama.list")
+    def test_correction_clone(self, mock_ollama_list):
+        """
+        Test the correction_clone view correctly clones data and redirects.
+        """
+        # Mocking the Ollama list to simulate list of models
+        mock_ollama_list.return_value = {
+            "models": [
+                {"model": "llama3"},
+                {"model": "mistral"},
+            ]
+        }
+        # Crear una instancia de Correction
+        correction = Correction.objects.create(
+            user=self.user,
+            description="Original Correction",
+            llm_model="llama3",
+            model_temp=0.7,
+            model_top_p=0.9,
+            model_top_k=40,
+            output_format="text",
+            rubric=self.rubric,
+            prompt=self.prompt,
+            folder_path="fake_path",
+        )
+
+        # Simular la solicitud de clonación
+        response = self.client.get(reverse("correction_clone", args=[correction.id]))
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("show_new_correction"))
+
+        # Verificar que el mensaje se agregó
+        messages = list(get_messages(response.wsgi_request))
+        self.assertTrue(
+            any("Datos clonados de la corrección" in m.message for m in messages)
+        )
+
+    def test_show_tasks_view_success_and_errors(self):
+        """
+        Test show_tasks view with valid and invalid cases.
+        """
+        # Temporal folder for tasks
+        folder_relative_path = f"test_correction_{uuid.uuid4().hex}"
+        base_path = os.path.join(settings.MEDIA_ROOT, folder_relative_path)
+        tasks_path = base_path
+        os.makedirs(tasks_path)
+
+        # Simulate valid and invalid task files
+        valid_file = "valid_task.java"
+        invalid_file = "_hidden.java"
+        with open(os.path.join(tasks_path, valid_file), "w") as f:
+            f.write("// valid task")
+        with open(os.path.join(tasks_path, invalid_file), "w") as f:
+            f.write("// invalid task")
+
+        # correction instance
+        correction = Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="Test correction with tasks",
+            llm_model="llama3",
+            folder_path=folder_relative_path,
+        )
+
+        with patch("corrections.views.VALID_EXTENSION", ".java"):
+            response = self.client.get(
+                reverse("show_tasks", kwargs={"item_id": correction.id})
+            )
+
+        # Response checks
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, valid_file)
+        self.assertNotContains(response, invalid_file)
+
+        # Raise an error correction does not exist
+        response = self.client.get(reverse("show_tasks", kwargs={"item_id": 9999}))
+        self.assertEqual(response.status_code, 404)
+        # Raise an error if the folder does not exist
+        with patch("os.path.exists", return_value=False):
+            response = self.client.get(
+                reverse("show_tasks", kwargs={"item_id": correction.id})
+            )
+            self.assertEqual(response.status_code, 404)
+
+        # Remove all files in the tasks folder
+        for file in os.listdir(tasks_path):
+            os.remove(os.path.join(tasks_path, file))
+        # Crear solo archivos inválidos
+        invalid_file = "_ignored_task.java"
+        with open(os.path.join(tasks_path, invalid_file), "w") as f:
+            f.write("// this should not be counted")
+
+        response = self.client.get(
+            reverse("show_tasks", kwargs={"item_id": correction.id})
+        )
+        self.assertEqual(response.status_code, 404)
+
+        # Clean up the temporary folder
+        shutil.rmtree(base_path)
+
+
+class DeleteCorrectionFolderTests(TestCase):
+    """
+    Test case for the deletion of the correction folder
+    """
+
+    def setUp(self):
+        """
+        Set up the test case
+        """
+        # Crea una instancia falsa de Correction
+        self.password = "testpass123"
+
+        self.user = User.objects.create_user(
+            username="testuser", email="testuser@mail.com", password=self.password
+        )
+        # Rubric
+        self.rubric = Rubric.objects.create(
+            name="Test Rubric",
+            content="# Only 'pass' or 'fail'",
+            user=self.user,
+        )
+
+        # Prompt
+        self.prompt = Prompt.objects.create(
+            name="Test Prompt",
+            prompt="'Pass' or 'Fail'.",
+            user=self.user,
+        )
+        self.client.login(username=self.user.email, password=self.password)
+        self.correction = Correction.objects.create(
+            prompt=self.prompt,
+            rubric=self.rubric,
+            user=self.user,
+            description="With date",
+            llm_model="Modelo",
+            folder_path="/media/folder/",
+            last_ejecution_date=timezone.now(),
+        )
+
+        self.folder_path = os.path.join(
+            settings.MEDIA_ROOT, self.correction.folder_path
+        )
+
+    @patch("corrections.signals.os.path.exists", return_value=True)
+    @patch("corrections.signals.os.path.isdir", return_value=True)
+    @patch("corrections.signals.shutil.rmtree", side_effect=OSError("Permiso denegado"))
+    @patch("corrections.signals.logger")
+    def test_folder_deletion_error_logged(
+        self, mock_logger, mock_rmtree, mock_isdir, mock_exists
+    ):
+        """
+        Test that an error is logged when folder deletion fails
+        """
+        # Simula la eliminación de la carpeta
+        self.correction.delete()
+
+        # Verifica que shutil.rmtree fue llamado con la ruta correcta
+        mock_rmtree.assert_called_once_with(self.folder_path)
+
+        # Verifica que se registró un error
+        mock_logger.error.assert_called_once()
+        self.assertIn("Error al eliminar la carpeta", mock_logger.error.call_args[0][0])

@@ -78,7 +78,9 @@ class LoginTests(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertTrue(response.wsgi_request.user.is_authenticated)
 
-        self.client.logout()
+        response = self.client.get(reverse("logout"))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("login"))
         new_response = self.client.get(reverse("home"))
         self.assertFalse(new_response.wsgi_request.user.is_authenticated)
 

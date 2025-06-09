@@ -2,12 +2,10 @@
 
 import os
 import logging
-import ollama
 from django.utils.translation import gettext_lazy as _
 from django.core.files.storage import FileSystemStorage
 from django.core.files.base import ContentFile
 from django.utils import timezone
-from django.contrib import messages
 from celery import shared_task
 from langchain_ollama import OllamaLLM
 from iagscore import settings
@@ -46,7 +44,6 @@ def start_llm_evaluation(correction_id):
 
         base_path = settings.MEDIA_ROOT
         tasks_dict = set_tasks_dict(correction_obj.folder_path)
-        logger.info("output format: %s", correction_obj.output_format)
 
         # Set the model name and parameters
         llm_model = OllamaLLM(
@@ -55,7 +52,7 @@ def start_llm_evaluation(correction_id):
             temperature=correction_obj.model_temp,
             top_p=correction_obj.model_top_p,
             top_k=correction_obj.model_top_k,
-            num_ctx=8000,
+            num_ctx=correction_obj.model_context_length,
         )
 
         # Set the location for storing the response file
@@ -63,6 +60,9 @@ def start_llm_evaluation(correction_id):
 
         # Initialize the file storage system at the specified location
         fs = FileSystemStorage(location=location)
+        tasks_text = "\n".join(
+            f"{name}:\n{content}" for name, content in tasks_dict.items()
+        )
 
         # Invoke the LLM model with the prompt, rubric and tasks
         response = llm_model.invoke(
@@ -70,16 +70,9 @@ def start_llm_evaluation(correction_id):
             + "\n"
             + correction_obj.rubric.content
             + "\n"
-            + str(tasks_dict)
+            + tasks_text
         )
-        entrada_total = (
-            correction_obj.prompt.prompt
-            + "\n"
-            + correction_obj.rubric.content
-            + "\n"
-            + str(tasks_dict)
-        )
-        logger.info("LLM response: %s", entrada_total)
+
         # Create a file system storage object
         file_content = ContentFile(response)
         filename = "response.txt"
@@ -91,11 +84,6 @@ def start_llm_evaluation(correction_id):
         # Update the correction object
         correction_obj.last_ejecution_date = timezone.now()
         final_time = correction_obj.last_ejecution_date - run_time
-        logger.info(
-            "Execution time for correction id %s: %s seconds",
-            correction_id,
-            final_time.total_seconds(),
-        )
         correction_obj.running = False
         correction_obj.llm_model = model
         correction_obj.time_last_ejecution = final_time.total_seconds()

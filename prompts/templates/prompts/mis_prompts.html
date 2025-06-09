@@ -45,25 +45,26 @@
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ prompt.name }}
                         </th>
-                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ prompt.creation_date| date:"d/m/Y H:i" }}</td>
+                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ prompt.creation_date| date:"d/m/Y H:i" }}
+                        </td>
                         <td class="px-6 py-4">
                             <a href="{% url 'show_prompt' prompt.id %}"
                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{% trans "Mostrar" %}</a>
-                            <button onclick="openDeleteModal('{{ prompt.id }}', 'prompts')" class="text-red-600 pl-3 hover:underline">
-                            {% trans "Eliminar" %}
-                            </button>
+                            <button onclick="openDeleteModal('{{ prompt.id }}', 'prompts')"
+                                    class="text-red-600 pl-3 hover:underline">{% trans "Eliminar" %}</button>
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
         {% if page_obj %}
-        {% include "core/partials/nav_tables.html" %}
+            {% include "core/partials/nav_tables.html" %}
         {% endif %}
     </div>
 </section>
 <!-- Modal  -->
 {% include "core/partials/modal.html" with modal_text=_("Si eliminas este prompt se eliminarán las correciónes realizadas con el mismo y todas las tareas asociadas ¿Estás seguro?") %}
 {% load static %}
-    <script src="{% static 'js/scripts.js' %}"></script>
+<script src="{% static 'js/scripts.js' %}"></script>
 {% endblock content %}

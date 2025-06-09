@@ -314,7 +314,8 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for prompts.models</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot; Model definition for Prompt. &quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Model definition for Prompt.&quot;&quot;&quot;</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">models</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.contrib.auth</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_user_model</span>
 
@@ -338,6 +339,7 @@ document.write(`
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Meta class for Prompt model.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="c1"># Define the unique constraint for the name and user fields</span>
         <span class="c1"># This ensures that a user cannot have two prompts with the same name</span>
         <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span>
@@ -349,10 +351,10 @@ document.write(`
     <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Overrides the string representation of the Prompt model.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Parameters:</span>
 <span class="sd">            self (Prompt): The Prompt instance.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            str: The name of the prompt.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

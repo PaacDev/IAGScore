@@ -3,26 +3,26 @@
     <tr>
         <th scope="col" class="px-6 py-3">
             <a href="?sort=name&dir={% if sort == 'name' and dir == 'asc' %}desc{% else %}asc{% endif %}{% if query %}&q={{ query }}{% endif %}">
-            {{ title_name }}
-            {% if sort == 'name' %}
-                {% if dir == 'asc' %}
-                  ▲
-                {% else %}
-                  ▼
+                {{ title_name }}
+                {% if sort == 'name' %}
+                    {% if dir == 'asc' %}
+                        ▲
+                    {% else %}
+                        ▼
+                    {% endif %}
                 {% endif %}
-            {% endif %}
             </a>
         </th>
         <th scope="col" class="px-6 py-3">
             <a href="?sort=creation_date&dir={% if sort == 'creation_date' and dir == 'asc' %}desc{% else %}asc{% endif %}{% if query %}&q={{ query }}{% endif %}">
-            {% trans "Fecha de creación" %}
-            {% if sort == 'creation_date' %}
-                {% if dir == 'asc' %}
-                  ▲
-                {% else %}
-                  ▼
+                {% trans "Fecha de creación" %}
+                {% if sort == 'creation_date' %}
+                    {% if dir == 'asc' %}
+                        ▲
+                    {% else %}
+                        ▼
+                    {% endif %}
                 {% endif %}
-            {% endif %}
             </a>
         </th>
         <th scope="col" class="px-6 py-3"></th>

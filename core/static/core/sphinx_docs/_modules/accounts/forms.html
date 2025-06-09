@@ -314,7 +314,8 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for accounts.forms</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot; Django form for handling user registration. &quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Django form for handling user registration.&quot;&quot;&quot;</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.utils.translation</span><span class="w"> </span><span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django</span><span class="w"> </span><span class="kn">import</span> <span class="n">forms</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">CustomUser</span>
@@ -343,7 +344,7 @@ document.write(`
         <span class="p">}</span></div>
 
 
-    <span class="c1">#Specific style attributes for fields</span>
+    <span class="c1"># Specific style attributes for fields</span>
 
     <span class="n">email</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">EmailField</span><span class="p">(</span>
         <span class="n">label</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Correo electrónico&quot;</span><span class="p">),</span>
@@ -384,11 +385,11 @@ document.write(`
     <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commit</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Override the save method to set the username and email fields</span>
-<span class="sd">        </span>
+
 <span class="sd">        Parameters:</span>
 <span class="sd">            commit (bool): If True, save the user instance to the database.</span>
 <span class="sd">            self (RegisterForm): The form instance.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            user (CustomUser): The saved user instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
