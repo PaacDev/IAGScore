@@ -11,59 +11,74 @@ En este anexo se presenta la documentación técnica del proyecto, la cual propo
 El directorio raíz contiene los archivos y carpetas principales del proyecto, incluyendo configuraciones globales y documentación. Los archivos más relevantes son:
 
 \begin{itemize}
-    \item \texttt{manage.py}: Utilidad de línea de comandos para tareas administrativas de Django, como migraciones y ejecución del servidor de desarrollo.
-    \item \texttt{.gitignore}: Especifica los archivos y directorios excluidos del control de versiones (por ejemplo, \texttt{venv} y \texttt{.git}).
-    \item \texttt{.pylintrc}: Configuración para la herramienta de análisis de calidad de código Pylint.
-    \item \texttt{README.md}: Documentación inicial con instrucciones de instalación, descripción del proyecto y licencia.
-    \item \texttt{requirements.txt}: Lista de dependencias de Python requeridas para el proyecto.
+    \item \texttt{.dockerignore}: especifica los archivos y directorios que Docker debe ignorar al construir la imagen.
+    \item \texttt{.gitattributes}: define atributos de Git, como reglas de normalización de fin de línea o configuraciones para exportar archivos.
+    \item \texttt{.gitignore}: especifica los archivos y directorios excluidos del control de versiones (por ejemplo, \texttt{venv}, \texttt{.git}, archivos de entorno, compilados, etc.).
+    \item \texttt{CHANGELOG.md}: registro de los cambios realizados en cada versión del proyecto.
+    \item \texttt{Dockerfile}: define el entorno de ejecución del proyecto dentro de un contenedor, incluyendo dependencias, comandos de instalación y configuración.
+    \item \texttt{LICENSE}: indica la licencia del proyecto (\textit{MIT}).
+    \item \texttt{README.md}: documentación inicial con instrucciones de instalación, descripción del proyecto, tecnologías utilizadas y licencia.
+    \item \texttt{TROUBLESHOOTING.md}: documento de resolución de problemas frecuentes que pueden surgir durante la instalación, configuración o ejecución del proyecto.
+    \item \texttt{docker-compose.ci.yml}: configuración específica para la integración continua, se desactivan servicios innecesarios para acelerar el flujo de pruebas.
+    \item \texttt{docker-compose.yaml}: archivo principal para definir y ejecutar servicios multi-contenedor del proyecto, como Django, PostgreSQL, Redis, etc.
+    \item \texttt{entrypoint.sh}: script que se ejecuta al iniciar el contenedor.
+    \item \texttt{env.example}: plantilla de ejemplo para configuración de variables de entorno (\texttt{.env}).
+    \item \texttt{manage.py}: utilidad de línea de comandos para tareas administrativas de Django.
+    \item \texttt{pytest.ini}: archivo de configuración para \texttt{pytest}.
+    \item \texttt{requirements.txt}: lista de dependencias de Python requeridas para el proyecto.
 \end{itemize}
+
 
 \subsection{\texttt{iagscore}}
 Directorio que contiene la configuración global del proyecto Django. Aquí se encuentran los archivos principales para la configuración y enrutamiento:
 
 \begin{itemize}
-    \item \texttt{settings.py}: Configuración del proyecto, incluyendo la base de datos, aplicaciones instaladas, claves secretas y ajustes de internacionalización.
-    \item \texttt{urls.py}: Enrutamiento principal de URLs, que conecta las rutas de las aplicaciones con las vistas correspondientes.
-    \item \texttt{celery.py}: Configuración para la integración de Celery, utilizado para manejar tareas asíncronas y programadas.
-    \item \texttt{asgi.py}: Configuración para el despliegue en servidores ASGI, compatible con aplicaciones asíncronas y WebSockets.
-    \item \texttt{wsgi.py}: Configuración para el despliegue en servidores WSGI.
-    \item \texttt{\_\_pycache\_\_}: Archivos compilados de Python generados automáticamente.
+    \item \texttt{settings.py}: configuración del proyecto, incluyendo la base de datos, aplicaciones instaladas, claves secretas y ajustes de internacionalización.
+    \item \texttt{urls.py}: enrutamiento principal de URLs, que conecta las rutas de las aplicaciones con las vistas correspondientes.
+    \item \texttt{celery.py}: configuración para la integración de Celery, utilizado para manejar tareas asíncronas y programadas.
+    \item \texttt{asgi.py}: configuración para el despliegue en servidores ASGI, compatible con aplicaciones asíncronas y WebSockets.
+    \item \texttt{wsgi.py}: configuración para el despliegue en servidores WSGI.
 \end{itemize}
 
 \subsection{\texttt{accounts}}
 Aplicación para la gestión de cuentas de usuarios (registro de usuarios, etc).
 
 \begin{itemize}
-    \item \texttt{models.py}: Modelos personalizados para usuarios.
-    \item \texttt{views.py}: Lógica para registro y gestión de perfiles.
-    \item \texttt{urls.py}: Enrutamiento para URLs de registro y gestión de perfiles.
-    \item \texttt{forms.py}: Formularios Django para la creación de nuevos usuarios.
-    \item \texttt{admin.py}: Configuración de la interfaz de administración para los modelos de usuarios.
-    \item \texttt{apps.py}: Configuración de la aplicación.
-    \item \texttt{tests.py}: Pruebas unitarias para los modelos, forms, vistas y otras funcionalidades de la aplicación.
-    \item \texttt{migrations/}: Migraciones de la base de datos.
-    \item \texttt{static/accounts/}: Archivos estáticos específicos.
-    \item \texttt{templates/accounts/}: Plantillas HTML para registro y gestión de perfil.
+    \item \texttt{models.py}: modelos personalizados para usuarios.
+    \item \texttt{views.py}: lógica para registro y gestión de perfiles.
+    \item \texttt{urls.py}: enrutamiento para URLs de registro y gestión de perfiles.
+    \item \texttt{forms.py}: formularios Django para la creación de nuevos usuarios.
+    \item \texttt{admin.py}: configuración de la interfaz de administración para los modelos de usuarios.
+    \item \texttt{apps.py}: configuración de la aplicación.
+    \item \texttt{tests.py}: pruebas unitarias para los modelos, forms, vistas y otras funcionalidades de la aplicación.
+    \item \texttt{migrations/}: migraciones de la base de datos.
+    \item \texttt{static/accounts/}: archivos estáticos específicos.
+    \item \texttt{templates/accounts/}: plantillas 	\textit{HTML} para registro y gestión de perfil.
 \end{itemize}
 
 \subsection{\texttt{core}}
 Aplicación que gestiona la lógica básica del proyecto como login , logout, etc. 
 
 \begin{itemize}
-    \item \texttt{models.py}: Definición de modelos de datos para la base de datos.
-    \item \texttt{admin.py}: Configuración de la interfaz de administración de Django.
-    \item \texttt{apps.py}: Configuración de la aplicación, incluyendo su nombre.
-    \item \texttt{views.py}: Lógica de las vistas para procesar solicitudes HTTP.
-    \item \texttt{urls.py}: Enrutamiento específico de la aplicación.
-    \item \texttt{tests.py}: Pruebas unitarias para los modelos, forms, vistas y otras funcionalidades de la aplicación.
-    \item \texttt{migrations/}: Archivos de migraciones para cambios en la base de datos.
-    \item \texttt{static/core/}: Archivos estáticos específicos de la aplicación.
+    \item \texttt{models.py}: definición de modelos de datos para la base de datos.
+    \item \texttt{admin.py}: configuración de la interfaz de administración de Django.
+    \item \texttt{apps.py}: configuración de la aplicación, incluyendo su nombre.
+    \item \texttt{views.py}: lógica de las vistas para procesar solicitudes HTTP.
+    \item \texttt{urls.py}: enrutamiento específico de la aplicación.
+    \item \texttt{tests.py}: pruebas unitarias para los modelos, forms, vistas y otras funcionalidades de la aplicación.
+    \item \texttt{migrations/}: archivos de migraciones para cambios en la base de datos.
+    \item \texttt{static/core/}: archivos estáticos específicos de la aplicación.
     \begin{itemize}
-        \item \texttt{static/core/docs/}: Documentación estática, como PDFs o imágenes.
+        \item \texttt{static/core/}:
+        \begin{itemize}
+            \item \texttt{docs/}: documentación estática.
+            \item \texttt{img/}: imágenes usadas en la aplicación.
+            \item \texttt{sphinx\_docs/}: copia de la documentación generada por Sphinx en \textit{HTML}.
+        \end{itemize}
     \end{itemize}
-    \item \texttt{templates/core/}: Plantillas HTML para la aplicación.
+    \item \texttt{templates/core/}: plantillas \textit{HTML} para la aplicación.
     \begin{itemize}
-        \item \texttt{templates/core/partials/}: Plantillas reutilizables para componentes modulares.
+        \item \texttt{templates/core/partials/}: plantillas reutilizables para componentes modulares.
     \end{itemize}
 \end{itemize}
 
@@ -71,86 +86,385 @@ Aplicación que gestiona la lógica básica del proyecto como login , logout, et
 Aplicación para gestionar rúbricas.
 
 \begin{itemize}
-    \item \texttt{models.py}: Modelos de datos para rúbricas.
-    \item \texttt{admin.py}: Configuración de la interfaz de administración para los modelos de rúbricas.
-    \item \texttt{apps.py}: Configuración de la aplicación.
-    \item \texttt{views.py}: Lógica para mostrar o gestionar rúbricas.
-    \item \texttt{urls.py}: Enrutamiento de URLs específicas.
-    \item \texttt{forms.py}: Formularios Django para la importación de rubricas.
-    \item \texttt{tests.py}: Pruebas unitarias para los modelos, forms, vistas y otras funcionalidades de la aplicación.
-    \item \texttt{migrations/}: Migraciones de la base de datos.
-    \item \texttt{templates/rubrics/}: Plantillas HTML para mostrar o importar rúbricas.
+    \item \texttt{models.py}: modelos de datos para rúbricas.
+    \item \texttt{admin.py}: configuración de la interfaz de administración para los modelos de rúbricas.
+    \item \texttt{apps.py}: configuración de la aplicación.
+    \item \texttt{views.py}: lógica para mostrar o gestionar rúbricas.
+    \item \texttt{urls.py}: enrutamiento de URLs específicas.
+    \item \texttt{forms.py}: formularios Django para la importación de rúbricas.
+    \item \texttt{tests.py}: pruebas unitarias para los modelos, forms, vistas y otras funcionalidades de la aplicación.
+    \item \texttt{migrations/}: migraciones de la base de datos.
+    \item \texttt{templates/rubrics/}: plantillas \textit{HTML} para mostrar o importar rúbricas.
 \end{itemize}
 
 \subsection{\texttt{prompts}}
-Aplicación para gestionar prompts, entradas de texto para modelos de IA.
+Aplicación para gestionar \textit{prompts}, entradas de texto para modelos de IA.
 
 \begin{itemize}
-    \item \texttt{models.py}: Modelos para almacenar prompts.
-    \item \texttt{views.py}: Lógica para gestionar prompts.
-    \item \texttt{admin.py}: Configuración de la interfaz de administración para los modelos de prompts.
-    \item \texttt{apps.py}: Configuración de la aplicación.
-    \item \texttt{urls.py}: Enrutamiento de URLs.
-    \item \texttt{forms.py}: Formularios Django para la creación de prompts.
-    \item \texttt{tests.py}: Pruebas unitarias para los modelos, forms, vistas y otras funcionalidades de la aplicación.
-    \item \texttt{migrations/}: Migraciones de la base de datos.
-    \item \texttt{templates/prompts/}: Plantillas HTML para mostrar o crear prompts.
+    \item \texttt{models.py}: modelos para almacenar \textit{prompt}.
+    \item \texttt{views.py}: lógica para gestionar \textit{prompt}.
+    \item \texttt{admin.py}: configuración de la interfaz de administración para los modelos de \textit{prompt}.
+    \item \texttt{apps.py}: configuración de la aplicación.
+    \item \texttt{urls.py}: enrutamiento de URLs.
+    \item \texttt{forms.py}: formularios Django para la creación de \textit{prompt}.
+    \item \texttt{tests.py}: pruebas unitarias para los modelos, forms, vistas y otras funcionalidades de la aplicación.
+    \item \texttt{migrations/}: migraciones de la base de datos.
+    \item \texttt{templates/prompts/}: plantillas \textit{HTML} para mostrar o crear \textit{prompt}.
 \end{itemize}
 
 \subsection{\texttt{corrections}}
 Aplicación para gestionar, configurar y ejecutar correcciones.
 
 \begin{itemize}
-    \item \texttt{models.py}: Modelos para correcciones.
-    \item \texttt{views.py}: Lógica para procesar correcciones.
-    \item \texttt{admin.py}: Configuración de la interfaz de administración para los modelos de correcciones.
-    \item \texttt{apps.py}: Configuración de la aplicación.
-    \item \texttt{urls.py}: Enrutamiento de URLs.
-    \item \texttt{forms.py}: Formularios Django para la gestión de correcciones.
-    \item \texttt{tasks.py}: Definición de tareas asíncronas, gestionadas con Celery.
-    \item \texttt{signals.py}: Configuración de señales Django para ejecutar acciones automáticas tras ciertos eventos (ej. eliminar un modelo).
-    \item \texttt{tests.py}: Pruebas unitarias para los modelos, forms, vistas y otras funcionalidades de la aplicación.
-    \item \texttt{migrations/}: Migraciones de la base de datos.
-    \item \texttt{templates/corrections/}: Plantillas HTML para mostrar o configurar correcciones.
+    \item \texttt{admin.py}: configuración de la interfaz de administración para los modelos de correcciones.
+    \item \texttt{apps.py}: configuración de la aplicación.
+    \item \texttt{forms.py}: formularios Django para la gestión de correcciones.
+    \item \texttt{models.py}: modelos para correcciones.
+    \item \texttt{signals.py}: configuración de señales Django para ejecutar acciones automáticas tras ciertos eventos (ej. eliminar un modelo).
+    \item \texttt{tasks.py}: definición de tareas asíncronas, gestionadas con Celery.
+    \item \texttt{tests.py}: pruebas unitarias para los modelos, forms, vistas y otras funcionalidades de la aplicación.
+    \item \texttt{urls.py}: enrutamiento de URLs.
+    \item \texttt{views.py}: lógica para procesar correcciones.
+    \item \texttt{migrations/}: migraciones de la base de datos.
+    \item \texttt{templates/corrections/}: plantillas \textit{HTML} para mostrar o configurar correcciones.
 \end{itemize}
 
-\subsection{\texttt{media}}
-Directorio para archivos subidos por usuarios y almacenamiento de los resultados de la ejecución de una corrección.
+\subsection{\texttt{ejemplos}}
+Directorio que contiene recursos esenciales para facilitar la interacción con la herramienta.
 
 \begin{itemize}
-    \item \texttt{corrections/}: Archivos relacionados con la aplicación \texttt{corrections}, organizados por IDs.
+    \item \texttt{Prompt/promt\_1.txt}: \textit{prompt} predefinido para copiar.
+    \item \texttt{Rúbrica/rubrica\_1.md}: rúbrica en formato \textit{markdown} lista para importar.
+    \item \texttt{Tareas/fibo\_2\_tareas\_java.zip}: fichero comprimido con dos tareas java.
+    \item \texttt{Tareas/fibo\_3\_tareas\_java.zip}: fichero comprimido con tres tareas java.
 \end{itemize}
 
 \subsection{\texttt{static}}
 Carpeta para archivos estáticos globales del proyecto.
 
 \begin{itemize}
-    \item \texttt{js/}: Archivos JavaScript para funcionalidad frontend.
+    \item \texttt{js/}: archivos JavaScript para funcionalidad frontend.
 \end{itemize}
 
 \subsection{\texttt{tailwind}}
 Directorio para la configuración y compilación de Tailwind CSS.
 
 \begin{itemize}
-    \item \texttt{tailwind.config.js}: Configuración personalizada de Tailwind CSS, donde se definen temas, colores y plugins.
-    \item \texttt{package.json}: Dependencias de Node.js y scripts para compilar Tailwind CSS.
-    \item \texttt{static/css/}: Archivos CSS generados por Tailwind CSS.
+    \item \texttt{tailwind.config.js}: configuración personalizada de Tailwind CSS, donde se definen temas, colores y plugins.
+    \item \texttt{package.json}: dependencias de Node.js y scripts para compilar Tailwind CSS.
+    \item \texttt{static/css/}: archivos CSS generados por Tailwind CSS.
 \end{itemize}
 
 \subsection{\texttt{docs}}
 Carpeta para documentación del proyecto.
 
 \begin{itemize}
-    \item \texttt{LaTeX/}: Documentación escrita en LaTeX.
+    \item \texttt{LaTeX/}: documentación escrita en LaTeX.
     \begin{itemize}
-        \item \texttt{tex/}: Archivos fuente de LaTeX.
-        \item \texttt{img/}: Imágenes usadas en la documentación.
+        \item \texttt{tex/}: archivos fuente de LaTeX.
+        \item \texttt{img/}: imágenes usadas en la documentación.
+    \end{itemize}
+    \item \texttt{Sphinx/}: módulo para generar la documentación técnica.
+    \begin{itemize}
+        \item \texttt{\_static/}: archivos estáticos (CSS, imágenes, etc.) utilizados por Sphinx.
+        \item \texttt{\_templates/}: plantillas personalizadas de \textit{HTML} para la documentación.
+        \item 
+            \texttt{accounts.rst},\\
+        \texttt{core.rst},\\
+        \texttt{corrections.rst},\\
+        \texttt{prompts.rst},\\
+        \texttt{rubrics.rst}: documentación específica de cada módulo de la aplicación.
+        \item \texttt{conf.py}: archivo de configuración de Sphinx.
+        \item \texttt{index.rst}: página principal (tabla de contenidos) que enlaza a los distintos ficheros \texttt{.rst}.
+        \item \texttt{intro.md}: archivo de introducción o guía general en formato Markdown.
+        \item \texttt{Makefile}, \texttt{make.bat}: scripts para compilar la documentación en \textit{HTML}.
     \end{itemize}
 \end{itemize}
 
 
 \section{Manual del programador}
 
-\section{Compilación, instalación y ejecución del proyecto}
+Este documento describe las etapas clave que se han seguido durante el desarrollo de este proyecto y puede servir de guía para nuevos colaboradores. En sus páginas se detalla cómo configurar el entorno de trabajo y cuáles son las dependencias necesarias. Asimismo, se describen con detalle los procedimientos principales de compilación, instalación y puesta en marcha.
 
+En la portada del \href{https://github.com/pac1006/IAGScore/tree/main}{repositorio} de este proyecto se encuentra un resumen de este proceso.
+
+\subsection{Requisitos Previos}
+
+Para poder ejecutar el proyecto, es necesario contar con las siguientes herramientas instaladas:
+
+\begin{itemize}
+    \item \href{https://git-scm.com/}{\textit{Git}}
+    \item \href{https://www.docker.com/}{\textit{Docker}}
+    \item \href{https://docs.docker.com/compose/}{\textit{Docker Compose}}
+\end{itemize}
+
+Adicionalmente, se debe configurar Docker Desktop para asignar recursos mínimos:
+\begin{itemize}
+    \item Asignar al menos 8–12 GB de RAM.
+    \item Asignar al menos 4 CPUs.
+    \item Hacer clic en \texttt{Apply \& Restart} para aplicar los cambios.
+\end{itemize}
+Puede verse una imagen de la ventana de configuración en Fig.~\ref{fig:docker_settings}
+\imagen{docker_settings}{Imagen configuración de recursos Docker Desktop}
+
+\subsubsection*{Montaje desde una unidad externa}
+
+Para ejecutar el repositorio desde una unidad externa, siga estos pasos en Docker Desktop:
+\begin{enumerate}
+    \item Abra Docker Desktop.
+    \item Vaya a \texttt{Settings} → \texttt{Resources} → \texttt{File Sharing}.
+    \item Añada la ruta del repositorio que está intentando montar (por ejemplo, \texttt{F:\textbackslash path\textbackslash to\textbackslash repo}).
+    \item Haga clic en \texttt{Apply \& Restart} para aplicar los cambios.
+\end{enumerate}
+Se muestra una imagen en Fig.~\ref{fig:docker_file_sharing}
+
+\imagen{docker_file_sharing}{Imagen configuración unidad externa Docker Desktop}
+
+Este proyecto puede ejecutarse tanto desde un \textit{IDE} (por ejemplo, el empleado durante el desarrollo) como desde cualquier terminal. 
+
+En este manual se describen los pasos de instalación y ejecución usando la terminal integrada de \textit{Visual Studio Code}; sin embargo, 
+los mismos comandos pueden llevarse a cabo en la terminal de cualquier otro sistema operativo.
+
+\section{Compilación, instalación y ejecución del proyecto}\label{sec:instalacion}
+
+\subsection{Clonar el repositorio}
+
+Desde \textit{Visual Studio Code} y usando git:
+En primer lugar realizaremos la clonación del proyecto, como puede verse en Fig~\ref{fig:clonar_repo}.
+
+\begin{verbatim}
+git clone https://github.com/pac1006/IAGScore.git
+cd IAGScore
+\end{verbatim}
+
+\imagen{clonar_repo}{Imagen clonación de repositorio}
+
+\subsection{Crear el archivo \texttt{.env}}
+
+Para que el proyecto levante correctamente es necesario configurar el fichero con
+las variables de entorno. En el repositorio se facilita un fichero \texttt{env.example}
+que se puede copiar directamente o replicar usando otros valores para cada variable, Fig.~\ref{fig:copia_env}.
+
+En este caso se realiza la copia del archivo de ejemplo:
+
+\begin{itemize}
+    \item \textbf{Linux y macOS}
+    \begin{verbatim}
+cp env.example .env
+    \end{verbatim}
+    \item \textbf{Windows}
+    \begin{verbatim}
+copy env.example .env
+    \end{verbatim}
+\end{itemize}
+
+\imagen{copia_env}{Imagen copia variables de entorno}
+
+\subsection{Build con Docker Compose}
+
+\textbf{Importante:} antes de ejecutar este comando, asegúrate de que \textit{Docker} esté en funcionamiento. 
+Para ello, abre \textit{Docker Desktop} y verifica que se encuentra activo.
+
+Una vez verificado, puedes proceder a construir los contenedores con el siguiente comando:
+
+\begin{verbatim}
+docker compose build
+\end{verbatim}
+Como se muestra en Fig.~\ref{fig:compose_build}.
+\imagen{compose_build}{Imagen construcción de contenedores}
+
+Este proceso puede tardar algunos minutos, especialmente la primera vez, ya que se descargan 
+imágenes base y se instalan las dependencias del proyecto dentro de los contenedores.
+
+\subsection{Levantar el proyecto}
+
+Una vez construidos los contenedores, se puede iniciar el proyecto con uno de los siguientes comandos:
+
+\begin{verbatim}
+docker compose up -d
+
+docker compose up
+\end{verbatim}
+
+Este comando levanta los servicios definidos en \texttt{docker-compose.yaml}, incluyendo la base de datos, el \textit{backend} de \textit{Django, Redis, Celery} y \textit{Ollama}, si están habilitados. 
+
+Es posible que la primera vez que se ejecute tarde unos minutos, ya que \textit{Docker} debe crear las redes internas, iniciar cada contenedor y realizar configuraciones iniciales. Una vez levantado, se debería ver mensajes en la terminal que indican que los servicios están activos y escuchando.
+
+Se recomienda ejecutar el proyecto en segundo plano con la opción \texttt{-d} como se muestra en Fig.~\ref{fig:compose_up}.
+Esto permitirá seguir usando la terminal sin cerrar los servicios, que continuarán ejecutándose en segundo plano.
+
+\imagen{compose_up}{Imagen levantando proyecto}
+
+
+\subsection{Pull del modelo \texttt{llama3.1}}{\label{sec:pull_model}}
+
+Una vez levantado el proyecto, es necesario hacer \emph{pull} del modelo que se desea utilizar por primera vez Fig.~\ref{fig:pull_llama}. 
+Por ejemplo, para descargar el modelo \texttt{llama3.1}, ejecuta el siguiente comando desde la carpeta raíz del proyecto (\texttt{IAGScore}):
+
+Si no has usado la opción \texttt{-d} al levantar los contenedores, necesitarás abrir una nueva terminal para ejecutar este comando:
+
+\begin{verbatim}
+docker compose exec ollama ollama pull llama3.1:8b
+\end{verbatim}
+
+\imagen{pull_llama}{Imagen haciendo pull modelo Llama3.1}
+
+\emph{(Este paso únicamente es necesario hacerlo en la primera ejecución ya que una vez hecho el pull, el modelo permanece en Ollama.)}
+
+\subsubsection*{Otros modelos disponibles}
+
+Puedes hacer \emph{pull} de cualquier otro modelo soportado por \textit{Ollama}:
+
+\begin{verbatim}
+docker compose exec ollama ollama pull <nombre-del-modelo>
+\end{verbatim}
+
+Por ejemplo, puedes hacer \textit{pull} de un modelo mas ligero como \textit{Qwen3} (0.6b) como se muestra en Fig.~\ref{fig:pull_qwen3}
+
+\begin{verbatim}
+docker compose exec ollama ollama pull qwen3:0.6b
+\end{verbatim}
+
+\imagen{pull_qwen3}{Imagen haciendo pull modelo Qwen3}
+
+\subsubsection*{Modelos cargados}
+
+Puedes consultar tus modelos cargados en \textit{Ollama}, Fig.~\ref{fig:model_list}, ejecutando el comando:
+
+\begin{verbatim}
+docker compose exec ollama ollama list
+\end{verbatim}
+
+\imagen{model_list}{Imagen mostrando lista de modelos cargados}
+
+\subsubsection*{Eliminar modelos}
+
+Para eliminar un modelo cargado en \textit{Ollama}, ejecuta:
+
+\begin{verbatim}
+docker compose exec ollama ollama rm <nombre-del-modelo>
+\end{verbatim}
+Se puede ver en Fig.~\ref{fig:rm_model}.
+
+\imagen{rm_model}{Imagen eliminando modelo}
+
+\subsection{Configuración opcional}
+
+\subsubsection{Crear superusuario \emph{Django}}{\label{sec:superuser}}
+
+Opcionalmente, se puede crear un \textit{superusuario} para acceder al panel de administración de \textit{Django}:
+
+\begin{verbatim}
+docker compose exec web python3 manage.py createsuperuser
+\end{verbatim}
+
+Deberás introducir:
+\begin{itemize}
+    \item \emph{Email}
+    \item \emph{Username}
+    \item \emph{Password}
+\end{itemize}
+
+Una vez realizados estos pasos, la aplicación estará disponible en el navegador a través de la dirección:
+
+\begin{itemize}
+    \item \href{http://localhost:8000}{\texttt{http://localhost:8000}}
+\end{itemize}
+
+También es posible acceder utilizando la dirección \textit{IP} de la máquina anfitriona: \texttt{http://<IP-de-la-máquina>:8000}
 \section{Pruebas del sistema}
+
+A lo largo del desarrollo del proyecto se ha realizado una batería significativa de pruebas, utilizando principalmente \texttt{pytest} como herramienta de testeo y \texttt{coverage} para el análisis de cobertura de código. En total, se han ejecutado 74 pruebas automatizadas que abarcan distintas áreas de la aplicación, incluyendo modelos, formularios, vistas y rutas de las aplicaciones \emph{\texttt{accounts}, \texttt{core}, \texttt{corrections}, \texttt{prompts} y \texttt{rubrics}}.
+
+A continuación se presenta una tabla que relaciona las pruebas automatizadas más representativas con los requisitos funcionales (RF) que verifican. Estas pruebas aseguran que las funcionalidades clave de la aplicación cumplen con las especificaciones definidas. Cabe destacar que, además de estas, se han desarrollado muchas otras pruebas orientadas a validar aspectos internos, casos límite, rendimiento y seguridad del sistema.
+\newpage
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{>{\ttfamily}lX}
+\toprule
+\textnormal{Test} & Requerimiento \\
+\midrule
+\texttt{test\_register\_success} & Los usuarios podrán registrarse mediante nombre, correo electrónico y contraseña. (RF-1) \\
+\texttt{test\_login\_success} & Los usuarios deberán iniciar sesión para usar la aplicación. (RF-2) \\
+\texttt{test\_valid\_prompt\_form} & Los usuarios crearán sus propios \textit{prompts}. (RF-3) \\
+\texttt{test\_list\_prompts} & Los usuarios podrán consultar sus \textit{prompts} creados. (RF-3.1) \\
+\texttt{test\_show\_prompt\_view} & Los usuarios podrán visualizar un \textit{prompt} concreto. (RF-3.2) \\
+\texttt{test\_delete\_prompt\_view} & Los usuarios podrán eliminar un \textit{prompt}. (RF-3.3) \\
+\texttt{test\_rubric\_page\_view\_post} & Los usuarios podrán importar sus propias rúbricas en formato \textit{Markdown}. (RF-4) \\
+\texttt{test\_rubric\_page\_view\_get} & Los usuarios podrán consultar sus rúbricas importadas. (RF-4.1) \\
+\texttt{test\_show\_rubric\_view} & Los usuarios podrán visualizar los detalles de una rúbrica concreta en formato \textit{HTML}. (RF-4.2) \\
+\texttt{test\_delete\_rubric\_view} & Los usuarios podrán eliminar una rúbrica importada. (RF-4.3) \\
+\texttt{test\_valid\_correction\_form} & Los usuarios configurarán las correcciones. (RF-5) \\
+\texttt{test\_show\_view\_correction\_view} & Los usuarios podrán consultar sus correcciones configuradas. (RF-5.1) \\
+\texttt{test\_show\_view\_correction\_view} & Los usuarios podrán visualizar los detalles de configuración de una corrección. (RF-5.2) \\
+\texttt{test\_delete\_correction\_view} & Los usuarios podrán eliminar una corrección. (RF-5.3) \\
+\texttt{test\_run\_model\_and\_download} & Los usuarios podrán ejecutar una corrección. (RF-5.4) \\
+\texttt{test\_run\_model\_and\_download} & Los usuarios podrán descargar el resultado de la corrección ejecutada. (RF-5.5) \\
+\bottomrule
+\end{tabularx}
+\caption{Relación entre pruebas y requisitos funcionales (RF)}
+\label{requisitos-test}
+\end{table}
+
+\subsection*{Cobertura y enfoque de pruebas}
+
+Las pruebas pueden ser ejecutadas con el siguiente comando:
+\begin{verbatim}
+docker compose exec web pytest .
+\end{verbatim}
+En Fig.~\ref{fig:run_test} y Fig.~\ref{fig:resultado_test} se muestra el resultado de la ejecución de este comando.
+\imagen{run_test}{Imagen mostrando ejecución de \textit{test}}
+\imagen{resultado_test}{Imagen mostrando resultado ejecución \textit{test}}
+
+La aplicación debe estar en funcionamiento para poder ejecutarlas.
+
+
+La cobertura total alcanzada en la base de código es del \textbf{98\%}, con algunos módulos como \texttt{\emph{manage.py}} y los puntos de entrada \textit{WSGI/ASGI} excluidos del \textit{testeo} por no representar lógica del negocio.
+
+Se han \textbf{\textit{moqueado} servicios externos} como \texttt{\textit{Ollama}}, debido al tiempo que requiere su ejecución real. Esto ha permitido mantener un tiempo de \textit{testeo} razonable sin sacrificar realismo en los \textit{tests} relevantes. También se ha generado una carpeta temporal \textbf{media} durante los \textit{tests} para evitar sobrescribir archivos corregidos por los usuarios, asegurando así un entorno de pruebas seguro y aislado.
+
+\subsection*{Pruebas unitarias y de integración}
+\begin{itemize}
+  \item \textbf{Pruebas unitarias}, con foco en:
+    \begin{itemize}
+      \item Lógica de validación en formularios.
+      \item Creación y relaciones de modelos.
+      \item Vistas y controladores.
+    \end{itemize}
+
+  \item \textbf{Pruebas de caja blanca}, evaluando:
+    \begin{itemize}
+      \item Interfaces entre modelos y métodos.
+      \item Pruebas de estructuras internas y flujos.
+      \item Comprobación de condiciones límite (\textit{login}, registros).
+    \end{itemize}
+
+  \item \textbf{Pruebas de caja negra}, enfocadas en:
+    \begin{itemize}
+      \item Renderizado de vistas.
+      \item Comprobación de comportamientos esperados a partir de distintas entradas.
+      \item Partición de equivalencia y análisis de valores frontera.
+    \end{itemize}
+
+  \item \textbf{Pruebas de integración}, centradas en:
+    \begin{itemize}
+      \item Interacción con la base de datos.
+      \item Flujo completo en funcionalidades como correcciones automáticas o interacción con \textit{LLMs}.
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Cobertura de código}
+
+La cobertura de código ha sido medida con \texttt{coverage} y el informe \textit{HTML} se puede consultar en \texttt{coveragereport/html/index.html}. El resumen general es:
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Módulos} & \textbf{Sentencias} & \textbf{Missing} & \textbf{Cobertura} \\
+\midrule
+Total            & 1439                & 29              & 98\%               \\
+\bottomrule
+\end{tabular}
+\end{center}
+

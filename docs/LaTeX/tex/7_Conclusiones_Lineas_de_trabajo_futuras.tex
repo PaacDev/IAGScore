@@ -1,4 +1,33 @@
 \capitulo{7}{Conclusiones y Líneas de trabajo futuras}
 
-Todo proyecto debe incluir las conclusiones que se derivan de su desarrollo. Éstas pueden ser de diferente índole, dependiendo de la tipología del proyecto, pero normalmente van a estar presentes un conjunto de conclusiones relacionadas con los resultados del proyecto y un conjunto de conclusiones técnicas. 
-Además, resulta muy útil realizar un informe crítico indicando cómo se puede mejorar el proyecto, o cómo se puede continuar trabajando en la línea del proyecto realizado. 
+\section{Conclusiones}
+
+A lo largo del desarrollo de este Trabajo de Fin de Grado se han alcanzado los objetivos propuestos, tanto a nivel funcional como técnico y personal. El proyecto ha consistido en la construcción de una herramienta web capaz de evaluar automáticamente ejercicios de programación, integrando modelos de lenguaje a gran escala (\textit{LLMs}) de forma local.
+
+\subsection{Cumplimiento de los objetivos}
+
+Se ha logrado integrar modelos \textit{LLM} de forma local a través de \textit{Ollama}. Esto ha permitido implementar un sistema de corrección automatizada capaz de analizar el código enviado por el usuario y devolver una evaluación textual. Además, se ha desarrollado una interfaz que permite interactuar con el sistema de manera sencilla.
+
+Durante el desarrollo se han utilizado tecnologías como \textit{Django, PostgreSQL, Docker, GitHub Actions o Sphinx}, entre otras. El uso de contenedores ha facilitado el despliegue y prueba del sistema, y el control de versiones ha permitido mantener una estructura organizada. También se han incorporado prácticas de calidad del software, como la integración de \textit{SonarCloud}.
+
+Este proyecto ha sido una oportunidad para afianzar conocimientos en múltiples áreas. Se han reforzado competencias en gestión de proyectos, control de versiones, calidad de código y documentación técnica, permitiendo una visión más completa del ciclo de vida del \textit{software}. 
+
+\subsection{Reflexiones y retos del proceso}
+
+Uno de los principales desafíos ha sido trabajar con tecnologías emergentes como los modelos de lenguaje de gran escala (\textit{LLMs}). Desde el inicio del proyecto, existía incertidumbre sobre su viabilidad para cumplir los objetivos planteados, lo que supuso un reto tanto en el diseño como en la implementación. Esta falta de garantías iniciales exigió una actitud exploratoria, así como la adaptación continua a un entorno tecnológico en rápida evolución.
+
+Además, se ha tenido que lidiar con algunas limitaciones inherentes a este tipo de modelos, como las denominadas \textit{alucinaciones}, es decir, respuestas generadas que pueden parecer coherentes pero no son correctas o están inventadas. Dado que se trata de tecnologías emergentes, este fenómeno subraya la necesidad de mantener una supervisión humana en el proceso de evaluación, especialmente en entornos educativos donde la precisión y la fiabilidad son fundamentales.
+
+\subsection{Valoración personal}
+
+La realización de este proyecto ha sido altamente satisfactoria, tanto a nivel académico como personal. No solo se ha desarrollado una aplicación funcional, sino que se ha conseguido una aproximación a la integración de \textit{LLMs} en el entorno educativo para la corrección de tareas. 
+
+Esta experiencia ha sido fundamental tanto para consolidar la formación académica como para prepararse para futuros retos profesionales.
+
+\section{Líneas de trabajo futuras}
+
+El proyecto desarrollado sienta las bases para futuras ampliaciones tanto a nivel funcional como de integración con otros entornos. Una de las líneas de trabajo más prometedoras es la implementación de una \textit{API} que permita conectar el sistema con plataformas educativas como \textit{Moodle}. Esta integración facilitaría su adopción en entornos reales de enseñanza, automatizando la evaluación de tareas de programación directamente desde el entorno de gestión académica.
+
+Otra posible ampliación consiste en utilizar distintos modelos \textit{LLM} para realizar una evaluación cruzada del resultado generado por el \textit{LLM} evaluador principal. Esto podría mejorar la precisión y robustez del sistema, al aprovechar distintas perspectivas y reducir posibles sesgos del modelo individual.
+
+Asimismo, resultaría adecuado implementar un sistema de notificaciones que informe al usuario una vez finalizado el proceso de corrección. Estas notificaciones podrían realizarse mediante correo electrónico, \textit{SMS} o notificaciones \textit{push}, mejorando así la experiencia de usuario y facilitando la gestión del tiempo de espera en procesos asíncronos.

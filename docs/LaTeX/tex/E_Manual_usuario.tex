@@ -2,10 +2,103 @@
 
 \section{Introducción}
 
+En este apartado se ofrece una guía básica para que el usuario pueda interactuar de forma adecuada con la herramienta. Se describen los formularios principales y las distintas opciones disponibles para el usuario final al utilizar este entorno.
+
 \section{Requisitos de usuarios}
+
+Este proyecto ha sido diseñado para ejecutarse en entornos locales, con el objetivo de proteger la privacidad y seguridad de los datos personales generados a partir de las tareas del alumnado. Debido a la naturaleza de los servicios que integra (\textit{Ollama, Celery, Redis, PostgreSQL y Django}) no ha sido posible desplegarlo en plataformas gratuitas como \textit{Render o Heroku}, ya que presentan incompatibilidades técnicas. No obstante, el usuario puede instalar y ejecutar la aplicación en su propio equipo, siempre que cuente con \textit{Docker y Docker Compose} previamente instalados.
 
 \section{Instalación}
 
+Para realizar la instalación del proyecto, basta con seguir las instrucciones de detalladas en la 
+sección \hyperref[sec:instalacion]{Compilación, instalación y ejecución del proyecto}
+
+
 \section{Manual del usuario}
 
+En esta sección se documenta el funcionamiento y la interacción con las principales características de la aplicación.
 
+\subsubsection{Recursos de ejemplo}
+El repositorio incluye una carpeta denominada \texttt{ejemplos}, que contiene recursos esenciales para facilitar la interacción con la herramienta. En esta carpeta se encuentran archivos que permiten:
+Rellenar automáticamente un \textit{prompt} de ejemplo.
+Importar una rúbrica predefinida.
+Cargar tareas de muestra para realizar pruebas funcionales.
+Estos recursos están diseñados para ayudar al usuario a familiarizarse rápidamente con el entorno y comprender su funcionamiento sin necesidad de generar contenido desde cero.
+
+\subsubsection{Acceso a la aplicación}
+
+Para acceder a la aplicación desde el navegador, simplemente introduce en la barra de direcciones la siguiente URL:
+
+\begin{itemize}
+    \item \href{http://localhost:8000}{\texttt{http://localhost:8000}}
+\end{itemize}
+
+Al ingresar, se mostrará la ventana principal desde la cual podrás iniciar sesión (\textit{login}). Para ello, deberás proporcionar tu \textit{email} y contraseña.
+
+Si has creado un \textit{superusuario} siguiendo las indicaciones en la sección \hyperref[sec:superuser]{Crear \textit{superusuario}}, podrás acceder con esas credenciales y obtener acceso al panel de administración de \textit{Django}.
+
+En caso de no disponer de credenciales, será necesario registrarse en la aplicación. Para ello, haz clic en la opción \textbf{Regístrate aquí} como se muestra en la Fig.~\ref{fig:registro_1}.
+
+\imagen{registro_1}{Captura del botón de registro de usuario}
+
+Se abrirá la ventana de registro Fig.~\ref{fig:view_registro}, donde deberás introducir un nombre, una dirección de \textit{email} y una contraseña. Además, deberás aceptar los Términos y condiciones y pulsar el botón \textbf{Crear una cuenta}.
+
+\imagen{view_registro}{Captura de la ventana de registro de usuario}
+
+Si el registro se ha completado correctamente, aparecerá un mensaje de confirmación Fig.~\ref{fig:registro_correcto}, como el siguiente:
+
+\imagen{registro_correcto}{Captura del mensaje de registro correcto}
+
+A continuación, podrás acceder a la página de bienvenida de la aplicación, Fig.~\ref{fig:home}. En esta página encontrarás una barra de navegación con las distintas secciones disponibles, botones de acceso rápido, un selector de idioma y un botón para cerrar sesión.
+
+\imagen{home}{Captura de la página de bienvenida}
+
+Desde esta página se puede seguir el flujo lógico propuesto a través de los menús, comenzando por la creación de un \textit{prompt}, la importación de una rúbrica, la configuración de una corrección mediante la importación de tareas y, finalmente, la ejecución del proceso de corrección.
+
+Para realizar el primer paso, accede a la sección \textbf{Prompts}, bien a través del menú de navegación o mediante el botón de acceso rápido. En esta sección se mostrarán los \textit{prompts} ya creados (en caso de que existan) y se ofrecerá la opción de crear uno nuevo. Para ello, pulsa el botón \textbf{Nuevo Prompt}, Fig.~\ref{fig:nuevo_prompt}, introduce un nombre identificativo y el contenido del \textit{prompt}, donde se debe indicar al modelo que se le proporcionará una rúbrica y un conjunto de tareas para realizar la corrección.
+
+\imagen{nuevo_prompt}{Captura de la creación de un nuevo \textit{prompt}}
+
+Tras pulsar el botón \textbf{Guardar}, si todo ha funcionado correctamente, se mostrará un mensaje de confirmación indicando que el \textit{prompt} se ha creado con éxito y aparecerá listado en la tabla correspondiente, junto con la fecha de creación y las acciones disponibles, como se puede ver en Fig.~\ref{fig:prompt_creado}.
+
+\imagen{prompt_creado}{Captura del \textit{prompt} creado correctamente}
+
+El siguiente paso consiste en importar una rúbrica en formato Markdown. Para ello, debemos acceder a la sección \textbf{Rúbricas}.
+
+Una vez en esta sección, se debe pulsar el botón \textbf{Nueva rúbrica}, lo que abrirá un formulario, como el que se muestra en Fig.~\ref{fig:nueva_rubrica}, donde podremos introducir un nombre identificativo e importar un archivo en formato \texttt{.md} que contenga el contenido de la rúbrica.
+
+\imagen{nueva_rubrica}{Captura del formulario de importación de una rúbrica}
+
+Al pulsar el botón \textbf{Guardar}, si el proceso se realiza correctamente, se mostrará un mensaje de confirmación, Fig.~\ref{fig:rubrica_creada}, indicando que la rúbrica ha sido creada con éxito. Esta aparecerá listada en la tabla correspondiente, junto con la fecha de creación y las acciones disponibles.
+
+\imagen{rubrica_creada}{Captura de la rúbrica creada correctamente}
+
+Importar la rúbrica en formato \textit{Markdown} resulta especialmente útil, ya que permite una mejor visualización del contenido estructurado, Fig.~\ref{fig:rubrica_html}. Esta visualización puede comprobarse pulsando el botón \textbf{Mostrar}.
+
+\imagen{rubrica_html}{Captura mostrando rúbrica formateada en \textit{HTML}}
+
+Una vez disponemos de un \textit{prompt} y de una rúbrica, ya podemos proceder a configurar una corrección. Para ello, accedemos a la sección \textbf{Correcciones}, seleccionando la opción correspondiente en la barra de navegación y, a continuación, haciendo clic en \textbf{Nueva corrección}, como se puede ver en Fig.~\ref{fig:new_correction}.
+
+\imagen{new_correction}{Captura mostrando el botón \textbf{Nueva corrección}}
+
+Se abrirá el formulario de configuración, Fig.~\ref{fig:config_correction}, donde será necesario seleccionar el \textit{prompt} y la rúbrica previamente creados. Además, se deberá cargar un archivo comprimido (en formato \texttt{.zip}, \texttt{.rar}, \texttt{.7z} o \texttt{.tar}) que contenga las tareas a corregir. También será preciso introducir un nombre o una breve descripción que identifique la corrección y escoger un modelo disponible en la lista (el cual debe haber sido previamente \hyperref[sec:pull_model]{cargado}).
+
+A continuación, se mostrarán una serie de parámetros avanzados, tales como \textbf{Temperatura}, \textbf{Top\_p}, \textbf{Top\_k}, \textbf{Ventana de contexto} y \textbf{Formato de salida}, que vienen configurados por defecto, aunque el usuario podrá modificarlos según sus necesidades.
+
+\imagen{config_correction}{Captura mostrando el formulario de configuración de corrección}
+
+Una vez completados los datos, al pulsar el botón \textbf{Guardar configuración} la aplicación redirigirá automáticamente a la página principal de correcciones. Allí se listarán todas las correcciones configuradas, junto con información relevante y las acciones disponibles para cada una, como se muestra en Fig.~\ref{fig:create_correction}.
+
+\imagen{create_correction}{Captura mostrando una corrección configurada}
+
+Con la corrección configurada, estará lista para ejecutarse pulsando la opción \textbf{Ejecutar}. Al hacerlo, se mostrará un mensaje indicando que la corrección está en proceso y que el resultado podrá consultarse más adelante. Esta operación se realiza en segundo plano, por lo que no bloquea la aplicación. Mientras la corrección se ejecuta, su estado aparecerá como \textit{Ejecutando...} y se deshabilitarán las acciones sobre ella para garantizar la consistencia del sistema, como puede verse en Fig.~\ref{fig:run_correction}.
+
+\imagen{run_correction}{Captura mostrando una corrección en ejecución}
+
+Al finalizar el proceso, estará disponible la opción para descargar la corrección, Fig.~\ref{fig:descarga}, en formato \texttt{.txt}.
+
+\imagen{descarga}{Captura mostrando la opción de descarga}
+
+De este modo, se completa un ciclo completo de la funcionalidad principal de la aplicación.
+
+La sección \textbf{\textit{LLM}} ofrece detalles sobre el modelo utilizado en las diversas pruebas realizadas, mientras que la sección \textbf{Documentación} contiene la documentación técnica del proyecto, junto con el manual de instalación.

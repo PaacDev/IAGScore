@@ -1,97 +1,110 @@
 \capitulo{4}{Técnicas y herramientas}
-Esta parte de la memoria tiene como objetivo presentar las técnicas metodológicas y las herramientas de desarrollo que se han utilizado para llevar a cabo el proyecto. Si se han estudiado diferentes alternativas de metodologías, herramientas, bibliotecas se puede hacer un resumen de los aspectos más destacados de cada alternativa, incluyendo comparativas entre las distintas opciones y una justificación de las elecciones realizadas. 
-No se pretende que este apartado se convierta en un capítulo de un libro dedicado a cada una de las alternativas, sino comentar los aspectos más destacados de cada opción, con un repaso somero a los fundamentos esenciales y referencias bibliográficas para que el lector pueda ampliar su conocimiento sobre el tema.
+
+En este capítulo se describen las principales técnicas metodológicas y herramientas de desarrollo empleadas en el proyecto. Se presentan las opciones consideradas, destacando las características más relevantes y justificando las decisiones tomadas para su selección.
 
 \section{Metodologías}
 
 \subsection{Scrum}
 
-Scrum es un marco de trabajo ágil, líder en el desarrollo de software y la gestión de proyectos, 
-que se distingue por su flexibilidad. Organiza el trabajo en sprints, iteraciones cortas de una a cuatro 
+\textit{Scrum}~\cite{wiki:Scrum} es un marco de trabajo ágil, líder en el desarrollo de software y la gestión de proyectos, 
+que se distingue por su flexibilidad. Organiza el trabajo en \textit{sprints}, iteraciones cortas de una a cuatro 
 semanas, cada una entregando un incremento funcional del producto. 
-Al final de cada sprint, se evalúa el resultado para detectar mejoras 
+Al final de cada \textit{sprint}, se evalúa el resultado para detectar mejoras 
 y ajustar prioridades según las necesidades del proyecto. Los requisitos, que pueden cambiar durante el 
 desarrollo, se recogen en la pila del producto, mientras que las tareas específicas de cada iteración se 
-detallan en la pila del sprint. Este enfoque incremental permite solapar fases del proyecto, optimizando 
-tiempos y facilitando la adaptación a nuevos requerimientos. Scrum promueve la calidad a través del
+detallan en la \textit{pila del sprint}. Este enfoque incremental permite solapar fases del proyecto, optimizando 
+tiempos y facilitando la adaptación a nuevos requerimientos. \textit{Scrum} promueve la calidad a través del
 aprendizaje continuo del equipo, generando entregas tempranas de productos utilizables y asegurando una 
-mejora constante alineada con las necesidades del usuario~\cite{wiki:Scrum}.
+mejora constante alineada con las necesidades del usuario.
 
 \subsection{Kanban}
-Kanban es un método ágil que se centra en la visualización del flujo de trabajo y la gestión del
+
+\textit{Kanban}~\cite{wiki:Kanban} es un método ágil que se centra en la visualización del flujo de trabajo y la gestión del
 trabajo en curso. Utiliza un tablero representando las tareas en una serie de tarjetas, permitiendo a los
 miembros del equipo ver el progreso y las prioridades del trabajo.
-Kanban Se basa en principios como la limitación del trabajo en curso, la mejora continua y la
-adaptación a los cambios, es flexible y se puede aplicar a diferentes tipos de proyectos y equipos,
-lo que lo convierte en una herramienta valiosa para la gestión de proyectos en entornos ágiles~\cite{wiki:Kanban}.
+\textit{Kanban} se basa en principios como la limitación del trabajo en curso, la mejora continua y la
+adaptación a los cambios; es flexible y se puede aplicar a diferentes tipos de proyectos y equipos,
+lo que lo convierte en una herramienta valiosa para la gestión de proyectos en entornos ágiles.
 
-\subsection{Scrumban}
-Scrumban es una metodología híbrida que combina elementos de Scrum y Kanban.
-Se basa en la estructura de Scrum, con sprints y roles definidos, pero incorpora la flexibilidad de Kanban
-en la gestión del flujo de trabajo.
-Esta metodología es especialmente útil para equipos que buscan una transición suave entre Scrum y Kanban,
-o para aquellos que desean aprovechar lo mejor de ambos enfoques.
-Scrumban se centra en la mejora continua, la visualización del trabajo y la colaboración del equipo,
-lo que lo convierte en una opción popular para la gestión de proyectos ágiles~\cite{web:scrumban}.
+%\subsection{Scrumban}
 
-\subsubsection{Gitflow}
+%Scrumban~\cite{web:scrumban} es una metodología híbrida que combina elementos de Scrum y Kanban.
+%Se basa en la estructura de Scrum, con sprints y roles definidos, pero incorpora la flexibilidad de Kanban
+%en la gestión del flujo de trabajo.
+%Esta metodología es especialmente útil para equipos que buscan una transición suave entre Scrum y Kanban,
+%o para aquellos que desean aprovechar lo mejor de ambos enfoques.
+%Scrumban se centra en la mejora continua, la visualización del trabajo y la colaboración del equipo,
+%lo que lo convierte en una opción popular para la gestión de proyectos ágiles.
 
-Gitflow~\cite{web:Gitflow} es un modelo de ramificación para el uso de Git que define una 
-estructura clara para gestionar el desarrollo de software en proyectos colaborativos. 
+
+\subsection{Gitflow}
+
+\textit{Gitflow}~\cite{web:Gitflow} es un modelo de ramificación para el uso de \textit{Git} que define una 
+estructura clara para gestionar el desarrollo de \textit{software} en proyectos colaborativos. 
 Organiza el trabajo en ramas específicas con roles definidos, 
 facilitando la escalabilidad y la integración continua.
 
-Las ramas principales en Gitflow son:
+Las ramas principales en \textit{Gitflow} son:
 \begin{itemize}
-    \item \textbf{\texttt{main}}: Contiene la versión estable del proyecto, lista para producción.
-    \item \textbf{\texttt{develop}}: Refleja la versión en desarrollo, integrando nuevas funcionalidades.
-    \item \textbf{\texttt{feature/*}}: Ramas temporales para desarrollar nuevas características.
-    \item \textbf{\texttt{release/*}}: Prepara una versión para producción, permitiendo ajustes menores.
-    \item \textbf{\texttt{hotfix/*}}: Corrige errores críticos en la rama \texttt{main}.
+    \item \textbf{\texttt{main}}: contiene la versión estable del proyecto, lista para producción.
+    \item \textbf{\texttt{develop}}: refleja la versión en desarrollo, integrando nuevas funcionalidades.
+    \item \textbf{\texttt{feature/*}}: ramas temporales para desarrollar nuevas características.
+    \item \textbf{\texttt{release/*}}: prepara una versión para producción, permitiendo ajustes menores.
+    \item \textbf{\texttt{hotfix/*}}: corrige errores críticos en la rama \texttt{main}.
 \end{itemize}
 
-Gitflow asegura un flujo ordenado, minimizando conflictos y garantizando estabilidad en la rama \texttt{main}.
+\textit{Gitflow} asegura un flujo ordenado, minimizando conflictos y garantizando estabilidad en la rama \texttt{main}.
 
 \section{Patrones de diseño}
+
 \subsection{Model-View-Template}
 
-El patrón de diseño MVT (\textit{Model-View-Template}) es la arquitectura que sigue el framework Django para 
-desarrollar aplicaciones web directamente relacionada con el patrón MVC.
+El patrón de diseño \textit{MVT} (\textit{Model-View-Template}) es la arquitectura que sigue el \textit{framework} Django para 
+desarrollar aplicaciones web directamente relacionadas con el patrón \textit{MVC}.
 
-Los componentes detallados del patrón MVT son:
+Los componentes detallados del patrón \textit{MVT} son:
 
 \begin{itemize}
-    \item \textbf{Model (Modelo)}: Representa la capa de acceso a datos. Define la estructura de las tablas de la 
+    \item \textbf{Model (Modelo)}: representa la capa de acceso a datos. Define la estructura de las tablas de la 
     base de datos y permite interactuar con esos datos. En Django, los modelos se definen como clases que heredan 
     de \texttt{django.db.models.Model}, y permiten realizar operaciones de consulta, inserción, actualización o 
-    borrado sin necesidad de escribir directamente SQL.
+    borrado sin necesidad de escribir directamente \textit{SQL}.
     
-    \item \textbf{View (Vista)}: Esta capa contiene la lógica de negocio de la aplicación. Las vistas reciben 
-    peticiones HTTP, procesan los datos necesarios y devuelven una respuesta adecuada.
+    \item \textbf{View (Vista)}: esta capa contiene la lógica de negocio de la aplicación. Las vistas reciben 
+    peticiones \textit{HTTP}, procesan los datos necesarios y devuelven una respuesta adecuada.
     
-    \item \textbf{Template (Plantilla)}: Define la presentación de los datos, lo que ve el usuario. 
-    Django utiliza su propio motor de plantillas para combinar datos dinámicos con HTML. 
+    \item \textbf{Template (Plantilla)}: define la presentación de los datos, lo que ve el usuario. 
+    Django utiliza su propio motor de plantillas para combinar datos dinámicos con \textit{HTML}. 
     
 \end{itemize}
 
-Una diferencia clave entre el patrón MVT de Django y el clásico MVC es que el propio framework gestiona 
+Una diferencia clave entre el patrón \textit{MVT} de Django y el clásico \textit{MVC} es que el propio \textit{framework} gestiona 
 internamente la lógica de enrutamiento. Al recibir peticiones del usuario, se decide a través del sistema 
-de URLs definido qué vista debe ejecutarse, lo que elimina la necesidad de un controlador explícito. 
+de \textit{URLs} definido, qué vista debe ejecutarse, lo que elimina la necesidad de un controlador explícito. 
 En este sentido, las vistas en Django cumplen una función similar al controlador 
-en otros frameworks, ya que contienen la lógica que determina qué datos recuperar y cómo deben procesarse 
+en otros \textit{frameworks}, ya que contienen la lógica que determina qué datos recuperar y cómo deben procesarse 
 antes de enviarse a la plantilla correspondiente~\cite{web:djangoMVT}.
+
+\section{Comunicación}
+
+Para la comunicación con el tutor del proyecto se han utilizado las herramientas proporcionadas por la Universidad de Burgos. 
+En particular, se ha empleado el correo electrónico institucional para el intercambio de información y documentación relevante, 
+así como \textbf{Microsoft Teams} para la realización de reuniones periódicas de seguimiento.
+
+Estas reuniones, organizadas al inicio y al final de cada sprint, se llevaron a cabo mediante video-llamadas y permitieron resolver dudas,
+revisar el progreso alcanzado y planificar las siguientes tareas. El uso de estas herramientas ha facilitado una comunicación fluida y constante durante todo el desarrollo del proyecto.
 
 \section{Control de versiones}
 
-En este proyecto, se ha optado por Git~\cite{web:Git} debido a la experiencia previa adquirida en asignaturas del grado, 
-en contraste con otras alternativas como Apache Subversion~\cite{web:Subversion}.
+En este proyecto, se ha optado por \textbf{Git}~\cite{web:Git} debido a la experiencia previa adquirida en asignaturas del grado, 
+en contraste con otras alternativas como \textit{Apache Subversion}~\cite{web:Subversion}.
 
-\subsubsection{Git}
+\subsection{Git}
 
-Git es un sistema de control de versiones distribuido y una de las herramientas 
+\textit{Git} es un sistema de control de versiones distribuido y una de las herramientas 
 más extendidas en el mercado para este propósito. Entre sus características más destacadas se 
 encuentran su eficiencia para manejar proyectos de gran tamaño, la facilidad para crear y fusionar 
-ramas (\textit{branches}), y su compatibilidad con diversas plataformas y servicios como GitHub, GitLab o Bitbucket.
+ramas (\textit{branches}), y su compatibilidad con diversas plataformas y servicios como \textit{GitHub}, \textit{GitLab} o \textit{Bitbucket}.
 
 
 \section{Alojamiento del repositorio}
@@ -104,17 +117,346 @@ Existen diversas posibilidades relacionadas con el alojamiento de repositorios:
     \item GitHub~\cite{web:GitHub}
 \end{itemize}
 
-\subsubsection{GitHub}
+Se ha seleccionado \textbf{GitHub} al estar familiarizado con la plataforma debido al uso de esta herramienta en múltiples asignaturas.
 
-GitHub es una plataforma en línea para alojar repositorios Git, que 
+\subsection{GitHub}
+
+\textit{GitHub} es una plataforma en línea para alojar repositorios \textit{Git}, que
 facilita la colaboración, el control de versiones y la gestión de proyectos de software. 
 Entre sus características destacan la gestión de ramas y \textit{pull requests}, el seguimiento 
 de incidencias (\textit{issues}), y la integración con herramientas de integración continua como 
-GitHub Actions.
+\textit{GitHub Actions}.
 
-Se ha seleccionado GitHub al estar familiarizado con la plataforma debido al uso de 
-esta herramienta en múltiples asignaturas.
+Durante el desarrollo de este trabajo, se ha utilizado \textit{GitHub} no solo como espacio de almacenamiento del código fuente, 
+sino también como herramienta de seguimiento del progreso y documentación del proyecto. 
+La posibilidad de mantener un historial detallado de los cambios ha resultado clave para asegurar la 
+trazabilidad y la calidad del desarrollo.
 
 \section{Gestión del proyecto}
 
-\subsubsection{Zube}
+Hay varias opciones disponibles para la gestión de proyectos, como:
+
+\begin{itemize}
+    \item Jira~\cite{web:jira}
+    \item Trello~\cite{web:trello}
+    \item Zube~\cite{web:zube}
+\end{itemize}
+
+Se ha seleccionado para la gestión de este proyecto la herramienta \textbf{Zube} por su integración
+con \textit{GitHub}.
+
+\subsection{Zube}
+
+\textit{Zube} es una herramienta de gestión de proyectos orientada a equipos de desarrollo de software. Su principal ventaja radica en 
+la integración nativa con \textit{GitHub}, lo que permite vincular \textit{issues}, \textit{commits} y \textit{pull requests} directamente con las tareas del 
+tablero \textit{Kanban}. Esta integración facilita el seguimiento del estado del proyecto en tiempo real y mejora la colaboración 
+entre los miembros del equipo.
+
+Durante el desarrollo de este proyecto, se ha utilizado \textit{Zube} para organizar las tareas en distintas columnas 
+(\textit{Ready}, \textit{In Progress}, \textit{In Review}, \textit{Done}), asignar prioridades y establecer hitos. Esto ha permitido una 
+planificación ágil y un control más eficiente del avance del proyecto.
+
+\section{Entorno de desarrollo integrado (IDE)}
+
+Se han valorado las siguientes opciones:
+
+\begin{itemize}
+    \item Spyder IDE~\cite{web:spyder}
+    \item Visual Estudio Code~\cite{web:vscode}
+\end{itemize}
+
+De entre estas opciones valoradas se ha seleccionado \textbf{Visual Studio Code}
+
+\subsection{Visual Studio Code}
+
+\textit{Visual Studio Code} es un editor de código desarrollado por \textit{Microsoft}, ampliamente utilizado por su versatilidad, 
+ligereza y amplia comunidad de extensiones. Permite trabajar con múltiples lenguajes de programación y se integra fácilmente 
+con herramientas de control de versiones como \textit{Git}.
+
+En el desarrollo de este proyecto, se ha utilizado \textit{Visual Studio Code} por su compatibilidad con \textit{Python}, su integración con \textit{GitHub}, 
+y el soporte de extensiones útiles como \textit{linters}.
+
+
+\section{Integración continua}
+
+Se ha seleccionado \textbf{GitHub Actions} por su integración nativa con \textit{GitHub}, 
+la plataforma elegida para alojar y gestionar el repositorio del proyecto.
+
+\subsection{GitHub Actions}
+
+\textit{GitHub Actions} es una funcionalidad integrada en \textit{GitHub} que permite automatizar flujos de trabajo mediante la ejecución de acciones 
+definidas en archivos de configuración. Esta herramienta facilita la implementación de integración continua (\textit{CI}) y 
+entrega continua (\textit{CD}), permitiendo ejecutar tareas como pruebas, validación de código o despliegue de forma automática.
+
+En este proyecto se ha utilizado \textit{GitHub Actions} para implementar un flujo de integración continua básico. 
+Cada vez que se realiza un \textit{push} o una \textit{pull request} al repositorio, se activa automáticamente 
+un flujo de trabajo que ejecuta las pruebas del proyecto y verifica que el código cumple con los requisitos establecidos. 
+Esto permite detectar errores de manera temprana y mantener la calidad del código a lo largo del desarrollo.
+
+\section{Calidad y consistencia del código}
+
+Existen múltiples herramientas para garantizar la calidad, seguridad y consistencia del código. 
+Algunas de las más utilizadas en proyectos desarrollados en \textit{Python} son:
+
+\begin{itemize}
+    \item \textbf{Pylint}: herramienta de análisis estático que evalúa la calidad del código en base a una serie de reglas y convenciones del lenguaje.
+    \item \textbf{Flake8}: combina varias herramientas para comprobar el estilo y errores comunes en el código.
+    \item \textbf{SonarCloud}: plataforma en línea para análisis continuo de calidad del código, integrada con repositorios en la nube.
+    \item \textbf{Djlint}: herramienta específica para analizar y formatear plantillas \textit{Django}, útil para mantener una estructura coherente en los archivos \textit{HTML}.
+    \item \textbf{Bandit}: escáner de seguridad que analiza código \textit{Python} en busca de patrones potencialmente vulnerables.
+\end{itemize}
+
+Durante el desarrollo del proyecto se ha empleado \textbf{Pylint}, \textbf{Djlint} y \textbf{Bandit} en local para garantizar 
+la corrección sintáctica, el cumplimiento de buenas prácticas y la detección temprana de posibles vulnerabilidades. Además, 
+se ha integrado \textbf{SonarCloud} en el flujo de trabajo mediante \textbf{GitHub Actions}, lo que ha permitido realizar 
+análisis automáticos del código en cada \textit{push} o \textit{pull request}, contribuyendo a mantener un estándar de calidad 
+a lo largo del ciclo de vida del desarrollo.
+
+\section{Cobertura de código}
+
+La cobertura de código es una métrica que indica el porcentaje del código fuente que ha sido ejecutado durante la 
+ejecución de las pruebas. Esta información permite identificar qué partes del código no están siendo verificadas 
+por los \textit{tests}, lo que contribuye a mejorar la calidad y fiabilidad del software.
+
+En este proyecto se ha utilizado la herramienta \textbf{Coverage} para medir la cobertura de las pruebas unitarias. 
+Inicialmente, se ejecutó localmente para generar informes detallados que muestran las líneas de código cubiertas y 
+no cubiertas.
+
+Posteriormente, \textbf{Coverage} se integró en el flujo de trabajo de \textbf{GitHub Actions}, lo que permitió la 
+ejecución automática de las pruebas y la generación de informes de cobertura en cada \textit{push} o \textit{pull request}. 
+Esta automatización ha facilitado el seguimiento continuo del nivel de cobertura y ha contribuido a mantener un 
+estándar de calidad constante durante el desarrollo.
+
+\section{Framework web}
+
+Para el desarrollo del proyecto se han valorado distintos \textit{frameworks web} en \textit{Python}, entre los cuales destacan:
+
+\begin{itemize}
+    \item \textbf{Flask}: un \textit{microframework} ligero y flexible, que permite construir aplicaciones web de forma modular.~\cite{web:flask}
+    \item \textbf{Django}: un \textit{framework} de alto nivel que incluye por defecto un conjunto completo de herramientas para el desarrollo rápido de aplicaciones web, como sistema de autenticación, panel de administración, ORM y enrutamiento.~\cite{web:django}
+\end{itemize}
+
+Se ha seleccionado \textbf{Django} como \textit{framework} para este proyecto debido a su enfoque en el desarrollo rápido, 
+su estructura organizada y su integración con bases de datos a través de su \textit{ORM}. Además, proporciona una gran cantidad de 
+funcionalidades listas para usar, lo que ha permitido acelerar el proceso de desarrollo y mantener una arquitectura 
+coherente a lo largo del proyecto.
+
+\section{Sistema gestor de bases de datos}
+
+En el desarrollo de aplicaciones web se valoraron dos sistemas gestores de bases de datos (\textit{SGBD}) ampliamente utilizados:
+
+\begin{itemize}
+    \item \textbf{SQLite}: un motor de base de datos ligero y sencillo, integrado en la mayoría de entornos de desarrollo, ideal para aplicaciones pequeñas o prototipos.~\cite{web:sqlite}
+    \item \textbf{PostgreSQL}: un sistema gestor de bases de datos relacional avanzado, con soporte para características complejas como transacciones, concurrencia, y extensiones, recomendado para aplicaciones de mayor escala y producción.~\cite{web:postgresql}
+\end{itemize}
+
+Se ha seleccionado \textbf{PostgreSQL} para este proyecto debido a su robustez, escalabilidad y compatibilidad con las 
+necesidades del sistema. Además, es un \textit{SGBD} con el que se ha trabajado durante el grado, lo que facilita su uso y 
+administración en el contexto del proyecto.
+
+\section{Framework de persistencia}
+
+Un \textit{framework de persistencia} es una capa de software que facilita la gestión y almacenamiento de datos en una base de datos, 
+abstrayendo las operaciones complejas de acceso y manipulación mediante el uso de un \textit{Object-Relational Mapping (ORM)}~\cite{web:django-orm}.
+
+En el caso de \textit{Django}, el \textit{ORM} integrado actúa como su \textit{framework} de persistencia principal, proporcionando una interfaz sencilla para definir 
+modelos de datos, realizar consultas y gestionar migraciones. Esto permite al desarrollador trabajar con objetos de \textit{Python} en lugar de escribir consultas \textit{SQL} directamente.
+
+Aunque es posible utilizar otros \textit{frameworks} de persistencia externos, como \textit{SQLAlchemy}~\cite{web:sqlalchemy}, en lugar del \textit{ORM} de \textit{Django}, esta práctica no es habitual 
+debido a la fuerte integración del \textit{ORM} propio con otros componentes del \textit{framework}, lo que facilita la coherencia y mantenimiento del proyecto.
+
+\section{Procesamiento de tareas en segundo plano}
+
+\subsection{Celery}
+
+\textbf{Celery}~\cite{web:celery} es una biblioteca de \textit{Python} diseñada para la ejecución de tareas asíncronas y trabajos en segundo plano. 
+En este proyecto, se ha utilizado para gestionar tareas que no deben interferir con el flujo principal de la aplicación, 
+como procesos de larga duración.
+
+Se valoraron otras alternativas como \textbf{Dramatiq}~\cite{web:dramatiq} o \textbf{Huey}~\cite{web:dramatiq}, que también permiten la ejecución de tareas en segundo plano. 
+Sin embargo, se seleccionó \textit{Celery} por su madurez, amplia comunidad, documentación robusta y su excelente integración con \textit{Django}. 
+Su modelo basado en trabajadores (\textit{workers}) permite distribuir la carga de forma eficiente, lo que lo convierte en 
+una solución sólida y escalable.
+
+\section{Sistema de mensajería}
+
+\subsection{Redis}
+
+\textbf{Redis}~\cite{web:redis} ha sido utilizado como sistema de mensajería (\textit{message broker}) para \textit{Celery}, facilitando la comunicación 
+entre la aplicación y los trabajadores que ejecutan tareas en segundo plano. Redis es un almacén de datos 
+clave-valor en memoria, extremadamente rápido y ampliamente adoptado.
+
+Se consideraron alternativas como \textbf{RabbitMQ}~\cite{web:rabbitmq}, también compatible con \textit{Celery}. No obstante, se optó por \textit{Redis} por 
+su menor complejidad de instalación y configuración, así como por su rendimiento óptimo en entornos de desarrollo y pruebas. 
+Además, su simplicidad lo hace ideal para proyectos que no requieren mecanismos avanzados de enrutamiento de mensajes.
+
+\section{Modelos de lenguaje locales}
+
+\subsection{Ollama}
+
+\textbf{Ollama}~\cite{web:ollama} es una herramienta que permite ejecutar modelos de lenguaje de gran tamaño (LLMs) localmente, 
+sin necesidad de enviar datos a servidores externos. Esto proporciona un mayor control sobre los modelos empleados y 
+mejora la privacidad de la información tratada.
+
+Entre las alternativas consideradas se encuentran plataformas como \textbf{OpenAI}~\cite{web:openai}, \textbf{Hugging Face Inference API}~\cite{web:huggingface} 
+y \textbf{Replicate}~\cite{web:replicate}, que ofrecen servicios en la nube para el despliegue de modelos. Sin embargo, \textit{Ollama} ha sido seleccionado 
+por su capacidad de funcionar de manera local, su integración con la biblioteca \texttt{langchain-ollama}~\cite{web:langchain-ollama}, y por 
+eliminar la dependencia de servicios externos, lo que reduce latencia y costes asociados al uso de \textit{APIs} comerciales. 
+
+Además, se optó por \textit{Ollama} para preservar la privacidad de los ficheros tratados durante el proceso de evaluaciones, evitando 
+que información sensible salga del entorno local del proyecto.
+
+\subsection{Langchain}
+
+\textbf{Langchain}~\cite{web:langchain} es una biblioteca diseñada para facilitar la integración de modelos de lenguaje en aplicaciones, proporcionando herramientas para la gestión de cadenas de \textit{prompts}, el manejo de memoria conversacional y la orquestación de tareas complejas.
+
+En este proyecto, se ha utilizado \texttt{langchain-ollama}~\cite{web:langchain-ollama}, que permite conectar de forma sencilla modelos \textit{LLM} ejecutados localmente mediante \textit{Ollama}. Esta integración ha sido fundamental para realizar inferencias de lenguaje natural directamente en el entorno local, sin necesidad de acceder a servicios externos.
+
+\section{Documentación de la memoria}
+
+La documentación del proyecto se ha desarrollado en \LaTeX{}. Para ello, se consideraron diversas herramientas:
+
+\begin{itemize}
+    \item \textbf{MiKTeX}, para sistemas operativos Windows.~\cite{web:miktex}
+    \item \textbf{TeX Live}, para sistemas operativos Linux.~\cite{web:texlive}
+    \item \textbf{MacTeX}, para sistemas operativos MacOS.~\cite{web:mactex}
+    \item \textbf{Overleaf}, editor colaborativo en línea.~\cite{web:overleaf}
+\end{itemize}
+
+\subsection{Overleaf}
+
+Finalmente, se optó por utilizar \textbf{Overleaf} como entorno principal para la edición y compilación de los 
+documentos. Esta plataforma en línea ha facilitado la colaboración, el acceso remoto y la gestión 
+del proyecto documental, evitando la necesidad de configurar localmente las distribuciones de \LaTeX{}.
+
+\section{Documentación del código}
+
+\subsection{Sphinx}
+
+\textbf{Sphinx}~\cite{web:sphinx} es una herramienta de documentación ampliamente utilizada en proyectos \textit{Python}. Permite generar 
+documentación estructurada a partir de archivos fuente escritos en \textit{reStructuredText} o \textit{Markdown}, 
+generando resultados en formatos como \textit{HTML} o \textit{PDF}.
+
+Durante el desarrollo del proyecto se valoraron también otras alternativas como \textbf{MkDocs}~\cite{web:mkdocs}, 
+una herramienta más orientada a documentación en Markdown y con una configuración más sencilla. Sin embargo, 
+se seleccionó \textbf{Sphinx} por su mejor integración con bibliotecas \textit{Python}, su capacidad para generar 
+documentación técnica a partir del código fuente mediante \textit{docstrings}, y su soporte más maduro para 
+proyectos complejos.
+
+Para mejorar la apariencia y navegabilidad de la documentación generada, se ha utilizado el tema 
+\textbf{sphinx-book-theme}~\cite{web:sphinxbooktheme}, que proporciona una interfaz moderna y adecuada para 
+documentación académica o técnica.
+
+\section{Herramientas de traducción}
+
+Durante la elaboración de la documentación del proyecto y la consulta de materiales técnicos en otros idiomas, 
+se han utilizado herramientas de traducción automática con el objetivo de agilizar la comprensión y adaptación de los contenidos.
+
+En particular, se han utilizado los servicios de \textbf{Google Translate}~\cite{web:googletranslator} y 
+\textbf{DeepL}~\cite{web:deepl} para facilitar la traducción de contenidos relevantes empleados 
+en el desarrollo del proyecto, así como en la redacción de esta memoria y de su documentación técnica.
+
+Estas herramientas han permitido interpretar documentación, artículos y ejemplos en inglés de manera eficaz, 
+facilitando así la integración de conceptos y soluciones en el contexto del proyecto.
+
+\section{Bibliotecas y librerías relevantes}
+
+\subsection{psycopg2-binary}
+
+\textbf{psycopg2-binary}~\cite{web:psycopg2-binary} es un adaptador que permite a \textit{Django} comunicarse con bases de datos \textit{PostgreSQL}. 
+Ha sido imprescindible para conectar el \textit{backend} del proyecto con el sistema gestor de base de datos seleccionado, 
+proporcionando una integración fluida y eficiente.
+
+\subsection{python-decouple}
+
+\textbf{python-decouple}~\cite{web:python-decouple} permite gestionar las variables de entorno de forma segura, 
+separando la configuración del entorno de desarrollo del código fuente. Se ha empleado para definir credenciales sensibles y 
+configuraciones del entorno sin exponerlas directamente en el repositorio.
+
+\subsection{Markdown}
+
+\textbf{Markdown}~\cite{web:markdown} es una biblioteca de \textit{Python} que permite convertir texto escrito en formato Markdown a 
+otros formatos, como \textit{HTML}. En este proyecto, se ha utilizado para procesar y generar documentación dinámica a partir de 
+contenido en Markdown, facilitando la integración con otras herramientas de documentación y la presentación de información 
+legible y estructurada.
+
+\section{Desarrollo web}
+
+El desarrollo web es fundamental para la creación de aplicaciones y sitios accesibles a través de navegadores. 
+Esta sección presenta las tecnologías y herramientas utilizadas en el proyecto para construir la interfaz de usuario, 
+abarcando desde la estructura básica y estilos visuales hasta la interactividad y componentes avanzados. 
+Se detallan los lenguajes estándar, así como \textit{frameworks} y bibliotecas modernas que agilizan 
+el diseño y desarrollo \textit{frontend}.
+
+\subsection{HTML}
+
+\textit{HTML} (HyperText Markup Language)~\cite{web:html} es el lenguaje estándar para la creación de páginas web. 
+Se utiliza para estructurar el contenido y definir elementos como texto, imágenes, enlaces y formularios.
+
+\subsection{CSS}
+
+\textit{CSS} (Cascading Style Sheets)~\cite{web:css} permite definir el estilo visual y la presentación de las páginas web. 
+Se emplea para controlar aspectos como colores, fuentes, márgenes y disposición de los elementos en la pantalla.
+
+\subsection{JavaScript}
+
+\textit{JavaScript}~\cite{web:javascript} es un lenguaje de programación que añade interactividad y dinamismo a las páginas web. 
+Permite manejar eventos, modificar el \textit{DOM} y comunicarse con servidores para actualizar contenido sin recargar la página.
+
+\subsection{Tailwind}
+
+\textit{Tailwind CSS}~\cite{web:tailwind} es un \textit{framework} de CSS basado en clases utilitarias que facilita la creación rápida y consistente de 
+diseños personalizados sin salir del \textit{HTML}. Ofrece un sistema modular para construir interfaces responsivas y estilizadas.
+
+\subsection{Flowbite}
+
+\textit{Flowbite}~\cite{web:flowbite} es una biblioteca de componentes UI basada en \textit{Tailwind CSS} que proporciona elementos preconstruidos como 
+botones, menús y formularios. Simplifica el desarrollo \textit{frontend} al ofrecer componentes accesibles y 
+personalizables, listos para usar.
+
+\section{Despliegue de la aplicación}
+
+Para facilitar el despliegue, la ejecución en distintos entornos y la gestión de dependencias, se optó por contenerizar la aplicación utilizando \textbf{Docker}. Esta decisión permite asegurar que todos los componentes del sistema funcionen de forma consistente, independientemente del entorno en el que se ejecute.
+
+El despliegue se realiza mediante \textbf{Docker Compose}, una herramienta que facilita la definición y ejecución de aplicaciones formadas por múltiples contenedores. En este caso, el ecosistema de la aplicación está compuesto por los siguientes servicios:
+
+\begin{itemize}
+  \item \textbf{Django}: servicio principal que contiene la lógica de la aplicación web. Se ejecuta dentro de un contenedor que contiene un entorno \textit{Python} configurado con todas las dependencias necesarias.
+  
+  \item \textbf{PostgreSQL}: base de datos relacional utilizada por \textit{Django}. Se levanta como un contenedor independiente, asegurando la persistencia y accesibilidad desde otros servicios mediante redes internas de \textit{Docker}.
+  
+  \item \textbf{Celery}: sistema de tareas asíncronas utilizado para procesar trabajos en segundo plano. Este servicio se comunica con \textit{Django} para recibir tareas y con \textit{Redis} como sistema de mensajería.
+  
+  \item \textbf{Redis}: cola de mensajes que actúa como \textit{broker} entre \textit{Django} y \textit{Celery}. Su uso permite desacoplar la gestión de tareas del servidor principal y mejorar el rendimiento general de la aplicación.
+  
+  \item \textbf{Ollama}: servicio utilizado para ejecutar modelos de lenguaje de forma local. Este componente permite realizar \textbf{correcciones automáticas de tareas}. Al ejecutarse localmente, evita la dependencia de servicios externos y garantiza un mayor control sobre el procesamiento de datos.
+\end{itemize}
+
+Cada uno de estos servicios se define en el archivo \texttt{docker-compose.yml}, donde se especifican las imágenes, variables de entorno, volúmenes, redes y dependencias entre contenedores. Este enfoque permite levantar toda la infraestructura del proyecto con un único comando:
+
+\begin{verbatim}
+docker compose up --build
+\end{verbatim}
+
+Además, se han incluido archivos como \texttt{Dockerfile} y \texttt{.env} para una configuración personalizada. Gracias a esta arquitectura basada en contenedores, se ha logrado un despliegue limpio, reproducible y fácilmente escalable.
+
+\section{Otras herramientas}
+
+\subsection{Draw.io}
+
+\textit{Draw.io}~\cite{web:drawio} es una herramienta en línea para la creación de diagramas y esquemas de forma sencilla y colaborativa. 
+Se ha utilizado para diseñar diagramas de casos de uso, diagramas \textit{UML, ER} y otras representaciones 
+gráficas necesarias durante el desarrollo del proyecto.
+
+\subsection{Miro}
+
+\textit{Miro}~\cite{web:miro} es una plataforma colaborativa de pizarras digitales que facilita el trabajo en equipo, la planificación visual y la lluvia de ideas. 
+En este proyecto, se ha empleado para la creación de un \textit{mockup} de la página de inicio.
+
+\subsection{Herramientas generativas}
+
+La integración de herramientas basadas en inteligencia artificial generativa ha cobrado una relevancia creciente en entornos educativos y de desarrollo de software. Estas tecnologías permiten automatizar tareas rutinarias, mejorar la eficiencia y asistir en procesos tanto técnicos como creativos. En el marco de este proyecto, se ha explorado el uso de algunas de estas herramientas en diversas fases del trabajo.
+
+Una de las más destacadas es \textit{GitHub Copilot}~\cite{web:copilot}, una extensión integrada en \textit{Visual Studio Code}. Esta herramienta ofrece sugerencias contextuales mientras se programa, proponiendo fragmentos de código, completando funciones y generando comentarios explicativos. Su funcionamiento resulta especialmente útil en tareas repetitivas o estructuralmente predecibles, contribuyendo a mantener un flujo de trabajo ágil y menos propenso a errores menores.
+
+Asimismo, se ha empleado \textit{Perplexity AI}~\cite{web:perplexity}, una herramienta de búsqueda conversacional basada en inteligencia artificial, para generar imágenes utilizadas en algunas secciones de la aplicación web.

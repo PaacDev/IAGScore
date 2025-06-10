@@ -2,65 +2,65 @@
 
 \section{Introducción}
 
-Una muestra de cómo podría ser una tabla de casos de uso:
+En este anexo se describen los servicios que debe ofrecer la aplicación, para la configuración de correcciones y la evaluación de tareas, principalmente de programación. También se detallan las restricciones asociadas a su funcionamiento. La función principal de esta especificación de requisitos es servir como medio de comunicación claro y preciso entre clientes, usuarios y desarrolladores.
+
+Se incluirán tanto los requisitos funcionales como los no funcionales del sistema.
 
 \section{Objetivos generales}
 
 Este trabajo se ha realizado persiguiendo el cumplimiento de los siguientes \textbf{objetivos:}
 
 \begin{itemize}
-    \item Desarrollar un \textit{sistema software} que permita a los usuarios la corrección de ejercicios de programación.
+    \item Desarrollar un sistema \textit{software} que permita a los usuarios la corrección de ejercicios de programación.
     \item El usuario debe estar \textit{registrado} para acceder al sistema iniciando sesión.
-    \item Los usuarios \textit{importarán} sus propias rúbricas en formato Markdown
-    \item Los usuarios crearán sus propios prompts.
-    \item La evaluación de los ejercicios se realizará mediante \textit{modelos de lenguaje LLM}.
-    \item Los usuarios podrán configurar aspectos determinados del LLM usado.
-    
+    \item Los usuarios \textit{importarán} sus propias rúbricas en formato \textit{Markdown}.
+    \item Las rúbricas importadas en \textit{Markdown} serán visibles en formato \textit{HTML}.
+    \item Los usuarios crearán sus propios \textit{prompts}.
+    \item La evaluación de los ejercicios se realizará mediante modelos de lenguaje \textit{LLM}.
+    \item Los usuarios podrán configurar aspectos determinados del \textit{LLM} usado.
 \end{itemize}
 
 \section{Catálogo de requisitos}
-Requisitos funcionales y no funcionales para cumplir con los objetivos generales
+Requisitos funcionales y no funcionales para cumplir con los objetivos generales.
 
 \subsection{Requisitos funcionales}
 \begin{itemize}
     \item \textbf{RF-1 - Registro de usuarios.} Los usuarios podrán registrarse mediante nombre, correo electrónico y contraseña.
-    \item \textbf{RF-2 - Login de usuarios.} Los usuarios deberán iniciar sesión para usar la aplicación.
-    \item \textbf{RF-3 - Importar rúbricas.} Los usuarios podrán importar sus propias rúbricas en formato Markdown.
+    \item \textbf{RF-2 - \textit{Login} de usuarios.} Los usuarios deberán iniciar sesión para usar la aplicación.
+    \item \textbf{RF-3 Crear \textit{prompts}.} Los usuarios crearán sus propios \textit{prompts}.
     \begin{itemize}
-        \item \textbf{RF-3.1 - Listar rúbricas.} Los usuarios podrán consultar sus rúbricas importadas.
-        \item \textbf{RF-3.2 - Mostrar rubrica.} Los usuarios podrán visualizar los detalles de una rúbrica concreta.
-        \item \textbf{RF-3.3 - Eliminar rúbrica.} Los usuarios podrán eliminar una rúbrica importada.
+        \item \textbf{RF-3.1 - Listar \textit{prompts}.} Los usuarios podrán consultar sus \textit{prompts} creados.
+        \item \textbf{RF-3.2 - Mostrar \textit{prompt}.} Los usuarios podrán visualizar un \textit{prompt} concreto.
+        \item \textbf{RF-3.3 - Eliminar \textit{prompt}.} Los usuarios podrán eliminar un \textit{prompt}.
     \end{itemize}
-    \item \textbf{RF-4 Crear prompts.} Los usuarios crearán sus propios prompts.
+    \item \textbf{RF-4 - Importar rúbricas.} Los usuarios podrán importar sus propias rúbricas en formato \textit{Markdown}.
     \begin{itemize}
-        \item \textbf{RF-4.1 - Listar prompts.} Los usuarios podrán consultar sus prompts creados.
-        \item \textbf{RF-4.2 - Mostrar prompt.} Los usuarios podrán visualizar un prompt concreto.
-        \item \textbf{RF-4.3 - Eliminar prompt.} Los usuarios podrán eliminar un prompt.
+        \item \textbf{RF-4.1 - Listar rúbricas.} Los usuarios podrán consultar sus rúbricas importadas.
+        \item \textbf{RF-4.2 - Mostrar rúbrica.} Los usuarios podrán visualizar los detalles de una rúbrica concreta en formato \textit{HTML}.
+        \item \textbf{RF-4.3 - Eliminar rúbrica.} Los usuarios podrán eliminar una rúbrica importada.
     \end{itemize}
     \item \textbf{RF-5 Configurar correcciones.} Los usuarios configurarán las correcciones.
     \begin{itemize}
         \item \textbf{RF-5.1 - Listar correcciones.} Los usuarios podrán consultar sus correcciones configuradas.
-        \item \textbf{RF-5.2 - Mostrar corrección.} Los usuarios podrán visualizar un los detalles de configuración de una corrección.
-        \item \textbf{RF-4.3 - Eliminar corrección.} Los usuarios podrán eliminar una corrección.
+        \item \textbf{RF-5.2 - Mostrar configuración.} Los usuarios podrán visualizar los detalles de configuración de una corrección.
+        \item \textbf{RF-5.3 - Eliminar corrección.} Los usuarios podrán eliminar una corrección.
         \item \textbf{RF-5.4 - Ejecutar corrección.} Los usuarios podrán ejecutar una corrección.
+        \item \textbf{RF-5.5 - Descargar corrección.} Los usuarios podrán descargar el resultado de la corrección ejecutada.
     \end{itemize}
-    \item \textbf{RF-6 - Configurar LLM.} Los usuarios podrán configurar aspectos determinados del LLM seleccionado.
-    \begin{itemize}
-        \item \textbf{RF-6.1 - Seleccionar LLM.} Los usuarios seleccionarán el LLM a usar.
-        \item \textbf{RF-6.2 - Parametrizar LLM.} Los usuarios podrán modificar determinados parámetros del LLM seleccionado.
-    \end{itemize}
+
 \end{itemize}
 
 \section{Especificación de requisitos}
 
-Diagramas de casos de uso y detalles sobre los mismos.
+A continuación se muestran los casos de uso contemplados para el desarrollo del proyecto 
+\newpage
+\subsection{Casos de uso}
 
-\imagen{caso_de_uso_general}{Diagrama de caso de uso general}
+\imagen{caso_de_uso_general}{Diagrama de casos de uso}
 
 % Caso de Uso 1 -> Registrar usuario.
 \begin{table}[p]
 	\centering
-    \includegraphics[width=0.7\columnwidth]{CU-1_Registro.png}
 	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
 		\toprule
 		\textbf{CU-1}    & \textbf{Registro de usuario}\\
@@ -69,7 +69,7 @@ Diagramas de casos de uso y detalles sobre los mismos.
 		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
 		\textbf{Requisitos asociados} & RF-1 \\
 		\textbf{Descripción}          & Permite registrase a un usuario \\
-		\textbf{Precondición}         & El usuario no puede estar logeado \\
+		\textbf{Precondición}         & El usuario no puede estar \textit{logeado} \\
 		\textbf{Acciones}             &
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
@@ -78,11 +78,16 @@ Diagramas de casos de uso y detalles sobre los mismos.
 			\item El usuario introduce su email y una contraseña
             \item El usuario confirma el registro con el botón registrar
 		\end{enumerate}\\
-		\textbf{Postcondición}        & La aplicación redirecciona a la página de login. \\ 
-                                      & Mensaje: Usuario registrado correctamente. \\
-		\textbf{Excepciones}          & Mensaje \\
-                                      & Mensaje \\
-                                      & Mensaje \\
+		\textbf{Postcondición}        & \begin{itemize}
+                                        \tightlist
+		                                \item La aplicación redirige a la página de \textit{login}.
+                                        \item Mensaje: Usuario creado correctamente.
+		                              \end{itemize}  \\ 
+                                      
+		\textbf{Excepciones}          & \begin{itemize}
+                                        \tightlist
+		                                \item Mensaje: Ya existe Usuario con este Email.
+		                              \end{itemize}  \\ 
 		\textbf{Importancia}          & Alta \\
 		\bottomrule
 	\end{tabularx}
@@ -93,28 +98,32 @@ Diagramas de casos de uso y detalles sobre los mismos.
 % Caso de Uso 2 -> Login de usuario.
 \begin{table}[p]
 	\centering
-	\includegraphics[width=0.7\columnwidth]{CU-2_Login.png} % Imagen encima del encabezado
 	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
 		\toprule
-		\textbf{CU-2}    & \textbf{Login de usuario} \\
+		\textbf{CU-2}    & \textbf{\textit{Login} de usuario} \\
 		\midrule
 		\textbf{Versión}              & 1.0    \\
 		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
 		\textbf{Requisitos asociados} & RF-2 \\
-		\textbf{Descripción}          & Permite logearse a un usuario \\
+		\textbf{Descripción}          & Permite \textit{logearse} a un usuario \\
 		\textbf{Precondición}         & El usuario debe estar registrado \\
 		\textbf{Acciones}             &
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
 			\tightlist
-			\item El usuario entra en la aplicación y accede a la página de login.
-			\item El usuario introduce su email y una contraseña.
+			\item El usuario entra en la aplicación y accede a la página de \textit{login}.
+			\item El usuario introduce su \textit{email} y una contraseña.
 			\item El usuario confirma pulsando el botón entrar.
 		\end{enumerate} \\
-		\textbf{Postcondición}        & La aplicación redirecciona a la página home. \\ 
-		\textbf{Excepciones}          & Mensaje \\ 
-		                              & Mensaje \\ 
-		                              & Mensaje \\
+		\textbf{Postcondición}        & \begin{itemize}
+                                        \tightlist
+		                                \item La aplicación redirige a la página \textit{home}.
+		                              \end{itemize}  \\
+        
+		\textbf{Excepciones}          & \begin{itemize}
+                                        \tightlist
+		                                \item Mensaje: Usuario o contraseña incorrectos
+		                              \end{itemize}  \\
 		\textbf{Importancia}          & Alta \\
 		\bottomrule
 	\end{tabularx}
@@ -122,194 +131,68 @@ Diagramas de casos de uso y detalles sobre los mismos.
 	\label{tab:CU-2}
 \end{table}
 
-% Caso de Uso 3 -> Importar rúbricas
+% Caso de Uso 3 -> Crear Prompts
 \begin{table}[p]
 	\centering
-	\includegraphics[width=0.9\columnwidth]{CU-3_Importar_rubrica.png} % Imagen encima del encabezado
 	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
 		\toprule
-		\textbf{CU-3}    & \textbf{Importar rúbrica} \\
+		\textbf{CU-3}    & \textbf{Crear \textit{Prompts}} \\
 		\midrule
 		\textbf{Versión}              & 1.0    \\
 		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
 		\textbf{Requisitos asociados} & RF-3 \\
-		\textbf{Descripción}          & Permite importar una rúbrica a un usuario \\
-		\textbf{Precondición}         & El usuario debe estar logeado \\
+		\textbf{Descripción}          & Permite crear un \textit{prompt} a un usuario \\
+		\textbf{Precondición}         & El usuario debe estar \textit{logeado} \\
 		\textbf{Acciones}             &
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
 			\tightlist
-			\item El usuario accede a la sección de rúbricas y pulsa botón nueva rúbrica.
-			\item El usuario introduce un nombre para la rúbrica.
-			\item El usuario importa una rúbrica.
+			\item El usuario accede a la sección de \textit{prompts} y pulsa botón nuevo \textit{prompt}.
+            \item El usuario introduce un nombre.
+			\item El usuario introduce el texto del \textit{prompt}.
+            \item El usuario pulsa botón importar.
 		\end{enumerate} \\
-		\textbf{Postcondición}        & La aplicación redirecciona a la página de vista de rúbricas importadas. \\ 
-		\textbf{Excepciones}          & Mensaje: Error al guardar la rúbrica: Rubrica ya existente\\ 
-		                              & Mensaje: El archivo subido no es un archivo Markdown \\ 
+		\textbf{Postcondición}        
+                                    & 
+                                    \begin{itemize} 
+                                        \tightlist
+                                        \item La aplicación redirecciona a la página de \textit{prompts} 
+                                        \item  Mensaje: \textit{Prompt} creado correctamente 
+                                    \end{itemize}  
+                                    \\ 
+		\textbf{Excepciones}          
+                                        & 
+                                        \begin{itemize}
+                                        \tightlist
+                                            \item Mensaje: Error al guardar el prompt: Prompt ya existente
+                                        \end{itemize}  
+                                        \\ 
 		\textbf{Importancia}          & Alta \\
 		\bottomrule
 	\end{tabularx}
-	\caption{CU-3 Importar rúbrica.}
+	\caption{CU-3 Crear Prompts.}
 	\label{tab:CU-3}
 \end{table}
 
-% Caso de Uso 4 -> Listar rúbricas
+% Caso de Uso 4 -> Listar Prompts
 \begin{table}[p]
 	\centering
-	%\includegraphics[width=0.9\columnwidth]{} % Imagen encima del encabezado
 	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
 		\toprule
-		\textbf{CU-4}    & \textbf{Listar rúbricas} \\
+		\textbf{CU-4}    & \textbf{Listar \textit{Prompts}} \\
 		\midrule
 		\textbf{Versión}              & 1.0    \\
 		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
 		\textbf{Requisitos asociados} & RF-3.1 \\
-		\textbf{Descripción}          & Permite ver las rúbricas del usuario \\
-		\textbf{Precondición}         & El usuario debe estar logeado \\ & El usuario debe haber importado y creado alguna rúbrica \\
-		\textbf{Acciones}             &
-		\begin{enumerate}
-			\def\labelenumi{\arabic{enumi}.}
-			\tightlist
-			\item El usuario accede a la sección de rúbricas
-
-		\end{enumerate} \\
-		\textbf{Postcondición}        & Se muestra la tabla con nombre y fecha de creación de cada una de las rúbricas creadas\\ 
-		\textbf{Excepciones}          & \\ 
-		\textbf{Importancia}          & Alta \\
-		\bottomrule
-	\end{tabularx}
-	\caption{CU-4 Listar rúbricas.}
-	\label{tab:CU-4}
-\end{table}
-
-% Caso de Uso 5 -> Mostrar rúbrica
-\begin{table}[p]
-	\centering
-	%\includegraphics[width=0.9\columnwidth]{CU-3_Importar_rubrica.png} % Imagen encima del encabezado
-	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
-		\toprule
-		\textbf{CU-5}    & \textbf{Mostrar rúbrica} \\
-		\midrule
-		\textbf{Versión}              & 1.0    \\
-		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
-		\textbf{Requisitos asociados} & RF-3.2 \\
-		\textbf{Descripción}          & Permite mostrar una rúbrica a un usuario \\
-		\textbf{Precondición}         & El usuario debe estar logeado \\& La rúbrica debe estar creada por el usuario \\
-		\textbf{Acciones}             &
-		\begin{enumerate}
-			\def\labelenumi{\arabic{enumi}.}
-			\tightlist
-			\item El usuario accede a la sección de rúbricas.
-            \item El usuario busca en la tabla la rúbrica que desee.
-			\item El usuario pulsa el botón mostrar.
-		\end{enumerate} \\
-		\textbf{Postcondición}        & La aplicación redirecciona a la página de vista de una rúbrica concreta. \\ 
-		\textbf{Excepciones}          & Mensaje \\ 
-		                              & Mensaje \\ 
-		                              & Mensaje \\
-		\textbf{Importancia}          & Alta \\
-		\bottomrule
-	\end{tabularx}
-	\caption{CU-5 Mostrar rúbrica.}
-	\label{tab:CU-5}
-\end{table}
-
-% Caso de Uso 6 -> Eliminar rúbrica
-\begin{table}[p]
-	\centering
-	%\includegraphics[width=0.9\columnwidth]{CU-3_Importar_rubrica.png} % Imagen encima del encabezado
-	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
-		\toprule
-		\textbf{CU-6}    & \textbf{Eliminar rúbrica} \\
-		\midrule
-		\textbf{Versión}              & 1.0    \\
-		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
-		\textbf{Requisitos asociados} & RF-3.3 \\
-		\textbf{Descripción}          & Permite eliminar una rúbrica a un usuario \\
-		\textbf{Precondición}         & El usuario debe estar logeado \\& La rúbrica debe estar creada por el usuario \\
-		\textbf{Acciones}             &
-		\begin{enumerate}
-			\def\labelenumi{\arabic{enumi}.}
-			\tightlist
-			\item El usuario accede a la sección de rúbricas.
-            \item El usuario busca en la tabla la rúbrica que desee.
-			\item El usuario pulsa el botón eliminar.
-            \item El usuario confirma la opción eliminar.
-		\end{enumerate} \\
-		\textbf{Postcondición}        & La aplicación redirecciona a la página rúbricas \\ 
-		\textbf{Excepciones}          & Mensaje \\ 
-		                              & Mensaje \\ 
-		                              & Mensaje \\
-		\textbf{Importancia}          & Alta \\
-		\bottomrule
-	\end{tabularx}
-	\caption{CU-6 Eliminar rúbrica.}
-	\label{tab:CU-6}
-\end{table}
-
-
-% Caso de Uso 7 -> Crear Prompts
-\begin{table}[p]
-	\centering
-	%\includegraphics[width=0.9\columnwidth]{CU-3_Importar_rubrica.png} % Imagen encima del encabezado
-	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
-		\toprule
-		\textbf{CU-7}    & \textbf{Crear Prompts} \\
-		\midrule
-		\textbf{Versión}              & 1.0    \\
-		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
-		\textbf{Requisitos asociados} & RF-4 \\
-		\textbf{Descripción}          & Permite crear un prompt a un usuario \\
-		\textbf{Precondición}         & El usuario debe estar logeado \\
-		\textbf{Acciones}             &
-		\begin{enumerate}
-			\def\labelenumi{\arabic{enumi}.}
-			\tightlist
-			\item El usuario accede a la sección de prompts y pulsa botón nuevo prompt.
-            \item El usuario introduce un nombre.
-			\item El usuario introduce el texto del prompt.
-            \item El usuario pulsa botón importar.
-		\end{enumerate} \\
-		\textbf{Postcondición}        
-        & 
-        \begin{itemize} 
-            \item La aplicación redirecciona a la página de prompts 
-            \item  Mensaje: Prompt creado correctamente 
-        \end{itemize}  
-        \\ 
-		\textbf{Excepciones}          
-        & 
-        \begin{itemize} 
-            \item Mensaje:
-            \item  Mensaje:
-        \end{itemize}  
-        \\ 
-		\textbf{Importancia}          & Alta \\
-		\bottomrule
-	\end{tabularx}
-	\caption{CU-7 Crear Prompts.}
-	\label{tab:CU-7}
-\end{table}
-
-% Caso de Uso 8 -> Listar Prompts
-\begin{table}[p]
-	\centering
-	%\includegraphics[width=0.9\columnwidth]{CU-3_Importar_rubrica.png} % Imagen encima del encabezado
-	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
-		\toprule
-		\textbf{CU-8}    & \textbf{Listar Prompts} \\
-		\midrule
-		\textbf{Versión}              & 1.0    \\
-		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
-		\textbf{Requisitos asociados} & RF-4.1 \\
-		\textbf{Descripción}          & Permite listar los prompts de un usuario \\
+		\textbf{Descripción}          & Permite listar los \textit{prompts} de un usuario \\
 		\textbf{Precondición}         
-        & 
-        \begin{itemize} 
-            \item El usuario debe estar logeado.
-            \item  El usuario debe haber creado algún prompt.
-        \end{itemize}  
-        \\
+                                    & 
+                                    \begin{itemize}
+                                        \tightlist
+                                        \item El usuario debe estar logeado.
+                                        \item  El usuario debe haber creado algún \textit{prompt}.
+                                    \end{itemize}  
+                                    \\
 		\textbf{Acciones}             &
 		\begin{enumerate}
 			\def\labelenumi{\arabic{enumi}.}
@@ -317,17 +200,559 @@ Diagramas de casos de uso y detalles sobre los mismos.
 			\item El usuario accede a la sección de prompts.
 		\end{enumerate} \\
 		\textbf{Postcondición}        
-        & 
-        \begin{itemize} 
-            \item Se muestra la tabla con nombre y fecha de creación de cada una de los prompts creados.
-        \end{itemize}  
-        \\ 
+                                & 
+                                \begin{itemize} 
+                                    \tightlist
+                                    \item Se muestra la tabla con nombre y fecha de creación y acciones disponibles de cada una de los prompts creados.
+                                \end{itemize}  
+                                \\ 
 		\textbf{Excepciones}          
         & 
         \\ 
 		\textbf{Importancia}          & Alta \\
 		\bottomrule
 	\end{tabularx}
-	\caption{CU-8 Listar Prompts.}
+	\caption{CU-4 Listar Prompts.}
+	\label{tab:CU-4}
+\end{table}
+
+% Caso de Uso 5 -> Mostrar Prompt
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-5}    & \textbf{Mostrar \textit{Prompt}} \\
+		\midrule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
+		\textbf{Requisitos asociados} & RF-3.2 \\
+		\textbf{Descripción}          & Permite mostrar un \textit{prompt} concreto \\
+		\textbf{Precondición}         
+                                    & 
+                                    \begin{itemize}
+                                        \tightlist
+                                        \item El usuario debe estar logeado.
+                                        \item  El usuario debe haber creado el \textit{prompt}.
+                                    \end{itemize}  
+                                    \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario accede a la sección de \textit{prompts}.
+            \item El usuario busca en la tabla el \textit{prompt} que desee.
+			\item El usuario pulsa el botón Mostrar del \textit{prompt} que desea visualizar.
+		\end{enumerate} \\
+		\textbf{Postcondición}        
+                                & 
+                                \begin{itemize} 
+                                    \tightlist
+                                    \item Se muestra el texto del \textit{prompt}.
+                                    \item Se muestran botones para volver o eliminar.
+                                \end{itemize}  
+                                \\ 
+		\textbf{Excepciones}          
+        & 
+                                        \begin{itemize}
+                                        \tightlist
+                                            \item Error 404 – Prompt no encontrado.
+                                        \end{itemize}  
+                                        \\ 
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-5 Mostrar \textit{Prompts}.}
+	\label{tab:CU-5}
+\end{table}
+
+
+% Caso de Uso 6 -> Eliminar Prompt
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-6}    & \textbf{Eliminar \textit{Prompt}} \\
+		\midrule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
+		\textbf{Requisitos asociados} & RF-3.3 \\
+		\textbf{Descripción}          & Permite eliminar un \textit{prompt} concreto \\
+		\textbf{Precondición}         
+                                    & 
+                                    \begin{itemize}
+                                        \tightlist
+                                        \item El usuario debe estar autenticado.
+                                        \item  El usuario debe haber creado el \textit{prompt}.
+                                    \end{itemize}  
+                                    \\
+		\textbf{Acciones}             &
+                                    \begin{enumerate}
+                                        \tightlist
+                                        \item Opción 1 - Sin visualizar contenido:
+                            		\begin{enumerate}
+                            			\def\labelenumi{\arabic{enumi}.}
+                            			\tightlist
+                            			\item El usuario accede a la sección de \textit{prompts}.
+                                        \item El usuario busca en la tabla el \textit{prompt} que desee.
+                            			\item El usuario pulsa el botón eliminar.
+                                        \item El usuario confirma la opción eliminar.
+                            		\end{enumerate}
+                                        \item Opción 2 - Visualizando contenido:
+                            		\begin{enumerate}
+                            			\def\labelenumi{\arabic{enumi}.}
+                            			\tightlist
+                            			\item El usuario accede a la sección de \textit{prompts}.
+                                        \item El usuario busca en la tabla el \textit{prompt} que desee.
+                            			\item El usuario pulsa el botón mostrar.
+                                        \item El usuario visualiza el contenido del \textit{prompt}.
+                                        \item El usuario pulsa el botón eliminar.
+                                        \item El usuario confirma que desea eliminar.
+                                    \end{enumerate}
+                            		\end{enumerate} \\
+		\textbf{Postcondición}        
+                                & 
+                                \begin{itemize} 
+                                    \tightlist
+                                    \item El \textit{prompt} es eliminado de la base de datos.
+                                    \item La aplicación redirige a la vista de \textit{prompts}.
+                                    \item Mensaje: Prompt eliminado correctamente.
+                                \end{itemize}  
+                                \\ 
+		\textbf{Excepciones}          
+                                    & 
+                                        \begin{itemize}
+                                        \tightlist
+                                            \item Error 404 - Prompt no encontrado
+                                        \end{itemize}  
+                                        \\ 
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-6 Eliminar \textit{Prompts}.}
+	\label{tab:CU-6}
+\end{table}
+
+
+% Caso de Uso 7 -> Importar rúbricas
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-7}    & \textbf{Importar rúbrica} \\
+		\midrule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
+		\textbf{Requisitos asociados} & RF-4 \\
+		\textbf{Descripción}          & Permite importar una rúbrica a un usuario \\
+		\textbf{Precondición}         & El usuario debe estar autenticado \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario accede a la sección de rúbricas y pulsa botón nueva rúbrica.
+			\item El usuario introduce un nombre para la rúbrica.
+			\item El usuario importa una rúbrica en formato Markdown.
+		\end{enumerate} \\
+		\textbf{Postcondición}      
+                                & 
+                                \begin{itemize} 
+                                    \tightlist
+                                    \item La aplicación redirige a la página de vista de rúbricas importadas.
+                                    \item Mensaje: Rúbrica importada correctamente.
+                                \end{itemize}  
+                                \\   
+		\textbf{Excepciones}         
+                                        & 
+                                        \begin{itemize}
+                                        \tightlist
+                                            \item Mensaje: Error al guardar la rúbrica: Rúbrica ya existente.
+                                            \item Mensaje: El archivo debe estar codificado en UTF-8.
+                                            \item Mensaje: El archivo subido no es un archivo Markdown.
+                                        \end{itemize}  
+                                        \\                       
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-7 Importar rúbrica.}
+	\label{tab:CU-7}
+\end{table}
+
+% Caso de Uso 8 -> Listar rúbricas
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-8}    & \textbf{Listar rúbricas} \\
+		\midrule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
+		\textbf{Requisitos asociados} & RF-4.1 \\
+		\textbf{Descripción}          & Permite ver las rúbricas del usuario \\
+		\textbf{Precondición}          & \begin{itemize}
+                                        \tightlist
+		                                  \item El usuario debe estar autenticado.
+		                                  \item El usuario debe haber importado una rúbrica.
+		                                 \end{itemize} \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario accede a la sección de rúbricas
+		\end{enumerate} \\
+		\textbf{Postcondición}        & \begin{itemize}
+                                        \tightlist
+		                                  \item Se muestra la tabla con nombre, fecha de creación y acciones para cada una de las rúbricas importadas.		           
+		                                 \end{itemize} \\ 
+		\textbf{Excepciones}          & \\ 
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-8 Listar rúbricas.}
 	\label{tab:CU-8}
+\end{table}
+
+% Caso de Uso 9 -> Mostrar rúbrica
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-9}    & \textbf{Mostrar rúbrica} \\
+		\midrule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
+		\textbf{Requisitos asociados} & RF-4.2 \\
+		\textbf{Descripción}          & Permite mostrar una rúbrica a un usuario \\
+		\textbf{Precondición}         & \begin{itemize}
+                                        \tightlist
+		                                  \item El usuario debe estar autenticado.
+		                                  \item El usuario debe haber importado una rúbrica.
+		                                 \end{itemize} \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario accede a la sección de rúbricas.
+            \item El usuario busca en la tabla la rúbrica que desee.
+			\item El usuario pulsa el botón Mostrar de la rúbrica que desee.
+		\end{enumerate} \\
+		\textbf{Postcondición}        & \begin{itemize}
+                                        \tightlist
+		                                  \item La aplicación redirige a la página de vista de una rúbrica concreta. 
+                                          \item se muestra el contenido de la rúbrica en formato \textit{HTML}.
+		                                 \end{itemize} \\
+		\textbf{Excepciones}          & \begin{itemize}
+                                        \tightlist
+		                                  \item Error 404 - Rúbrica no encontrada.
+		                                 \end{itemize} \\
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-9 Mostrar rúbrica.}
+	\label{tab:CU-9}
+\end{table}
+
+% Caso de Uso 10 -> Eliminar rúbrica
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-10}    & \textbf{Eliminar rúbrica} \\
+		\midrule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
+		\textbf{Requisitos asociados} & RF-4.3 \\
+		\textbf{Descripción}          & Permite eliminar una rúbrica a un usuario \\
+		\textbf{Precondición}         & \begin{itemize}
+                                        \tightlist
+		                                  \item El usuario debe estar autenticado.
+		                                  \item El usuario debe haber importado una rúbrica.
+		                                 \end{itemize} \\
+		\textbf{Acciones}             &
+                                    \begin{enumerate}
+                                        \tightlist
+                                        \item Opción 1 - Sin visualizar contenido:
+                            		\begin{enumerate}
+                            			\def\labelenumi{\arabic{enumi}.}
+                            			\tightlist
+                            			\item El usuario accede a la sección de rúbricas.
+                                        \item El usuario busca en la tabla la rúbrica que desee.
+                            			\item El usuario pulsa el botón eliminar.
+                                        \item El usuario confirma la opción eliminar.
+                            		\end{enumerate}
+                                        \item Opción 2 - Visualizando contenido:
+                            		\begin{enumerate}
+                            			\def\labelenumi{\arabic{enumi}.}
+                            			\tightlist
+                            			\item El usuario accede a la sección de rúbricas.
+                                        \item El usuario busca en la tabla la rúbrica que desee.
+                            			\item El usuario pulsa el botón mostrar.
+                                        \item El usuario visualiza el contenido de la rúbrica.
+                                        \item El usuario pulsa el botón eliminar.
+                                        \item El usuario confirma que desea eliminar.
+                                    \end{enumerate}
+                            		\end{enumerate} \\
+		\textbf{Postcondición}        & \begin{itemize}
+                                        \tightlist
+		                                  \item La rúbrica es eliminada de la base de datos.
+		                                  \item La aplicación redirige a la vista de rúbricas.
+		                                  \item Mensaje: Rúbrica eliminada correctamente.
+		                                 \end{itemize} \\
+		\textbf{Excepciones}         & \begin{itemize}
+                                        \tightlist
+		                                  \item Error 404 - Rúbrica no encontrada.
+		                                 \end{itemize} \\
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-10 Eliminar rúbrica.}
+	\label{tab:CU-10}
+\end{table}
+
+% Caso de Uso 11 -> Configurar correcciónes
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-11}    & \textbf{Configurar corrección} \\
+		\midrule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
+		\textbf{Requisitos asociados} & RF-5 \\
+		\textbf{Descripción}          & Permite configurar una corrección a un usuario \\
+		\textbf{Precondición}         & \begin{itemize}
+                                        \tightlist
+		                                  \item El usuario debe estar autenticado.
+		                                  \item El usuario debe haber creado un \textit{prompt}.
+		                                  \item El usuario debe haber importado una rúbrica.
+		                                  \item Debe de existir un modelo cargado en local.
+		                                 \end{itemize} \\
+		\textbf{Acciones}             &
+                            		\begin{enumerate}
+                            			\def\labelenumi{\arabic{enumi}.}
+                            			\tightlist
+                            			\item El usuario accede a la sección de Correcciones.
+                                        \item El usuario pulsa botón Nueva corrección.
+                            			\item El usuario selecciona un \textit{prompt} de la lista.
+                            			\item El usuario selecciona una rúbrica de la lista.
+                            			\item El usuario carga un fichero comprimido con las tareas.
+                                        \item El usuario introduce un nombre.
+                                        \item El usuario selecciona un modelo de la lista.
+                                        \item El usuario configura los parámetros del modelo.
+                                        \item El usuario pulsa el botón Guardar configuración.
+                            		\end{enumerate} \\
+		\textbf{Postcondición}        & \begin{itemize}
+                                        \tightlist
+		                                  \item La aplicación redirige a la vista de correcciones.
+		                                  \item Mensaje: Corrección creada correctamente.
+		                                 \end{itemize} \\
+		\textbf{Excepciones}         & \begin{itemize}
+                                        \tightlist
+		                                  \item La aplicación redirige a la vista de nueva corrección.
+		                                  \item Mensaje: Error al crear la corrección.
+		                                  \item Mensaje: Error en el campo Prompt: Este campo es requerido.
+		                                  \item Mensaje: Error en el campo Rúbrica: Este campo es requerido.
+		                                  \item Mensaje: Error en el campo Modelo: Este campo es requerido.
+		                                 \end{itemize} \\
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-11 Configurar corrección.}
+	\label{tab:CU-11}
+\end{table}
+
+% Caso de Uso 12 -> Listar correcciónes
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-12}    & \textbf{Listar correcciones} \\
+		\midrule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
+		\textbf{Requisitos asociados} & RF-5.1 \\
+		\textbf{Descripción}          & Permite visualizar las correcciones configuradas de un usuario \\
+		\textbf{Precondición}         & \begin{itemize}
+                                        \tightlist
+		                                  \item El usuario debe estar autenticado.
+		                                  \item El usuario debe de haber configurado una corrección.
+		                                 \end{itemize} \\
+		\textbf{Acciones}             &
+                            		\begin{enumerate}
+                            			\def\labelenumi{\arabic{enumi}.}
+                            			\tightlist
+                            			\item El usuario accede a la sección de Correcciones.
+                                        \item El usuario pulsa botón Ver correcciones.
+                            		\end{enumerate} \\
+		\textbf{Postcondición}        & \begin{itemize}
+                                        \tightlist
+		                                  \item Se muestra la tabla con los campos y acciones disponibles para cada corrección.
+		                                 \end{itemize} \\
+		\textbf{Excepciones}         & \\
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-12 Listar correcciones.}
+	\label{tab:CU-12}
+\end{table}
+
+% Caso de Uso 13 -> Mostar configuración
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-12}    & \textbf{Mostrar configuración} \\
+		\midrule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
+		\textbf{Requisitos asociados} & RF-5.2 \\
+		\textbf{Descripción}          & Permite visualizar los datos de configuración de una corrección \\
+		\textbf{Precondición}         & \begin{itemize}
+                                        \tightlist
+		                                  \item El usuario debe estar autenticado.
+		                                  \item El usuario debe de haber configurado una corrección.
+		                                 \end{itemize} \\
+		\textbf{Acciones}             &
+                            		\begin{enumerate}
+                            			\def\labelenumi{\arabic{enumi}.}
+                            			\tightlist
+                            			\item El usuario accede a la sección de Correcciones.
+                                        \item El usuario pulsa botón Ver correcciones.
+                                        \item El usuario busca la corrección que desee.
+                                        \item El usuario pulsa botón Mostrar configuración, de la corrección que desee.
+                            		\end{enumerate} \\
+		\textbf{Postcondición}        & \begin{itemize}
+                                        \tightlist
+		                                  \item Se muestran los datos relacionados con la corrección seleccionada.
+		                                 \end{itemize} \\
+		\textbf{Excepciones}         & \\
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-13 Mostrar configuración.}
+	\label{tab:CU-13}
+\end{table}
+
+
+% Caso de Uso 14 -> Eliminar corrección
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-14}    & \textbf{Eliminar corrección} \\
+		\midrule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
+		\textbf{Requisitos asociados} & RF-5.3 \\
+		\textbf{Descripción}          & Permite eliminar una corrección. \\
+		\textbf{Precondición}         & \begin{itemize}
+                                        \tightlist
+		                                  \item El usuario debe estar autenticado.
+		                                  \item El usuario debe de haber configurado una corrección.
+		                                 \end{itemize} \\
+		\textbf{Acciones}             &
+                            		\begin{enumerate}
+                            			\def\labelenumi{\arabic{enumi}.}
+                            			\tightlist
+                            			\item El usuario accede a la sección de Correcciones.
+                                        \item El usuario pulsa botón Ver correcciones.
+                                        \item El usuario busca la corrección que desee.
+                                        \item El usuario pulsa botón Eliminar, de la corrección que desee.
+                                        \item El usuario confirma que desea eliminar.
+                            		\end{enumerate} \\
+		\textbf{Postcondición}        & \begin{itemize}
+                                        \tightlist
+		                                  \item La aplicación redirige a la vista de correcciones.
+		                                  \item Se eliminan los archivos relacionados con la corrección.
+		                                  \item Mensaje: Corrección: <descripción>, eliminada correctamente.
+		                                 \end{itemize} \\
+		\textbf{Excepciones}         & \begin{itemize}
+                                        \tightlist
+		                                  \item Error 404 - Corrección no encontrada.
+		                                 \end{itemize} \\
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-14 Eliminar corrección.}
+	\label{tab:CU-14}
+\end{table}
+
+
+% Caso de Uso 15 -> Ejecutar corrección
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-15}    & \textbf{Ejecutar corrección} \\
+		\midrule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
+		\textbf{Requisitos asociados} & RF-5.4 \\
+		\textbf{Descripción}          & Permite ejecutar una corrección. \\
+		\textbf{Precondición}         & \begin{itemize}
+                                        \tightlist
+		                                  \item El usuario debe estar autenticado.
+		                                  \item El usuario debe de haber configurado una corrección.
+		                                  \item El modelo seleccionado para la corrección debe estar cargado en local.
+		                                 \end{itemize} \\
+		\textbf{Acciones}             &
+                            		\begin{enumerate}
+                            			\def\labelenumi{\arabic{enumi}.}
+                            			\tightlist
+                            			\item El usuario accede a la sección de Correcciones.
+                                        \item El usuario pulsa botón Ver correcciones.
+                                        \item El usuario busca la corrección que desee.
+                                        \item El usuario pulsa botón Ejecutar, de la corrección que desee.
+                            		\end{enumerate} \\
+		\textbf{Postcondición}        & \begin{itemize}
+                                        \tightlist
+		                                  \item Se envían los datos y las tareas de la corrección ejecutada al modelo
+		                                  \item Mensaje: Corrección en proceso. Revisa el resultado más tarde.
+		                                 \end{itemize} \\
+		\textbf{Excepciones}         & \begin{itemize}
+                                        \tightlist
+		                                  \item Mensaje: El modelo seleccionado para esta corrección no está cargado en Ollama.
+		                                 \end{itemize} \\
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-15 Ejecutar corrección.}
+	\label{tab:CU-15}
+\end{table}
+
+% Caso de Uso 16 -> Descargar resultado
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-16}    & \textbf{Descargar resultado} \\
+		\midrule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & Pedro Antonio Abellaneda Canales \\
+		\textbf{Requisitos asociados} & RF-5.5 \\
+		\textbf{Descripción}          & Permite ejecutar una corrección. \\
+		\textbf{Precondición}         & \begin{itemize}
+                                        \tightlist
+		                                  \item El usuario debe estar autenticado.
+		                                  \item El usuario debe de haber configurado una corrección.
+		                                  \item El usuario debe de haber ejecutado una corrección.
+		                                 \end{itemize} \\
+		\textbf{Acciones}             &
+                            		\begin{enumerate}
+                            			\def\labelenumi{\arabic{enumi}.}
+                            			\tightlist
+                            			\item El usuario accede a la sección de Correcciones.
+                                        \item El usuario pulsa botón Ver correcciones.
+                                        \item El usuario busca la corrección que desee.
+                                        \item El usuario pulsa botón Descargar último resultado, de la corrección que desee.
+                            		\end{enumerate} \\
+		\textbf{Postcondición}        & \begin{itemize}
+                                        \tightlist
+		                                  \item Se descarga el resultado de la última corrección ejecutada.
+		                                 \end{itemize} \\
+		\textbf{Excepciones}         &  \\
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-16 Descargar corrección.}
+	\label{tab:CU-16}
 \end{table}

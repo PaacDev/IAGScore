@@ -1,3 +1,43 @@
 \capitulo{6}{Trabajos relacionados}
 
-Este apartado sería parecido a un estado del arte de una tesis o tesina. En un trabajo final grado no parece obligada su presencia, aunque se puede dejar a juicio del tutor el incluir un pequeño resumen comentado de los trabajos y proyectos ya realizados en el campo del proyecto en curso. 
+\subsection{Herramienta de corrección automática de prácticas de programación}
+
+El trabajo \textit{Herramienta de corrección automática de prácticas de programación}~\cite{tfg:alvarez2024}, realizado en la Universidad Politécnica de Madrid, presenta un sistema para la corrección automática de ejercicios de programación. La herramienta analiza el código de los estudiantes, teniendo en cuenta aspectos como el uso de buenas prácticas, la legibilidad y la estructura del código, con el objetivo de ofrecer retroalimentación inmediata y aliviar la carga de trabajo del profesorado.
+
+A diferencia de IAGScore, que utiliza modelos de lenguaje a gran escala (\textit{LLMs}) para interpretar y evaluar el contenido de las tareas, este sistema se basa en reglas definidas previamente y en análisis más estáticos. Aunque ambas propuestas buscan automatizar la corrección en cursos de programación, lo hacen con metodologías distintas: una más tradicional, basada en validaciones estructurales, y otra más flexible, apoyada en inteligencia artificial generativa.
+
+\subsection{Sistema de corrección automática basado en tests y análisis estático}
+
+El trabajo presentado como \textit{Sistema de corrección automática basado en tests y análisis estático}~\cite{montanes2014} describe un sistema para la corrección automática de tareas de programación que se apoya principalmente en la ejecución de tests unitarios para verificar que el código entregado cumple con los requisitos funcionales. Además, incorpora técnicas de análisis estático para evaluar aspectos como el estilo, la calidad y la estructura del código.
+
+Este enfoque combina la validación dinámica mediante pruebas automatizadas con la revisión estática del código, ofreciendo una evaluación más completa que se centra tanto en el funcionamiento correcto como en las buenas prácticas de programación. 
+
+A diferencia del sistema propuesto en este proyecto, que emplea modelos de lenguaje (\textit{LLMs}) para interpretar y evaluar las soluciones desde una perspectiva semántica y contextual, el enfoque descrito se basa en validaciones formales y reglas predefinidas. Mientras que la herramienta basada en tests requiere una programación previa de casos de prueba y métricas específicas, el uso de \textit{LLMs} permite una evaluación más flexible y adaptable al tipo de problema planteado, así como una retroalimentación en lenguaje natural más cercana a la corrección humana.
+
+\subsection{Rubric Is All You Need}
+
+El artículo \textit{Rubric Is All You Need: Enhancing LLM-based Code Evaluation With Question-Specific Rubrics}~\cite{pathak2025}, analiza el uso de modelos de lenguaje a gran escala para evaluar tareas de programación en cursos universitarios. Proponen tres técnicas específicas: Evaluación Completa de Rúbrica (CRE), Evaluación Punto a Punto (PRE) y Evaluación por Ensamble (EME), que permiten evaluar la lógica y el contenido semántico del código más allá de la simple corrección sintáctica. 
+
+El estudio se basa en dos conjuntos de datos: exámenes de Java en Programación Orientada a Objetos y ejercicios de estructuras de datos y algoritmos. Los resultados muestran que el uso de rúbricas específicas para cada problema mejora la precisión y la calidad de la retroalimentación, obteniendo una alta correlación con las calificaciones de evaluadores humanos. También introducen una métrica llamada \textit{Leniency}, que ajusta el nivel de exigencia del sistema evaluador, aportando flexibilidad para adaptar la rigurosidad de la corrección, un aspecto interesante para futuras mejoras del proyecto, especialmente en entornos educativos con distintos niveles de exigencia.
+
+\small
+\tabla{Comparativa entre trabajos de corrección automática de código e IAGScore}
+{p{2.8cm} p{2cm} p{2cm} p{2cm} p{2cm}}{5}{comparativaTrabajosBinaria}
+{
+\textbf{Características} & 
+\textbf{Corrección automática (UPM)} & 
+\textbf{Tests y análisis estático} & 
+\textbf{Rubric Is All You Need} & 
+\textbf{IAGScore} \\
+}
+{
+Evaluación automatizada & Sí & Sí & Sí & Sí \\
+Análisis estático & Sí & Sí & No & No \\
+Uso de rúbricas & No & Parcial & Sí & Sí \\
+Generación de lenguaje natural & No & No & Sí & Sí \\
+Uso de IA/LLM & No & No & Sí & Sí \\
+Evaluación contextual & No & No & Parcial & Sí \\
+Adaptabilidad & Media & Baja & Alta & Alta \\
+Personalización & No & No & Parcial & Sí \\
+}
+\normalsize

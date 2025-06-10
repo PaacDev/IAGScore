@@ -355,7 +355,7 @@
 \newcommand{\nombre}{Pedro Antonio Abellaneda Canales} %%% cambio de comando
 
 % Datos de portada
-\title{IAGScore}
+\title{Herramienta para la evaluación automática de entregas de programación con rúbricas y LLMs: IAGScore}
 \author{\nombre}
 \tutor{Raúl Marticorena Sánchez}
 \date{\today}
@@ -374,11 +374,11 @@
 
 \noindent\includegraphics[width=\textwidth]{cabecera}\vspace{1cm}
 
-\noindent D. nombre tutor, profesor del departamento de nombre departamento, área de nombre área.
+\noindent D. Raúl Marticorena Sánchez, profesor del departamento de Ingeniería Informática, área de Lenguajes y Sistemas Informáticos.
 
 \noindent Expone:
 
-\noindent Que el alumno D. \nombre, con DNI dni, ha realizado el Trabajo final de Grado en Ingeniería Informática titulado título de TFG. 
+\noindent Que el alumno D. \nombre, con DNI 23281531-B, ha realizado el Trabajo final de Grado en Ingeniería Informática titulado \textbf{Herramienta para la evaluación automática de entregas de programación con rúbricas y LLMs: IAGScore}.
 
 \noindent Y que dicho trabajo ha sido realizado por el alumno bajo la dirección del que suscribe, en virtud de lo cual se autoriza su presentación y defensa.
 
@@ -409,7 +409,7 @@ En Burgos, {\large \today}
 % para casos con solo un tutor comentar lo anterior
 % y descomentar lo siguiente
 Vº. Bº. del Tutor:\\[2cm]
-D. nombre tutor
+D. Raúl Marticorena Sánchez
 
 
 \newpage\null\thispagestyle{empty}\newpage
@@ -423,23 +423,23 @@ D. nombre tutor
 \renewcommand*\abstractname{Resumen}
 \begin{abstract}
   
-Actualmente, los avances relacionados con la inteligencia artificial han supuesto una revolución en la forma en la 
-que interactuamos con la tecnología, destacando en este sentido los modelos de lenguaje a gran escala (LLM). 
+Actualmente, los avances relacionados con la inteligencia artificial, y en particular en la inteligencia artificial generativa, han supuesto una revolución en la forma en la 
+que interactuamos con la tecnología, destacando en este sentido los modelos de lenguaje a gran escala (\textit{LLM}). 
 La irrupción de estas tecnologías ha supuesto un punto de inflexión para la automatización de tareas complejas, 
 generación de contenido, de código o búsqueda de información.
 
 En este contexto, este Trabajo Fin de Grado propone el desarrollo de una herramienta basada en el uso de 
-modelos de lenguaje a gran escala para optimizar la evaluación de tareas de programación realizadas por alumnos. 
-La propuesta inicial consiste en dotar a los usuarios de herramientas para la importación de rúbricas personalizadas 
-en formato Markdown, diseño de prompts para enviar una instrucción concreta relacionada con la evaluación al modelo que la ejecutará, 
-y la configuración personalizada de parámetros determinados para obtener un resultado óptimo en la evaluación, automatizando varias 
-de estas tareas a través de una aplicación.
+modelos de lenguaje a gran escala para optimizar la evaluación de tareas de programación realizadas por el alumnado.
 
+La propuesta consiste en ofrecer al profesorado herramientas para crear \textit{prompts} y cargar rúbricas personalizadas en formato \textit{Markdown}. Luego, estas instrucciones, junto con las tareas seleccionadas, se envían a un modelo de lenguaje que se encarga de evaluar automáticamente.
+
+El objetivo de este proyecto no es sustituir a los docentes, sino implementar una aproximación a la evaluación automática de tareas
+de programación utilizando modelos de lenguaje a gran escala.
 \end{abstract}
 
 \renewcommand*\abstractname{Descriptores}
 \begin{abstract}
-Django, python, PostgreSQL, Docker, Docker Compose, Celery, Redis, Ollama, LLM, Markdown, correción de tareas \ldots
+Corrección de tareas, rúbricas, prompts, Django, Python, PostgreSQL, Docker, Docker Compose, Celery, Redis, Ollama, Langchain, LLM, Markdown.
 \end{abstract}
 
 \clearpage
@@ -447,21 +447,22 @@ Django, python, PostgreSQL, Docker, Docker Compose, Celery, Redis, Ollama, LLM, 
 % Abstract en inglés
 \renewcommand*\abstractname{Abstract}
 \begin{abstract}
-Currently, advances in artificial intelligence have brought about a revolution in the way we interact with 
-technology, with large language models (LLMs) standing out in this regard.The emergence of these technologies 
-has marked a turning point in the automation of complex tasks, such as content creation, code generation, 
-and information retrieval. 
+Currently, advances in artificial intelligence, and in particular in generative artificial intelligence, have led to a revolution in the way we interact with technology, with large-scale language models (LLM) standing out in this regard. 
+The irruption of these technologies has meant a turning point for the automation of complex tasks, 
+content generation, code generation or information search.
 
-In this context, this Final Degree Project proposes the development of a tool based on the use of large language 
-models to optimize the assessment of programming tasks completed by students.The initial proposal involves 
-providing users with tools to import custom rubrics in Markdown format, design prompts that deliver specific 
-evaluation-related instructions to the model, and configure certain parameters to achieve optimal evaluation results. 
-Several of these tasks will be automated through an application.
+In this context, this Final Degree Project proposes the development of a tool based on the use of 
+large-scale language models to optimise the evaluation of programming tasks carried out by students.
+
+The proposal consists of providing teachers with tools to create prompts and upload customised rubrics in Markdown format. These instructions, together with the selected tasks, are then sent to a language model that automatically evaluates them.
+
+The aim of this project is not to replace teachers, but to implement an approach to the automatic evaluation of programming tasks
+using large-scale language models.
 \end{abstract}
 
 \renewcommand*\abstractname{Keywords}
 \begin{abstract}
-Django, python, PostgreSQL, Docker, Docker Compose, Celery, Redis, Ollama, LLM, Markdown, tasks correction \ldots
+Correction of tasks, rubrics, prompts, Django, Python, PostgreSQL, Docker, Docker Compose, Celery, Redis, Ollama, Langchain, LLM, Markdown.
 \end{abstract}
 
 \clearpage

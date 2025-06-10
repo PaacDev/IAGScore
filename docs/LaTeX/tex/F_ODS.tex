@@ -1,9 +1,37 @@
 \apendice{Anexo de sostenibilización curricular}
 
-\section{Introducción}
-Este anexo incluirá una reflexión personal del alumnado sobre los aspectos de la sostenibilidad que se abordan en el trabajo.
-Se pueden incluir tantas subsecciones como sean necesarias con la intención de explicar las competencias de sostenibilidad adquiridas durante el alumnado y aplicadas al Trabajo de Fin de Grado.
+\section*{F.1. Introducción}
+Este anexo expone cómo el desarrollo de la herramienta \textit{IAGScore}, presentada en este Trabajo de Fin de Grado, se alinea con los Objetivos de Desarrollo Sostenible (\textit{ODS}) propuestos por la Agenda 2030 de las Naciones Unidas~\cite{web:agenda2030}. La automatización de la evaluación de tareas de programación mediante modelos de lenguaje (\textit{LLMs}) no solo supone un avance técnico, sino que también permite avanzar hacia una educación más justa, eficiente, privada y accesible.
 
-Más información en el documento de la CRUE \url{https://www.crue.org/wp-content/uploads/2020/02/Directrices_Sosteniblidad_Crue2012.pdf}.
+\section*{F.2. Objetivos de Desarrollo Sostenible relacionados}
 
-Este anexo tendrá una extensión comprendida entre 600 y 800 palabras.
+\textbf{\textit{ODS} 4 – Educación de calidad:}
+Este objetivo~\cite{wiki:ods4} busca garantizar una educación inclusiva, equitativa y de calidad, promoviendo el aprendizaje a lo largo de la vida. \textit{IAGScore} contribuye a este fin al ofrecer una evaluación más justa y objetiva, reduciendo los sesgos de la corrección manual. Al funcionar localmente, protege los datos personales del alumnado, asegurando la confidencialidad y el cumplimiento de la normativa de protección de datos. Esto permite un uso ético y respetuoso de los \textit{LLMs} en el ámbito educativo.
+
+\textbf{\textit{ODS} 10 – Reducción de las desigualdades:~\cite{wiki:ods10}}
+La evaluación automatizada con criterios unificados y trazables promueve la equidad educativa, garantizando una valoración coherente del esfuerzo estudiantil, sin importar el contexto institucional. Al no depender de servicios en la nube, \textit{IAGScore} evita sesgos externos y barreras tecnológicas, facilitando su adopción en centros con distintos niveles de recursos.
+
+\textbf{\textit{ODS} 9 – Industria, innovación e infraestructura:}  
+este \textit{ODS}~\cite{wiki:ods9} promueve la construcción de infraestructuras resilientes, la industrialización sostenible y la innovación. \textit{IAGScore} representa una innovación aplicada al sector educativo al integrar tecnologías emergentes como los \textit{LLMs} en procesos institucionales clave. La posibilidad de desplegar estos modelos en entornos locales es una ventaja estratégica, ya que permite mantener el control completo sobre la infraestructura, reducir la dependencia de servicios externos y evitar la externalización de datos sensibles. Además, el uso de tecnologías abiertas (licencias \textit{MIT} y \textit{BSD}) fomenta la creación de una infraestructura tecnológica accesible, reproducible y escalable.
+
+\section*{F.3. Accesibilidad y adherencia tecnológica}
+Desde el diseño inicial del proyecto se ha priorizado la usabilidad de la herramienta, con una interfaz sencilla que permite al profesorado sin conocimientos técnicos integrar rúbricas personalizadas y evaluar tareas mediante simples interacciones. La facilidad de uso, la documentación técnica incluida y la transparencia del proceso de corrección aumentan la adopción y fidelización del usuario (profesorado), lo cual es fundamental para que su aplicación tenga impacto real.
+
+La posibilidad de ejecutar la herramienta en máquinas locales o servidores institucionales garantiza una accesibilidad adecuada, incluso en entornos con limitaciones de conectividad o políticas estrictas de protección de datos. Además, se evitan riesgos asociados a la transferencia de datos personales fuera del entorno académico, lo cual refuerza la confianza en su adopción y cumplimiento normativo.
+
+\section*{F.4. Futuras líneas de trabajo}
+Aunque el enfoque actual de la herramienta se centra en mejorar la eficiencia y objetividad de la evaluación, se prevé incorporar mecanismos explícitos que informen a los usuarios sobre el impacto de su uso en términos de sostenibilidad. Por ejemplo:
+
+\begin{itemize}
+  \item Incorporar estadísticas de uso y ahorro de tiempo, evidenciando el impacto positivo en la gestión docente.
+  \item Integrar análisis de sesgo para garantizar que los modelos empleados mantengan criterios justos y no discriminatorios.
+  \item Ampliar las opciones de despliegue local con soporte para arquitecturas ligeras y entornos desconectados de internet.
+  \item Implementar una API REST que permita integrar la herramienta con plataformas educativas existentes como Moodle, lo que facilitaría su adopción en contextos institucionales amplios, automatizando aún más los flujos de evaluación.
+\end{itemize}
+
+
+\section*{F.5. Conclusión}
+
+Este TFG demuestra que es posible alinear el desarrollo tecnológico con los principios de sostenibilidad. El diseño y aplicación de \textit{IAGScore} no solo ha implicado retos técnicos, sino también decisiones conscientes orientadas a promover una educación más equitativa, eficiente, privada y responsable. En un contexto donde el acceso a la tecnología puede profundizar o mitigar desigualdades, herramientas como esta representan un paso hacia una transformación digital verdaderamente inclusiva y respetuosa con los derechos del alumnado.
+
+No obstante, es importante reconocer que el uso de modelos de lenguaje de gran escala (LLMs) conlleva un elevado consumo energético, lo que plantea desafíos en términos de sostenibilidad ambiental. Aunque \textit{IAGScore} cumple con varios Objetivos de Desarrollo Sostenible, este aspecto debe ser considerado en futuras versiones, buscando un equilibrio entre innovación educativa y responsabilidad ecológica.

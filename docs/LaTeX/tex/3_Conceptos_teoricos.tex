@@ -1,206 +1,130 @@
 \capitulo{3}{Conceptos teóricos}
 
-En este apartado se describen los componentes principales que hacen posible la evaluación 
-automática de tareas mediante modelos de lenguaje de gran tamaño (LLM). 
+Este capítulo presenta los fundamentos teóricos necesarios para comprender los principales componentes que sustentan la aplicación desarrollada. Se abordan los conceptos de modelos de lenguaje a gran escala (\textit{LLM}), técnicas de ingeniería de \textit{prompts}, el uso de rúbricas como herramienta para la evaluación objetiva y la integración de mecanismos automáticos para la corrección asistida de tareas.
 
-En primer lugar, se explica en qué consisten los LLM y cómo su arquitectura basada en 
-transformadores permite comprender y generar texto de forma avanzada. A continuación, 
-se introduce LangChain como un \textit{framework} que facilita la integración de estos 
-modelos en aplicaciones complejas, y se analiza el uso de Ollama como herramienta para 
-ejecutar los modelos localmente, garantizando privacidad y control sobre los datos.
+\section{Modelos de lenguaje a gran escala (\textit{LLM})}
 
-Además, se detalla el papel de Redis y Celery, que permiten gestionar tareas de forma 
-asíncrona y eficiente dentro del sistema, especialmente útil cuando el procesamiento de 
-las tareas requiere tiempo o recursos considerables.
-
-Finalmente, se menciona el concepto de \textit{prompt engineering}, una técnica que permite 
-mejorar la calidad de las respuestas generadas por los modelos optimizando la forma en que 
-se les formula la entrada, aspecto que puede tener impacto directo en la efectividad del 
-sistema desarrollado.
-
-\section{Modelos de lenguaje grandes (LLM)}
-
-Los modelos de lenguaje grandes (LLM, por sus siglas en inglés) son sistemas de 
+Los modelos de lenguaje a gran escala (\textit{LLM}, por sus siglas en inglés) son sistemas de 
 inteligencia artificial diseñados para modelar y procesar el lenguaje humano. 
-Estos modelos forman parte del campo del \textit{procesamiento de lenguaje natural} (PLN), 
+Estos modelos forman parte del campo del \textit{procesamiento de lenguaje natural (PLN)}\cite{ibm:pln2024}, 
 una rama de la inteligencia artificial que estudia cómo las máquinas pueden comprender, 
-interpretar y generar texto o habla en lenguaje humano.
+interpretar y generar texto o habla en el lenguaje humano.
 
-Se denominan ``grandes'' porque están entrenados con volúmenes 
+Se denominan ``grandes'' o ``a gran escala'' porque están entrenados con volúmenes 
 masivos de texto, y tienen una arquitectura muy grande capaz de capturar matices 
-lingüísticos complejos que los modelos más pequeños no pueden.
+lingüísticos complejos que los modelos más pequeños no pueden\cite{wiki:llm}.
 
-La gran mayoría de LLMs actuales se basan en la arquitectura Transformer, propuesta por 
-primera vez en el artículo ``Attention Is All You Need''~\cite{vaswani2017}. 
-construyendo una arquitectura basada en mecanismos de atención, sin recurrir a 
-redes recurrentes o convolucionales.
+\subsection*{Arquitectura \textit{Transformer}}
 
-El mecanismo de atención permite al modelo ponderar la importancia relativa de cada palabra 
-en la entrada, considerando su relación con todas las demás en la secuencia. Esto le permite 
-capturar dependencias a largo plazo y relaciones semánticas complejas, incluso entre palabras 
-que están muy separadas en el texto.
-
-\section{Ollama}
-
-Ollama es una herramienta que permite ejecutar modelos de lenguaje grandes de forma local, 
-facilitando así la utilización de LLMs sin necesidad de conectarse a servicios en la nube. 
-Esto representa una ventaja significativa en términos de privacidad, eficiencia y control 
-sobre el entorno de ejecución.
-
-Además de simplificar la instalación y gestión de modelos como LLama, Mistral o Phi-4, 
-Ollama ofrece una interfaz sencilla para ejecutar estos modelos desde la línea de comandos 
-o integrarlos en aplicaciones a través de bibliotecas específicas como LangChain. 
-
-En este proyecto, Ollama ha sido clave para ejecutar LLMs directamente en el entorno local,
-evitando el uso de servicios externos.
-
-Una de las ventajas prácticas más destacables es la disponibilidad de modelos de tamaño intermedio, 
-como los de 7B u 8B parámetros (por ejemplo, LLama 8B o Mistral 7B). Estos modelos ofrecen 
-una relación muy equilibrada entre rendimiento y consumo de recursos, lo que los hace ideales 
-para ejecutarse en ordenadores personales con GPU de gama media o incluso en CPU potentes. 
-Aunque no alcanzan el nivel de sofisticación de modelos mucho más grandes, permiten realizar 
-tareas complejas de generación y evaluación de texto con un consumo moderado de memoria y tiempo.
-
-Una de las características más útiles de Ollama es que permite configurar distintos parámetros 
-del modelo, lo que facilita su adaptación a diferentes necesidades o contextos. 
-En particular, en este proyecto se permite configurar los siguientes parámetros:
+La arquitectura \textit{Transformer}~\cite{datacamp:transformers2024} es la base de la mayoría de los modelos de lenguaje actuales (\textit{LLMs}). A continuación, se describe de forma simplificada su funcionamiento:
 
 \begin{itemize}
-	\item \textbf{Temperatura}: Controla la aleatoriedad de las respuestas generadas. Un valor bajo 
-		produce respuestas más predecibles, mientras que un valor alto genera respuestas 
-		más creativas y variadas.
-	\item \textbf{Top-p}: También conocido como muestreo de núcleo, este parámetro ajusta la
-		probabilidad acumulativa de las palabras seleccionadas. Un valor bajo limita la 
-		selección a las palabras más probables, mientras que un valor alto permite una 
-		mayor diversidad en las respuestas.
-	\item \textbf{Top-k}: Este parámetro limita el número de palabras candidatas a considerar
-		durante la generación de texto. Un valor bajo restringe la selección a las palabras 
-		más probables, mientras que un valor alto permite una mayor variedad en las 
-		respuestas generadas.
+    \item \textbf{Entrada (de palabras a números)}: el modelo toma una frase y convierte cada palabra en una representación numérica comprensible para la máquina. Este proceso se conoce como \textit{embedding}.
+    
+    \item \textbf{Mecanismo de atención}: el \textit{Transformer} identifica qué partes del texto son más relevantes mediante la atención (\textit{self-attention}). Esta técnica permite al modelo analizar todas las palabras al mismo tiempo y establecer qué relaciones son más significativas.
+    
+    \item \textbf{Capas de procesamiento}: la información se pasa por múltiples capas de redes neuronales, que realizan cálculos para refinar la comprensión del texto.
+    
+    \item \textbf{Salida (de números a texto)}: finalmente, el modelo convierte los resultados numéricos en palabras para generar una respuesta o texto coherente.
 \end{itemize}
 
-Además, Ollama facilita la gestión de versiones de los modelos, permitiendo a los usuarios
-probar diferentes versiones de un mismo modelo o incluso modelos alternativos sin complicaciones.
+La arquitectura se compone de dos bloques principales:
 
+\begin{itemize}
+    \item \textbf{Codificador (\textit{encoder})}: procesa y comprende el texto de entrada. Está formado por varias capas que combinan atención y redes neuronales para capturar el significado de la secuencia.
 
-\section{LangChain}
+    \item \textbf{Decodificador (\textit{decoder})}: genera el texto de salida utilizando la información del codificador, palabra por palabra, teniendo en cuenta tanto el contexto como el contenido generado previamente.
+\end{itemize}
 
-LangChain es un \textit{framework} diseñado para facilitar la creación de aplicaciones 
-que integran modelos de lenguaje con diversas fuentes de datos, herramientas externas 
-y flujos de trabajo. Aunque su potencial es muy amplio, en este proyecto se ha 
-utilizado de forma básica para conectar modelos de lenguaje locales, 
-gestionados con Ollama, e integrarlos de manera sencilla dentro del entorno de desarrollo 
-en Python.
+\imagen{transformer}{Diagrama del modelo \textit{Transformer}~\cite{deeprevision2023}}{1}
 
-En concreto, se ha utilizado el módulo \texttt{OllamaLLM} de \texttt{langchain\_ollama}, 
-que permite invocar modelos como LLaMA o Mistral localmente sin necesidad de APIs externas. 
-Esta integración facilita el acceso a modelos avanzados sin comprometer la privacidad de 
-los datos ni depender de servicios en la nube.
+\subsection*{Aplicación en IAGScore}
 
-LangChain ofrece también funcionalidades más avanzadas como el manejo de memoria conversacional, 
-agentes que interactúan con múltiples herramientas, y la orquestación de cadenas de prompts, 
-aunque estas características no han sido necesarias en el alcance actual del proyecto.
+En este contexto, los \textit{LLMs} no solo representan una tecnología de vanguardia, 
+sino que constituyen el núcleo funcional de la herramienta \textbf{IAGScore}. 
+Gracias a su capacidad para interpretar instrucciones en lenguaje natural y analizar fragmentos de código, los \textit{LLMs} permiten automatizar tareas que tradicionalmente requerían intervención humana, 
+como la evaluación detallada de ejercicios de programación y la generación de retroalimentación 
+contextualizada.
+
+Una característica especialmente valiosa para el proyecto es la posibilidad de guiar el 
+comportamiento del modelo mediante \textit{prompts} bien diseñados, lo que permite adaptar 
+las respuestas a rúbricas personalizadas o criterios específicos definidos por el profesorado.
 
 \section{Prompt engineering}
 
-El \textit{prompt engineering} es una técnica dentro del campo del procesamiento de lenguaje natural
-que consiste en diseñar cuidadosamente las instrucciones que se proporcionan a un modelo de 
-lenguaje (LLM) para obtener respuestas más precisas, relevantes o útiles.
+El \textit{prompt engineering} es una técnica dentro del campo del procesamiento de lenguaje natural que consiste en diseñar cuidadosamente las instrucciones que se proporcionan a un modelo de lenguaje (\textit{LLM}) para obtener respuestas más precisas, relevantes o útiles.
 
-Dado que los LLM no tienen comprensión real del contexto, el modo en que se les formula una 
-entrada (prompt) influye significativamente en la calidad y pertinencia de la respuesta. 
-Por ello, estructurar correctamente el mensaje de entrada se convierte en un factor clave 
-para guiar el comportamiento del modelo.
+Dado que los \textit{LLM} no tienen comprensión real del contexto, el modo en que se les formula una entrada (\textit{prompt}) influye significativamente en la calidad y precisión de la respuesta. Por ello, estructurar correctamente el mensaje de entrada se convierte en un factor clave para guiar el comportamiento del modelo.
 
-Aunque en este proyecto no se ha aplicado de forma intensiva, se han realizado pruebas con distintas 
-formulaciones de entrada para verificar cómo pequeños cambios en el prompt afectan la salida del 
-modelo. Por ejemplo, el uso de frases más explícitas o el establecimiento claro del rol del modelo 
-(e.g.,``Actúa como profesor universitario'') puede mejorar la coherencia y adecuación de las 
-respuestas al evaluar tareas~\cite{web:promptingguide}.
+Aunque en este proyecto no se ha aplicado de forma intensiva, se han realizado pruebas con distintas formulaciones de entrada para verificar cómo pequeños cambios en el \textit{prompt} afectan la salida del modelo. Por ejemplo, el uso de frases más explícitas o el establecimiento claro del rol del modelo (e.g.,``Actúa como profesor universitario'') puede mejorar la coherencia y adecuación de las respuestas al evaluar tareas~\cite{web:promptingguide}.
 
 Existen técnicas avanzadas dentro del \textit{prompt engineering}, como:
 
 \begin{itemize}
-    \item \textbf{Few-shot prompting}: Se incluyen uno o varios ejemplos dentro del prompt para 
-	que el modelo aprenda el formato o estilo deseado.
-    \item \textbf{Zero-shot prompting}: El modelo genera una respuesta sin ejemplos previos, 
+    \item \textbf{\textit{Zero-shot prompting}}: el modelo genera una respuesta sin ejemplos previos, 
 	confiando solo en la instrucción.
-    \item \textbf{Chain-of-thought prompting}: Se induce al modelo a razonar paso a paso para 
+    \item \textbf{\textit{Few-shot prompting}}: se incluyen uno o varios ejemplos dentro del \textit{prompt} para que el modelo aprenda el formato o estilo deseado.
+    \item \textbf{\textit{Chain-of-thought prompting}}: se induce al modelo a razonar paso a paso para 
 	tareas complejas.
-    \item \textbf{Role prompting}: Se establece un rol específico para el modelo, como ``profesor universitario''.
+    \item \textbf{\textit{Role prompting}}: se establece un rol específico para el modelo, como ``profesor universitario''.
 \end{itemize}
 
-Aunque estas estrategias no se han utilizado en profundidad en este trabajo, su conocimiento es relevante 
-para posibles mejoras futuras del sistema, especialmente si se busca afinar el comportamiento del 
-modelo en escenarios educativos específicos.
+Aunque estas estrategias no se han utilizado en profundidad en este trabajo, su conocimiento es relevante para posibles mejoras futuras del sistema, especialmente si se busca afinar el comportamiento del modelo en escenarios educativos específicos.
 
+\section{Rúbricas}
 
-\subsubsection{Subsubsecciones}
+Las rúbricas son instrumentos de evaluación que describen criterios específicos para valorar el desempeño de una tarea o actividad. Se componen generalmente de una serie de dimensiones o aspectos a evaluar, junto con niveles de desempeño definidos para cada una de ellas, que permiten asignar puntuaciones de forma objetiva y transparente.
 
-Y subsecciones. 
+En el ámbito educativo, las rúbricas son ampliamente utilizadas para evaluar tareas abiertas, como ensayos, proyectos, presentaciones o, en el caso de este proyecto, ejercicios de programación. Su estructura ayuda tanto a los evaluadores como a los estudiantes, ya que clarifica las expectativas y facilita la retroalimentación formativa~\cite{wiki:rubrica}.
 
-
-\section{Referencias}
-
-Las referencias se incluyen en el texto usando cite~\cite{wiki:latex}. Para citar webs, artículos o libros~\cite{koza92}, si se desean citar más de uno en el mismo lugar~\cite{bortolot2005, koza92}.
-
-
-\section{Imágenes}
-
-Se pueden incluir imágenes con los comandos standard de \LaTeX, pero esta plantilla dispone de comandos propios como por ejemplo el siguiente:
-
-\imagen{escudoInfor}{Autómata para una expresión vacía}{.5}
-
-
-
-\section{Listas de items}
-
-Existen tres posibilidades:
+Una rúbrica típica incluye:
 
 \begin{itemize}
-	\item primer item.
-	\item segundo item.
+    \item \textbf{Criterios de evaluación}: aspectos concretos que se desean valorar (e.g., legibilidad del código, eficiencia, cumplimiento de requisitos).
+    \item \textbf{Niveles de desempeño}: descripciones cualitativas (y en ocasiones cuantitativas) que definen grados de calidad o cumplimiento.
+    \item \textbf{Puntuaciones}: valores numéricos o etiquetas asociadas a cada nivel.
 \end{itemize}
+
+En este proyecto, las rúbricas se utilizan como entrada esencial para el modelo de lenguaje. El usuario define una rúbrica en formato \texttt{markdown}, que posteriormente es 
+añadida al \textit{prompt} y enviada al \textit{LLM}, junto con el código del estudiante. El modelo analiza el código y genera una evaluación basada en los criterios proporcionados, simulando el comportamiento de un evaluador humano.
+
+Este enfoque permite automatizar evaluaciones personalizadas, intentando mantener un grado alto de coherencia con las intenciones pedagógicas del docente. Además, al permitir 
+reestructurar y reutilizar rúbricas fácilmente, se favorece la escalabilidad y adaptabilidad del sistema a distintos contextos de enseñanza.
+
+\section{Corrección automática de tareas de programación}
+
+La corrección automática de tareas de programación es una técnica que busca evaluar de manera sistemática y eficiente el código fuente entregado por estudiantes o usuarios, mediante herramientas informáticas capaces de analizar y valorar distintos aspectos del mismo. Este proceso puede incluir verificación sintáctica, evaluación funcional, análisis estático, comparación con soluciones de referencia o, como en este proyecto, análisis mediante modelos de lenguaje a gran escala.
+
+El enfoque adoptado se basa en el uso de modelos \textit{LLM} para comprobar no solo si un programa funciona correctamente, sino que pueden emitir juicios cualitativos sobre aspectos relacionados con la rúbrica definida por el usuario. 
+Estos aspectos pueden ser:
+
+\begin{itemize}
+    \item Claridad y estilo del código.
+    \item Cumplimiento de requisitos.
+    \item Organización y estructura lógica.
+    \item Correcto uso de estructuras del lenguaje de programación.
+    \item Comentarios y documentación.
+\end{itemize}
+
+Para que el modelo realice esta evaluación, se le proporciona una entrada estructurada que combina:
 
 \begin{enumerate}
-	\item primer item.
-	\item segundo item.
+    \item Un \textit{prompt} que contextualiza la tarea del modelo (e.g., ``Eres un profesor que debe evaluar este código según los siguientes criterios...'').
+    \item La rúbrica definida por el usuario, en formato estructurado.
+    \item El código fuente a evaluar.
 \end{enumerate}
 
-\begin{description}
-	\item[Primer item] más información sobre el primer item.
-	\item[Segundo item] más información sobre el segundo item.
-\end{description}
-	
+Esta combinación se ensambla en una cadena de texto que es enviada al modelo a través de una tarea en segundo plano. El resultado es una evaluación 
+textual generada por el \textit{LLM}, que puede incluir puntuaciones, observaciones, comentarios generales y sugerencias de mejora.
+
+\imagen{ensamblado}{Diagrama ensamblado, envío a modelo y respuesta}{1}
+
+Este tipo de corrección presenta ventajas significativas:
+
 \begin{itemize}
-\item 
+    \item \textbf{Escalabilidad}: se pueden corregir grandes volúmenes de tareas en poco tiempo.
+    \item \textbf{Consistencia}: las evaluaciones tienden a ser coherentes entre tareas similares, al depender de un único sistema de criterios.
+    \item \textbf{Flexibilidad}: permite adaptar el comportamiento del modelo mediante ajustes de parámetros y personalización de \textit{prompts}.
 \end{itemize}
 
-\section{Tablas}
-
-Igualmente se pueden usar los comandos específicos de \LaTeX o bien usar alguno de los comandos de la plantilla.
-
-\tablaSmall{Herramientas y tecnologías utilizadas en cada parte del proyecto}{l c c c c}{herramientasportipodeuso}
-{ \multicolumn{1}{l}{Herramientas} & App AngularJS & API REST & BD & Memoria \\}{ 
-HTML5 & X & & &\\
-CSS3 & X & & &\\
-BOOTSTRAP & X & & &\\
-JavaScript & X & & &\\
-AngularJS & X & & &\\
-Bower & X & & &\\
-PHP & & X & &\\
-Karma + Jasmine & X & & &\\
-Slim framework & & X & &\\
-Idiorm & & X & &\\
-Composer & & X & &\\
-JSON & X & X & &\\
-PhpStorm & X & X & &\\
-MySQL & & & X &\\
-PhpMyAdmin & & & X &\\
-Git + BitBucket & X & X & X & X\\
-Mik\TeX{} & & & & X\\
-\TeX{}Maker & & & & X\\
-Astah & & & & X\\
-Balsamiq Mockups & X & & &\\
-VersionOne & X & X & X & X\\
-} 
+Sin embargo, también existen limitaciones, como la falta de ejecución real del código (a menos que se combine con otros análisis) o la posibilidad de interpretaciones ambiguas por parte del modelo si el \textit{prompt} no está bien diseñado. Por ello, se contempla esta herramienta como un apoyo a la evaluación docente, no necesariamente como un sustituto total.
