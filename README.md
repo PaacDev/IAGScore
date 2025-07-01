@@ -173,7 +173,7 @@ Consulta el archivo [LICENSE](LICENSE) para más detalles.
 ---
 ## Autor
 
-Desarrollado por [Pedro Antonio Abellaneda Canales](https://github.com/pac1006).
+Desarrollado por [Pedro Antonio Abellaneda Canales](https://github.com/PaacDev).
 
 ---
 ## Solución de errores
