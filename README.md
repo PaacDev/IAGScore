@@ -98,6 +98,16 @@ docker compose exec ollama ollama pull llama3.1
 una vez hecho el pull, el modelo permanece en Ollama.
 )*
 
+---
+
+## Abrir en el navegador
+
+Una vez el proyecto esté en funcionamiento, puedes acceder a la aplicación desde:
+
+**http://localhost:8000**
+
+---
+
 #### Recursos del sistema y configuración
 
 El modelo `llama3.1` requiere una cantidad significativa de recursos (RAM, CPU y posiblemente GPU).
